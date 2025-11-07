@@ -1,0 +1,55 @@
+name: CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]  # main 브랜치만 감지
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies & Build React
+        run: |
+          npm ci
+          npm run build
+
+      - name: Docker hub login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Set Docker Image Tag
+        id: set_tag
+        run: echo "tag=main" >> $GITHUB_OUTPUT
+
+      - name: Docker image build & push
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/scopsfrontend:${{ steps.set_tag.outputs.tag }} .
+          docker push ${{ secrets.DOCKER_USERNAME }}/scopsfrontend:${{ steps.set_tag.outputs.tag }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: SSH Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ~/scopsfrontend
+
+            sudo docker compose pull react-app
+            sudo docker compose up -d react-app
+            sudo docker image prune -f  # 오래된 도커 이미지 제거
