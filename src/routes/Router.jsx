@@ -11,17 +11,17 @@ import UserRegisterPage from '../pages/UserRegisterPage';
 
 function Router() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/scops">
       <AuthProvider>
         <Routes>
-          <Route path="/scops/login" element={<LoginPage />} />
-          <Route path="/scops/main" element={<MainPage />} />
-          <Route path="/scops/reservation" element={<ReservationPage />} />
-          <Route path="/scops/songRegister" element={<SongRegisterPage />} />
-          <Route path="/scops/calender" element={<CalenderPage />} />
-          <Route path="/scops/timeTable" element={<TimeTablePage />} />
-          <Route path="/scops/songAdd" element={<SongAddPage />} />
-          <Route path="/scops/register" element={<UserRegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/main" element={<MainPage />} />
+          <Route path="/reservation" element={<ReservationPage />} />
+          <Route path="/songRegister" element={<SongRegisterPage />} />
+          <Route path="/calender" element={<CalenderPage />} />
+          <Route path="/timeTable" element={<TimeTablePage />} />
+          <Route path="/songAdd" element={<SongAddPage />} />
+          <Route path="/register" element={<UserRegisterPage />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
