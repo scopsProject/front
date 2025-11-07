@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.7d0a8dbc.css",
+    "main.js": "/static/js/main.4c871c2b.js",
+    "static/js/453.ff95759d.chunk.js": "/static/js/453.ff95759d.chunk.js",
+    "static/media/Ramaraja-Regular.ttf": "/static/media/Ramaraja-Regular.0fb5af1fe390fa581f32.ttf",
+    "static/media/SUIT-ExtraLight.ttf": "/static/media/SUIT-ExtraLight.f27d89612258e795dc86.ttf",
+    "static/media/SUIT-Light.ttf": "/static/media/SUIT-Light.691e5808f4d0454f7d2b.ttf",
+    "static/media/SUIT-Regular.ttf": "/static/media/SUIT-Regular.825f10a16968f3e085fa.ttf",
+    "index.html": "/index.html",
+    "main.7d0a8dbc.css.map": "/static/css/main.7d0a8dbc.css.map",
+    "main.4c871c2b.js.map": "/static/js/main.4c871c2b.js.map",
+    "453.ff95759d.chunk.js.map": "/static/js/453.ff95759d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7d0a8dbc.css",
+    "static/js/main.4c871c2b.js"
+  ]
+}
