@@ -1,0 +1,147 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #FFFEF8;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.logo-box img {
+  width: 120px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.input-box {
+  width: 80%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-box input {
+  padding: 12px 15px;
+  border-radius: 30px;
+  border: none;
+  box-shadow: 0 0 5px rgba(255, 238, 187, 1);
+  background-color: #FFEEBB;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.section-label {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+/* 라디오 버튼 그룹 */
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px; /* 버튼 간격 */
+  background-color: #FFEEBB;
+  box-shadow: 0 0 5px rgba(255, 238, 187, 1);
+  border-radius: 30px;
+  padding: 12px 15px;
+  align-items: center;
+}
+
+/* 라벨 */
+.radio-group label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* 라디오 버튼 */
+.radio-group input[type="radio"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #888;
+  border-radius: 50%;
+  margin-right: 6px;
+  cursor: pointer;
+  background-color: #fff;
+  position: relative;
+}
+
+.radio-group input[type="radio"]:checked::after {
+  content: '';
+  display: block;
+  width: 10px;   /* 체크 표시 크기 */
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ffb347; /* 체크 시 색 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* 기타 입력창 */
+.radio-group .input-etc {
+  padding: 6px 10px;
+  border-radius: 20px;
+  border: none;
+  background-color: #FFEEBB;
+  box-shadow: 0 0 5px rgba(255, 238, 187, 1);
+  width: 120px;
+}
+
+.radio-group .input-etc:disabled {
+  background-color: #f5f5f5;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* 등록완료 버튼 */
+.submit-button {
+  width: 115%;
+  padding: 3%;
+  background: #FFEEBB;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0%;
+}
+
+.submit-button:hover {
+  background: #ccc;
+}
+
+.app-container {
+  position: relative;
+  width: 393px;          /* iPhone 16 Pro 가로폭 */
+  height: 752px;         /* iPhone 16 Pro 세로높이 */
+  margin: 40px auto;     /* 브라우저 중앙 배치 */
+  overflow: hidden;      /* 내부 넘치면 숨김 */
+  background: #fff;      /* 내부 배경 흰색 */
+  box-shadow: 0 0 20px rgba(0,0,0,0.1); /* 살짝 그림자 (테두리X) */
+  border-radius: 20px;   /* 둥근 모서리 (원하면 삭제 가능) */
+}
+
+
+body {
+  background: #eaeaea;
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 20px;
+  }
+  .logo-box {
+    height: 80px;
+  }
+}
+.submit-button.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

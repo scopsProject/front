@@ -1,0 +1,199 @@
+.App {
+  display: flex;
+  flex-direction: column;   /* 세로 방향 배치 */
+  min-height: 100vh;        /* 화면 높이 100% */
+  background-color: #FFFEF8;
+}
+
+.app-container {
+  position: relative;
+  width: 393px;          /* iPhone 16 Pro 가로폭 */
+  height: 752px;         /* iPhone 16 Pro 세로높이 */
+  margin: 40px auto;     /* 브라우저 중앙 배치 */
+  overflow: hidden;      /* 내부 넘치면 숨김 */
+  background: #fff;      /* 내부 배경 흰색 */
+  box-shadow: 0 0 20px rgba(0,0,0,0.1); /* 살짝 그림자 (테두리X) */
+  border-radius: 20px;   /* 둥근 모서리 (원하면 삭제 가능) */
+}
+
+
+.reservation-calendar-grid-container{
+  margin-top: 50px;
+  border: 1px solid #FFFFFF;        /* 테두리 */
+  border-radius: 30px;            /* 모서리 둥글게 */
+  box-shadow: 0 0 15px rgba(255, 230, 130, 0.9);
+
+}
+.reservation-calendar-grid {
+  min-height: 150px;
+  display: flex;              /* flex로 변경 */
+}
+
+.reservation-calendar-cell {
+  position: relative;  /* 추가 */
+  background-color: #FFFFFF;
+  border: none;
+  padding: 8px;
+  border-radius: 0;
+  min-height: 100px;
+  flex: 1;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+.reservation-calendar-time{
+  display: flex;
+  gap: 8px;          /* 날짜와 요일 사이 간격 */
+  align-items: center; /* 세로 중앙 정렬 */
+}
+.reservation-calendar-cell:not(:nth-child(5n))::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 0;
+  width: 1.5px;
+  height: calc(100% - 20px);
+  background-color: #FFEEBB;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.reservation-calendar-date {
+  font-family: 'suit-regular';
+  color: #876400;
+  font-size: 9px;
+  text-align: center;
+}
+#reservation-calender-date-span{
+  border: 1px solid #FFFFFF;        /* 테두리 */
+  border-radius: 30px;            /* 모서리 둥글게 */
+  box-shadow: 0 0 10px rgba(255, 230, 130, 0.9);
+}
+.reservation-calendar-day {
+  font-family: 'suit-regular';
+  font-size: 8px;
+  color: #876400;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.reservation-calendar-song {
+  font-family: 'suit-regular';
+  color: #876400;
+  font-size: 8px;
+  margin: 2px 0;
+  border-radius: 4px;
+}
+.reservation-calendar-cell.selected {
+  border: 2px solid #FFEEBB;
+  background-color: #FFEEBB;
+  border-radius: 20px;
+}
+
+.reservation-controls {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reservation-controls select,
+.reservation-controls button {
+  padding: 8px;
+  font-size: 14px;
+}
+.custom-select-container {
+  position: relative;
+  font-family: 'suit-regular';
+  font-size: 16px;
+  color: #876400;
+  user-select: none;
+}
+
+.custom-select-display {
+  background-color: #fff;
+  padding: 12px 40px 12px 15px;
+  border-radius: 30px;
+  border: 1px solid #fff;
+  box-shadow: 0 0 15px rgba(255, 230, 130, 0.9);
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  min-width: 120px;
+}
+
+.custom-select-placeholder {
+  color: #c4b46d;
+}
+
+.custom-select-arrow {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #FFE79F;
+  font-size: 12px;
+  user-select: none;
+}
+
+.custom-select-list {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #FFE79F;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255, 230, 130, 0.7);
+  z-index: 1000;
+  margin: 0;
+  padding: 5px 0;
+  list-style: none;
+  font-family: 'suit-regular';
+  color: #876400;
+  font-size: 16px;
+}
+
+.custom-select-list-item {
+  padding: 8px 15px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #FFEEBB;
+}
+
+.custom-select-list-item:last-child {
+  border-bottom: none;
+}
+
+.custom-select-list-item:hover {
+  background-color: rgba(255, 230, 130, 0.2);
+}
+.reservation-submit-btn {
+  position: fixed;
+  bottom: 70px;            /* 휴대폰 프레임 아래쪽에서 살짝 띄움 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;              /* 가로 너비 조절 */
+  max-width: 360px;        /* 최대 너비 */
+  padding: 14px 0;
+  font-size: 18px;
+  background-color: #FFEEBB;
+  color: #876400;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(255, 230, 130, 0.8);
+  transition: background-color 0.3s ease;
+  z-index: 1100;           /* 드롭다운 위에도 뜨도록 충분히 높게 */
+}
+
+.reservation-submit-btn:disabled {
+  background-color: #ddd;
+  color: #999;
+  cursor: not-allowed;
+  box-shadow: none;
+}

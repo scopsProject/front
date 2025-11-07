@@ -1,0 +1,111 @@
+.App {
+  display: flex;
+  flex-direction: column;   /* 세로 방향 배치 */
+  min-height: 100vh;        /* 화면 높이 100% */
+  background-color: #FFFEF8;
+}
+
+/* 로그인 화면 전체 컨테이너 */
+.login-container {
+  flex: 1;                       /* 상단 네비 제외한 나머지 영역 채움 */
+  display: flex;
+  flex-direction: column;        /* 세로 방향으로 배치 */
+  align-items: center;           /* 가로 중앙 정렬 */
+  justify-content: center;       /* 세로 중앙 정렬 */
+  max-width: 90%;                /* 화면 크기에 따라 최대폭 제한 */
+  width: 350px;                  /* 최대 폭 */
+  margin: 0 auto;                /* 수평 중앙 정렬 */
+}
+
+/* 로고 박스 영역 */
+.logo-box img {
+  width: 150px;
+  height: auto;  /* 비율 유지 */
+}
+
+
+/* 슬로건 문구 */
+.slogan {
+  font-family: 'ramaraja';
+  color: #FFE79F;
+  font-size: 30px;
+  margin-block-end: 0;
+  margin-block-start: 0;
+  margin-bottom: 20px;
+}
+
+/* 학번/비밀번호 입력 박스 */
+.input-box {
+  width: 70%;
+  padding: 20px;
+  margin-bottom: 20px;           /* 입력창 간격 */
+  box-sizing: border-box;        /* padding 포함해서 width 계산 */
+  border: 1px solid #ccc;        /* 테두리 */
+  border-radius: 30px;            /* 모서리 둥글게 */
+  border: none; /* 테두리는 없애고 */
+  box-shadow: 0 0 5px rgba(255, 238, 187, 1); /* 번지는 효과 */
+  background-color: #FFEEBB;
+}
+
+/* 신규 부원 등록 링크 */
+.register-link {
+  font-family: 'suit-regular';
+  margin-bottom: 200px;
+  color: #FFCB2E;
+  cursor: pointer;               /* 마우스 커서 포인터 */
+}
+
+/* 로그인 버튼 */
+.login-button {
+  width: 115%;
+  padding: 3%;
+  background: #ddd;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;               /* 마우스 커서 포인터 */
+  margin-top: 45%;            /* 이거 바꿔서 맞춰봤는데 너 모니터에서 확인해보고 어떤지 말해줘~ */
+  background-color: #FFEEBB;
+}
+
+/* 로그인 버튼 hover 시 색상 변경 */
+.login-button:hover {
+  background: #ccc;
+}
+
+/* 백엔드 메시지 표시 영역 (선택사항) */
+.backend-message {
+  margin-top: 20px;
+}
+
+/* 휴대폰 화면 기준 반응형 */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 20px;               /* 모바일에서 패딩 추가 */
+  }
+
+  .logo-box {
+    height: 80px;                /* 모바일에서 로고 박스 높이 줄임 */
+  }
+
+  .input-box,
+  .login-button {
+    padding: 14px;               /* 모바일에서 패딩 약간 줄임 */
+  }
+}
+
+/* 휴대폰 프레임 (iPhone 16 기준) */
+.phone-frame {
+  width: 393px;                  /* iPhone 16 Pro 가로폭 */
+  height: 852px;                 /* iPhone 16 Pro 세로높이 */
+  border: 12px solid #000;       /* 두꺼운 테두리로 휴대폰 느낌 */
+  border-radius: 50px;           /* 모서리 둥글게 */
+  margin: 40px auto;             /* 브라우저 중앙에 배치 */
+  overflow: hidden;              /* 내부 내용 넘치면 숨김 */
+  box-shadow: 0 0 20px rgba(0,0,0,0.3); /* 입체감 그림자 */
+  background: #fff;              /* 내부 배경 흰색 */
+}
+
+/* 프레임 바깥쪽 전체 배경 */
+body {
+  background: #eaeaea;           /* 연한 회색 배경으로 휴대폰 외부 구분 */
+}

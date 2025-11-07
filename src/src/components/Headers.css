@@ -1,0 +1,79 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 가운데 요소 배치 */
+  position: relative;
+  height: 50px;
+  padding: 10px 20px;
+}
+
+.menuButton {
+  font-size: 50px;
+  cursor: pointer;
+  margin-right: auto; /* 왼쪽 정렬 */
+  color: #FFEEBB;
+}
+.side-menu {
+  position: absolute;
+  top: 0;
+  left: 0; /* 항상 왼쪽 0 위치 */
+  width: 250px;
+  height: 100%;
+  background-color: #ffe6ea;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(-100%); /* 처음엔 화면 밖으로 완전히 숨김 */
+  z-index: 1002;
+}
+
+.side-menu.open {
+  transform: translateX(0); /* 열리면 원위치 */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명 검은 배경 */
+  z-index: 1000;
+}
+.logo-box2 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: auto;  /* 비율 유지 */
+  display: flex;
+  bottom: 10px;
+}
+
+.username {
+  font-size: 14px;
+  font-family: 'suit-EL';
+  color: #FFCB2E;
+}
+.sidefont{
+    font-weight: bold;
+    font-size: 30px;
+}
+.sideMyPageBtn{
+    border: none;
+    width: 40px;
+    height: 20px;
+    padding: 3px 3px;
+    cursor: pointer;
+}
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: right;
+}
+.menu-list-li{
+  background-color: #ddd;
+  cursor: pointer;
+  margin: 5px;
+}

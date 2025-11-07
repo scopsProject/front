@@ -1,0 +1,178 @@
+.app-container {
+  position: relative;
+  width: 393px;          /* iPhone 16 Pro 가로폭 */
+  height: 752px;         /* iPhone 16 Pro 세로높이 */
+  margin: 40px auto;     /* 브라우저 중앙 배치 */
+  overflow: hidden;      /* 내부 넘치면 숨김 */
+  background: #fff;      /* 내부 배경 흰색 */
+  box-shadow: 0 0 20px rgba(0,0,0,0.1); /* 살짝 그림자 (테두리X) */
+  border-radius: 20px;   /* 둥근 모서리 (원하면 삭제 가능) */
+}
+
+.App {
+  display: flex;
+  flex-direction: column;   /* 세로 방향 배치 */
+  min-height: 100vh;        /* 화면 높이 100% */
+}
+
+.songAdd-wrapper {
+  position: relative;
+  width: 95%;
+  max-width: 400px;
+  height: 550px;          /* 원하는 높이 지정 */
+  margin: 10px auto;
+  border-radius: 20px;
+  background-color: #fff7cc;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.songAdd-mainContainer {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.songAdd-mainContainer-eventName,
+.songAdd-mainContainer-eventOption,
+.songAdd-mainContainer-session {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.songAdd-mainContainer-eventName label,
+.songAdd-mainContainer-eventOption label,
+.session-input label {
+  font-weight: bold;
+  color: #333;
+}
+
+.songAdd-mainContainer-eventName input,
+.songAdd-mainContainer-eventOption input,
+.songAdd-mainContainer-session input {
+  padding: 10px 15px;
+  border: 1.5px solid #ccc;
+  border-radius: 20px;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.songAdd-mainContainer-eventName input:focus,
+.songAdd-mainContainer-eventOption input:focus,
+.songAdd-mainContainer-session input:focus {
+  border-color: #f1c40f;
+  box-shadow: 0 0 8px rgba(241, 196, 15, 0.5);
+}
+
+.session-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.session-input label {
+  width: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 드롭다운 select 요소 스타일링 */
+.session-input select {
+  width: 60px; /* 드롭다운 너비 좁게 */
+  padding: 8px;
+  border: 1.5px solid #ccc;
+  border-radius: 10px;
+  font-size: 14px;
+  background-color: #fff;
+  color: #333;
+  outline: none;
+}
+
+.session-input input {
+  flex: 1; /* 남은 공간을 input이 차지 */
+  padding: 10px 15px;
+  border: 1.5px solid #ccc;
+  border-radius: 20px;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+}
+
+.session-input select:focus {
+  border-color: #f1c40f;
+  box-shadow: 0 0 8px rgba(241, 196, 15, 0.5);
+}
+
+/* + 버튼 위치 및 디자인 */
+.songAdd-btnPlus {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.songAdd-btnPlus .plus-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background-color: #f1c40f;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.songAdd-btnPlus .plus-button:hover {
+  background-color: #d4ac0d;
+}
+
+/* 등록 버튼 영역 */
+.songAdd-btnSubmit {
+  display: flex;
+  justify-content: center;
+}
+
+.register-button {
+  margin-top: 50px; 
+  position: sticky;
+  bottom: 0;
+  background-color: #f1c40f;
+  border: none;
+  border-radius: 25px;
+  color: white;
+  font-size: 18px;
+  padding: 12px 0;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+  width: 95%;
+}
+
+.register-button:hover {
+  background-color: #d4ac0d;
+}
+.delete-button {
+  background: transparent;
+  border: none;
+  color: red;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0 5px;
+  line-height: 1;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.delete-button:hover {
+  color: darkred;
+}

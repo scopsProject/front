@@ -1,0 +1,81 @@
+.phone-frame {
+  position: relative;
+  width: 393px;                  /* iPhone 16 Pro 가로폭 */
+  height: 852px;                 /* iPhone 16 Pro 세로높이 */
+  border: 12px solid #000;       /* 두꺼운 테두리로 휴대폰 느낌 */
+  border-radius: 50px;           /* 모서리 둥글게 */
+  margin: 40px auto;             /* 브라우저 중앙에 배치 */
+  overflow: hidden;              /* 내부 내용 넘치면 숨김 */
+  box-shadow: 0 0 20px rgba(0,0,0,0.3); /* 입체감 그림자 */
+  background: #fff;              /* 내부 배경 흰색 */
+}
+.App {
+  display: flex;
+  flex-direction: column;   /* 세로 방향 배치 */
+  min-height: 100vh;        /* 화면 높이 100% */
+}
+
+.main-container {
+  margin-top: 40px;
+  background-color: #FFEEBB; /* 연한 노랑 */
+  border: none;              /* 테두리 없음 */
+  border-radius: 40px;
+  padding: 16px;             /* 안쪽 여백 */
+  border-radius: 0px;
+  height: 400px;             /* 원하는 고정 높이 */
+  overflow-y: auto;          /* 내용 넘칠 때 세로 스크롤 생성 */
+}
+
+.main-container-time {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  width: 100%;
+}
+
+/* 날짜는 왼쪽 칸에 위치 */
+.main-container-time-date {
+  font-family: 'suit-regular';
+  color: #876400;
+  grid-column: 1 / 2;
+  justify-self: start;  /* 왼쪽 정렬 */
+  padding: 5px;
+  font-size: 30px;
+}
+
+/* 요일은 가운데 칸에 위치 */
+.main-container-time-dayofweek {
+  font-family: 'suit-L';
+  color: #876400;
+  grid-column: 2 / 3;
+  justify-self: center; /* 가운데 정렬 */
+  font-size: 30px;
+}
+.main-container-songname{
+  font-size: 30px;
+}
+.main-container-songtime{
+  font-size: 12px;
+}
+.main-container-songperson{
+  font-size: 12px;
+}
+
+.main-weekCalender-date{
+  display: flex;
+  gap: 10px;
+  padding: 0;
+  margin-left: 20px;
+  list-style: none;
+}
+.main-weekCalender-date-li{
+  padding: 5px 10px;
+}
+.main-weekCalender-day{
+  display: flex;
+  gap: 10px;
+  list-style: none; 
+}
+.main-weekCalender-day-li{
+  margin: 0px 15px;
+}

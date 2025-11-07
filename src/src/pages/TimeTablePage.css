@@ -1,0 +1,16 @@
+.phone-frame {
+  position: relative;
+  width: 393px;                  /* iPhone 16 Pro 가로폭 */
+  height: 852px;                 /* iPhone 16 Pro 세로높이 */
+  border: 12px solid #000;       /* 두꺼운 테두리로 휴대폰 느낌 */
+  border-radius: 50px;           /* 모서리 둥글게 */
+  margin: 40px auto;             /* 브라우저 중앙에 배치 */
+  overflow: hidden;              /* 내부 내용 넘치면 숨김 */
+  box-shadow: 0 0 20px rgba(0,0,0,0.3); /* 입체감 그림자 */
+  background: #fff;              /* 내부 배경 흰색 */
+}
+.App {
+  display: flex;
+  flex-direction: column;   /* 세로 방향 배치 */
+  min-height: 100vh;        /* 화면 높이 100% */
+}

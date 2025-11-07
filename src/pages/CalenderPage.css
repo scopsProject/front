@@ -1,0 +1,111 @@
+/* 앱 전체 컨테이너: 아이폰 화면 사이즈 고정 */
+.app-container {
+  position: relative;
+  width: 393px;          /* iPhone 16 Pro 가로폭 */
+  height: 752px;         /* iPhone 16 Pro 세로높이 */
+  margin: 40px auto;     /* 브라우저 중앙 배치 */
+  overflow: hidden;      /* 내부 넘치면 숨김 */
+  background: #fff;      /* 내부 배경 흰색 */
+  box-shadow: 0 0 20px rgba(0,0,0,0.1); /* 살짝 그림자 (테두리X) */
+  border-radius: 20px;   /* 둥근 모서리 (원하면 삭제 가능) */
+}
+
+.App {
+  display: flex;
+  flex-direction: column;   
+  width: 100%;
+  height: 100%;
+}
+
+.calendarPage-calendar-container {
+  position: relative;
+  padding: 10px;
+  font-family: sans-serif;
+}
+
+/* 월 타이틀 */
+.month-title {
+  text-align: center;
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+/* 양쪽 화살표 버튼 */
+.circle-btn {
+  position: absolute;
+  top: 5px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: none;
+  background-color: #ffeaa7;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.left-btn {
+  left: 10px;
+}
+
+.right-btn {
+  right: 10px;
+}
+
+/* 달력 그리드 */
+.calendarPage-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+}
+
+/* 요일 헤더 */
+.calendar-day-header {
+  text-align: center;
+  padding: 5px 0;
+  background-color: #fff8e7;
+  border: 1px solid #f0e0a0;
+  border-radius: 0;
+  font-weight: bold;
+}
+
+/* 날짜 칸 */
+.calendarPage-calendar-cell {
+  height: 80px; /* 날짜칸 고정 높이 */
+  border: 1px solid #f0e0a0;
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+/* 날짜 숫자 */
+.date-number {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* 기간 이벤트 바 */
+.event-bar {
+  font-size: 10px;
+  padding: 1px 2px;
+  color: #333;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 하루 이벤트 */
+.events {
+  margin-top: 2px;
+  overflow: hidden;
+}
+
+.event-item {
+  font-size: 10px;
+  color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
