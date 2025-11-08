@@ -57,7 +57,7 @@ function SongAddPage() {
     alert('등록 완료!');
     navigate('/scops/songRegister', { state: { eventName: eventName } });
   } catch (err) {
-    alert('등록실패!');
+    alert('등록 실패!');
   }
 };
 
