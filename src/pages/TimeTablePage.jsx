@@ -22,7 +22,7 @@ function TimeTablePage() {
   // ✅ 컴포넌트 마운트 시 백엔드에서 데이터 불러오기
   useEffect(() => {
     // 내 시간표 불러오기
-    axios.get(`http://localhost:8080/scops/myschedule/${userName}`, {
+    axios.get(`${process.env.REACT_APP_API_URL}/scops/myschedule/${userName}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     })
     .then(res => {
@@ -33,7 +33,7 @@ function TimeTablePage() {
     });
 
     // 다른 사람들 리스트 불러오기
-    axios.get("http://localhost:8080/scops/sessions")
+    axios.get(`${process.env.REACT_APP_API_URL}/scops/sessions`)
     .then(res => {
       setSessions(res.data); // [{ name, userYear, session: ["V","G"] }, ...]
     })

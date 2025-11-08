@@ -85,7 +85,7 @@ function ReservationPage() {
   // 행사 선택 시 그에 맞는 곡 리스트 불러오기
   useEffect(() => {
     if (selectedEvent) {
-      axios.get(`http://localhost:8080/api/songs/by-event?eventName=${selectedEvent}`)
+      axios.get(`${process.env.REACT_APP_API_URL}/api/songs/by-event?eventName=${selectedEvent}`)
         .then(res => setSongList(res.data))
         .catch(err => console.error('곡 리스트 불러오기 실패:', err));
     } else {
@@ -123,7 +123,7 @@ function ReservationPage() {
     };
 
     try {
-      await axios.post('http://localhost:8080/api/songs/reservation', requestBody);
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/songs/reservation`, requestBody);
       alert('예약이 완료되었습니다!');
       // 예약 후 초기화 등 필요하면 여기에 처리
       setSelectedDate(null);

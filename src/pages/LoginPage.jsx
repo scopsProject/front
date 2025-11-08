@@ -19,7 +19,7 @@ function LoginPage() {
   }
   else
   {
-    axios.post('/api/scops/login', {
+    axios.post(`${process.env.REACT_APP_API_URL}/api/scops/login`, {
     userID: studentId,
     password: password,
   })

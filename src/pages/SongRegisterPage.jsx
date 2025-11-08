@@ -39,7 +39,7 @@ function SongRegisterPage() {
 
   // 행사 목록 최초 로드 + location.state.eventName 반영
   useEffect(() => {
-    axios.get('http://localhost:8080/api/songs/events')
+    axios.get(`${process.env.REACT_APP_API_URL}/api/songs/events`)
       .then(res => {
         const fetchedEvents = res.data;
         console.log('행사명 목록:', fetchedEvents);
@@ -67,7 +67,7 @@ function SongRegisterPage() {
   useEffect(() => {
     if (!selectedEvent) return;
 
-    axios.get(`http://localhost:8080/api/songs/by-event?eventName=${encodeURIComponent(selectedEvent)}`)
+    axios.get(`${process.env.REACT_APP_API_URL}/api/songs/by-event?eventName=${encodeURIComponent(selectedEvent)}`)
       .then(res => {
         setSongs(res.data);
       })

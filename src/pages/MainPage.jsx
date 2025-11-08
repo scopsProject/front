@@ -67,7 +67,7 @@ function MainPage() {
     const end = result[result.length - 1].fullDate;
 
     axios
-      .get(`http://localhost:8080/api/songs/by-week?start=${start}&end=${end}&userName=${userName}`)
+      .get(`${process.env.REACT_APP_API_URL}/api/songs/by-week?start=${start}&end=${end}&userName=${userName}`)
       .then(response => setSongs(response.data))
       .catch(console.error);
   }, [userName]);

@@ -36,7 +36,7 @@ const UserRegisterPage = () => {
       return;
     }
 
-    axios.post('http://localhost:8080/scops/userRegister', {
+    axios.post(`${process.env.REACT_APP_API_URL}/scops/userRegister`, {
       userName,
       userYear,
       session: userSession === "etc" ? customSession : userSession,
