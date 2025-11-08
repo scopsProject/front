@@ -133,7 +133,7 @@ function ReservationPage() {
       setEndTime('');
     } catch (error) {
       console.error(error);
-      alert('예약 중 오류가 발생했습니다.');
+      alert('예약중 오류가 발생했습니다.');
     }
   };
 
