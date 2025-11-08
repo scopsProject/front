@@ -40,7 +40,7 @@ function SongRegisterPage(){
     ]
   };
   // useEffect(() => {
-  //   axios.get('http://localhost:8080/api/')
+  //   axios.get('${process.env.REACT_APP_API_URL}/api/')
   //     .then(res => {
   //       setData(res.data);
   //     })

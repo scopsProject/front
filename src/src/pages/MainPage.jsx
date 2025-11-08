@@ -28,7 +28,7 @@ function MainPage() {
     setDayOfWeek(weekdays[now.getDay()]);
 
     // 오늘 날짜 기준으로 곡 목록 요청
-    axios.get(`http://localhost:8080/api/songs?date=${month}/${day}`)
+    axios.get(`${process.env.REACT_APP_API_URL}/api/songs?date=${month}/${day}`)
           .then(response => setSongs(response.data))
           .catch(console.error);
 
