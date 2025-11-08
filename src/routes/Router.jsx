@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from "../context/AuthContext";
-import LoginPage from '../src/pages/LoginPage';
-import MainPage from '../src/pages/MainPage';
-import ReservationPage from '../src/pages/ReservationPage';
-import SongRegisterPage from '../src/pages/SongRegisterPage';
-import CalenderPage from '../src/pages/CalenderPage';
-import TimeTablePage from '../src/pages/TimeTablePage';
-import SongAddPage from '../src/pages/SongAddpage';
-import UserRegisterPage from '../src/pages/UserRegisterPage';
+import LoginPage from '../pages/LoginPage';
+import MainPage from '../pages/MainPage';
+import ReservationPage from '../pages/ReservationPage';
+import SongRegisterPage from '../pages/SongRegisterPage';
+import CalenderPage from '../pages/CalenderPage';
+import TimeTablePage from '../pages/TimeTablePage';
+import SongAddPage from '../pages/SongAddPage';
+import UserRegisterPage from '../pages/UserRegisterPage';
 
 function Router() {
   return (
