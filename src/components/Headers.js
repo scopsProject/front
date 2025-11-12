@@ -26,7 +26,7 @@ function Header({ onMenuClick, isOpen, onClose }) {
     const token = localStorage.getItem("token");
     if (!token) return alert("로그인 상태가 아닙니다.");
 
-    await axios.delete("http://localhost:8080/scops/deleteUser", {
+    await axios.delete(`${process.env.REACT_APP_API_URL}/scops/deleteUser`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
