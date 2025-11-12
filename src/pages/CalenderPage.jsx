@@ -39,7 +39,7 @@ function CalenderPage() {
     const end = `${currentYear}-${String(currentMonth).padStart(2, "0")}-${endDate}`;
 
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/by-month?start=${start}&end=${end}`)
+      .get(`${process.env.REACT_APP_API_URL}/by-month?start=${start}&end=${end}`)
       .then((res) => {
         setReservations(res.data);
       })

@@ -53,7 +53,7 @@ function SongAddPage() {
   };
 
   try {
-    await axios.post(`${process.env.REACT_APP_API_URL}/api/songs`, payload);
+    await axios.post(`${process.env.REACT_APP_API_URL}/songs`, payload);
     alert('등록 완료!');
     navigate('/scops/songRegister', { state: { eventName: eventName } });
   } catch (err) {
