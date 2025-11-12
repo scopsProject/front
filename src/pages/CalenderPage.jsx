@@ -2,7 +2,7 @@ import './CalenderPage.css';
 import Headers from '../components/Headers';
 import '../components/Headers.css';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 
 function CalenderPage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -38,8 +38,8 @@ function CalenderPage() {
     const endDate = new Date(currentYear, currentMonth, 0).getDate(); // 그 달 마지막 일자
     const end = `${currentYear}-${String(currentMonth).padStart(2, "0")}-${endDate}`;
 
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/by-month?start=${start}&end=${end}`)
+    api
+      .get(`/by-month?start=${start}&end=${end}`)
       .then((res) => {
         setReservations(res.data);
       })

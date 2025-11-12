@@ -4,7 +4,7 @@ import Headers from '../components/Headers';
 import '../components/Headers.css';
 import { useState, useEffect } from 'react';
 import React from 'react';
-import axios from 'axios';
+import api from '../api.js';
 
 function TimeTablePage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -22,7 +22,7 @@ function TimeTablePage() {
   // ✅ 컴포넌트 마운트 시 백엔드에서 데이터 불러오기
   useEffect(() => {
     // 내 시간표 불러오기
-    axios.get(`${process.env.REACT_APP_API_URL}/scops/myschedule/${userName}`, {
+    api.get(`/scops/myschedule/${userName}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     })
     .then(res => {
@@ -33,7 +33,7 @@ function TimeTablePage() {
     });
 
     // 다른 사람들 리스트 불러오기
-    axios.get(`${process.env.REACT_APP_API_URL}/scops/sessions`)
+    api.get(`/scops/sessions`)
     .then(res => {
       setSessions(res.data); // [{ name, userYear, session: ["V","G"] }, ...]
     })

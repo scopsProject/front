@@ -3,7 +3,7 @@ import './MainPage.css';
 import Headers from '../components/Headers';
 import '../components/Headers.css';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from "../api.js";
 
 function MainPage() {
   const { user } = useAuth();
@@ -66,8 +66,8 @@ function MainPage() {
     const start = result[0].fullDate;
     const end = result[result.length - 1].fullDate;
 
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/songs/by-week?start=${start}&end=${end}&userName=${userName}`)
+    api
+      .get(`/songs/by-week?start=${start}&end=${end}&userName=${userName}`)
       .then(response => setSongs(response.data))
       .catch(console.error);
   }, [userName]);

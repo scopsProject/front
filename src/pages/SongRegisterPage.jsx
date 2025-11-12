@@ -3,7 +3,7 @@ import Headers from '../components/Headers';
 import '../components/Headers.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import api from '../api';
 
 function SongRegisterPage() {
   const location = useLocation();
@@ -39,7 +39,7 @@ function SongRegisterPage() {
 
   // 행사 목록 최초 로드 + location.state.eventName 반영
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/songs/events`)
+    api.get(`/songs/events`)
       .then(res => {
         const fetchedEvents = res.data;
         console.log('행사명 목록:', fetchedEvents);
@@ -67,7 +67,7 @@ function SongRegisterPage() {
   useEffect(() => {
     if (!selectedEvent) return;
 
-    axios.get(`${process.env.REACT_APP_API_URL}/songs/by-event?eventName=${encodeURIComponent(selectedEvent)}`)
+    api.get(`/songs/by-event?eventName=${encodeURIComponent(selectedEvent)}`)
       .then(res => {
         setSongs(res.data);
       })

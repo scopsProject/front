@@ -3,7 +3,7 @@ import Headers from '../components/Headers';
 import '../components/Headers.css';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 
 function SongAddPage() {
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ function SongAddPage() {
   };
 
   try {
-    await axios.post(`${process.env.REACT_APP_API_URL}/songs`, payload);
+    await api.post(`/songs`, payload);
     alert('등록 완료!');
     navigate('/scops/songRegister', { state: { eventName: eventName } });
   } catch (err) {
