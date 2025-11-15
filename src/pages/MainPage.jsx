@@ -52,7 +52,7 @@ function MainPage() {
       d.setDate(now.getDate() + i);
       result.push({
         fullDate: d.toISOString().slice(0, 10), // yyyy-mm-dd
-        date: `${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`, // MM-DD
+        date: `${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}`, // MM-DD
         day: shortWeekdays[d.getDay()],
       });
     }
