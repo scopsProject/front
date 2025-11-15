@@ -79,11 +79,15 @@
 .menu-list-li{
   background-color: #FFFEF8;
   cursor: pointer;
-  margin: 10px;
+  margin-top: 20px;
   border: 1px solid #ccc;        /* 테두리 */
   border-radius: 5px;            /* 모서리 둥글게 */
   border: none; /* 테두리는 없애고 */
-  box-shadow: 0 0 5px rgba(255, 238, 187, 1); /* 번지는 효과 */
+  box-shadow: 0 0 5px rgba(255, 255, 255, 1); /* 번지는 효과 */
+  font-size: 13px;
+  padding: 6px;
+  padding-right: 7%;
+  color: #876400;
 }
 .menu-container {
   margin-top: 50px;
