@@ -47,40 +47,40 @@ function ReservationPage() {
   }, []);
 
   useEffect(() => {
-  const now = new Date();
-  const shortWeekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const result = [];
+    const now = new Date();
+    const shortWeekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const result = [];
 
-  for (let i = 0; i < 5; i++) {
-    const d = new Date(now);
-    d.setDate(now.getDate() + i);
+    for (let i = 0; i < 5; i++) {
+      const d = new Date(now);
+      d.setDate(now.getDate() + i);
 
-    const mm = String(d.getMonth() + 1).padStart(2, '0');
-    const dd = String(d.getDate()).padStart(2, '0');
-    const isoDate = d.toISOString().slice(0, 10);
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      const isoDate = d.toISOString().slice(0, 10);
 
-    result.push({
-      date: isoDate,
-      displayDate: `${mm}-${dd}`,
-      day: shortWeekdays[d.getDay()]
-    });
-  }
+      result.push({
+        date: isoDate,
+        displayDate: `${mm}-${dd}`,
+        day: shortWeekdays[d.getDay()]
+      });
+    }
 
-  setWeekInfo(result);
+    setWeekInfo(result);
 
-  const startDate = result[0].date;               // 오늘
-  const endDate = result[result.length - 1].date; // 5일 뒤
+    const startDate = result[0].date;               // 오늘
+    const endDate = result[result.length - 1].date; // 5일 뒤
 
-  // 이번 주 예약 정보 한 번에 가져오기
-  api.get(`/songs/by-week?start=${startDate}&end=${endDate}`)
-    .then(res => setSongs(res.data))
-    .catch(err => console.error('이번 주 예약정보 실패:', err));
+    // 이번 주 예약 정보 한 번에 가져오기
+    api.get(`/songs/by-week?start=${startDate}&end=${endDate}`)
+      .then(res => setSongs(res.data))
+      .catch(err => console.error('이번 주 예약정보 실패:', err));
 
-  // 행사명 리스트
-  api.get('/songs/events')
-    .then(res => setEventList(res.data))
-    .catch(err => console.error('행사명 목록 실패:', err));
-}, []);
+    // 행사명 리스트
+    api.get('/songs/events')
+      .then(res => setEventList(res.data))
+      .catch(err => console.error('행사명 목록 실패:', err));
+  }, []);
 
   // 행사 선택 시 그에 맞는 곡 리스트 불러오기
   useEffect(() => {
@@ -112,7 +112,7 @@ function ReservationPage() {
       date: selectedDate,
       startTime: startTime,
       endTime: endTime,
-      songRegisterId: songRegisterId,  
+      songRegisterId: songRegisterId,
       sessions: [
         {
           date: selectedDate,
@@ -125,15 +125,36 @@ function ReservationPage() {
     try {
       await api.post(`/songs/reservation`, requestBody);
       alert('예약이 완료되었습니다!');
-      // 예약 후 초기화 등 필요하면 여기에 처리
+      
+      // 예약 후 초기화
       setSelectedDate(null);
       setSelectedEvent('');
       setSelectedSong('');
       setStartTime('');
       setEndTime('');
+      
+      // (선택 사항) 예약 목록을 갱신하려면 여기서 api.get을 다시 호출하거나 reload 할 수 있습니다.
+      window.location.reload(); // 간단하게 새로고침하여 예약 반영
+
     } catch (error) {
-      console.error(error);
-      alert('예약중 오류가 발생했습니다.');
+      console.error("예약 에러:", error);
+
+      // ⬇️ ‼️ 여기가 수정된 부분입니다 ‼️
+      // 백엔드에서 보낸 구체적인 에러 메시지("이미 예약된 시간대입니다...")를 추출합니다.
+      if (error.response && error.response.data) {
+        // 백엔드가 { message: "..." } 형태의 JSON을 보냈을 경우
+        if (error.response.data.message) {
+           alert(error.response.data.message);
+        } 
+        // 혹시 단순 문자열로 보냈을 경우
+        else if (typeof error.response.data === 'string') {
+           alert(error.response.data);
+        } else {
+           alert('예약 중 오류가 발생했습니다.');
+        }
+      } else {
+        alert('서버와 연결할 수 없거나 알 수 없는 오류가 발생했습니다.');
+      }
     }
   };
 
@@ -150,26 +171,26 @@ function ReservationPage() {
 
         <div className='reservation-calendar-grid-container'>
           <div className="reservation-calendar-grid">
-          {weekInfo.map((day, index) => (
-            <div
-              key={index}
-              className={`reservation-calendar-cell ${selectedDate === day.date ? 'selected' : ''}`}
-              onClick={() => setSelectedDate(day.date)}
-            >
-              <div className='reservation-calendar-time'>
-                <span className="reservation-calendar-date" id='reservation-calender-date-span'>{day.displayDate}</span>
-                <span className="reservation-calendar-day">{day.day}</span>
+            {weekInfo.map((day, index) => (
+              <div
+                key={index}
+                className={`reservation-calendar-cell ${selectedDate === day.date ? 'selected' : ''}`}
+                onClick={() => setSelectedDate(day.date)}
+              >
+                <div className='reservation-calendar-time'>
+                  <span className="reservation-calendar-date" id='reservation-calender-date-span'>{day.displayDate}</span>
+                  <span className="reservation-calendar-day">{day.day}</span>
+                </div>
+
+                {songs
+                  .filter(song => song.date === day.date)
+                  .map((song, i) => (
+                    <div key={i} className="reservation-calendar-song">{`${song.startTime.split(':')[0]}시 `}<span style={{ color: "#EAB211" }}> {song.songName}</span></div>
+                  ))
+                }
               </div>
-              
-              {songs
-                .filter(song => song.date === day.date)
-                .map((song, i) => (
-                  <div key={i} className="reservation-calendar-song">{`${song.startTime.split(':')[0]}시 `}<span style={{color: "#EAB211"}}> {song.songName}</span></div>
-                ))
-              }
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
         </div>
 
         <div className="reservation-controls">
@@ -232,74 +253,74 @@ function ReservationPage() {
           </div>
 
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-          <div
-            className="custom-select-container"
-            ref={startTimeRef}
-            style={{ marginBottom: 12, width: 120, display: 'inline-block', marginRight: 8 }}
-          >
             <div
-              className={`custom-select-display ${!startTime ? 'custom-select-placeholder' : ''}`}
-              onClick={() => setStartTimeDropdownOpen(o => !o)}
+              className="custom-select-container"
+              ref={startTimeRef}
+              style={{ marginBottom: 12, width: 120, display: 'inline-block', marginRight: 8 }}
             >
-              {startTime || '연습시간'}
-              <span className="custom-select-arrow">▼</span>
-            </div>
-            {startTimeDropdownOpen && (
-              <ul className="custom-select-list" style={{ maxHeight: 150 }}>
-                <li
-                  className="custom-select-list-item"
-                  onClick={() => { setStartTime(''); setStartTimeDropdownOpen(false); }}
-                >
-                  연습시간
-                </li>
-                {timeOptions.map((time, idx) => (
-                  <li
-                    key={idx}
-                    className="custom-select-list-item"
-                    onClick={() => { setStartTime(time); setStartTimeDropdownOpen(false); }}
-                  >
-                    {time}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-
-          <span style={{color: "#876400"}}> - </span>
-
-          <div
-            className="custom-select-container"
-            ref={endTimeRef}
-            style={{ marginBottom: 12, width: 120, display: 'inline-block' }}
-          >
-            <div
-              className={`custom-select-display ${!endTime ? 'custom-select-placeholder' : ''}`}
-              onClick={() => setEndTimeDropdownOpen(o => !o)}
-            >
-              {endTime || '연습시간'}
-              <span className="custom-select-arrow">▼</span>
-            </div>
-                {endTimeDropdownOpen && (
-                  <ul className="custom-select-list" style={{ maxHeight: 150 }}>
-                    <li
-                      className="custom-select-list-item"
-                      onClick={() => { setEndTime(''); setEndTimeDropdownOpen(false); }}
-                    >
-                      연습시간
-                    </li>
-                    {timeOptions.map((time, idx) => (
-                      <li
-                        key={idx}
-                        className="custom-select-list-item"
-                        onClick={() => { setEndTime(time); setEndTimeDropdownOpen(false); }}
-                      >
-                        {time}
-                      </li>
-                    ))}
-                  </ul>
-                )}
+              <div
+                className={`custom-select-display ${!startTime ? 'custom-select-placeholder' : ''}`}
+                onClick={() => setStartTimeDropdownOpen(o => !o)}
+              >
+                {startTime || '연습시간'}
+                <span className="custom-select-arrow">▼</span>
               </div>
+              {startTimeDropdownOpen && (
+                <ul className="custom-select-list" style={{ maxHeight: 150 }}>
+                  <li
+                    className="custom-select-list-item"
+                    onClick={() => { setStartTime(''); setStartTimeDropdownOpen(false); }}
+                  >
+                    연습시간
+                  </li>
+                  {timeOptions.map((time, idx) => (
+                    <li
+                      key={idx}
+                      className="custom-select-list-item"
+                      onClick={() => { setStartTime(time); setStartTimeDropdownOpen(false); }}
+                    >
+                      {time}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
+
+            <span style={{ color: "#876400" }}> - </span>
+
+            <div
+              className="custom-select-container"
+              ref={endTimeRef}
+              style={{ marginBottom: 12, width: 120, display: 'inline-block' }}
+            >
+              <div
+                className={`custom-select-display ${!endTime ? 'custom-select-placeholder' : ''}`}
+                onClick={() => setEndTimeDropdownOpen(o => !o)}
+              >
+                {endTime || '연습시간'}
+                <span className="custom-select-arrow">▼</span>
+              </div>
+              {endTimeDropdownOpen && (
+                <ul className="custom-select-list" style={{ maxHeight: 150 }}>
+                  <li
+                    className="custom-select-list-item"
+                    onClick={() => { setEndTime(''); setEndTimeDropdownOpen(false); }}
+                  >
+                    연습시간
+                  </li>
+                  {timeOptions.map((time, idx) => (
+                    <li
+                      key={idx}
+                      className="custom-select-list-item"
+                      onClick={() => { setEndTime(time); setEndTimeDropdownOpen(false); }}
+                    >
+                      {time}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
           <button
             className="reservation-submit-btn"
             disabled={!selectedDate || !selectedEvent || !selectedSong || !startTime || !endTime}
