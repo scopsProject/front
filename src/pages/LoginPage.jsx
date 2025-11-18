@@ -26,9 +26,17 @@ function LoginPage() {
   .then(response => {
   console.log('로그인 성공:', response.data);
   if (response.data && response.data.user) {
-    const { userName, userYear, session } = response.data.user; // userInfo에서 가져오기
+    const { userName, userYear, session } = response.data.user; 
+    
+    // 1. Context 상태 업데이트
     setUser({ userName, userYear, session });
-    localStorage.setItem('token', response.data.token); // 토큰 저장
+    
+    // 2. 토큰 저장
+    localStorage.setItem('token', response.data.token); 
+
+    // ⬇️ ‼️ 3. [추가] 유저 정보도 localStorage에 저장 (새로고침 대비) ‼️
+    localStorage.setItem('userInfo', JSON.stringify({ userName, userYear, session }));
+
     navigate('/scops/main');
   } else {
     alert("로그인 실패: 사용자 정보가 없습니다.");

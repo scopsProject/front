@@ -62,7 +62,7 @@ function MainPage() {
     setDate(result[0].date.replace('-', '/'));
     setDayOfWeek(result[0].day);
 
-    // 백엔드에 start~end 범위로 요청
+    // 백엔드에 start~end 범위로 요청해쓰
     const start = result[0].fullDate;
     const end = result[result.length - 1].fullDate;
 
