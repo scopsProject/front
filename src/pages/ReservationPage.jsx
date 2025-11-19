@@ -3,7 +3,8 @@ import { useAuth } from "../context/AuthContext.js";
 import Headers from '../components/Headers';
 import '../components/Headers.css';
 import { useState, useEffect, useRef } from 'react';
-import api from '../api';
+// ⬇️ api와 BASE_URL을 올바르게 import 합니다.
+import api, { BASE_URL } from '../api';
 
 function ReservationPage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -46,6 +47,7 @@ function ReservationPage() {
     return () => window.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // 🔥 [핵심 수정] 페이지 로드 시 초기 데이터 로딩 + SSE 연결
   useEffect(() => {
     const now = new Date();
     const shortWeekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -68,20 +70,60 @@ function ReservationPage() {
 
     setWeekInfo(result);
 
-    const startDate = result[0].date;               // 오늘
+    const startDate = result[0].date;             // 오늘
     const endDate = result[result.length - 1].date; // 5일 뒤
 
-    // 이번 주 예약 정보 한 번에 가져오기
+    // 1. 이번 주 예약 정보 가져오기
     api.get(`/songs/by-week?start=${startDate}&end=${endDate}`)
       .then(res => setSongs(res.data))
       .catch(err => console.error('이번 주 예약정보 실패:', err));
 
-    // 행사명 리스트
+    // 2. 행사명 리스트 가져오기
     api.get('/songs/events')
       .then(res => setEventList(res.data))
       .catch(err => console.error('행사명 목록 실패:', err));
-  }, []);
 
+
+    // ============================================================
+    // 🚀 3. SSE 실시간 연결 (반드시 이 useEffect 안에서 실행!)
+    // ============================================================
+    console.log("SSE 연결 시도:", `${BASE_URL}/sse/subscribe`);
+    const eventSource = new EventSource(`${BASE_URL}/sse/subscribe`);
+
+    // (A) 연결 성공 시
+    eventSource.addEventListener('connect', (e) => {
+      console.log('SSE 연결 성공:', e.data);
+    });
+
+    // (B) 실시간 예약 알림 도착 시 ("new-reservation")
+    eventSource.addEventListener('new-reservation', (e) => {
+      try {
+        const newReservation = JSON.parse(e.data);
+        console.log('실시간 예약 알림 도착:', newReservation);
+
+        // songs 상태 업데이트 -> 화면 리렌더링 -> 달력에 즉시 표시됨
+        setSongs((prevSongs) => [...prevSongs, newReservation]);
+        
+      } catch (error) {
+        console.error('SSE 데이터 파싱 에러:', error);
+      }
+    });
+
+    // (C) 에러 처리
+    eventSource.onerror = (error) => {
+      console.error('SSE 에러 발생 (연결 종료):', error);
+      eventSource.close(); 
+    };
+
+    // 🧹 Clean-up: 컴포넌트가 사라질 때 연결 끊기
+    return () => {
+      console.log("SSE 연결 종료");
+      eventSource.close();
+    };
+    
+  }, []); // 👈 빈 배열: 컴포넌트 처음 뜰 때 딱 1번만 실행됨
+
+    
   // 행사 선택 시 그에 맞는 곡 리스트 불러오기
   useEffect(() => {
     if (selectedEvent) {
@@ -133,20 +175,16 @@ function ReservationPage() {
       setStartTime('');
       setEndTime('');
       
-      // (선택 사항) 예약 목록을 갱신하려면 여기서 api.get을 다시 호출하거나 reload 할 수 있습니다.
-      window.location.reload(); // 간단하게 새로고침하여 예약 반영
+      // (선택 사항) 간단하게 새로고침하여 내 예약 반영 (SSE가 있어서 필수는 아님)
+      // window.location.reload(); 
 
     } catch (error) {
       console.error("예약 에러:", error);
 
-      // ⬇️ ‼️ 여기가 수정된 부분입니다 ‼️
-      // 백엔드에서 보낸 구체적인 에러 메시지("이미 예약된 시간대입니다...")를 추출합니다.
       if (error.response && error.response.data) {
-        // 백엔드가 { message: "..." } 형태의 JSON을 보냈을 경우
         if (error.response.data.message) {
            alert(error.response.data.message);
         } 
-        // 혹시 단순 문자열로 보냈을 경우
         else if (typeof error.response.data === 'string') {
            alert(error.response.data);
         } else {
