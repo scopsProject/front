@@ -3,7 +3,6 @@ import { useAuth } from "../context/AuthContext.js";
 import Headers from '../components/Headers';
 import '../components/Headers.css';
 import { useState, useEffect, useRef } from 'react';
-// ⬇️ api와 BASE_URL을 올바르게 import 합니다.
 import api, { BASE_URL } from '../api';
 
 function ReservationPage() {
@@ -13,10 +12,13 @@ function ReservationPage() {
   const [selectedDate, setSelectedDate] = useState(null);
   const { user } = useAuth();
   const userName = user?.userName;
-  const [eventList, setEventList] = useState([]);        // 모든 행사명 리스트
-  const [songList, setSongList] = useState([]);          // 선택된 행사에 따른 곡 리스트
-  const [selectedEvent, setSelectedEvent] = useState(''); // 선택된 행사명
-  const [selectedSong, setSelectedSong] = useState('');   // 선택된 곡명
+  const [eventList, setEventList] = useState([]);        
+  const [songList, setSongList] = useState([]);          
+  const [selectedEvent, setSelectedEvent] = useState(''); 
+  const [selectedSong, setSelectedSong] = useState('');   
+  
+  // 🔔 알림 메시지 상태
+  const [notification, setNotification] = useState(''); 
 
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
@@ -47,7 +49,7 @@ function ReservationPage() {
     return () => window.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // 🔥 [핵심 수정] 페이지 로드 시 초기 데이터 로딩 + SSE 연결
+  // 🔥 페이지 로드 시 초기 데이터 로딩 + SSE 연결
   useEffect(() => {
     const now = new Date();
     const shortWeekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -70,8 +72,8 @@ function ReservationPage() {
 
     setWeekInfo(result);
 
-    const startDate = result[0].date;             // 오늘
-    const endDate = result[result.length - 1].date; // 5일 뒤
+    const startDate = result[0].date;             
+    const endDate = result[result.length - 1].date; 
 
     // 1. 이번 주 예약 정보 가져오기
     api.get(`/songs/by-week?start=${startDate}&end=${endDate}`)
@@ -85,7 +87,7 @@ function ReservationPage() {
 
 
     // ============================================================
-    // 🚀 3. SSE 실시간 연결 (반드시 이 useEffect 안에서 실행!)
+    // 🚀 3. SSE 실시간 연결
     // ============================================================
     console.log("SSE 연결 시도:", `${BASE_URL}/sse/subscribe`);
     const eventSource = new EventSource(`${BASE_URL}/sse/subscribe`);
@@ -101,9 +103,24 @@ function ReservationPage() {
         const newReservation = JSON.parse(e.data);
         console.log('실시간 예약 알림 도착:', newReservation);
 
-        // songs 상태 업데이트 -> 화면 리렌더링 -> 달력에 즉시 표시됨
+        // 1. 데이터 갱신: songs 상태 업데이트 -> 화면 리렌더링
         setSongs((prevSongs) => [...prevSongs, newReservation]);
         
+        // 2. 🔔 [추가] 상단 알림 메시지 설정
+        // 시간 포맷 깔끔하게 (13:00:00 -> 13:00)
+        const start = newReservation.startTime ? newReservation.startTime.slice(0, 5) : "";
+        const end = newReservation.endTime ? newReservation.endTime.slice(0, 5) : "";
+        const song = newReservation.songName;
+
+        // 알림 메시지 구성
+        const msg = `${start} ~ ${end} - ${song}: 예약되었습니다!`;
+        setNotification(msg);
+
+        // 3초 뒤에 알림 끄기
+        setTimeout(() => {
+            setNotification('');
+        }, 3000);
+
       } catch (error) {
         console.error('SSE 데이터 파싱 에러:', error);
       }
@@ -115,13 +132,13 @@ function ReservationPage() {
       eventSource.close(); 
     };
 
-    // 🧹 Clean-up: 컴포넌트가 사라질 때 연결 끊기
+    // 🧹 Clean-up
     return () => {
       console.log("SSE 연결 종료");
       eventSource.close();
     };
     
-  }, []); // 👈 빈 배열: 컴포넌트 처음 뜰 때 딱 1번만 실행됨
+  }, []); 
 
     
   // 행사 선택 시 그에 맞는 곡 리스트 불러오기
@@ -141,7 +158,6 @@ function ReservationPage() {
       return;
     }
 
-    // 선택된 곡 객체에서 singerName 찾기
     const selectedSongObj = songList.find(song => song.songName === selectedSong);
     const singerName = selectedSongObj ? selectedSongObj.singerName : '';
     const songRegisterId = selectedSongObj ? selectedSongObj.id : null;
@@ -174,9 +190,6 @@ function ReservationPage() {
       setSelectedSong('');
       setStartTime('');
       setEndTime('');
-      
-      // (선택 사항) 간단하게 새로고침하여 내 예약 반영 (SSE가 있어서 필수는 아님)
-      // window.location.reload(); 
 
     } catch (error) {
       console.error("예약 에러:", error);
@@ -206,6 +219,13 @@ function ReservationPage() {
     <div className="app-container">
       <div className="App">
         <Headers onMenuClick={toggleMenu} username={userName} isOpen={menuOpen} onClose={closeMenu} />
+        
+        {/* 🔔 [추가] 알림창 (notification 내용이 있을 때만 표시) */}
+        {notification && (
+            <div className="notification-banner">
+                {notification}
+            </div>
+        )}
 
         <div className='reservation-calendar-grid-container'>
           <div className="reservation-calendar-grid">
@@ -232,6 +252,7 @@ function ReservationPage() {
         </div>
 
         <div className="reservation-controls">
+          {/* ... (기존 컨트롤 영역 그대로) ... */}
           <div className="custom-select-container" ref={eventRef} style={{ marginBottom: 12 }}>
             <div
               className={`custom-select-display ${!selectedEvent ? 'custom-select-placeholder' : ''}`}

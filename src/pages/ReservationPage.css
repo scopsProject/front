@@ -197,3 +197,35 @@
   cursor: not-allowed;
   box-shadow: none;
 }
+/* 기존 CSS 아래에 추가 */
+
+/* 상단 알림바 스타일 */
+.notification-banner {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #876400; /* 동아리 테마색 */
+  color: white;
+  padding: 12px 24px;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 2000; /* 헤더보다 위에 뜨도록 높게 설정 */
+  font-weight: bold;
+  font-size: 15px;
+  white-space: nowrap;
+  opacity: 0;
+  animation: slideDown 0.5s forwards;
+}
+
+/* 내려오는 애니메이션 */
+@keyframes slideDown {
+  from {
+    top: -50px;
+    opacity: 0;
+  }
+  to {
+    top: 80px; /* 헤더 아래쪽 적당한 위치 */
+    opacity: 1;
+  }
+}
