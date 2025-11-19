@@ -13,6 +13,7 @@ function Header({ onMenuClick, isOpen, onClose }) {
 
   const logout = () => {
     localStorage.removeItem("token"); // 토큰 삭제
+    localStorage.removeItem("userInfo");
     setUser(null);
     handleNavigation('/scops/login')        // 로그인 페이지 이동
   };
@@ -33,6 +34,7 @@ function Header({ onMenuClick, isOpen, onClose }) {
     });
 
     localStorage.removeItem("token");
+    localStorage.removeItem("userInfo");
     setUser(null);
     navigate("/scops/login");
     alert("회원 탈퇴 성공");
