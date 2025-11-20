@@ -28,7 +28,7 @@
 .logo-box img {
   width: 150px;
   height: auto;  /* 비율 유지 */
-  margin-top: 60px;
+  margin: auto;
 }
 
 /* 슬로건 문구 */
@@ -38,7 +38,7 @@
   font-size: 30px;
   margin-block-end: 0;
   margin-block-start: 0;
-  margin-bottom: 20px;
+  margin-bottom: auto;
 }
 
 /* 학번/비밀번호 입력 박스 */
@@ -78,10 +78,7 @@
   background: #ccc;
 }
 
-/* 백엔드 메시지 표시 영역 (선택사항) */
-.backend-message {
-  margin-top: 20px;
-}
+
 
 /* 휴대폰 화면 기준 반응형 */
 /* 화면이 아주 좁아졌을 때 로고 튀는 문제 해결 */
