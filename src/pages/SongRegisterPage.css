@@ -9,6 +9,18 @@
   box-shadow: 0 0 20px rgba(0,0,0,0.3); /* 입체감 그림자 */
   background: #fff;              /* 내부 배경 흰색 */
 }
+
+.app-container {
+  position: relative;
+  width: 100%;             /* 화면 전체 너비 사용 */
+  max-width: 480px;        /* 최대 폭(모바일 기준) */
+  min-height: 100vh;       /* 화면 높이 꽉 채움 */
+  margin: 0 auto;          /* 가운데 정렬 */
+  background: #fff;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  border-radius: 20px;
+  overflow: hidden;
+}
 .App {
   display: flex;
   flex-direction: column;   /* 세로 방향 배치 */

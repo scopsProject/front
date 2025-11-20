@@ -6,7 +6,7 @@
 }
 
 .app-container {
-  position: relative;
+  position: flex;
   width: 393px;          /* iPhone 16 Pro 가로폭 */
   height: 752px;         /* iPhone 16 Pro 세로높이 */
   margin: 40px auto;     /* 브라우저 중앙 배치 */
@@ -187,6 +187,7 @@
   transition: background-color 0.3s ease;
   z-index: 10;
   display: block;
+  margin-top: auto;
 }
 
 .reservation-submit-btn:disabled {
