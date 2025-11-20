@@ -19,16 +19,27 @@
 }
 
 .userinput-box {
-  width: 70%;
-  padding: 20px;
+  width: 90%;
+  padding: 15px;
   margin-bottom: 15px;           /* 입력창 간격 */
   box-sizing: border-box;        /* padding 포함해서 width 계산 */
   border-radius: 30px;           /* 모서리 둥글게 */
   border: none;                  /* 테두리 제거 */
   box-shadow: 0 0 10px rgba(255, 238, 187, 1); /* 번지는 효과 */
-  background-color: #FFFFFF;
+  background-color: #FFEEBB;
+  color: #876400;
 }
-
+.usersinput-box{
+  width: 90%;
+  padding: 12px;
+  margin-bottom: 15px;           /* 입력창 간격 */
+  box-sizing: border-box;        /* padding 포함해서 width 계산 */
+  border-radius: 30px;           /* 모서리 둥글게 */
+  border: none;                  /* 테두리 제거 */
+  box-shadow: 0 0 10px rgba(255, 238, 187, 1); /* 번지는 효과 */
+  background-color: #FFEEBB;
+  color: #876400;
+}
 .userinput-box input {
   padding: 12px 15px;
   border-radius: 30px;
@@ -43,9 +54,11 @@
 .radio-group {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
+  gap: 5px;
   /* 아이템 간 간격 */
-  background-color: #FFFFFF;
+  background-color: #FFFEF8;
   /* 입력창과 동일한 배경색 */
   border-radius: 30px;
   /* 동일한 둥근 모서리 */
@@ -53,18 +66,21 @@
   /* 내부 여백 */
   width: 100%;
   box-sizing: border-box;
+  margin-bottom: 10px;
 }
 
 /* 라벨 */
 .radio-group label {
   display: flex;
+  
   align-items: center;
-  font-size: 12px;
-  color: #000000;
+  font-size: 11.5px;
+  color: #876400;
   /* 텍스트 색상을 부드러운 갈색톤으로 */
   cursor: pointer;
   font-weight: 500;
   transition: transform 0.1s;
+  flex: 0 0 25%;
 }
 
 .radio-group label:active {

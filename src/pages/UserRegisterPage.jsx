@@ -1,12 +1,20 @@
 import './UserRegisterPage.css';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
+// 라디오 버튼 목록: label은 화면에 표시, value는 저장용
 const sectionList = [
-  "V", "G", "B", "D", "etc"
+  { label: "보컬", value: "V" },
+  { label: "기타", value: "G" },
+  { label: "베이스", value: "B" },
+  { label: "드럼", value: "D" },
+  { label: "건반", value: "P" },
+  { label: "직접 입력", value: "etc" }
 ];
+
 
 const UserRegisterPage = () => {
   const navigate = useNavigate();
@@ -120,39 +128,41 @@ const UserRegisterPage = () => {
 
 
           {/* 세션 라디오 버튼 */}
-          <div className="userinput-box">
-            <div className="section-label">세션</div>
-            <div className="radio-group">
-              {sectionList.map((sec, idx) => (
-                <label key={idx} style={{ marginRight: '10px', display: 'flex', alignItems: 'center' }}>
+          <div className="usersinput-box">
+            <span style={{ color: "#8f8686ff", fontSize: "14px" }}>세션</span>
+          </div>
+          <div className="radio-group">
+            {sectionList.map((sec, idx) => (
+              <React.Fragment key={idx}>
+                <label style={{ marginRight: '10px', display: 'flex', alignItems: 'center' }}>
                   <input
                     type="radio"
                     name="session"
-                    value={sec}
-                    checked={userSession === sec}
+                    value={sec.value}
+                    checked={userSession === sec.value}
                     onChange={() => {
-                      setUserSession(sec);
-                      if (sec !== "etc") setCustomSession(""); // etc가 아닐 때 입력값 초기화
+                      setUserSession(sec.value);
+                      if (sec.value !== "etc") setCustomSession("");
                     }}
                   />
-                  {sec}
-
-                  {/* etc일 때만 입력창 노출 */}
-                  {sec === "etc" && (
-                    <input
-                      type="text"
-                      placeholder="직접 입력"
-                      value={customSession}
-                      onChange={(e) => setCustomSession(e.target.value)}
-                      disabled={userSession !== "etc"}
-                      className="input-etc"
-                      style={{ marginLeft: "8px" }}
-                    />
-                  )}
+                  {sec.label}
                 </label>
-              ))}
-            </div>
+
+                {sec.value === "etc" && userSession === "etc" && (
+                  <input
+                    type="text"
+                    placeholder="직접 입력"
+                    value={customSession}
+                    onChange={(e) => setCustomSession(e.target.value)}
+                    className="input-etc"
+                    style={{ margin: '5px auto 0', display: 'block' }}
+                  />
+                )}
+              </React.Fragment>
+            ))}
           </div>
+
+
 
           <input
             type="text"

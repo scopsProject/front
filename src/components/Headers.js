@@ -2,6 +2,7 @@ import './Headers.css';
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function Header({ onMenuClick, isOpen, onClose }) {
   const navigate = useNavigate();
@@ -37,7 +38,11 @@ function Header({ onMenuClick, isOpen, onClose }) {
     localStorage.removeItem("userInfo");
     setUser(null);
     navigate("/scops/login");
-    alert("회원 탈퇴 성공");
+    Swal.fire({
+            text: '회원 탈퇴 성공',
+            width: '400px',
+            icon: 'success'
+          });
 
   } catch (error) {
     console.error(error);
