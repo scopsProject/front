@@ -41,7 +41,7 @@
 
 /* 학번/비밀번호 입력 박스 */
 .input-box {
-  width: 70%;
+  width: 100%;
   padding: 20px;
   margin-bottom: 15px;           /* 입력창 간격 */
   box-sizing: border-box;        /* padding 포함해서 width 계산 */
@@ -108,7 +108,6 @@
   box-shadow: 0 0 20px rgba(0,0,0,0.1); /* 살짝 그림자 (테두리X) */
   border-radius: 20px;   /* 둥근 모서리 (원하면 삭제 가능) */
 }
-
 
 /* 프레임 바깥쪽 전체 배경 */
 body {

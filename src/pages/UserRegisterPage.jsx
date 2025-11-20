@@ -94,7 +94,7 @@ const UserRegisterPage = () => {
 
               setUserName(value);
             }}
-            className="input-box"
+            className="userinput-box"
           />
 
           <input
@@ -115,12 +115,12 @@ const UserRegisterPage = () => {
 
               setUserYear(value);
             }}
-            className="input-box"
+            className="userinput-box"
           />
 
 
           {/* 세션 라디오 버튼 */}
-          <div className="input-box">
+          <div className="userinput-box">
             <div className="section-label">세션</div>
             <div className="radio-group">
               {sectionList.map((sec, idx) => (
@@ -172,7 +172,7 @@ const UserRegisterPage = () => {
 
               setUserId(value);
             }}
-            className="input-box"
+            className="userinput-box"
           />
 
           <input
@@ -180,14 +180,14 @@ const UserRegisterPage = () => {
             placeholder="비밀번호"
             value={userPassword}
             onChange={(e) => setUserPassword(e.target.value)}
-            className="input-box"
+            className="userinput-box"
           />
           <input
             type="password"
             placeholder="비밀번호 확인"
             value={userPasswordConfirm}
             onChange={(e) => setUserPasswordConfirm(e.target.value)}
-            className="input-box"
+            className="userinput-box"
           />
           <button
             onClick={handleUserRegister}
