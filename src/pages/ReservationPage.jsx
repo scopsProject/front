@@ -162,6 +162,15 @@ function ReservationPage() {
           });
       return;
     }
+    if (startTime >= endTime) {
+    Swal.fire({
+      title: '시간 선택 오류',
+      text: '시작 시간은 종료 시간보다 빨라야 합니다.',
+      icon: 'error',
+      width: '400px'
+    });
+    return;
+  }
 
     const selectedSongObj = songList.find(song => song.songName === selectedSong);
     const singerName = selectedSongObj ? selectedSongObj.singerName : '';
