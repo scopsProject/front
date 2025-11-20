@@ -24,6 +24,9 @@
   flex-direction: column; /* 세로 정렬 유지 */
   gap: 10px; /* 입력창 간 간격 */
 }
+.logo-box{
+  margin-top: auto;
+}
 /* 로고 박스 영역 */
 .logo-box img {
   width: 150px;
