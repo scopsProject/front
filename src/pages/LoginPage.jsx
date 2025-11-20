@@ -51,7 +51,6 @@ function LoginPage() {
             });
           }
         })
-
         .catch(error => {
           console.error('로그인 실패:', error.response?.data || error.message);
           Swal.fire({
