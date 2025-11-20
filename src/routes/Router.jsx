@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from "../context/AuthContext";
 
 // 페이지들 import
@@ -39,8 +39,7 @@ function Router() {
             <Route path="/scops/songAdd" element={<SongAddPage />} />
           </Route>
 
-          {/* (선택사항) 이상한 주소로 오거나 루트(/)로 오면 로그인 페이지로 보냄 */}
-          {/* <Route path="*" element={<Navigate to="/scops/login" replace />} /> */}
+          <Route path="*" element={<Navigate to="/scops/login" replace />} />
           
         </Routes>
       </AuthProvider>
