@@ -79,7 +79,7 @@ const UserRegisterPage = () => {
   return (
     <div className="app-container">
       <div className="App">
-        <div className='login-container'>
+        <div className='register-container'>
           <div className='logo-box'>
             <img src={`/images/scopsLogo.png`} alt="Scops Logo" />
           </div>

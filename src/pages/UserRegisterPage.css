@@ -3,19 +3,21 @@
   flex-direction: column;
   min-height: 100vh;
   background-color: #FFFEF8;
+  justify-content: center;
 }
 
-.login-container {
+.register-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
 }
-
+.logo-box{
+  margin-bottom: 50px;
+}
 .logo-box img {
   width: 120px;
   height: auto;
-  margin-bottom: 20px;
+  margin-bottom: auto;
 }
 
 .userinput-box {
