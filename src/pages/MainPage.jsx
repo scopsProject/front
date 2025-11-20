@@ -92,7 +92,9 @@ function MainPage() {
           {todaySongs.length === 0 ? (
             <p>예정된 합주가 없습니다.</p>
           ) : (
-            todaySongs.map((song, index) => (
+            todaySongs
+            .sort((a, b) => a.startTime.localeCompare(b.startTime))
+            .map((song, index) => (
               <div
                 key={song.id ?? `${song.songName}-${song.date}-${index}`}
                 className="main-container-song"
@@ -128,12 +130,14 @@ function MainPage() {
                 <div key={`${day.fullDate}-${dayIndex}`} className="calendar-cell">
                   <div className="calendar-day">{day.day}</div>
                   <div className="calendar-date">{day.date}</div>
-                  {daySongs.map((song, songIndex) => (
+                  {daySongs
+                  .sort((a, b) => a.startTime.localeCompare(b.startTime))
+                  .map((song, songIndex) => (
                     <div
                       key={song.id ?? `${song.songName}-${song.date}-${songIndex}`}
                       className="calendar-song"
                     >
-                      {`＊${song.startTime.split(':')[0]}시 `}<span style={{ color: "#EAB211" }}> {song.songName}</span>
+                      {`＊${song.startTime.split(':')[0]}시 `}<span style={{ color: "#EAB211"}}> {song.songName}</span>
                     </div>
                   ))}
                 </div>
