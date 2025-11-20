@@ -64,7 +64,6 @@ function LoginPage() {
     }
   };
 
-
   const handleRegisterClick = () => {
     navigate('/scops/register');
   };
