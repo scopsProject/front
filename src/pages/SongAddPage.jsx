@@ -39,38 +39,38 @@ function SongAddPage() {
     setSessions(updated);
   };
   const handleSubmit = async () => {
-  // sessions 배열 키 이름 맞추기
-  const formattedSessions = sessions.map(s => ({
-    sessionType: s.type,
-    playerName: s.name,
-  }));
+    // sessions 배열 키 이름 맞추기
+    const formattedSessions = sessions.map(s => ({
+      sessionType: s.type,
+      playerName: s.name,
+    }));
 
-  const payload = {
-    eventName,
-    songName,
-    singerName,
-    userName: "김유빈",
-    sessions: formattedSessions,
+    const payload = {
+      eventName,
+      songName,
+      singerName,
+      userName: "김유빈",
+      sessions: formattedSessions,
+    };
+
+    try {
+      await api.post(`/songs`, payload);
+      Swal.fire({
+        title: '성공!',
+        text: '등록 완료!',
+        width: '400px',
+        icon: 'success'
+      });
+      navigate('/scops/songRegister', { state: { eventName: eventName } });
+    } catch (err) {
+      Swal.fire({
+        title: '실패!',
+        text: '등록 실패!',
+        width: '400px',
+        icon: 'error'
+      });
+    }
   };
-
-  try {
-    await api.post(`/songs`, payload);
-    Swal.fire({
-                title: '성공!',
-                text: '등록 완료!',
-                width: '400px',
-                icon: 'success'
-              });
-    navigate('/scops/songRegister', { state: { eventName: eventName } });
-  } catch (err) {
-    Swal.fire({
-                title: '실패!',
-                text: '등록 실패!',
-                width: '400px',
-                icon: 'error'
-              });
-  }
-};
 
 
   return (
@@ -78,39 +78,39 @@ function SongAddPage() {
       <div className="App">
         <Headers onMenuClick={toggleMenu} username="김유빈" isOpen={menuOpen} onClose={closeMenu} />
         <div className="songAdd-wrapper">
-        <div className="songAdd-mainContainer">
-          <div className="songAdd-mainContainer-eventName">
-            <label>행사 이름</label>
-            <input type="text" value={eventName} onChange={(e) => setEventName(e.target.value)} placeholder="예: 2025 정기공연" />
-          </div>
+          <div className="songAdd-mainContainer">
+            <div className="songAdd-mainContainer-eventName">
+              <label>행사 이름</label>
+              <input type="text" value={eventName} onChange={(e) => setEventName(e.target.value)} placeholder="예: 2025 정기공연" />
+            </div>
 
-          <div className="songAdd-mainContainer-eventOption">
-            <label>곡명</label>
-            <input type="text" value={songName} onChange={(e) => setSongName(e.target.value)} placeholder="예: 첫눈" />
-            <label>가수명</label>
-            <input type="text" value={singerName} onChange={(e) => setSingerName(e.target.value)} placeholder="예: 김유빈" />
-          </div>
-          
-          <div className="songAdd-mainContainer-session">
-            {sessions.map((session, idx) => (
-              <div className="session-input" key={idx}>
-                <select value={session.type} onChange={(e) => handleSessionChange(idx, 'type', e.target.value)}>
-                  <option value="V">Vocal</option>
-                  <option value="B">Bass</option>
-                  <option value="D">Drum</option>
-                  <option value="G">Guitar</option>
-                  <option value="P">Piano</option>
-                  <option value="Vi">Violin</option>
-                  <option value="C">Cajon</option>
-                  <option value="etc">etc</option>
-                </select>
-                <input
-                  type="text"
-                  value={session.name}
-                  onChange={(e) => handleSessionChange(idx, 'name', e.target.value)}
-                  placeholder="이름 입력"
-                />
-                <button
+            <div className="songAdd-mainContainer-eventOption">
+              <label>곡명</label>
+              <input type="text" value={songName} onChange={(e) => setSongName(e.target.value)} placeholder="예: 첫눈" />
+              <label>가수명</label>
+              <input type="text" value={singerName} onChange={(e) => setSingerName(e.target.value)} placeholder="예: 김유빈" />
+            </div>
+
+            <div className="songAdd-mainContainer-session">
+              {sessions.map((session, idx) => (
+                <div className="session-input" key={idx}>
+                  <select value={session.type} onChange={(e) => handleSessionChange(idx, 'type', e.target.value)}>
+                    <option value="V">Vocal</option>
+                    <option value="B">Bass</option>
+                    <option value="D">Drum</option>
+                    <option value="G">Guitar</option>
+                    <option value="P">Piano</option>
+                    <option value="Vi">Violin</option>
+                    <option value="C">Cajon</option>
+                    <option value="etc">etc</option>
+                  </select>
+                  <input
+                    type="text"
+                    value={session.name}
+                    onChange={(e) => handleSessionChange(idx, 'name', e.target.value)}
+                    placeholder="이름 입력"
+                  />
+                  <button
                     type="button"
                     className="delete-button"
                     onClick={() => removeSessionInput(idx)}
@@ -118,17 +118,17 @@ function SongAddPage() {
                   >
                     &times;
                   </button>
+                </div>
+              ))}
+              <div className="songAdd-btnPlus">
+                <button className="plus-button" onClick={addSessionInput}>+</button>
               </div>
-            ))}
-            <div className="songAdd-btnPlus">
-              <button className="plus-button" onClick={addSessionInput}>+</button>
             </div>
           </div>
         </div>
-        </div>
         <div className="songAdd-btnSubmit">
-            <button className="register-button" onClick={handleSubmit}>등록</button>
-          </div>
+          <button className="register-button" onClick={handleSubmit}>등록</button>
+        </div>
       </div>
     </div>
   );

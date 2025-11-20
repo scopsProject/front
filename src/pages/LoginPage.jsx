@@ -6,65 +6,63 @@ import { useState } from 'react';
 import axios from 'axios';
 
 function LoginPage() {
- 
+
   const { setUser } = useAuth();
   const navigate = useNavigate();
   const [studentId, setStudentId] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = (e) => {
-  e.preventDefault();
-  if(studentId.trim() === "" || password.trim() === "")
-  {
-    Swal.fire({
-      title: '로그인 실패',
-      text: '아이디와 비밀번호를 입력해주세요.',
-      width: '400px',
-      icon: 'error'
-    });
-  }
-  else
-  {
-    axios.post(`${process.env.REACT_APP_API_URL}/scops/login`, {
-    userID: studentId,
-    password: password,
-  })
-  .then(response => {
-  console.log('로그인 성공:', response.data);
-  if (response.data && response.data.user) {
-    const { userName, userYear, session } = response.data.user; 
-    
-    // 1. Context 상태 업데이트
-    setUser({ userName, userYear, session });
-    
-    // 2. 토큰 저장
-    localStorage.setItem('token', response.data.token); 
+    e.preventDefault();
+    if (studentId.trim() === "" || password.trim() === "") {
+      Swal.fire({
+        title: '로그인 실패',
+        text: '아이디와 비밀번호를 입력해주세요.',
+        width: '400px',
+        icon: 'error'
+      });
+    }
+    else {
+      axios.post(`${process.env.REACT_APP_API_URL}/scops/login`, {
+        userID: studentId,
+        password: password,
+      })
+        .then(response => {
+          console.log('로그인 성공:', response.data);
+          if (response.data && response.data.user) {
+            const { userName, userYear, session } = response.data.user;
 
-    // ⬇️ ‼️ 3. [추가] 유저 정보도 localStorage에 저장 (새로고침 대비) ‼️
-    localStorage.setItem('userInfo', JSON.stringify({ userName, userYear, session }));
+            // 1. Context 상태 업데이트
+            setUser({ userName, userYear, session });
 
-    navigate('/scops/main');
-  } else {
-    Swal.fire({
-      title: '로그인 실패',
-      text: '로그인 실패: 사용자 정보가 없습니다.',
-      width: '400px',
-      icon: 'error'
-    });
-  }
-})
+            // 2. 토큰 저장
+            localStorage.setItem('token', response.data.token);
 
-  .catch(error => {
-    console.error('로그인 실패:', error.response?.data || error.message);
-    Swal.fire({
-      title: '로그인 실패',
-      text: '아이디 혹은 비밀번호를 확인해주세요.',
-      width: '400px',
-      icon: 'error'
-    });
-  });
-  }
-};
+            // ⬇️ ‼️ 3. [추가] 유저 정보도 localStorage에 저장 (새로고침 대비) ‼️
+            localStorage.setItem('userInfo', JSON.stringify({ userName, userYear, session }));
+
+            navigate('/scops/main');
+          } else {
+            Swal.fire({
+              title: '로그인 실패',
+              text: '로그인 실패: 사용자 정보가 없습니다.',
+              width: '400px',
+              icon: 'error'
+            });
+          }
+        })
+
+        .catch(error => {
+          console.error('로그인 실패:', error.response?.data || error.message);
+          Swal.fire({
+            title: '로그인 실패',
+            text: '아이디 혹은 비밀번호를 확인해주세요.',
+            width: '400px',
+            icon: 'error'
+          });
+        });
+    }
+  };
 
 
   const handleRegisterClick = () => {

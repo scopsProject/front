@@ -50,7 +50,7 @@ function CalenderPage() {
   const getReservationsByDate = (date) => {
     if (!date) return [];
     const pad = (n) => String(n).padStart(2, "0");
-    const dateStr = `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`;
+    const dateStr = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
     return reservations.filter((r) => r.date === dateStr);
   };
 

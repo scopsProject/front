@@ -30,19 +30,19 @@ const UserRegisterPage = () => {
   const handleUserRegister = () => {
     if (!isFormValid) {
       Swal.fire({
-                      text: '모든 항목을 입력해주세요.',
-                      width: '400px',
-                      icon: 'error'
-                    });
+        text: '모든 항목을 입력해주세요.',
+        width: '400px',
+        icon: 'error'
+      });
       return;
     }
     if (userPassword !== userPasswordConfirm) {
       Swal.fire({
-                      title: '에러',
-                      text: '비밀번호가 일치하지 않습니다. 다시 확인해주세요.',
-                      width: '400px',
-                      icon: 'error'
-                    });
+        title: '에러',
+        text: '비밀번호가 일치하지 않습니다. 다시 확인해주세요.',
+        width: '400px',
+        icon: 'error'
+      });
       return;
     }
 
@@ -53,19 +53,19 @@ const UserRegisterPage = () => {
       userID: userId,
       userPassword,
     })
-    .then(res => {
-      console.log('회원가입:', res.data);
-      Swal.fire({
-                      title: '성공',
-                      text: '회원가입이 완료되었습니다.',
-                      width: '400px',
-                      icon: 'success'
-                    });
-      navigate('/scops/login');
-    })
-    .catch(err => {
-      console.error('회원가입 실패:', err);
-    });
+      .then(res => {
+        console.log('회원가입:', res.data);
+        Swal.fire({
+          title: '성공',
+          text: '회원가입이 완료되었습니다.',
+          width: '400px',
+          icon: 'success'
+        });
+        navigate('/scops/login');
+      })
+      .catch(err => {
+        console.error('회원가입 실패:', err);
+      });
   };
 
   return (
@@ -80,16 +80,44 @@ const UserRegisterPage = () => {
             type="text"
             placeholder="이름"
             value={userName}
-            onChange={(e) => setUserName(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+
+              if (/[0-9]/.test(value)) {
+                Swal.fire({
+                  icon: 'error',
+                  text: '이름에는 숫자를 입력할 수 없습니다.',
+                  width: '400px'
+                });
+                return;
+              }
+
+              setUserName(value);
+            }}
             className="input-box"
           />
+
           <input
             type="text"
             placeholder="기수 입력"
             value={userYear}
-            onChange={(e) => setUserYear(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+
+              if (!/^[0-9]*$/.test(value)) {
+                Swal.fire({
+                  icon: 'error',
+                  text: '기수는 숫자만 입력 가능합니다.',
+                  width: '400px'
+                });
+                return;
+              }
+
+              setUserYear(value);
+            }}
             className="input-box"
           />
+
 
           {/* 세션 라디오 버튼 */}
           <div className="input-box">
@@ -130,9 +158,23 @@ const UserRegisterPage = () => {
             type="text"
             placeholder="학번"
             value={userId}
-            onChange={(e) => setUserId(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+
+              if (!/^[0-9]*$/.test(value)) {
+                Swal.fire({
+                  icon: 'error',
+                  text: '학번은 숫자만 입력 가능합니다.',
+                  width: '400px'
+                });
+                return;
+              }
+
+              setUserId(value);
+            }}
             className="input-box"
           />
+
           <input
             type="password"
             placeholder="비밀번호"

@@ -13,13 +13,13 @@ function ReservationPage() {
   const [selectedDate, setSelectedDate] = useState(null);
   const { user } = useAuth();
   const userName = user?.userName;
-  const [eventList, setEventList] = useState([]);        
-  const [songList, setSongList] = useState([]);          
-  const [selectedEvent, setSelectedEvent] = useState(''); 
-  const [selectedSong, setSelectedSong] = useState('');   
-  
+  const [eventList, setEventList] = useState([]);
+  const [songList, setSongList] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState('');
+  const [selectedSong, setSelectedSong] = useState('');
+
   // 🔔 알림 메시지 상태
-  const [notification, setNotification] = useState(''); 
+  const [notification, setNotification] = useState('');
 
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
@@ -73,8 +73,8 @@ function ReservationPage() {
 
     setWeekInfo(result);
 
-    const startDate = result[0].date;             
-    const endDate = result[result.length - 1].date; 
+    const startDate = result[0].date;
+    const endDate = result[result.length - 1].date;
 
     // 1. 이번 주 예약 정보 가져오기
     api.get(`/songs/by-week?start=${startDate}&end=${endDate}`)
@@ -106,7 +106,7 @@ function ReservationPage() {
 
         // 1. 데이터 갱신: songs 상태 업데이트 -> 화면 리렌더링
         setSongs((prevSongs) => [...prevSongs, newReservation]);
-        
+
         // 2. 🔔 [추가] 상단 알림 메시지 설정
         // 시간 포맷 깔끔하게 (13:00:00 -> 13:00)
         const start = newReservation.startTime ? newReservation.startTime.slice(0, 5) : "";
@@ -119,7 +119,7 @@ function ReservationPage() {
 
         // 3초 뒤에 알림 끄기
         setTimeout(() => {
-            setNotification('');
+          setNotification('');
         }, 3000);
 
       } catch (error) {
@@ -130,7 +130,7 @@ function ReservationPage() {
     // (C) 에러 처리
     eventSource.onerror = (error) => {
       console.error('SSE 에러 발생 (연결 종료):', error);
-      eventSource.close(); 
+      eventSource.close();
     };
 
     // 🧹 Clean-up
@@ -138,10 +138,10 @@ function ReservationPage() {
       console.log("SSE 연결 종료");
       eventSource.close();
     };
-    
-  }, []); 
 
-    
+  }, []);
+
+
   // 행사 선택 시 그에 맞는 곡 리스트 불러오기
   useEffect(() => {
     if (selectedEvent) {
@@ -156,21 +156,21 @@ function ReservationPage() {
   const handleReservation = async () => {
     if (!selectedDate || !selectedEvent || !selectedSong || !startTime || !endTime) {
       Swal.fire({
-            text: '모든 항목을 선택해주세요.',
-            width: '400px',
-            icon: 'error'
-          });
+        text: '모든 항목을 선택해주세요.',
+        width: '400px',
+        icon: 'error'
+      });
       return;
     }
     if (startTime >= endTime) {
-    Swal.fire({
-      title: '시간 선택 오류',
-      text: '시작 시간은 종료 시간보다 빨라야 합니다.',
-      icon: 'error',
-      width: '400px'
-    });
-    return;
-  }
+      Swal.fire({
+        title: '시간 선택 오류',
+        text: '시작 시간은 종료 시간보다 빨라야 합니다.',
+        icon: 'error',
+        width: '400px'
+      });
+      return;
+    }
 
     const selectedSongObj = songList.find(song => song.songName === selectedSong);
     const singerName = selectedSongObj ? selectedSongObj.singerName : '';
@@ -197,13 +197,13 @@ function ReservationPage() {
     try {
       await api.post(`/songs/reservation`, requestBody);
       Swal.fire({
-            title: '운이 좋군...',
-            text: '예약이 완료되었습니다!',
-            width: '400px',
-            icon: 'success'
-          });
-      
-      
+        title: '운이 좋군...',
+        text: '예약이 완료되었습니다!',
+        width: '400px',
+        icon: 'success'
+      });
+
+
       // 예약 후 초기화
       setSelectedDate(null);
       setSelectedEvent('');
@@ -222,29 +222,29 @@ function ReservationPage() {
             width: '400px',
             icon: 'error'
           });
-        } 
+        }
         else if (typeof error.response.data === 'string') {
           Swal.fire({
-              title: '오류',
-              text: error.response.data,
-              width: '400px',
-              icon: 'error'
-            });
+            title: '오류',
+            text: error.response.data,
+            width: '400px',
+            icon: 'error'
+          });
         } else {
-            Swal.fire({
-              title: '오류',
-              text: '예약 중 오류가 발생했습니다.',
-              width: '400px',
-              icon: 'error'
-            });
+          Swal.fire({
+            title: '오류',
+            text: '예약 중 오류가 발생했습니다.',
+            width: '400px',
+            icon: 'error'
+          });
         }
       } else {
         Swal.fire({
-              title: '오류',
-              text: '서버와 연결할 수 없거나 알 수 없는 오류가 발생했습니다.',
-              width: '400px',
-              icon: 'error'
-            });
+          title: '오류',
+          text: '서버와 연결할 수 없거나 알 수 없는 오류가 발생했습니다.',
+          width: '400px',
+          icon: 'error'
+        });
       }
     }
   };
@@ -259,12 +259,12 @@ function ReservationPage() {
     <div className="app-container">
       <div className="App">
         <Headers onMenuClick={toggleMenu} username={userName} isOpen={menuOpen} onClose={closeMenu} />
-        
+
         {/* 🔔 [추가] 알림창 (notification 내용이 있을 때만 표시) */}
         {notification && (
-            <div className="notification-banner">
-                {notification}
-            </div>
+          <div className="notification-banner">
+            {notification}
+          </div>
         )}
 
         <div className='reservation-calendar-grid-container'>

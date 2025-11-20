@@ -25,27 +25,27 @@ function TimeTablePage() {
     api.get(`/scops/myschedule/${userName}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     })
-    .then(res => {
-      setMySchedule(res.data); // [{ day, start, end, subject, place }, ...]
-    })
-    .catch(err => {
-      console.error("내 시간표 로드 실패:", err);
-    });
+      .then(res => {
+        setMySchedule(res.data); // [{ day, start, end, subject, place }, ...]
+      })
+      .catch(err => {
+        console.error("내 시간표 로드 실패:", err);
+      });
 
     // 다른 사람들 리스트 불러오기
     api.get(`/scops/sessions`)
-    .then(res => {
-      setSessions(res.data); // [{ name, userYear, session: ["V","G"] }, ...]
-    })
-    .catch(err => {
-      console.error("세션 목록 로드 실패:", err);
-    });
+      .then(res => {
+        setSessions(res.data); // [{ name, userYear, session: ["V","G"] }, ...]
+      })
+      .catch(err => {
+        console.error("세션 목록 로드 실패:", err);
+      });
   }, [userName]);
 
   return (
     <div className="app-container">
       <div className="App">
-        <Headers 
+        <Headers
           onMenuClick={toggleMenu}
           isOpen={menuOpen}
           onClose={closeMenu}
@@ -58,7 +58,7 @@ function TimeTablePage() {
             <div className="calendar">
               {/* 요일 헤더 */}
               <div className="header-cell" style={{ gridColumn: 1, gridRow: 1 }}></div>
-              {["SUN","MON","TUE","WED","THU","FRI","SAT"].map((day, idx) => (
+              {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((day, idx) => (
                 <div
                   key={day}
                   className="header-cell"
@@ -77,7 +77,7 @@ function TimeTablePage() {
                     <div className="time-cell" style={{ gridColumn: 1, gridRow: row }}>
                       {hour}
                     </div>
-                    {["SUN","MON","TUE","WED","THU","FRI","SAT"].map((day, colIdx) => (
+                    {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((day, colIdx) => (
                       <div
                         key={`${day}-${hour}`}
                         className="calendar-cell"
@@ -90,7 +90,7 @@ function TimeTablePage() {
 
               {/* 수업 블록 */}
               {mySchedule.map((cls, idx) => {
-                const col = ["SUN","MON","TUE","WED","THU","FRI","SAT"].indexOf(cls.day) + 2;
+                const col = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].indexOf(cls.day) + 2;
                 let rowStart = cls.start - 10 + 2;
                 let rowEnd = cls.end - 10 + 2;
 

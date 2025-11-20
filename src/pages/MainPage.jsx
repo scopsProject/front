@@ -99,10 +99,10 @@ function MainPage() {
               >
                 <div className="main-container-songname">
                   <span className='main-container-songname-style'>{song.songName}{' '}</span>
-                  <span style={{ fontSize: '10px', color: "#876400"}}>{song.singerName}</span>
+                  <span style={{ fontSize: '10px', color: "#876400" }}>{song.singerName}</span>
                 </div>
                 <div className="main-container-songtime">
-                  {`${song.startTime.slice(0,5)} - ${song.endTime.slice(0,5)}`}
+                  {`${song.startTime.slice(0, 5)} - ${song.endTime.slice(0, 5)}`}
                 </div>
                 <div className="main-container-songperson">
                   {song.sessions.map(s => (
@@ -133,7 +133,7 @@ function MainPage() {
                       key={song.id ?? `${song.songName}-${song.date}-${songIndex}`}
                       className="calendar-song"
                     >
-                      {`＊${song.startTime.split(':')[0]}시 `}<span style={{color: "#EAB211"}}> {song.songName}</span>
+                      {`＊${song.startTime.split(':')[0]}시 `}<span style={{ color: "#EAB211" }}> {song.songName}</span>
                     </div>
                   ))}
                 </div>
