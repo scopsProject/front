@@ -29,11 +29,20 @@ const UserRegisterPage = () => {
 
   const handleUserRegister = () => {
     if (!isFormValid) {
-      Swal.fire("모든 항목을 입력해주세요.");
+      Swal.fire({
+                      text: '모든 항목을 입력해주세요.',
+                      width: '400px',
+                      icon: 'error'
+                    });
       return;
     }
     if (userPassword !== userPasswordConfirm) {
-      Swal.fire("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+      Swal.fire({
+                      title: '에러',
+                      text: '비밀번호가 일치하지 않습니다. 다시 확인해주세요.',
+                      width: '400px',
+                      icon: 'error'
+                    });
       return;
     }
 
@@ -46,7 +55,12 @@ const UserRegisterPage = () => {
     })
     .then(res => {
       console.log('회원가입:', res.data);
-      Swal.fire("회원가입이 완료되었습니다.");
+      Swal.fire({
+                      title: '성공',
+                      text: '회원가입이 완료되었습니다.',
+                      width: '400px',
+                      icon: 'success'
+                    });
       navigate('/scops/login');
     })
     .catch(err => {

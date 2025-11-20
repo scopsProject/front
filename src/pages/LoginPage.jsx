@@ -16,7 +16,12 @@ function LoginPage() {
   e.preventDefault();
   if(studentId.trim() === "" || password.trim() === "")
   {
-    Swal.fire("아이디와 비밀번호를 입력해주세요.")
+    Swal.fire({
+      title: '로그인 실패',
+      text: '아이디와 비밀번호를 입력해주세요.',
+      width: '400px',
+      icon: 'error'
+    });
   }
   else
   {
@@ -40,13 +45,23 @@ function LoginPage() {
 
     navigate('/scops/main');
   } else {
-    Swal.fire("로그인 실패: 사용자 정보가 없습니다.");
+    Swal.fire({
+      title: '로그인 실패',
+      text: '로그인 실패: 사용자 정보가 없습니다.',
+      width: '400px',
+      icon: 'error'
+    });
   }
 })
 
   .catch(error => {
     console.error('로그인 실패:', error.response?.data || error.message);
-    Swal.fire("로그인 실패: 아이디 혹은 비밀번호를 확인해주세요.");
+    Swal.fire({
+      title: '로그인 실패',
+      text: '아이디 혹은 비밀번호를 확인해주세요.',
+      width: '400px',
+      icon: 'error'
+    });
   });
   }
 };

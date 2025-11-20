@@ -55,10 +55,20 @@ function SongAddPage() {
 
   try {
     await api.post(`/songs`, payload);
-    Swal.fire('등록 완료!');
+    Swal.fire({
+                title: '성공!',
+                text: '등록 완료!',
+                width: '400px',
+                icon: 'success'
+              });
     navigate('/scops/songRegister', { state: { eventName: eventName } });
   } catch (err) {
-    Swal.fire('등록 실패!');
+    Swal.fire({
+                title: '실패!',
+                text: '등록 실패!',
+                width: '400px',
+                icon: 'error'
+              });
   }
 };
 
