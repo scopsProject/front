@@ -92,13 +92,13 @@ function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               className="input-box"
             />
-            <button type="submit" className="login-button">
-              <span style={{ color: '#876400' }}>LOGIN</span>
-            </button>
           </form>
           <p className="register-link" onClick={handleRegisterClick} style={{ cursor: 'pointer' }}>
             신규 부원 등록
           </p>
+          <button type="submit" className="login-button">
+            <span style={{ color: '#876400' }}>LOGIN</span>
+          </button>
         </div>
       </div>
     </div>

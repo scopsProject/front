@@ -16,6 +16,7 @@
   width: 350px;                  /* 최대 폭 */
   margin: 0 auto;                /* 수평 중앙 정렬 */
 }
+
 .login-container form {
   margin: 0;
   padding: 0;
@@ -27,6 +28,7 @@
 .logo-box img {
   width: 150px;
   height: auto;  /* 비율 유지 */
+  margin-top: 60px;
 }
 
 /* 슬로건 문구 */
@@ -54,9 +56,9 @@
 /* 신규 부원 등록 링크 */
 .register-link {
   font-family: 'suit-regular';
-  margin-bottom: 200px;
   color: #FFCB2E;
   cursor: pointer;               /* 마우스 커서 포인터 */
+  text-align: center;
 }
 
 /* 로그인 버튼 */
@@ -67,7 +69,7 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  margin-top: 20px;   /* 살짝 간격만 */
+  margin-top: auto;
 }
 
 
@@ -112,4 +114,10 @@
 /* 프레임 바깥쪽 전체 배경 */
 body {
   background: #eaeaea;           /* 연한 회색 배경으로 휴대폰 외부 구분 */
+}
+.form-area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
