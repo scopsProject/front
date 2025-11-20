@@ -1,4 +1,5 @@
 import './LoginPage.css';
+import Swal from 'sweetalert2';
 import { useAuth } from "../context/AuthContext.js";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -15,7 +16,7 @@ function LoginPage() {
   e.preventDefault();
   if(studentId.trim() === "" || password.trim() === "")
   {
-    alert("아이디와 비밀번호를 입력해주세요.")
+    Swal.fire("아이디와 비밀번호를 입력해주세요.")
   }
   else
   {
@@ -39,13 +40,13 @@ function LoginPage() {
 
     navigate('/scops/main');
   } else {
-    alert("로그인 실패: 사용자 정보가 없습니다.");
+    Swal.fire("로그인 실패: 사용자 정보가 없습니다.");
   }
 })
 
   .catch(error => {
     console.error('로그인 실패:', error.response?.data || error.message);
-    alert("로그인 실패: 아이디 혹은 비밀번호를 확인해주세요.");
+    Swal.fire("로그인 실패: 아이디 혹은 비밀번호를 확인해주세요.");
   });
   }
 };

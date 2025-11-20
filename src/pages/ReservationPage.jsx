@@ -1,5 +1,6 @@
 import './ReservationPage.css';
 import { useAuth } from "../context/AuthContext.js";
+import Swal from 'sweetalert2';
 import Headers from '../components/Headers';
 import '../components/Headers.css';
 import { useState, useEffect, useRef } from 'react';
@@ -154,7 +155,7 @@ function ReservationPage() {
 
   const handleReservation = async () => {
     if (!selectedDate || !selectedEvent || !selectedSong || !startTime || !endTime) {
-      alert('모든 항목을 선택해주세요.');
+      Swal.fire('모든 항목을 선택해주세요.');
       return;
     }
 
@@ -182,7 +183,7 @@ function ReservationPage() {
 
     try {
       await api.post(`/songs/reservation`, requestBody);
-      alert('예약이 완료되었습니다!');
+      Swal.fire('예약이 완료되었습니다!');
       
       // 예약 후 초기화
       setSelectedDate(null);
@@ -196,15 +197,15 @@ function ReservationPage() {
 
       if (error.response && error.response.data) {
         if (error.response.data.message) {
-           alert(error.response.data.message);
+           Swal.fire(error.response.data.message);
         } 
         else if (typeof error.response.data === 'string') {
-           alert(error.response.data);
+           Swal.fire(error.response.data);
         } else {
-           alert('예약 중 오류가 발생했습니다.');
+           Swal.fire('예약 중 오류가 발생했습니다.');
         }
       } else {
-        alert('서버와 연결할 수 없거나 알 수 없는 오류가 발생했습니다.');
+        Swal.fire('서버와 연결할 수 없거나 알 수 없는 오류가 발생했습니다.');
       }
     }
   };

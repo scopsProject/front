@@ -1,5 +1,6 @@
 import './SongAddPage.css';
 import Headers from '../components/Headers';
+import Swal from 'sweetalert2';
 import '../components/Headers.css';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -54,10 +55,10 @@ function SongAddPage() {
 
   try {
     await api.post(`/songs`, payload);
-    alert('등록 완료!');
+    Swal.fire('등록 완료!');
     navigate('/scops/songRegister', { state: { eventName: eventName } });
   } catch (err) {
-    alert('등록 실패!');
+    Swal.fire('등록 실패!');
   }
 };
 

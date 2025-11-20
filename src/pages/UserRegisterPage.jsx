@@ -2,6 +2,7 @@ import './UserRegisterPage.css';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const sectionList = [
   "V", "G", "B", "D", "etc"
@@ -28,11 +29,11 @@ const UserRegisterPage = () => {
 
   const handleUserRegister = () => {
     if (!isFormValid) {
-      alert("모든 항목을 입력해주세요.");
+      Swal.fire("모든 항목을 입력해주세요.");
       return;
     }
     if (userPassword !== userPasswordConfirm) {
-      alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+      Swal.fire("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
       return;
     }
 
@@ -45,7 +46,7 @@ const UserRegisterPage = () => {
     })
     .then(res => {
       console.log('회원가입:', res.data);
-      alert("회원가입이 완료되었습니다.");
+      Swal.fire("회원가입이 완료되었습니다.");
       navigate('/scops/login');
     })
     .catch(err => {
