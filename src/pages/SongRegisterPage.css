@@ -132,6 +132,10 @@
   box-shadow: 0 0 5px rgba(255, 230, 130, 0.9);
   color: #634900;
   font-size: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
 }
 .song-item-singerName{
   font-family: 'suit-regular';
