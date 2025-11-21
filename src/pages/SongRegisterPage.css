@@ -152,7 +152,7 @@
   word-break: break-word;     /* 단어가 길어도 줄 바꿈 */
   display: flex;              /* 가로로 4명씩 배치하려고 flex 사용 */
   flex-wrap: wrap;            /* 줄 바꿈 허용 */
-  gap: 6px;                   /* 아이템 간격 */
+  gap: 5%;                   /* 아이템 간격 */
 }
 .song-item-playerName span {
   flex: 1 1 22%;
