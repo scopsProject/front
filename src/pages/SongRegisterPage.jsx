@@ -4,6 +4,7 @@ import '../components/Headers.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import api from '../api';
+import SongDetailView from '../pages/SongDetailView';   // 상세페이지 컴포넌트 추가
 
 function SongRegisterPage() {
   const location = useLocation();
@@ -16,11 +17,12 @@ function SongRegisterPage() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // 메뉴 토글
+  // 상세 조회 모달 상태
+  const [selectedSong, setSelectedSong] = useState(null);
+
   const toggleMenu = () => setMenuOpen(prev => !prev);
   const closeMenu = () => setMenuOpen(false);
 
-  // 외부 클릭 시 드롭다운 닫기 처리
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -31,29 +33,29 @@ function SongRegisterPage() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // 드롭다운 항목 클릭 시 선택
   const handleSelect = (eventName) => {
     setSelectedEvent(eventName);
     setDropdownOpen(false);
   };
+  const reloadSongs = () => {
+    api.get(`/songs/by-event?eventName=${encodeURIComponent(selectedEvent)}`)
+      .then(res => setSongs(res.data))
+      .catch(err => console.error('곡 목록 불러오기 실패:', err));
+  };
 
-  // 행사 목록 최초 로드 + location.state.eventName 반영
+
   useEffect(() => {
     api.get(`/songs/events`)
       .then(res => {
         const fetchedEvents = res.data;
-        console.log('행사명 목록:', fetchedEvents);
-
         const incomingEvent = location.state?.eventName;
 
-        // location.state.eventName이 목록에 없으면 추가
         const mergedEvents = incomingEvent && !fetchedEvents.includes(incomingEvent)
           ? [...fetchedEvents, incomingEvent]
           : fetchedEvents;
 
         setEventNameData(mergedEvents);
 
-        // selectedEvent 설정: location.state.eventName 우선, 없으면 목록 첫번째
         if (incomingEvent) {
           setSelectedEvent(incomingEvent);
         } else if (mergedEvents.length > 0) {
@@ -63,7 +65,6 @@ function SongRegisterPage() {
       .catch(err => console.error('행사명 불러오기 실패:', err));
   }, [location.state]);
 
-  // selectedEvent가 바뀌면 해당 행사곡 리스트 로드
   useEffect(() => {
     if (!selectedEvent) return;
 
@@ -73,12 +74,10 @@ function SongRegisterPage() {
       })
       .catch(err => {
         console.error('곡 목록 불러오기 실패:', err);
-        setSongs([]); // 에러시 빈 배열 처리
+        setSongs([]);
       });
   }, [selectedEvent]);
 
-
-  // + 버튼 클릭 시 등록 페이지 이동
   const handleNavigation = (path) => {
     navigate(path);
   };
@@ -86,32 +85,24 @@ function SongRegisterPage() {
   return (
     <div className="app-container">
       <div className="App">
+
         <Headers onMenuClick={toggleMenu} username="김유빈" isOpen={menuOpen} onClose={closeMenu} />
+
         <div className='songResister-mainContainer'>
-          <div
-            className='songResister-mainContainer-eventName'
-            ref={dropdownRef}
-            style={{ position: 'relative' }}
-          >
-            {/* 선택된 이벤트 표시용 div */}
-            <div
-              className="custom-select-display"
+
+          {/* 행사명 드롭다운 */}
+          <div className='songResister-mainContainer-eventName' ref={dropdownRef} style={{ position: 'relative' }}>
+            <div className="custom-select-display"
               onClick={() => setDropdownOpen(prev => !prev)}
             >
               {selectedEvent || '행사 선택'}
-              {/* ▼ 화살표 */}
-              <span >▼</span>
+              <span>▼</span>
             </div>
 
-            {/* 드롭다운 목록 */}
             {dropdownOpen && (
               <ul className="custom-select-list">
                 {eventNameData.map((eventName, idx) => (
-                  <li
-                    key={idx}
-                    onClick={() => handleSelect(eventName)}
-                    className="custom-select-list-item"
-                  >
+                  <li key={idx} onClick={() => handleSelect(eventName)} className="custom-select-list-item">
                     {eventName}
                   </li>
                 ))}
@@ -119,11 +110,15 @@ function SongRegisterPage() {
             )}
           </div>
 
-          {/* 기존 노래 리스트 */}
+          {/* 곡 리스트 */}
           <div className='songResister-mainContainer-songs'>
             {songs.length > 0 ? (
               songs.map((item, idx) => (
-                <div key={idx} className="song-item">
+                <div
+                  key={idx}
+                  className="song-item"
+                  onClick={() => setSelectedSong(item)}  // ✨ 클릭 시 상세 조회 열림
+                >
                   <span className='song-item-subject'>{item.songName}</span>
                   <span className='song-item-singerName'>{item.singerName}</span>
                   <span className="song-item-playerName">
@@ -139,11 +134,24 @@ function SongRegisterPage() {
               <div>데이터가 없습니다.</div>
             )}
           </div>
+
         </div>
 
+        {/* 플러스 버튼 */}
         <div className='songResister-btnPlus'>
           <button className="plus-button" onClick={() => handleNavigation('/scops/songAdd')}>+</button>
         </div>
+
+        {/* ✨ 상세조회 모달 컴포넌트 */}
+        {selectedSong && (
+          <SongDetailView
+            song={selectedSong}
+            onClose={() => setSelectedSong(null)}
+            eventName={selectedEvent}
+            reloadSongs={reloadSongs}
+          />
+        )}
+
       </div>
     </div>
   );

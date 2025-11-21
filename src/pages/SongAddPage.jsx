@@ -12,7 +12,7 @@ function SongAddPage() {
   const [eventName, setEventName] = useState('');
   const [songName, setSongName] = useState('');
   const [singerName, setSingerName] = useState('');
-  const [sessions, setSessions] = useState([{ type: 'V', name: '' }]);
+  const [sessions, setSessions] = useState([{ type: '', name: '' }]);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
@@ -24,7 +24,7 @@ function SongAddPage() {
   };
 
   const addSessionInput = () => {
-    setSessions([...sessions, { type: 'V', name: '' }]);
+    setSessions([...sessions, { type: '', name: '' }]);
   };
 
   const removeSessionInput = (index) => {
@@ -80,35 +80,36 @@ function SongAddPage() {
         <div className="songAdd-wrapper">
           <div className="songAdd-mainContainer">
             <div className="songAdd-mainContainer-eventName">
-              <label>행사 이름</label>
-              <input type="text" value={eventName} onChange={(e) => setEventName(e.target.value)} placeholder="예: 2025 정기공연" />
+              <input type="text" value={eventName} onChange={(e) => setEventName(e.target.value)} placeholder="행사명" />
             </div>
 
             <div className="songAdd-mainContainer-eventOption">
-              <label>곡명</label>
-              <input type="text" value={songName} onChange={(e) => setSongName(e.target.value)} placeholder="예: 첫눈" />
-              <label>가수명</label>
-              <input type="text" value={singerName} onChange={(e) => setSingerName(e.target.value)} placeholder="예: 김유빈" />
+              <input type="text" value={songName} onChange={(e) => setSongName(e.target.value)} placeholder="곡 제목" />
+              <input type="text" value={singerName} onChange={(e) => setSingerName(e.target.value)} placeholder="가수" />
             </div>
 
             <div className="songAdd-mainContainer-session">
               {sessions.map((session, idx) => (
                 <div className="session-input" key={idx}>
-                  <select value={session.type} onChange={(e) => handleSessionChange(idx, 'type', e.target.value)}>
-                    <option value="V">Vocal</option>
-                    <option value="B">Bass</option>
-                    <option value="D">Drum</option>
-                    <option value="G">Guitar</option>
-                    <option value="P">Piano</option>
-                    <option value="Vi">Violin</option>
-                    <option value="C">Cajon</option>
-                    <option value="etc">etc</option>
+                  <select value={session.type} onChange={(e) => handleSessionChange(idx, 'type', e.target.value)} placeholder="포지션">
+                    <option value="" disabled hidden>
+                      포지션
+                    </option>
+                    <option value="V" placeholder="포지션">Vocal</option>
+                    <option value="B" placeholder="포지션">Bass</option>
+                    <option value="D" placeholder="포지션">Drum</option>
+                    <option value="G" placeholder="포지션">Guitar</option>
+                    <option value="P" placeholder="포지션">Piano</option>
+                    <option value="Vi" placeholder="포지션">Violin</option>
+                    <option value="C" placeholder="포지션">Cajon</option>
+                    <option value="etc" placeholder="포지션">etc</option>
                   </select>
                   <input
                     type="text"
                     value={session.name}
+                    className='songadd-input'
                     onChange={(e) => handleSessionChange(idx, 'name', e.target.value)}
-                    placeholder="이름 입력"
+                    placeholder="이름"
                   />
                   <button
                     type="button"

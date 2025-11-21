@@ -21,9 +21,8 @@
   max-width: 400px;
   height: 550px;          /* 원하는 높이 지정 */
   margin: 10px auto;
-  border-radius: 20px;
-  background-color: #fff7cc;
-  border: 1px solid #ccc;
+  border: none;
+  background-color: #FFFEF8;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -35,13 +34,22 @@
   padding: 10px;
 }
 
-.songAdd-mainContainer-eventName,
+.songAdd-mainContainer-eventName{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+
 .songAdd-mainContainer-eventOption,
 .songAdd-mainContainer-session {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10%;
+  align-items: center;
 }
 
 .songAdd-mainContainer-eventName label,
@@ -55,13 +63,22 @@
 .songAdd-mainContainer-eventOption input,
 .songAdd-mainContainer-session input {
   padding: 10px 15px;
-  border: 1.5px solid #ccc;
   border-radius: 20px;
-  background-color: #fff;
+  border: none;                  /* 테두리 제거 */
+  box-shadow: 0 0 10px rgba(255, 238, 187, 1); /* 번지는 효과 */
+  background-color: #FFEEBB;
   font-size: 14px;
-  color: #333;
+  color: #876400;
   outline: none;
   transition: border-color 0.3s ease;
+  width: 80%;
+  
+}
+.songAdd-mainContainer-eventName input::placeholder,
+.songAdd-mainContainer-eventOption input::placeholder,
+.songAdd-mainContainer-session input::placeholder {
+  color: #876400;
+  font-family: 'suit-regular';
 }
 
 .songAdd-mainContainer-eventName input:focus,
@@ -72,9 +89,10 @@
 }
 
 .session-input {
+  width: 88%;
   display: flex;
-  align-items: center;
-  gap: 10px;
+  gap: 7%;
+
 }
 
 .session-input label {
@@ -85,22 +103,21 @@
 
 /* 드롭다운 select 요소 스타일링 */
 .session-input select {
-  width: 60px; /* 드롭다운 너비 좁게 */
+  width: 25%; /* 드롭다운 너비 좁게 */
   padding: 8px;
-  border: 1.5px solid #ccc;
-  border-radius: 10px;
+  border: none;                  /* 테두리 제거 */
+  box-shadow: 0 0 10px rgba(255, 238, 187, 1); /* 번지는 효과 */
+  background-color: #FFEEBB;
+  border-radius: 20px;
   font-size: 14px;
-  background-color: #fff;
-  color: #333;
+  color: #876400;
   outline: none;
 }
 
 .session-input input {
-  flex: 1; /* 남은 공간을 input이 차지 */
+  flex: 40%; /* 남은 공간을 input이 차지 */
   padding: 10px 15px;
-  border: 1.5px solid #ccc;
   border-radius: 20px;
-  background-color: #fff;
   font-size: 14px;
   color: #333;
   outline: none;
@@ -110,29 +127,34 @@
   border-color: #f1c40f;
   box-shadow: 0 0 8px rgba(241, 196, 15, 0.5);
 }
+.songadd-input{
+  border: none;                  /* 테두리 제거 */
+  box-shadow: 0 0 10px rgba(255, 238, 187, 1); /* 번지는 효과 */
+  background-color: #FFEEBB;
 
+}
 /* + 버튼 위치 및 디자인 */
 .songAdd-btnPlus {
   display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
+  margin-left: auto;
+  margin-right: 4.8%;
 }
 
 .songAdd-btnPlus .plus-button {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  border: none;
-  background-color: #f1c40f;
-  color: white;
+  border: none;                  /* 테두리 제거 */
+  box-shadow: 0 0 10px rgba(255, 238, 187, 1); /* 번지는 효과 */
+  background-color: #FFEEBB;
+  color: #876400;
   font-size: 24px;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease;
 }
 
 .songAdd-btnPlus .plus-button:hover {
-  background-color: #d4ac0d;
+  background-color: #f7d368;
 }
 
 /* 등록 버튼 영역 */
@@ -145,27 +167,27 @@
   margin-top: 50px; 
   position: sticky;
   bottom: 0;
-  background-color: #f1c40f;
-  border: none;
+  border: none;                  /* 테두리 제거 */
+  box-shadow: 0 0 10px rgba(255, 238, 187, 1); /* 번지는 효과 */
+  background-color: #FFEEBB;
   border-radius: 25px;
   color: white;
   font-size: 18px;
   padding: 12px 0;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
   transition: background-color 0.3s ease;
-  width: 95%;
+  width: 90%;
+  
 }
 
 .register-button:hover {
-  background-color: #d4ac0d;
+  background-color: #f7d368;
 }
 .delete-button {
   background: transparent;
   border: none;
-  color: red;
+  color: #EAB211;
   font-size: 20px;
-  font-weight: bold;
   cursor: pointer;
   padding: 0 5px;
   line-height: 1;
