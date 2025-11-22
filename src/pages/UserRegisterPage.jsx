@@ -26,6 +26,13 @@ const UserRegisterPage = () => {
   const [userSession, setUserSession] = useState("");
   const [customSession, setCustomSession] = useState("");
 
+  const [isExecutive, setIsExecutive] = useState(false); // 체크박스 상태
+  const [execCode, setExecCode] = useState("");          // 입력 코드
+  const [role, setRole] = useState("none");              // 기본 none
+  const [execVerified, setExecVerified] = useState(false); // 인증 여부
+  
+  const EXECUTIVE_SECRET = "SCOPS2025";
+  
   const isFormValid =
     userId.trim() !== "" &&
     userPassword.trim() !== "" &&
@@ -34,7 +41,26 @@ const UserRegisterPage = () => {
     userYear.trim() !== "" &&
     userSession.trim() !== "" &&
     (userSession !== "etc" || customSession.trim() !== "");
-
+    
+  const handleExecVerify = () => {
+    if (execCode === EXECUTIVE_SECRET) {
+      Swal.fire({
+        icon: "success",
+        text: "임원 인증이 완료되었습니다.",
+        width: "400px"
+      });
+      setExecVerified(true);
+      setRole("ADMIN");
+    } else {
+      Swal.fire({
+        icon: "error",
+        text: "인증코드가 올바르지 않습니다.",
+        width: "400px"
+      });
+      setExecVerified(false);
+      setRole("none");
+    }
+  };
   const handleUserRegister = () => {
     if (!isFormValid) {
       Swal.fire({
@@ -53,13 +79,21 @@ const UserRegisterPage = () => {
       });
       return;
     }
-
+    if (isExecutive && !execVerified) {
+      Swal.fire({
+        icon: "error",
+        text: "임원 인증을 먼저 완료해주세요.",
+        width: "400px"
+      });
+      return;
+    }
     axios.post(`${process.env.REACT_APP_API_URL}/scops/userRegister`, {
       userName,
       userYear,
       session: userSession === "etc" ? customSession : userSession,
       userID: userId,
       userPassword,
+      role
     })
       .then(res => {
         console.log('회원가입:', res.data);
@@ -199,14 +233,53 @@ const UserRegisterPage = () => {
             onChange={(e) => setUserPasswordConfirm(e.target.value)}
             className="userinput-box"
           />
-          <button
+          <intput type="chechbox"></intput>
+          {/* ★ 임원 체크박스 */}
+          <div style={{ marginTop: "10px", display: "flex", alignItems: "center" }}>
+            <input
+              type="checkbox"
+              checked={isExecutive}
+              onChange={(e) => {
+                setIsExecutive(e.target.checked);
+
+                if (!e.target.checked) {
+                  setExecCode("");
+                  setExecVerified(false);
+                  setRole("none");
+                }
+              }}
+            />
+            <span style={{ marginLeft: "5px" }}>임원입니까?</span>
+          </div>
+
+          {/* ★ 체크되면 인증창 등장 */}
+          {isExecutive && (
+            <div style={{ marginTop: "10px", display: "flex", gap: "8px" }}>
+              <input
+                type="password"
+                placeholder="임원 인증코드"
+                value={execCode}
+                onChange={(e) => setExecCode(e.target.value)}
+                className="userinput-box"
+                style={{ flex: 1 }}
+              />
+              <button
+                onClick={handleExecVerify}
+                className="submit-button"
+                style={{ width: "30%", }}
+              >
+                인증
+              </button>
+            </div>
+          )}
+        </div>
+        <button
             onClick={handleUserRegister}
             disabled={!isFormValid}
-            className={`submit-button ${isFormValid ? "" : "disabled"}`}
+            className={`submit-button2 ${isFormValid ? "" : "disabled"}`}
           >
             등 록 완 료
           </button>
-        </div>
       </div>
     </div>
   );

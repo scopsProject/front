@@ -174,7 +174,7 @@
 }
 
 /* 등록완료 버튼 */
-.submit-button {
+.submit-button2 {
   width: 100%;
   /* 컨테이너에 맞게 조정 */
   padding: 15px;
@@ -183,14 +183,26 @@
   border-radius: 30px;
   /* 다른 입력창과 같은 둥근 모서리 */
   cursor: pointer;
-  margin-top: 20px;
   /* 위 요소와 간격 */
   font-weight: bold;
   font-size: 16px;
   color: #876400;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  /* 버튼 느낌 나게 그림자 추가 */
-  transition: background 0.3s;
+}
+.submit-button {
+  width: 100%;
+  /* 컨테이너에 맞게 조정 */
+  margin-bottom: 15px;
+  background: #FFEEBB;
+  border: none;
+  border-radius: 30px;
+  /* 다른 입력창과 같은 둥근 모서리 */
+  cursor: pointer;
+  /* 위 요소와 간격 */
+  font-weight: bold;
+  font-size: 16px;
+  color: #876400;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .submit-button:hover {

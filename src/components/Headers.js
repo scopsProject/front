@@ -63,7 +63,7 @@ function Header({ onMenuClick, isOpen, onClose }) {
         </div>
         <div className="username">
           {user ? (
-            <span>안녕하세요, <br/>{user.userName}님</span>
+            <span>안녕하세요, <br/>{user.name}님</span>
           ) : (
             <span>로그인 해주세요</span>
           )}
@@ -78,8 +78,8 @@ function Header({ onMenuClick, isOpen, onClose }) {
   <div className='menu-container'>
     {user && (
       <>
-        <span className='sidefont'>{user.userName}</span>
-        <span>{user.userYear}기</span><br/>
+        <span className='sidefont'>{user.name}</span>
+        <span>{user.year}기</span><br/>
         <span>{user.session}</span>
       </>
     )}

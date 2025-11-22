@@ -29,23 +29,37 @@ function LoginPage() {
       })
         .then(response => {
           console.log('로그인 성공:', response.data);
+
           if (response.data && response.data.user) {
-            const { userName, userYear, session } = response.data.user;
+            // 🔥 [핵심 수정] 서버가 주는 이름(userName, userYear)으로 데이터를 꺼냅니다.
+            const { userName, userYear, session, role } = response.data.user;
 
-            // 1. Context 상태 업데이트
-            setUser({ userName, userYear, session });
+            // 🔥 [핵심 수정] 우리가 앱에서 쓸 이름(name, year)으로 바꿔서 뭉쳐줍니다.
+            const userInfo = {
+              name: userName,  // 서버의 userName을 -> 우리의 name으로 저장
+              year: userYear,  // 서버의 userYear를 -> 우리의 year로 저장
+              session: session,
+              role: role
+            };
 
-            // 2. 토큰 저장
+            // Context 업데이트
+            setUser(userInfo);
+
+            // JWT 토큰 저장
             localStorage.setItem('token', response.data.token);
 
-            // ⬇️ ‼️ 3. [추가] 유저 정보도 localStorage에 저장 (새로고침 대비) ‼️
-            localStorage.setItem('userInfo', JSON.stringify({ userName, userYear, session }));
+            // ADMIN 역할 저장
+            localStorage.setItem('role', role);
+
+            // 유저 정보 저장 (이제 name과 year가 올바르게 들어갑니다)
+            localStorage.setItem('userInfo', JSON.stringify(userInfo));
 
             navigate('/scops/main');
           } else {
+            // ... (기존 에러 처리 코드 유지)
             Swal.fire({
               title: '로그인 실패',
-              text: '로그인 실패: 사용자 정보가 없습니다.',
+              text: '서버에서 사용자 정보를 받지 못했습니다.',
               width: '400px',
               icon: 'error'
             });
