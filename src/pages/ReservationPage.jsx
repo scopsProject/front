@@ -177,10 +177,10 @@ function ReservationPage() {
     const songRegisterId = selectedSongObj ? selectedSongObj.id : null;
 
     const requestBody = {
+      userName: user.name,
       eventName: selectedEvent,
       songName: selectedSong,
       singerName: singerName,
-      userName: userName,
       date: selectedDate,
       startTime: startTime,
       endTime: endTime,
