@@ -28,7 +28,7 @@ function LoginPage() {
         password: password,
       })
         .then(response => {
-          console.log('로그인 성공:', response.data);
+          //console.log('로그인 성공:', response.data);
 
           if (response.data && response.data.user) {
             // 🔥 [핵심 수정] 서버가 주는 이름(userName, userYear)으로 데이터를 꺼냅니다.
