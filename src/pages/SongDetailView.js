@@ -1,6 +1,7 @@
 import './SongDetailView.css';
 import { useState } from 'react';
 import api from '../api';
+import Swal from 'sweetalert2';  // 🔥 추가
 
 function SongDetailView({ song, onClose, eventName, reloadSongs }) {
 
@@ -22,25 +23,59 @@ function SongDetailView({ song, onClose, eventName, reloadSongs }) {
       sessions
     })
     .then(() => {
-      alert("수정 완료되었습니다.");
+      Swal.fire({
+        icon: 'success',
+        title: '수정 완료',
+        text: '수정이 완료되었습니다.',
+        width: 400
+      });
       reloadSongs();
       onClose();
       window.location.reload();
     })
-    .catch(err => console.error("수정 실패:", err));
+    .catch(err => {
+      console.error("수정 실패:", err);
+      Swal.fire({
+        icon: 'error',
+        title: '수정 실패',
+        text: '수정 중 오류가 발생했습니다.',
+        width: 400
+      });
+    });
   };
 
   // 삭제
   const handleDelete = () => {
-    if (!window.confirm("정말 삭제하시겠습니까?")) return;
-
-    api.delete(`/songs/delete/${song.id}`)
-      .then(() => {
-        alert("삭제되었습니다.");
-        onClose();
-        window.location.reload();
-      })
-      .catch(err => console.error("삭제 실패:", err));
+    Swal.fire({
+      title: '정말 삭제하시겠습니까?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '삭제',
+      cancelButtonText: '취소'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        api.delete(`/songs/delete/${song.id}`)
+          .then(() => {
+            Swal.fire({
+              icon: 'success',
+              title: '삭제 완료',
+              text: '곡이 삭제되었습니다.',
+              width: 400
+            });
+            onClose();
+            window.location.reload();
+          })
+          .catch(err => {
+            console.error("삭제 실패:", err);
+            Swal.fire({
+              icon: 'error',
+              title: '삭제 실패',
+              text: '삭제 중 오류가 발생했습니다.',
+              width: 400
+            });
+          });
+      }
+    });
   };
 
   return (
