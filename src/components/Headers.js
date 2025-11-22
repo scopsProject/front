@@ -20,37 +20,39 @@ function Header({ onMenuClick, isOpen, onClose }) {
   };
 
   const deleteUser = async () => {
-  try {
-    // 탈퇴 확인
-    const confirmDelete = window.confirm("정말 탈퇴하시겠습니까?");
-    if (!confirmDelete) return; // 취소하면 함수 종료
+    try {
+      // 탈퇴 확인
+      const confirmDelete = window.confirm("정말 탈퇴하시겠습니까?");
+      if (!confirmDelete) return; // 취소하면 함수 종료
 
-    const token = localStorage.getItem("token");
-    if (!token) return alert("로그인 상태가 아닙니다.");
+      const token = localStorage.getItem("token");
+      if (!token) return alert("로그인 상태가 아닙니다.");
 
-    await axios.delete(`${process.env.REACT_APP_API_URL}/scops/deleteUser`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+      await axios.delete(`${process.env.REACT_APP_API_URL}/scops/deleteUser`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    localStorage.removeItem("token");
-    localStorage.removeItem("userInfo");
-    setUser(null);
-    navigate("/scops/login");
-    Swal.fire({
-            text: '회원 탈퇴 성공',
-            width: '400px',
-            icon: 'success'
-          });
+      localStorage.removeItem("token");
+      localStorage.removeItem("userInfo");
+      setUser(null);
+      navigate("/scops/login");
+      Swal.fire({
+        text: '회원 탈퇴 성공',
+        width: '400px',
+        icon: 'success'
+      });
 
-  } catch (error) {
-    console.error(error);
-    alert("회원 탈퇴 중 오류가 발생했습니다.");
+    } catch (error) {
+      console.error(error);
+      alert("회원 탈퇴 중 오류가 발생했습니다.");
+    }
+  };
+
+  if (!user) {
+    return null; // 화면에 아무것도 그리지 않고 에러 방지
   }
-};
-
-
   return (
     <>
       {/* 헤더 상단 바 */}
@@ -63,7 +65,7 @@ function Header({ onMenuClick, isOpen, onClose }) {
         </div>
         <div className="username">
           {user ? (
-            <span>안녕하세요, <br/>{user.name}님</span>
+            <span>안녕하세요, <br />{user.name}님</span>
           ) : (
             <span>로그인 해주세요</span>
           )}
@@ -73,32 +75,32 @@ function Header({ onMenuClick, isOpen, onClose }) {
       {isOpen && <div className="overlay" onClick={onClose}></div>}
 
       <div className={`side-menu ${isOpen ? 'open' : ''}`}>
-  <button className='sideMyPageBtn' onClick={() => handleNavigation('/scops/myPage')}>MY</button>
-  
-  <div className='menu-container'>
-    {user && (
-      <>
-        <span className='sidefont'>{user.name}</span>
-        <span>{user.year}기</span><br/>
-        <span>{user.session}</span>
-      </>
-    )}
+        <button className='sideMyPageBtn' onClick={() => handleNavigation('/scops/myPage')}>MY</button>
 
-    <ul className="menu-list">
-      <li className='menu-list-li' onClick={() => handleNavigation('/scops/main')}>홈</li>
-      <li className='menu-list-li' onClick={() => handleNavigation('/scops/reservation')}>예약</li>
-      <li className='menu-list-li' onClick={() => handleNavigation('/scops/songRegister')}>곡 등록</li>
-      <li className='menu-list-li' onClick={() => handleNavigation('/scops/calender')}>캘린더</li>
-      <li className='menu-list-li' onClick={() => handleNavigation('/scops/timeTable')}>시간표</li>
-    </ul>
-  </div>
+        <div className='menu-container'>
+          {user && (
+            <>
+              <span className='sidefont'>{user.name}</span>
+              <span>{user.year}기</span><br />
+              <span>{user.session}</span>
+            </>
+          )}
 
-  {/* 버튼은 항상 맨 아래 */}
-  <div className="menu-buttons">
-    <button className='logoutBtn' onClick={logout}>로그아웃</button>
-    <button className='userOutBtn' onClick={deleteUser}>탈퇴</button>
-  </div>
-</div>
+          <ul className="menu-list">
+            <li className='menu-list-li' onClick={() => handleNavigation('/scops/main')}>홈</li>
+            <li className='menu-list-li' onClick={() => handleNavigation('/scops/reservation')}>예약</li>
+            <li className='menu-list-li' onClick={() => handleNavigation('/scops/songRegister')}>곡 등록</li>
+            <li className='menu-list-li' onClick={() => handleNavigation('/scops/calender')}>캘린더</li>
+            <li className='menu-list-li' onClick={() => handleNavigation('/scops/timeTable')}>시간표</li>
+          </ul>
+        </div>
+
+        {/* 버튼은 항상 맨 아래 */}
+        <div className="menu-buttons">
+          <button className='logoutBtn' onClick={logout}>로그아웃</button>
+          <button className='userOutBtn' onClick={deleteUser}>탈퇴</button>
+        </div>
+      </div>
 
     </>
   );

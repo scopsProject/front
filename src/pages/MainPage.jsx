@@ -17,6 +17,7 @@ function MainPage() {
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
 
+
   // 중복 곡 병합 함수
   const mergeSongs = (songList) => {
     const merged = songList.reduce((acc, song) => {
@@ -74,7 +75,9 @@ function MainPage() {
 
   const todayFullDate = weekInfo[0]?.fullDate;
   const todaySongs = mergeSongs(songs.filter(song => song.date === todayFullDate));
-
+  if (!user) {
+    return null; // 화면에 아무것도 그리지 않고 에러 방지
+  }
   return (
     <div className="app-container">
       <div className="App">
@@ -93,29 +96,29 @@ function MainPage() {
             <p>예정된 합주가 없습니다.</p>
           ) : (
             todaySongs
-            .sort((a, b) => a.startTime.localeCompare(b.startTime))
-            .map((song, index) => (
-              <div
-                key={song.id ?? `${song.songName}-${song.date}-${index}`}
-                className="main-container-song"
-              >
-                <div className="main-container-songname">
-                  <span className='main-container-songname-style'>{song.songName}{' '}</span>
-                  <span style={{ fontSize: '10px', color: "#876400" }}>{song.singerName}</span>
-                </div>
-                <div className="main-container-songtime">
-                  {`${song.startTime.slice(0, 5)} - ${song.endTime.slice(0, 5)}`}
-                </div>
-                <div className="main-container-songperson">
-                  {song.sessions.map(s => (
-                    <span key={s.sessionType + s.playerName} style={{ marginRight: '20px' }}>
-                      {`${s.sessionType}.${s.playerName}`}
-                    </span>
-                  ))}
-                </div>
+              .sort((a, b) => a.startTime.localeCompare(b.startTime))
+              .map((song, index) => (
+                <div
+                  key={song.id ?? `${song.songName}-${song.date}-${index}`}
+                  className="main-container-song"
+                >
+                  <div className="main-container-songname">
+                    <span className='main-container-songname-style'>{song.songName}{' '}</span>
+                    <span style={{ fontSize: '10px', color: "#876400" }}>{song.singerName}</span>
+                  </div>
+                  <div className="main-container-songtime">
+                    {`${song.startTime.slice(0, 5)} - ${song.endTime.slice(0, 5)}`}
+                  </div>
+                  <div className="main-container-songperson">
+                    {song.sessions.map(s => (
+                      <span key={s.sessionType + s.playerName} style={{ marginRight: '20px' }}>
+                        {`${s.sessionType}.${s.playerName}`}
+                      </span>
+                    ))}
+                  </div>
 
-              </div>
-            ))
+                </div>
+              ))
           )}
         </div>
 
@@ -131,15 +134,15 @@ function MainPage() {
                   <div className="calendar-day">{day.day}</div>
                   <div className="calendar-date">{day.date}</div>
                   {daySongs
-                  .sort((a, b) => a.startTime.localeCompare(b.startTime))
-                  .map((song, songIndex) => (
-                    <div
-                      key={song.id ?? `${song.songName}-${song.date}-${songIndex}`}
-                      className="calendar-song"
-                    >
-                      {`＊${song.startTime.split(':')[0]}시 `}<span style={{ color: "#EAB211"}}> {song.songName}</span>
-                    </div>
-                  ))}
+                    .sort((a, b) => a.startTime.localeCompare(b.startTime))
+                    .map((song, songIndex) => (
+                      <div
+                        key={song.id ?? `${song.songName}-${song.date}-${songIndex}`}
+                        className="calendar-song"
+                      >
+                        {`＊${song.startTime.split(':')[0]}시 `}<span style={{ color: "#EAB211" }}> {song.songName}</span>
+                      </div>
+                    ))}
                 </div>
               );
             })}
