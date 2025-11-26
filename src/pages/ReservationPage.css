@@ -85,9 +85,8 @@
   border-radius: 4px;
 }
 .reservation-calendar-cell.selected {
-  border: 2px solid #FFEEBB;
   background-color: #FFEEBB;
-  border-radius: 20px;
+  border-radius: 15px;
 }
 
 .reservation-controls {
