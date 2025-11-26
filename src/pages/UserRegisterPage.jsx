@@ -268,10 +268,6 @@ const UserRegisterPage = () => {
             </button>
           </div>
           </div>
-
-          {/* 인증 영역 (항상 존재하지만 보이지만 않게) */}
-          
-
         </div>
         <button
           onClick={handleUserRegister}

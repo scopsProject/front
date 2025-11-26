@@ -80,7 +80,7 @@ function TimeTablePage() {
                     {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((day, colIdx) => (
                       <div
                         key={`${day}-${hour}`}
-                        className="calendar-cell"
+                        className="timeTablecalendar-cell"
                         style={{ gridColumn: colIdx + 2, gridRow: row }}
                       ></div>
                     ))}
