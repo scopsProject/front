@@ -30,9 +30,9 @@ const UserRegisterPage = () => {
   const [execCode, setExecCode] = useState("");          // 입력 코드
   const [role, setRole] = useState("none");              // 기본 none
   const [execVerified, setExecVerified] = useState(false); // 인증 여부
-  
+
   const EXECUTIVE_SECRET = "SCOPS2025";
-  
+
   const isFormValid =
     userId.trim() !== "" &&
     userPassword.trim() !== "" &&
@@ -41,7 +41,7 @@ const UserRegisterPage = () => {
     userYear.trim() !== "" &&
     userSession.trim() !== "" &&
     (userSession !== "etc" || customSession.trim() !== "");
-    
+
   const handleExecVerify = () => {
     if (execCode === EXECUTIVE_SECRET) {
       Swal.fire({
@@ -235,7 +235,8 @@ const UserRegisterPage = () => {
           />
           <intput type="chechbox"></intput>
           {/* ★ 임원 체크박스 */}
-          <div style={{ marginTop: "10px", display: "flex", alignItems: "center" }}>
+          {/* 임원 체크박스 */}
+          <div className="exec-check-container">
             <input
               type="checkbox"
               checked={isExecutive}
@@ -249,37 +250,36 @@ const UserRegisterPage = () => {
                 }
               }}
             />
-            <span style={{ marginLeft: "5px" }}>임원입니까?</span>
+            <span style={{ whiteSpace: "nowrap" }}>임원입니까?</span>
+
+            <div className={`exec-auth-container ${isExecutive ? "active" : ""}`}>
+            <input
+              type="password"
+              placeholder="인증코드"
+              value={execCode}
+              onChange={(e) => setExecCode(e.target.value)}
+              className="exec-input"
+            />
+            <button
+              onClick={handleExecVerify}
+              className="exec-btn"
+            >
+              인증
+            </button>
+          </div>
           </div>
 
-          {/* ★ 체크되면 인증창 등장 */}
-          {isExecutive && (
-            <div style={{ marginTop: "10px", display: "flex", gap: "8px" }}>
-              <input
-                type="password"
-                placeholder="임원 인증코드"
-                value={execCode}
-                onChange={(e) => setExecCode(e.target.value)}
-                className="userinput-box"
-                style={{ flex: 1 }}
-              />
-              <button
-                onClick={handleExecVerify}
-                className="submit-button"
-                style={{ width: "30%", }}
-              >
-                인증
-              </button>
-            </div>
-          )}
+          {/* 인증 영역 (항상 존재하지만 보이지만 않게) */}
+          
+
         </div>
         <button
-            onClick={handleUserRegister}
-            disabled={!isFormValid}
-            className={`submit-button2 ${isFormValid ? "" : "disabled"}`}
-          >
-            등 록 완 료
-          </button>
+          onClick={handleUserRegister}
+          disabled={!isFormValid}
+          className={`submit-button2 ${isFormValid ? "" : "disabled"}`}
+        >
+          등 록 완 료
+        </button>
       </div>
     </div>
   );
