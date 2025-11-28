@@ -198,3 +198,104 @@
 .delete-button:hover {
   color: darkred;
 }
+
+/* 행사 추가 버튼 (ADMIN 전용) */
+.add-event-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #FFEEBB;
+  border: 2px dashed #EAB211; /* 점선 테두리로 구분 */
+  border-radius: 20px;
+  color: #876400;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: all 0.3s;
+}
+
+.add-event-btn:hover {
+  background-color: #fcebb6;
+  border-color: #d4a00f;
+}
+
+/* 모달 오버레이 (배경 어둡게) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* 모달 박스 */
+.modal-content {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 20px;
+  width: 85%;
+  max-width: 350px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.modal-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.modal-input-group label {
+  font-size: 14px;
+  color: #876400;
+  font-weight: bold;
+}
+
+/* 모달 내부 인풋 스타일 (기존 스타일 재사용) */
+.modal-input {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: #FFEEBB;
+  color: #333;
+  outline: none;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modal-btn.cancel {
+  background-color: #eee;
+  color: #555;
+}
+
+.modal-btn.save {
+  background-color: #EAB211;
+  color: white;
+}
