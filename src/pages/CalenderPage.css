@@ -28,12 +28,12 @@
   text-align: center;
   font-size: 20px;
   margin: 10px 0;
+  color: #EAB211;
+  font-family: "suit";
 }
 
 /* 양쪽 화살표 버튼 */
 .circle-btn {
-  position: absolute;
-  top: 5px;
   width: 35px;
   height: 35px;
   border-radius: 50%;
@@ -41,48 +41,73 @@
   background-color: #ffeaa7;
   cursor: pointer;
   font-size: 18px;
+  color: #FFFFFF;
+}
+.month-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 좌/중앙/우 균일 배치 */
+  position: relative;
 }
 
 .left-btn {
-  left: 10px;
+  margin-left: 10px;
 }
 
 .right-btn {
-  right: 10px;
+  margin-right: 10px;
+}
+.calendar-day-header-container {
+  display: flex;
+  justify-content: space-between; /* 같은 간격 */
+  width: 100%;
+}
+
+.calendar-day-header {
+  flex: 1;              /* 균등 분배 */
+  text-align: center;   /* 가운데 정렬 */
 }
 
 /* 달력 그리드 */
 .calendarPage-calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 0;
+  border: 1px solid #FFFFFF;
+  border-radius: 30px;
+  box-shadow: 0 0 10px rgba(255, 230, 130, 0.9);
+  overflow: hidden;
+}
+/* 내부 구분선만 표시 */
+.calendarPage-calendar-grid > .calendarPage-calendar-cell:not(:nth-child(7n)) {
+  border-right: 1px solid #f0e0a0;
+}
+
+.calendarPage-calendar-grid > .calendarPage-calendar-cell:not(:nth-last-child(-n + 7)) {
+  border-bottom: 1px solid #f0e0a0;
 }
 
 /* 요일 헤더 */
 .calendar-day-header {
   text-align: center;
   padding: 5px 0;
-  background-color: #fff8e7;
-  border: 1px solid #f0e0a0;
   border-radius: 0;
   font-weight: bold;
+  font-size: 13px;
+  color: #EAB211;
+  font-family: "suit";
 }
 
 /* 날짜 칸 */
 .calendarPage-calendar-cell {
-  height: 80px; /* 날짜칸 고정 높이 */
-  border: 1px solid #f0e0a0;
-  padding: 2px;
-  display: flex;
-  flex-direction: column;
-  border-radius: 0;
-  overflow: hidden;
+  border: none;
+  height: 80px;
 }
-
 /* 날짜 숫자 */
 .date-number {
   font-size: 14px;
-  font-weight: bold;
+  font-family: "suit";
+  margin-left: 5%;
+  color: #EAB211;
 }
 
 /* 기간 이벤트 바 */
@@ -98,7 +123,7 @@
 
 /* 하루 이벤트 */
 .events {
-  margin-top: 2px;
+  margin-top: 10px;
   overflow: hidden;
 }
 

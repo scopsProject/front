@@ -83,14 +83,19 @@ function CalenderPage() {
         />
 
         <div className="calendarPage-calendar-container">
-          <button className="circle-btn left-btn" onClick={prevMonth}>{"<"}</button>
-          <h2 className="month-title">{currentYear}년 {currentMonth}월</h2>
-          <button className="circle-btn right-btn" onClick={nextMonth}>{">"}</button>
+          <div className="month-header">
+            <button className="circle-btn left-btn" onClick={prevMonth}>{"🡸"}</button>
+            <h2 className="month-title">{currentYear}년 {currentMonth}월</h2>
+            <button className="circle-btn right-btn" onClick={nextMonth}>{"🢂"}</button>
+          </div>
+
+          <div className="calendar-day-header-container">
+            {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((day) => (
+              <span key={day} className="calendar-day-header">{day}</span>
+            ))}
+          </div>
 
           <div className="calendarPage-calendar-grid">
-            {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((day) => (
-              <div key={day} className="calendar-day-header">{day}</div>
-            ))}
             {calendarCells.map((date, idx) => (
               <div key={idx} className="calendarPage-calendar-cell">
                 {date && (
