@@ -284,7 +284,7 @@ function ReservationPage() {
                   .filter(song => song.date === day.date)
                   .sort((a, b) => a.startTime.localeCompare(b.startTime))
                   .map((song, i) => (
-                    <div key={i} className="reservation-calendar-song">{`${song.startTime.split(':')[0]}시 `}<span style={{ color: "#EAB211" }}> {song.songName}</span></div>
+                    <div key={i} className="reservation-calendar-song">{`·${song.startTime.split(':')[0]}시 `}<span style={{ color: "#EAB211" }}> {song.songName}</span></div>
                   ))
                 }
               </div>

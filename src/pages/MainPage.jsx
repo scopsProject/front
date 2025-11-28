@@ -140,7 +140,7 @@ function MainPage() {
                         key={song.id ?? `${song.songName}-${song.date}-${songIndex}`}
                         className="calendar-song"
                       >
-                        {`＊${song.startTime.split(':')[0]}시 `}<span style={{ color: "#EAB211" }}> {song.songName}</span>
+                        {`·${song.startTime.split(':')[0]}시 `}<span style={{ color: "#EAB211" }}> {song.songName}</span>
                       </div>
                     ))}
                 </div>
