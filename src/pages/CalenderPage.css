@@ -169,7 +169,6 @@
    - 기존 중복된 코드 정리 및 디자인 개선
 ========================================= */
 .event-bar {
-  background-color: #f3d068;
   color: #787878;
   font-size: 6px;
   font-family: "suit";
@@ -219,4 +218,135 @@
   line-height: 1.2;
   font-family: "suit";
   color: #967720;
+}
+
+/* 🔥 [신규] 모달 스타일 */
+/* 모달 내부 컨테이너 */
+.calender-main-container {
+  border: none;
+  border-radius: 0px;
+  height: 300px; /* 모달 크기에 맞춤 */
+  overflow-y: auto;
+  padding: 10px;
+  margin: 0;
+}
+
+/* 스크롤바 숨기기 (선택사항) */
+.calender-main-container::-webkit-scrollbar {
+  width: 5px;
+}
+.calender-main-container::-webkit-scrollbar-thumb {
+  background-color: #FFE495;
+  border-radius: 10px;
+}
+
+/* 개별 곡 아이템 (줄) */
+.calender-main-container-song {
+  /* 🔥 구분선 색상 변경 (기존: #FFE495 -> 예: #EAB211) */
+  border-bottom: 1px solid #FFFFFF; 
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+.calender-main-container-song:last-child {
+  border-bottom: none; /* 마지막 줄은 선 없애기 */
+}
+
+/* 곡 제목 영역 */
+.calender-main-container-songname {
+  font-size: 20px; /* 모달이라 폰트 살짝 줄임 (MainPage는 30px) */
+  margin-bottom: 4px;
+}
+
+/* 곡 제목 뱃지 스타일 */
+.calender-main-container-songname-style {
+  font-family: 'suit-regular';
+  margin-right: 5px;
+  border-radius: 50px;
+  padding: 2px 10px;
+  font-size: 16px;
+
+  /* 🔥 뱃지 색상 변경 (여기를 수정하세요!) */
+  background-color: #FFFFFF;  /* 진한 노랑 배경 */
+  color: #634900;             /* 흰색 글씨 */
+  box-shadow: 0 0 5px rgba(234, 178, 17, 0.4);
+}
+
+/* 가수 이름 */
+.calender-main-container-singer {
+  font-size: 9px;
+  color: #876400; /* 짙은 갈색 */
+}
+
+/* 시간 표시 */
+.calender-main-container-songtime {
+  font-family: 'suit-regular';
+  margin-top: 5px;
+  color: #876400;
+  font-size: 12px;
+}
+
+/* 세션 정보 */
+.calender-main-container-songperson {
+  font-family: 'suit-regular';
+  margin-bottom: 5px;
+  color: #9C7F2C; /* 포인트 색상 */
+  font-size: 12px;
+  margin-top: 2px;
+}
+.calendermodal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정 배경 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.calendermodal-content {
+  background-color: #FFF6DC;
+  width: 85%;
+  max-width: 350px;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.calendermodal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.calendermodal-date-title {
+  font-family: 'suit-regular';
+  font-size: 18px;
+  color: #967720;
+  border: 1px solid #FFFFFF;
+  border-radius: 30px;
+  background-color: #FFFFFF;
+  box-shadow: 0 0 10px rgba(241, 204, 56, 0.9);
+}
+.calendermodal-day{
+  font-family: 'suit-regular';
+  color: #876400;
+  font-size: 24px;
+}
+.calenderclose-btn {
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #FFFFFF;
+  background-color: #FFE79F;
+  box-shadow: 0 0 10px rgba(241, 204, 56, 0.9);
+  border-radius: 30px;
 }

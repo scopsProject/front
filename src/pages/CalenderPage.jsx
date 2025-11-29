@@ -10,22 +10,34 @@ function CalenderPage() {
   const today = new Date();
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
   const [currentMonth, setCurrentMonth] = useState(today.getMonth() + 1);
-  
-  const [reservations, setReservations] = useState([]); 
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const closeMenu = () => setMenuOpen(false);
+
+  const EVENT_COLORS = [
+    "#EAB211", // 1. 기존 노랑 (Scops 시그니처)
+    "#FF8A65", // 2. 살구색/오렌지
+    "#9575CD", // 3. 연한 보라
+    "#4DB6AC", // 4. 청록색 (Teal)
+    "#F06292", // 5. 핑크
+    "#7986CB", // 6. 인디고
+    "#A1887F", // 7. 브라운
+  ];
   // 🔥 [수정] processedEvents: 층수(rowIndex)가 계산된 행사 목록
-  const [processedEvents, setProcessedEvents] = useState([]); 
+  const [processedEvents, setProcessedEvents] = useState([]);
+  const [reservations, setReservations] = useState([]);
+
 
   const token = localStorage.getItem('token');
   let userName = "사용자";
   if (token) {
     try {
-        const decoded = jwtDecode(token);
-        userName = decoded.name;
-    } catch(e) {}
+      const decoded = jwtDecode(token);
+      userName = decoded.name;
+    } catch (e) { }
   }
 
-  const toggleMenu = () => setMenuOpen(!menuOpen);
-  const closeMenu = () => setMenuOpen(false);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedDateInfo, setSelectedDateInfo] = useState({ date: null, songs: [] });
 
   // 날짜 계산
   const getDaysInMonth = (year, month) => {
@@ -37,7 +49,12 @@ function CalenderPage() {
     }
     return days;
   };
-
+  // 🎨 [신규] 이벤트 ID를 받아서 색상을 반환하는 함수
+  const getEventColor = (eventId) => {
+    // ID를 색상 개수로 나눈 나머지(%)를 인덱스로 사용 (순환)
+    const index = eventId % EVENT_COLORS.length;
+    return EVENT_COLORS[index];
+  };
   const daysInMonth = getDaysInMonth(currentYear, currentMonth);
   const firstDay = daysInMonth[0].getDay();
   const calendarCells = Array(firstDay).fill(null).concat(daysInMonth);
@@ -54,31 +71,35 @@ function CalenderPage() {
 
   // 🔥 [핵심 알고리즘] 행사들에 층수(rowIndex) 부여하기
   const processEventsWithRows = (rawEvents) => {
-    // 1. 시작일 순서, 기간 긴 순서로 정렬
     const sortedEvents = [...rawEvents].sort((a, b) => {
       if (a.createdDate !== b.createdDate) return a.createdDate.localeCompare(b.createdDate);
-      return b.endDate.localeCompare(a.endDate); // 기간 긴게 먼저
+      return b.endDate.localeCompare(a.endDate);
     });
 
     const eventsWithRows = [];
 
     sortedEvents.forEach((event) => {
       let rowIndex = 0;
-      // 2. 빈 층 찾기 (테트리스)
-      while (true) {
-        // 현재 rowIndex 층에, 날짜가 겹치는 다른 행사가 있는지 확인
-        const isOccupied = eventsWithRows.some((existingEvent) => {
-          if (existingEvent.rowIndex !== rowIndex) return false;
-          // 날짜 겹침 체크 (StartA <= EndB && EndA >= StartB)
-          return (event.createdDate <= existingEvent.endDate && event.endDate >= existingEvent.createdDate);
-        });
 
+      while (true) {
+        // 1. 현재 층(rowIndex)에 겹치는 행사가 있는지 확인
+        let isOccupied = false;
+
+        for (const existingEvent of eventsWithRows) {
+          if (existingEvent.rowIndex === rowIndex) {
+            // 기간 겹침 체크
+            if (event.createdDate <= existingEvent.endDate && event.endDate >= existingEvent.createdDate) {
+              isOccupied = true;
+              break; // 겹치는거 찾았으니 더 볼 필요 없음
+            }
+          }
+        }
+        // 2. 안 겹치면 배정, 겹치면 다음 층으로
         if (!isOccupied) {
-          // 빈 층을 찾았으면 할당하고 종료
           eventsWithRows.push({ ...event, rowIndex });
           break;
         }
-        rowIndex++; // 겹치면 다음 층으로 이동
+        rowIndex++;
       }
     });
 
@@ -116,13 +137,35 @@ function CalenderPage() {
       .filter((r) => r.date === dateStr)
       .sort((a, b) => a.startTime.localeCompare(b.startTime));
   };
+  const handleDateClick = (date) => {
+    if (!date) return;
 
+    // 선택한 날짜의 예약된 곡들 가져오기
+    const songs = getReservationsByDate(date);
+
+    setSelectedDateInfo({
+      date: date,
+      songs: songs
+    });
+    setShowModal(true);
+  };
+  const getFormattedDate = (date) => {
+    if (!date) return "";
+    return `${date.getMonth() + 1}/${date.getDate()}`;
+  };
+
+  // 🔥 [수정] 요일 포맷 함수 분리 (Sat)
+  const getFormattedDay = (date) => {
+    if (!date) return "";
+    const week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    return week[date.getDay()];
+  };
   // 오늘 날짜 확인
   const isToday = (date) => {
     if (!date) return false;
     return date.getDate() === today.getDate() &&
-           date.getMonth() === today.getMonth() &&
-           date.getFullYear() === today.getFullYear();
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear();
   };
 
   const prevMonth = () => {
@@ -149,7 +192,7 @@ function CalenderPage() {
     const dateStr = formatDate(date);
 
     // 1. 오늘 날짜에 걸쳐있는 모든 행사 가져오기
-    const todaysEvents = processedEvents.filter(event => 
+    const todaysEvents = processedEvents.filter(event =>
       dateStr >= event.createdDate && dateStr <= event.endDate
     );
 
@@ -159,7 +202,7 @@ function CalenderPage() {
     const maxRowIndex = Math.max(...todaysEvents.map(e => e.rowIndex));
 
     const renderElements = [];
-    
+
     // 3. 0층부터 꼭대기 층까지 차례대로 쌓기
     for (let i = 0; i <= maxRowIndex; i++) {
       const event = todaysEvents.find(e => e.rowIndex === i);
@@ -169,7 +212,7 @@ function CalenderPage() {
         const isStart = dateStr === event.createdDate;
         const isEnd = dateStr === event.endDate;
         renderElements.push(
-          <div key={`evt-${i}`} className={`event-bar ${isStart ? 'start' : ''} ${isEnd ? 'end' : ''}`}>
+          <div key={`evt-${i}`} className={`event-bar ${isStart ? 'start' : ''} ${isEnd ? 'end' : ''}`} style={{ backgroundColor: getEventColor(event.id) }}>
             {isStart ? event.eventName : '\u00A0'}
           </div>
         );
@@ -202,7 +245,7 @@ function CalenderPage() {
           </div>
           <div className="calendarPage-calendar-grid">
             {calendarCells.map((date, idx) => (
-              <div key={idx} className="calendarPage-calendar-cell">
+              <div key={idx} className="calendarPage-calendar-cell" onClick={() => handleDateClick(date)}>
                 {date && (
                   <>
                     <div className="cell-top">
@@ -231,6 +274,59 @@ function CalenderPage() {
             ))}
           </div>
         </div>
+        {showModal && (
+          <div className="calendermodal-overlay" onClick={() => setShowModal(false)}>
+            <div className="calendermodal-content" onClick={(e) => e.stopPropagation()}>
+              <div className="calendermodal-header">
+                <span className="calendermodal-date-title">
+                  {getFormattedDate(selectedDateInfo.date)}
+                </span>
+                <span className="calendermodal-day">
+                  {getFormattedDay(selectedDateInfo.date)}
+                </span>
+                <button className="calenderclose-btn" onClick={() => setShowModal(false)}>&times;</button>
+              </div>
+
+              {/* ✨ 클래스 이름 변경: main-container -> calender-main-container */}
+              <div className="calender-main-container">
+                {selectedDateInfo.songs.length === 0 ? (
+                  <p style={{ textAlign: 'center', color: '#888', marginTop: '20px' }}>
+                    예약된 곡이 없습니다.
+                  </p>
+                ) : (
+                  selectedDateInfo.songs.map((song, index) => (
+
+                    /* ✨ 클래스 이름 변경: main-container-song -> calender-main-container-song */
+                    <div key={index} className="calender-main-container-song">
+
+                      <div className="calender-main-container-songname">
+                        {/* ✨ 곡 제목 스타일 변경 */}
+                        <span className='calender-main-container-songname-style'>{song.songName}{' '}</span>
+                        {/* ✨ 가수 이름 클래스 별도 적용 (CSS에서 .calender-main-container-singer) */}
+                        <span className="calender-main-container-singer">{song.singerName}</span>
+                      </div>
+
+                      {/* ✨ 시간 스타일 변경 */}
+                      <div className="calender-main-container-songtime">
+                        {`${song.startTime.slice(0, 5)} - ${song.endTime.slice(0, 5)}`}
+                      </div>
+
+                      {/* ✨ 세션 스타일 변경 */}
+                      <div className="calender-main-container-songperson">
+                        {song.sessions && song.sessions.map((s, idx) => (
+                          <span key={idx} style={{ marginRight: '10px' }}>
+                            {s.sessionType ? `${s.sessionType}.${s.playerName}` : s.playerName}
+                          </span>
+                        ))}
+                      </div>
+
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
