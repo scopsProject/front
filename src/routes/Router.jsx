@@ -14,6 +14,7 @@ import UserRegisterPage from '../pages/UserRegisterPage';
 // ⬇️ 방금 만든 PrivateRoute를 import 하세요 (경로 확인 필수)
 import PrivateRoute from '../components/PrivateRoute'; 
 import MyPage from '../pages/MyPage';
+import MyPageEdit from '../pages/MyPageEdit';
 
 function Router() {
   return (
@@ -39,6 +40,7 @@ function Router() {
             <Route path="/scops/timeTable" element={<TimeTablePage />} />
             <Route path="/scops/songAdd" element={<SongAddPage />} />
             <Route path="/scops/myPage" element={<MyPage />} />
+            <Route path="/scops/edit" element={<MyPageEdit />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/scops/login" replace />} />

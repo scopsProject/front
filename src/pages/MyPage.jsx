@@ -5,14 +5,40 @@ import '../components/Headers.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import React from "react";
+import { useNavigate } from 'react-router-dom';
+import api from "../api.js";
 
 const MyPage = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { user } = useAuth();
+    const navigate = useNavigate();
     const userName = user?.userName;
     const handleMenuClick = () => setIsMenuOpen(true);
     const handleCloseMenu = () => setIsMenuOpen(false);
+    const [timeTables, setTimeTables] = useState([]);
 
+    useEffect(() => {
+        api.get('/scops/timetable')
+            .then(res => setTimeTables(res.data))
+            .catch(err => console.error("시간표 로딩 실패", err));
+    }, []);
+
+    const getSchedule = (dayIndex, hour) => {
+        const weekDays = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
+        const currentDay = weekDays[dayIndex];
+
+        // 해당 요일, 해당 시간에 걸리는 수업 찾기
+        // (간단하게 '시작 시간'이 해당 시간인 경우만 표시하거나, 범위 체크)
+        return timeTables.find(t => {
+            const startH = parseInt(t.startTime.split(':')[0], 10);
+            const endH = parseInt(t.endTime.split(':')[0], 10);
+            return t.dayOfWeek === currentDay && hour >= startH && hour < endH;
+        });
+    };
+
+    const handleEdit = (path) => {
+        navigate(path);
+    }
     return (
         <div className="app-container">
             <div className="App">
@@ -28,14 +54,14 @@ const MyPage = () => {
                         </span>
                         <div className="profile-sessionAndYear">
                             <span className="profile-code">
-                            {user?.session || "SESSION"}
-                        </span>
-                        {/* 기수 */}
-                        <span className="profile-generation">
-                            {user ? `${user.year}기` : "기수"}
-                        </span>
+                                {user?.session || "SESSION"}
+                            </span>
+                            {/* 기수 */}
+                            <span className="profile-generation">
+                                {user ? `${user.year}th` : "기수"}
+                            </span>
                         </div>
-                        <button className="edit-button">수정하기</button>
+                        <button className="edit-button" onClick={() => handleEdit('/scops/edit')}>수정하기</button>
                     </div>
 
                     {/* 내 시간표 제목 */}
@@ -61,8 +87,8 @@ const MyPage = () => {
                         <div className="timetable-body">
                             {/* 왼쪽 시간 라벨 */}
                             <div className="time-column">
-                                {Array.from({ length: 11 }).map((_, idx) => {
-                                    const hour = 10 + idx; // 10 ~ 20
+                                {Array.from({ length: 12 }).map((_, idx) => {
+                                    const hour = 9 + idx; // 10 ~ 20
                                     return (
                                         <div key={hour} className="time-label">
                                             {hour}
@@ -73,18 +99,53 @@ const MyPage = () => {
 
                             {/* 오른쪽 시간표 그리드 */}
                             <div className="timetable-grid">
-                                {/* 기본 빈 셀들 */}
-                                {Array.from({ length: 11 }).map((_, row) => (
-                                    <React.Fragment key={row}>
-                                        {Array.from({ length: 7 }).map((_, col) => (
-                                            <div
-                                                key={`${row}-${col}`}
-                                                className="timetable-cell"
-                                            />
-                                        ))}
-                                    </React.Fragment>
-                                ))}
-
+                                {Array.from({ length: 12 }).map((_, row) => {
+                                    const currentHour = 9 + row; // 10시, 11시...
+                                    return (
+                                        <React.Fragment key={row}>
+                                            {Array.from({ length: 7 }).map((_, col) => {
+                                                const schedule = getSchedule(col, currentHour); // 일정 찾기
+                                                const isStartBlock = schedule &&
+                                                    parseInt(schedule.startTime.split(':')[0], 10) === currentHour;
+                                                return (
+                                                    <div
+                                                        key={`${row}-${col}`}
+                                                        className="timetable-cell"
+                                                        // 수업이 있으면 색칠하기
+                                                        style={schedule ? { backgroundColor: '#FFEEBB', padding: '1px' } : {}}
+                                                    >
+                                                        {/* 🔥 [핵심] 수업의 "시작 시간 칸"에만 제목과 메모 표시 */}
+                                                        {isStartBlock && (
+                                                            <div style={{
+                                                                height: '100%',
+                                                                overflow: 'hidden',
+                                                                display: 'flex',
+                                                                flexDirection: 'column',
+                                                                justifyContent: 'center' // 세로 중앙 정렬
+                                                            }}>
+                                                                <div style={{
+                                                                    fontFamily: 'suit',
+                                                                    color: '#634900',
+                                                                    fontSize: '9px', // 글자 크기 조정
+                                                                    lineHeight: '1.1'
+                                                                }}>
+                                                                    {schedule.title}
+                                                                </div>
+                                                                <div style={{
+                                                                    fontSize: '7px',
+                                                                    color: '#EAB211',
+                                                                    lineHeight: '1'
+                                                                }}>
+                                                                    {schedule.memo}
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                );
+                                            })}
+                                        </React.Fragment>
+                                    );
+                                })}
                             </div>
                         </div>
                     </section>
