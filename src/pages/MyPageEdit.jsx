@@ -4,7 +4,6 @@ import Headers from '../components/Headers';
 import '../components/Headers.css';
 import Swal from 'sweetalert2';
 import { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
 import React from "react";
 import api from "../api.js";
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +11,6 @@ import { useNavigate } from 'react-router-dom';
 const MyPageEdit = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { user } = useAuth();
-    const userName = user?.userName;
     const navigate = useNavigate();
     const handleMenuClick = () => setIsMenuOpen(true);
     const handleCloseMenu = () => setIsMenuOpen(false);

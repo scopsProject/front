@@ -3,7 +3,6 @@ import './MyPage.css';
 import Headers from '../components/Headers';
 import '../components/Headers.css';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import api from "../api.js";
@@ -12,7 +11,6 @@ const MyPage = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { user } = useAuth();
     const navigate = useNavigate();
-    const userName = user?.userName;
     const handleMenuClick = () => setIsMenuOpen(true);
     const handleCloseMenu = () => setIsMenuOpen(false);
     const [timeTables, setTimeTables] = useState([]);
