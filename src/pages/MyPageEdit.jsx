@@ -259,7 +259,7 @@ const MyPageEdit = () => {
                         <div className="modal-content add-modal">
                             <div className="modal-header-row">
                                 <h2 className="modal-title">{selectedId ? formData.title : "추가하기"}</h2>
-                                <span className="modal-memo">{selectedId ? formData.memo : "추가하기"}</span>
+                                <span className="modal-memo">{selectedId ? formData.memo : ""}</span>
                                 <button className="modal-close-btn" onClick={() => setShowModal(false)}>X</button>
                             </div>
 
