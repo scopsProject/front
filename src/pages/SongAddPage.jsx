@@ -3,7 +3,7 @@ import Headers from '../components/Headers';
 import Swal from 'sweetalert2';
 import '../components/Headers.css';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import api from '../api';
 import { jwtDecode } from "jwt-decode";
 
@@ -45,21 +45,26 @@ function SongAddPage() {
   // ---------------------
   // 🔥 행사명 불러오기 함수 (재사용을 위해 분리)
   // ---------------------
-  const fetchEvents = () => {
+  const fetchEvents = useCallback(() => {
     api.get(`/songs/events`)
       .then(res => {
         setEventList(res.data);
-        // 리스트가 있고 선택된게 없으면 첫번째꺼 선택
-        if (res.data.length > 0 && !selectedEvent) {
-          setSelectedEvent(res.data[0]);
-        }
+        
+        // 데이터가 있고, 아직 선택된 게 없을 때만 첫 번째 자동 선택
+        // (주의: setSelectedEvent 함수형 업데이트를 사용하여 최신 상태 반영)
+        setSelectedEvent(prev => {
+            if (res.data.length > 0 && !prev) {
+                return res.data[0];
+            }
+            return prev;
+        });
       })
       .catch(err => console.error('행사명 불러오기 실패:', err));
-  };
+  }, []); // 의존성 배열 비워둠 (API 호출 함수는 한 번만 정의되면 됨)
 
   useEffect(() => {
     fetchEvents();
-  }, []);
+  }, [fetchEvents]);
 
   // 드롭다운 외부 클릭 처리
   useEffect(() => {
