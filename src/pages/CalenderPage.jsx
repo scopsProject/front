@@ -70,36 +70,44 @@ function CalenderPage() {
   };
 
   // 🔥 [핵심 알고리즘] 행사들에 층수(rowIndex) 부여하기
+  // 🔥 [수정] 행사들에 층수(rowIndex) 부여하기 (Null 방어 코드 추가)
   const processEventsWithRows = (rawEvents) => {
     const sortedEvents = [...rawEvents].sort((a, b) => {
-      if (a.createdDate !== b.createdDate) return a.createdDate.localeCompare(b.createdDate);
-      return b.endDate.localeCompare(a.endDate);
+      // 🛡️ [방어 코드] 데이터가 null이면 빈 문자열("")로 취급해서 에러 방지
+      const startA = a.createdDate || "";
+      const startB = b.createdDate || "";
+      const endA = a.endDate || "";
+      const endB = b.endDate || "";
+
+      if (startA !== startB) return startA.localeCompare(startB);
+      return endB.localeCompare(endA); 
     });
 
     const eventsWithRows = [];
 
     sortedEvents.forEach((event) => {
       let rowIndex = 0;
+      
+      // 날짜가 없는 잘못된 데이터는 건너뛰기 (선택사항)
+      if (!event.createdDate || !event.endDate) return;
 
       while (true) {
-        // 1. 현재 층(rowIndex)에 겹치는 행사가 있는지 확인
         let isOccupied = false;
-
+        
         for (const existingEvent of eventsWithRows) {
           if (existingEvent.rowIndex === rowIndex) {
-            // 기간 겹침 체크
             if (event.createdDate <= existingEvent.endDate && event.endDate >= existingEvent.createdDate) {
               isOccupied = true;
-              break; // 겹치는거 찾았으니 더 볼 필요 없음
+              break; 
             }
           }
         }
-        // 2. 안 겹치면 배정, 겹치면 다음 층으로
+
         if (!isOccupied) {
           eventsWithRows.push({ ...event, rowIndex });
           break;
         }
-        rowIndex++;
+        rowIndex++; 
       }
     });
 

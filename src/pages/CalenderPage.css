@@ -86,7 +86,7 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   border: 1px solid #FFFFFF;
-  border-radius: 30px;
+  border-radius: 5px;
   box-shadow: 0 0 10px rgba(255, 230, 130, 0.9);
   overflow: hidden;
 }
