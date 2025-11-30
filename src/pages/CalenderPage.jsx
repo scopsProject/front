@@ -14,13 +14,13 @@ function CalenderPage() {
   const closeMenu = () => setMenuOpen(false);
 
   const EVENT_COLORS = [
-    "#EAB211", // 1. 기존 노랑 (Scops 시그니처)
-    "#FF8A65", // 2. 살구색/오렌지
-    "#9575CD", // 3. 연한 보라
-    "#4DB6AC", // 4. 청록색 (Teal)
-    "#F06292", // 5. 핑크
-    "#7986CB", // 6. 인디고
-    "#A1887F", // 7. 브라운
+    "#FC9798",
+    "#A9EAFC",
+    "#E9FC91",
+    "#FCD49B",
+    "#EFB5FC",
+    "#B5FCCA",
+    "#B5C7FC",
   ];
   // 🔥 [수정] processedEvents: 층수(rowIndex)가 계산된 행사 목록
   const [processedEvents, setProcessedEvents] = useState([]);
