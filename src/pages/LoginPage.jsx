@@ -114,7 +114,7 @@ function LoginPage() {
             className="login-button"
             onClick={handleLogin}
           >
-            LOGIN
+            <span style={{color: "#876400", fontFamily:"suit"}}>LOGIN</span>
           </button>
         </div>
       </div>
