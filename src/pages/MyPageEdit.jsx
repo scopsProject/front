@@ -39,6 +39,14 @@ const MyPageEdit = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        if (name === "title" && value.length > 15) {
+            Swal.fire({
+                icon: 'error',
+                text: '시간표 이름은 최대 15글자까지 입력 가능합니다.',
+                width: '350px'
+            });
+            return;
+        }
         setFormData({ ...formData, [name]: value });
     };
 
@@ -213,7 +221,7 @@ const MyPageEdit = () => {
                                                         className="timetable-cell"
                                                         onClick={() => schedule && handleEditClick(schedule)}
                                                         // 🔥 [7] 데이터 있으면 색칠
-                                                        style={schedule ? { backgroundColor: '#FFEEBB', padding: '1px', cursor:"pointer"} : {}}
+                                                        style={schedule ? { backgroundColor: '#FFEEBB', padding: '1px', cursor: "pointer" } : {}}
                                                     >
                                                         {/* 🔥 [8] 시작 칸에 제목/메모 표시 */}
                                                         {isStartBlock && (

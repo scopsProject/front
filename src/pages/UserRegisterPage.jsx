@@ -140,6 +140,14 @@ const UserRegisterPage = () => {
                 });
                 return;
               }
+              if (value.length > 5) {
+                Swal.fire({
+                  icon: 'error',
+                  text: '이름은 최대 5글자까지 입력 가능합니다.',
+                  width: '400px'
+                });
+                return;
+              }
 
               setUserName(value);
             }}
