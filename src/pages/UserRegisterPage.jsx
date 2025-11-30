@@ -132,13 +132,13 @@ const UserRegisterPage = () => {
             value={userName}
             onChange={(e) => {
               const value = e.target.value;
-              if (/[^a-zA-Z가-힣]/.test(value)) {
+              if (/[^a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ]/.test(value)) {
                 Swal.fire({
                   icon: 'error',
                   text: '이름에는 한글과 영문만 입력 가능합니다. (공백, 숫자, 특수문자 불가)',
                   width: '400px'
                 });
-                return; // 입력 차단
+                return;
               }
 
               setUserName(value);
