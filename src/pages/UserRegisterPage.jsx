@@ -107,6 +107,14 @@ const UserRegisterPage = () => {
       })
       .catch(err => {
         console.error('회원가입 실패:', err);
+        const errorMessage = error.response?.data || "회원가입 중 오류가 발생했습니다.";
+
+        Swal.fire({
+          title: '회원가입 실패',
+          text: errorMessage, // 👈 여기에 "이미 가입된 학번입니다."가 뜹니다.
+          width: '400px',
+          icon: 'error'
+        });
       });
   };
 
@@ -124,14 +132,13 @@ const UserRegisterPage = () => {
             value={userName}
             onChange={(e) => {
               const value = e.target.value;
-
-              if (/[0-9]/.test(value)) {
+              if (/[^a-zA-Z가-힣]/.test(value)) {
                 Swal.fire({
                   icon: 'error',
-                  text: '이름에는 숫자를 입력할 수 없습니다.',
+                  text: '이름에는 한글과 영문만 입력 가능합니다. (공백, 숫자, 특수문자 불가)',
                   width: '400px'
                 });
-                return;
+                return; // 입력 차단
               }
 
               setUserName(value);
@@ -253,20 +260,20 @@ const UserRegisterPage = () => {
             <span style={{ whiteSpace: "nowrap" }}>임원입니까?</span>
 
             <div className={`exec-auth-container ${isExecutive ? "active" : ""}`}>
-            <input
-              type="password"
-              placeholder="인증코드"
-              value={execCode}
-              onChange={(e) => setExecCode(e.target.value)}
-              className="exec-input"
-            />
-            <button
-              onClick={handleExecVerify}
-              className="exec-btn"
-            >
-              인증
-            </button>
-          </div>
+              <input
+                type="password"
+                placeholder="인증코드"
+                value={execCode}
+                onChange={(e) => setExecCode(e.target.value)}
+                className="exec-input"
+              />
+              <button
+                onClick={handleExecVerify}
+                className="exec-btn"
+              >
+                인증
+              </button>
+            </div>
           </div>
         </div>
         <button
