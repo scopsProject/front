@@ -150,7 +150,7 @@ const MyPage = () => {
 
                     {/* 하단 버튼 */}
                     <section className="bottom-button-area">
-                        <button className="friends-button">친구 시간표 보러가기</button>
+                        <button className="friends-button" onClick={() => navigate('/scops/timeTable')}>친구 시간표 보러가기</button>
                     </section>
                 </div>
 
