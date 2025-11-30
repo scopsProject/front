@@ -12,7 +12,7 @@ code {
     monospace;
 }
 @font-face{
-  font-family: "suit-regular";
+  font-family: "suit-R";
   src: url("./assets/fonts/SUIT-Regular.ttf") format("truetype");
 }
 @font-face{
@@ -20,10 +20,10 @@ code {
   src: url("./assets/fonts/SUIT-Light.ttf") format("truetype");
 }
 @font-face{
-  font-family: "suit-EL";
+  font-family: "suit-E";
   src: url("./assets/fonts/SUIT-ExtraLight.ttf") format("truetype");
 }
 @font-face{
-  font-family: "ramaraja";
+  font-family: "rr";
   src: url("./assets/fonts/Ramaraja-Regular.ttf") format("truetype");
 }
