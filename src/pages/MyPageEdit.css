@@ -13,8 +13,6 @@
     /* 내부 배경 흰색 */
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     /* 살짝 그림자 */
-    border-radius: 20px;
-    /* 둥근 모서리 */
 }
 
 .App {

@@ -13,7 +13,6 @@
   overflow: hidden;      /* 내부 넘치면 숨김 */
   background: #fff;      /* 내부 배경 흰색 */
   box-shadow: 0 0 20px rgba(0,0,0,0.1); /* 살짝 그림자 (테두리X) */
-  border-radius: 20px;   /* 둥근 모서리 (원하면 삭제 가능) */
 }
 
 
