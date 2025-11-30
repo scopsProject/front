@@ -107,7 +107,7 @@ const UserRegisterPage = () => {
       })
       .catch(err => {
         console.error('회원가입 실패:', err);
-        const errorMessage = error.response?.data || "회원가입 중 오류가 발생했습니다.";
+        const errorMessage = err.response?.data || "회원가입 중 오류가 발생했습니다.";
 
         Swal.fire({
           title: '회원가입 실패',
