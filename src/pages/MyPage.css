@@ -62,25 +62,6 @@
   z-index: 20;
 }
 
-.side-menu {
-  position: absolute;     /* fixed → absolute */
-  top: 0;
-  left: 0;
-  width: 70%;
-  max-width: 260px;
-  height: 100%;
-  background: #ffeaa7;
-  z-index: 30;
-
-  padding: 20px;
-  box-sizing: border-box;
-  transition: transform 0.3s ease-in-out;
-  transform: translateX(-100%); /* 기본은 숨김 */
-}
-
-.side-menu.open {
-  transform: translateX(0); /* 열릴 때 */
-}
 
 /* 헤더 */
 .mypage-header {

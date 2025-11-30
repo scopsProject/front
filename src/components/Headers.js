@@ -84,8 +84,8 @@ function Header({ onMenuClick, isOpen, onClose }) {
           {user && (
             <>
               <span className='sidefont'>{user.name}</span>
-              <span>{user.year}기</span><br />
-              <span>{user.session}</span>
+              <span className='sidefont-year'>{user.year}기</span><br />
+              <span className='sidefont-session'>{user.session}</span>
             </>
           )}
 
