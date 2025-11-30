@@ -106,7 +106,6 @@
   flex-direction: column; 
   justify-content: space-between; /* ⬆️ 위쪽(날짜+곡)과 ⬇️ 아래쪽(행사)을 양끝으로 벌림 */
   gap: 5px;
-  overflow: hidden;
   position: relative;
 }
 .cell-top {
@@ -188,6 +187,8 @@
   text-overflow: ellipsis;
   cursor: pointer;
   transition: opacity 0.2s;
+  position: relative;
+  z-index: 2;
 }
 .event-bar:hover {
   opacity: 0.8;
@@ -198,6 +199,13 @@
   box-shadow: none; /* 그림자 제거 */
   cursor: default;
   pointer-events: none; /* 클릭 안 되게 */
+}
+.event-bar.start {
+  margin-left: 0px; /* 시작일은 왼쪽 여백 둠 */
+  z-index: 3; /* 시작 부분이 더 위에 오도록 */
+}
+.event-bar.end {
+  margin-right: 0px; /* 종료일은 오른쪽 여백 둠 */
 }
 
 .reservation-list {
