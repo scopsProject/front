@@ -30,6 +30,8 @@ function ReservationPage() {
   const [startTimeDropdownOpen, setStartTimeDropdownOpen] = useState(false);
   const [endTimeDropdownOpen, setEndTimeDropdownOpen] = useState(false);
 
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+
   const eventRef = useRef(null);
   const songRef = useRef(null);
   const startTimeRef = useRef(null);
@@ -50,24 +52,36 @@ function ReservationPage() {
     return () => window.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // 🔥 페이지 로드 시 초기 데이터 로딩 + SSE 연결
-  // ... (앞부분 동일) ...
+  // 🕒 시간 체크 함수 (컴포넌트 마운트 시 & 1분마다 체크 추천)
+  useEffect(() => {
+    const checkTime = () => {
+      const now = new Date();
+      const day = now.getDay(); // 0:일, 1:월, 2:화, 3:수, 4:목, 5:금, 6:토
+      const hour = now.getHours();
 
-  // 🔥 페이지 로드 시 초기 데이터 로딩 + SSE 연결
+      let isOpen = false;
+
+      if (day === 2) { // 화요일
+        if (hour >= 9) isOpen = true;
+      } else if (day === 3) { // 수요일
+        isOpen = true;
+      } else if (day === 4) { // 목요일
+        if (hour < 19) isOpen = true;
+      }
+
+      setIsBookingOpen(isOpen);
+    };
+
+    checkTime(); // 처음 한번 실행
+    const interval = setInterval(checkTime, 60000); // 1분마다 갱신 (선택사항)
+
+    return () => clearInterval(interval);
+  }, []);
   useEffect(() => {
     const now = new Date();
     const currentDay = now.getDay(); // 0(일) ~ 6(토)
 
-    // 다음 주 월요일 계산
-    // (오늘이 일요일(0)이면 +1일, 월요일(1)이면 +7일 ... 토요일(6)이면 +2일이 다음주 월요일)
-    // 공식: 현재 날짜 + (8 - 요일) % 7 || 7  <-- 이건 이번주 월요일 구할때 쓰는거고, 다음주는 더 간단히:
-
-    // 다음 주 월요일 = 오늘 + (1 + 7 - 요일) % 7 (단, 오늘이 월요일이면 +7일)
-    // 더 쉬운 방법: 일단 내일로 이동 후, 월요일이 될 때까지 하루씩 더하기 (직관적)
-    // 혹은 공식: daysUntilNextMonday = (1 + 7 - currentDay) % 7 || 7;
-
     const daysUntilNextMonday = (1 + 7 - currentDay) % 7 || 7;
-    // 만약 오늘이 월요일(1)이면 7일 뒤, 화요일(2)이면 6일 뒤... 일요일(0)이면 1일 뒤
 
     const nextMonday = new Date(now);
     nextMonday.setDate(now.getDate() + daysUntilNextMonday);
@@ -82,9 +96,7 @@ function ReservationPage() {
 
       const mm = String(d.getMonth() + 1).padStart(2, '0');
       const dd = String(d.getDate()).padStart(2, '0');
-      // 백엔드로 보낼 날짜 형식 (YYYY-MM-DD)
-      // 주의: toISOString은 UTC 기준이라 한국시간 9시 이전엔 하루 전 날짜가 나올 수 있음.
-      // 로컬 시간 기준으로 yyyy-mm-dd 만드는 게 안전함:
+
       const year = d.getFullYear();
       const localIsoDate = `${year}-${mm}-${dd}`;
 
@@ -286,6 +298,15 @@ function ReservationPage() {
       <div className="App">
         <Headers onMenuClick={toggleMenu} username={userName} isOpen={menuOpen} onClose={closeMenu} />
 
+        {!isBookingOpen && (
+          <div style={{
+            backgroundColor: '#ffebee', color: '#c62828', padding: '10px',
+            textAlign: 'center', fontSize: '12px', fontWeight: 'bold',
+            borderBottom: '1px solid #ffcdd2'
+          }}>
+            ⛔ 지금은 예약 시간이 아닙니다.<br />(화 09:00 ~ 목 19:00)
+          </div>
+        )}
         {/* 🔔 [추가] 알림창 (notification 내용이 있을 때만 표시) */}
         {notification && (
           <div className="notification-banner">
@@ -448,12 +469,14 @@ function ReservationPage() {
             </div>
           </div>
           <button
-            className="reservation-submit-btn"
-            disabled={!selectedDate || !selectedEvent || !selectedSong || !startTime || !endTime}
-            onClick={handleReservation}
-          >
-            예약하기
-          </button>
+             className={`reservation-submit-btn ${!isBookingOpen ? 'disabled' : ''}`}
+             // 기존 disabled 조건에 !isBookingOpen 추가
+             disabled={!isBookingOpen || !selectedDate || !selectedEvent || !selectedSong || !startTime || !endTime}
+             onClick={handleReservation}
+             style={!isBookingOpen ? { backgroundColor: '#ccc', cursor: 'not-allowed' } : {}} // 스타일 추가
+           >
+             {isBookingOpen ? "예약하기" : "예약 불가"}
+           </button>
         </div>
       </div>
     </div>
