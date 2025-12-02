@@ -51,21 +51,45 @@ function ReservationPage() {
   }, []);
 
   // 🔥 페이지 로드 시 초기 데이터 로딩 + SSE 연결
+  // ... (앞부분 동일) ...
+
+  // 🔥 페이지 로드 시 초기 데이터 로딩 + SSE 연결
   useEffect(() => {
     const now = new Date();
+    const currentDay = now.getDay(); // 0(일) ~ 6(토)
+
+    // 다음 주 월요일 계산
+    // (오늘이 일요일(0)이면 +1일, 월요일(1)이면 +7일 ... 토요일(6)이면 +2일이 다음주 월요일)
+    // 공식: 현재 날짜 + (8 - 요일) % 7 || 7  <-- 이건 이번주 월요일 구할때 쓰는거고, 다음주는 더 간단히:
+
+    // 다음 주 월요일 = 오늘 + (1 + 7 - 요일) % 7 (단, 오늘이 월요일이면 +7일)
+    // 더 쉬운 방법: 일단 내일로 이동 후, 월요일이 될 때까지 하루씩 더하기 (직관적)
+    // 혹은 공식: daysUntilNextMonday = (1 + 7 - currentDay) % 7 || 7;
+
+    const daysUntilNextMonday = (1 + 7 - currentDay) % 7 || 7;
+    // 만약 오늘이 월요일(1)이면 7일 뒤, 화요일(2)이면 6일 뒤... 일요일(0)이면 1일 뒤
+
+    const nextMonday = new Date(now);
+    nextMonday.setDate(now.getDate() + daysUntilNextMonday);
+
     const shortWeekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const result = [];
 
+    // 🔥 월(0) ~ 금(4)까지 5일 생성
     for (let i = 0; i < 5; i++) {
-      const d = new Date(now);
-      d.setDate(now.getDate() + i);
+      const d = new Date(nextMonday);
+      d.setDate(nextMonday.getDate() + i);
 
       const mm = String(d.getMonth() + 1).padStart(2, '0');
       const dd = String(d.getDate()).padStart(2, '0');
-      const isoDate = d.toISOString().slice(0, 10);
+      // 백엔드로 보낼 날짜 형식 (YYYY-MM-DD)
+      // 주의: toISOString은 UTC 기준이라 한국시간 9시 이전엔 하루 전 날짜가 나올 수 있음.
+      // 로컬 시간 기준으로 yyyy-mm-dd 만드는 게 안전함:
+      const year = d.getFullYear();
+      const localIsoDate = `${year}-${mm}-${dd}`;
 
       result.push({
-        date: isoDate,
+        date: localIsoDate, // 🔥 수정된 날짜값
         displayDate: `${mm}-${dd}`,
         day: shortWeekdays[d.getDay()]
       });
@@ -73,11 +97,13 @@ function ReservationPage() {
 
     setWeekInfo(result);
 
+    // 초기 데이터 로딩 범위도 다음 주로 변경
     const startDate = result[0].date;
     const endDate = result[result.length - 1].date;
 
-    // 1. 이번 주 예약 정보 가져오기
+    // 1. 예약 정보 가져오기
     api.get(`/songs/by-week?start=${startDate}&end=${endDate}`)
+      // ... (이하 동일) ...
       .then(res => setSongs(res.data))
       .catch(err => console.error('이번 주 예약정보 실패:', err));
 
