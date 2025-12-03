@@ -33,11 +33,11 @@ function Header({ onMenuClick, isOpen, onClose }) {
         Swal.fire({
           html: `
       <div style="display:flex; flex-direction:column; align-items:center;">
-        <p style="font-size:18px; font-weight:bold; margin-bottom:10px; color:black;">
+        <p style="font-size:18px; font-family:suit; margin-bottom:10px; color:#876400;">
           스콥스의 뜻은 음유시인이라는 것!</br>알고 계셨나요?
         </p>
         <img src="/images/image.png" style="width:250px; height:auto;" />
-        <p style="font-size:15px; font-weight:bold; margin-bottom:10px; color:black;">
+        <p style="font-size:16px; font-family:suit; margin-bottom:10px; color:#876400;">
           당신은 특별한 음유시인을 발견하셨습니다! 음유시인이 당신에게 행운을 깃들게 합니다!
         </p>
       </div>
