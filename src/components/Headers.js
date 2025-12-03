@@ -1,26 +1,66 @@
 import './Headers.css';
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from 'react-router-dom';
+import { useRef } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
 function Header({ onMenuClick, isOpen, onClose }) {
   const navigate = useNavigate();
   const { user, setUser } = useAuth();
+  const clickCountRef = useRef(0);
+
   const handleNavigation = (path) => {
     onClose();
     navigate(path);
   };
 
   const logout = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("userInfo");
-  setUser(null);
+    localStorage.removeItem("token");
+    localStorage.removeItem("userInfo");
+    setUser(null);
 
-  setTimeout(() => {
-    navigate('/scops/login');
-  }, 0);
-};
+    setTimeout(() => {
+      navigate('/scops/login');
+    }, 0);
+  };
+
+  const handleLogoClick = () => {
+    clickCountRef.current++;
+
+    if (clickCountRef.current === 10) {
+      if (clickCountRef.current === 10) {
+        Swal.fire({
+          html: `
+      <div style="display:flex; flex-direction:column; align-items:center;">
+        <p style="font-size:18px; font-weight:bold; margin-bottom:10px; color:black;">
+          스콥스의 뜻은 음유시인이라는 것!</br>알고 계셨나요?
+        </p>
+        <img src="/images/image.png" style="width:250px; height:auto;" />
+        <p style="font-size:18px; font-weight:bold; margin-bottom:10px; color:black;">
+          당신은 특별한 음유시인을 </br>발견하셨습니다!</br>음유시인이 당신에게 행운을 깃들게 합니다!
+        </p>
+      </div>
+    `,
+          background: '#ffffff',        // 팝업 배경 흰색
+          backdrop: 'rgba(0,0,0,0.5)',   // 뒷배경 어둡게 (투명하고 싶으면 transparent)
+          showConfirmButton: false,
+          width: 350,                   // 팝업 가로 크기
+          padding: '20px 10px',         // 내부 여백
+        });
+
+        clickCountRef.current = 0;
+      }
+
+      clickCountRef.current = 0;
+    }
+
+    // 1.5초 동안 클릭이 없으면 카운트 리셋
+    setTimeout(() => {
+      clickCountRef.current = 0;
+    }, 1500);
+  };
+
 
   const deleteUser = async () => {
     try {
@@ -64,7 +104,7 @@ function Header({ onMenuClick, isOpen, onClose }) {
           &#9776;
         </div>
         <div>
-          <img className='logo-box2' src={`/images/scopsLogo.png`} alt='로고'></img>
+          <img className='logo-box2' src={`/images/scopsLogo.png`} onClick={handleLogoClick} alt='로고'></img>
         </div>
         <div className="username">
           {user ? (
