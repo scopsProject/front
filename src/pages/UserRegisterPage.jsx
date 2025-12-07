@@ -155,7 +155,7 @@ const UserRegisterPage = () => {
           />
 
           <input
-            type="text"
+            type="tel"
             placeholder="기수 입력"
             value={userYear}
             onChange={(e) => {
@@ -214,7 +214,7 @@ const UserRegisterPage = () => {
 
 
           <input
-            type="text"
+            type="tel"
             placeholder="학번"
             value={userId}
             onChange={(e) => {
@@ -249,7 +249,6 @@ const UserRegisterPage = () => {
             className="userinput-box"
           />
           <intput type="chechbox"></intput>
-          {/* ★ 임원 체크박스 */}
           {/* 임원 체크박스 */}
           <div className="exec-check-container">
             <input
