@@ -73,7 +73,7 @@ function ReservationPage() {
     };
 
     checkTime(); // 처음 한번 실행
-    const interval = setInterval(checkTime, 1000); // 1초마다 갱신
+    const interval = setInterval(checkTime, 200); // 0.2초마다 갱신
 
     return () => clearInterval(interval);
   }, []);
