@@ -7,6 +7,11 @@
   height: 50px;
   padding: 10px 20px;
 }
+/* SweetAlert2가 모든 UI보다 위로 오도록 z-index 상승 */
+.swal2-container {
+  z-index: 99999 !important;
+}
+
 
 .menuButton {
   font-size: 50px;

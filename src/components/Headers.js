@@ -15,7 +15,20 @@ function Header({ onMenuClick, isOpen, onClose }) {
     navigate(path);
   };
 
-  const logout = () => {
+  const logout = async () => {
+    const confirmLogout = await Swal.fire({
+      title: '로그아웃 하시겠습니까?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: '로그아웃',
+      cancelButtonText: '취소',
+      reverseButtons: true,
+      width: '400px'
+    });
+
+    if (!confirmLogout.isConfirmed) return;
+
+    // 실제 로그아웃 처리
     localStorage.removeItem("token");
     localStorage.removeItem("userInfo");
     setUser(null);
@@ -24,6 +37,7 @@ function Header({ onMenuClick, isOpen, onClose }) {
       navigate('/scops/login');
     }, 0);
   };
+
 
   const handleLogoClick = () => {
     clickCountRef.current++;
@@ -65,8 +79,19 @@ function Header({ onMenuClick, isOpen, onClose }) {
   const deleteUser = async () => {
     try {
       // 탈퇴 확인
-      const confirmDelete = window.confirm("정말 탈퇴하시겠습니까?");
-      if (!confirmDelete) return; // 취소하면 함수 종료
+      const confirmDelete = await Swal.fire({
+        title: '정말 탈퇴하시겠습니까?',
+        text: '탈퇴하면 계정 정보를 복구할 수 없습니다.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '탈퇴',
+        cancelButtonText: '취소',
+        reverseButtons: true,
+        width: '400px'
+      });
+
+      if (!confirmDelete.isConfirmed) return;
+
 
       const token = localStorage.getItem("token");
       if (!token) return alert("로그인 상태가 아닙니다.");
