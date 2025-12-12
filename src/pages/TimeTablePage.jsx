@@ -115,8 +115,8 @@ function TimeTablePage() {
   };
 
   return (
-    <div className="app-container">
-      <div className="App">
+    <div className="App">
+      <div className="app-container">
         <Headers
           onMenuClick={toggleMenu}
           isOpen={menuOpen}

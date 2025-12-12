@@ -1,17 +1,31 @@
-.app-container {
-  position: relative;
-  width: 393px;          /* iPhone 16 Pro 가로폭 */
-  height: 752px;         /* iPhone 16 Pro 세로높이 */
-  margin: 40px auto;     /* 브라우저 중앙 배치 */
-  overflow: hidden;      /* 내부 넘치면 숨김 */
-  background: #fff;      /* 내부 배경 흰색 */
-  box-shadow: 0 0 20px rgba(0,0,0,0.1); /* 살짝 그림자 (테두리X) */
-}
-
+/* 전체 배경 (데스크탑에서는 배경색이 보이고, 모바일에서는 가려짐) */
 .App {
   display: flex;
-  flex-direction: column;   /* 세로 방향 배치 */
-  min-height: 100vh;        /* 화면 높이 100% */
+  justify-content: center; /* 가로 중앙 정렬 */
+  min-height: 100vh;       /* 최소 높이를 화면 전체로 */
+  background-color: #f5f5f5; /* 데스크탑용 배경색 (앱 밖의 영역) */
+  margin: 0;
+  padding: 0;
+}
+
+/* 실제 앱 컨테이너 */
+.app-container {
+  width: 100%;            /* 모바일: 화면 꽉 차게 */
+  max-width: 450px;       /* 데스크탑/태블릿: 최대 너비 제한 (아이폰 Pro Max 정도) */
+  min-height: 100vh;      /* 높이는 내용에 따라 늘어나되, 최소 화면 전체 */
+  
+  background: #FFFEF8;       /* 앱 내부 배경 흰색 */
+  margin: 0 auto;         /* 중앙 정렬 */
+  
+  /* 그림자: 데스크탑에서 앱처럼 보이게 함 (선택 사항) */
+  box-shadow: 0 0 20px rgba(0,0,0,0.1); 
+  
+  /* 내부 스크롤 허용 (overflow: hidden 제거) */
+  overflow-x: hidden;     /* 가로 스크롤 방지 */
+  overflow-y: auto;       /* 세로 내용이 길어지면 스크롤 */
+  
+  /* 모바일 하단바나 노치 영역 고려 (선택 사항) */
+  padding-bottom: 20px;
 }
 
 .songAdd-wrapper {

@@ -161,8 +161,8 @@ function SongAddPage() {
   };
 
   return (
-    <div className="app-container">
-      <div className="App">
+    <div className="App">
+      <div className="app-container">
         <Headers onMenuClick={toggleMenu} username={decoded.name} isOpen={menuOpen} onClose={closeMenu} />
 
         <div className="songAdd-wrapper">

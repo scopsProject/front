@@ -83,10 +83,10 @@ function SongRegisterPage() {
   };
 
   return (
-    <div className="app-container">
-      <div className="App">
+    <div className="App">
+      <div className="app-container">
 
-        <Headers onMenuClick={toggleMenu} username="김유빈" isOpen={menuOpen} onClose={closeMenu} />
+        <Headers onMenuClick={toggleMenu} isOpen={menuOpen} onClose={closeMenu} />
 
         <div className='songResister-mainContainer'>
 

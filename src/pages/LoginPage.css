@@ -1,180 +1,137 @@
+/* =========================================
+   1. 기본 레이아웃 (모바일 프레임)
+   ========================================= */
 .App {
   display: flex;
-  flex-direction: column;   /* 세로 방향 배치 */
-  min-height: 100vh;        /* 화면 높이 100% */
-  background-color: #FFFEF8;
-}
-
-/* 로그인 화면 전체 컨테이너 */
-.login-container {
-  flex: 1;                       /* 상단 네비 제외한 나머지 영역 채움 */
-  display: flex;
-  flex-direction: column;        /* 세로 방향으로 배치 */
-  align-items: center;           /* 가로 중앙 정렬 */
-  justify-content: center;       /* 세로 중앙 정렬 */
-  max-width: 90%;                /* 화면 크기에 따라 최대폭 제한 */
-  width: 350px;                  /* 최대 폭 */
-  margin: 0 auto;                /* 수평 중앙 정렬 */
-}
-
-.login-container form {
+  justify-content: center; /* 화면 가로 중앙 정렬 */
+  min-height: 100vh;       /* 화면 전체 높이 */
+  background-color: #f5f5f5; /* 앱 바깥 배경색 (회색) */
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column; /* 세로 정렬 유지 */
-  gap: 10px; /* 입력창 간 간격 */
-}
-.logo-box{
-  margin-top: auto;
-}
-/* 로고 박스 영역 */
-.logo-box img {
-  width: 150px;
-  height: auto;  /* 비율 유지 */
-  margin: auto;
 }
 
-/* 슬로건 문구 */
-.slogan {
-  font-family: 'ramaraja';
-  color: #FFE79F;
-  font-size: 30px;
-  margin-block-end: 0;
-  margin-block-start: 0;
-  margin-bottom: auto;
-}
-
-/* 학번/비밀번호 입력 박스 */
-.input-box {
+.app-container {
   width: 100%;
-  padding: 20px;
-  margin-bottom: 15px;           /* 입력창 간격 */
-  box-sizing: border-box;        /* padding 포함해서 width 계산 */
-  border-radius: 30px;           /* 모서리 둥글게 */
-  border: none;                  /* 테두리 제거 */
-  box-shadow: 0 0 10px rgba(255, 238, 187, 1); /* 번지는 효과 */
-  background-color: #FFFFFF;
+  max-width: 450px;        /* 데스크탑에서 모바일 비율 유지 */
+  min-height: 100vh;       /* 높이 꽉 채우기 */
+  background: #FFFEF8;        /* 앱 내부 배경 (흰색) */
+  box-shadow: 0 0 20px rgba(0,0,0,0.1); 
+  
+  /* 내부 요소 정렬을 위한 설정 */
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
-/* 신규 부원 등록 링크 */
-.register-link {
-  font-family: 'suit-regular';
-  color: #FFCB2E;
-  cursor: pointer;               /* 마우스 커서 포인터 */
+/* =========================================
+   2. 로그인 화면 내부 컨테이너 (핵심)
+   ========================================= */
+.login-container {
+  flex: 1;                 /* 남은 공간을 모두 차지하도록 설정 */
+  display: flex;           /* Flexbox 적용 */
+  flex-direction: column;  /* 위에서 아래로 배치 */
+  align-items: center;     /* 가로 중앙 정렬 */
+  justify-content: center; /* 세로 중앙 정렬 (기본) */
+  padding: 40px 30px;      /* 내부 여백 */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* =========================================
+   3. 로고 및 슬로건 영역
+   ========================================= */
+.logo-box {
+  margin-top: auto;        /* 위쪽 공간을 밀어내서 중앙~하단 배치 유도 */
+  margin-bottom: 20px;
   text-align: center;
 }
 
-/* 로그인 버튼 */
-.login-button {
-  width: 100%;        /* 부모 기준 꽉 채우기 */
-  padding: 14px;
-  background: #FFEEBB;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: auto;
+.logo-box img {
+  width: 140px;            /* 로고 크기 적절히 조절 */
+  height: auto;
 }
 
-
-/* 로그인 버튼 hover 시 색상 변경 */
-.login-button:hover {
-  background: #ccc;
+.slogan {
+  font-family: 'ramaraja', sans-serif;
+  color: #FFE79F;
+  font-size: 32px;
+  margin: 0 0 40px 0;      /* 로고와 입력창 사이 간격 */
+  text-align: center;
+  font-weight: bold;
 }
 
-
-
-/* 휴대폰 화면 기준 반응형 */
-/* 화면이 아주 좁아졌을 때 로고 튀는 문제 해결 */
-@media (max-width: 424px), (max-height: 378px) {
-  .logo-box img {
-    width: 110px;      /* 로고 크기 줄임 */
-    margin-top: 20px;  /* 상단 여백 크게 줄임 */
-  }
-
-  .slogan {
-    font-size: 24px;   /* 슬로건도 약간 축소 */
-    margin-top: 5px;
-    margin-bottom: 10px;
-  }
-
-  .login-container {
-    justify-content: flex-start; /* 중앙 배치 때문에 겹치지 않도록 조정 */
-    padding-top: 20px;
-  }
-}
-
-
-/* 휴대폰 프레임 (iPhone 16 기준, 검은 테두리 제거) */
-.app-container {
-  position: relative;
-  width: 100%;             /* 화면 전체 너비 사용 */
-  max-width: 480px;        /* 최대 폭(모바일 기준) */
-  min-height: 100vh;       /* 화면 높이 꽉 채움 */
-  margin: 0 auto;          /* 가운데 정렬 */
-  background: #fff;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
-  overflow: hidden;
-}
-
-/* 프레임 바깥쪽 전체 배경 */
-body {
-  background: #eaeaea;           /* 연한 회색 배경으로 휴대폰 외부 구분 */
-}
-.form-area {
+/* =========================================
+   4. 입력 폼 (Form)
+   ========================================= */
+form {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-.swal2-container {
-  z-index: 99999 !important;
+  gap: 15px;               /* 입력창 사이 간격 */
+  margin-bottom: 20px;
 }
 
-/* 팝업 스타일 */
+.input-box {
+  width: 100%;
+  padding: 16px 20px;
+  font-size: 16px;
+  box-sizing: border-box;
+  border-radius: 30px;
+  border: none;
+  background-color: #FFFFFF;
+  box-shadow: 0 0 10px rgba(255, 230, 130, 0.6); /* 은은한 금색 그림자 */
+  outline: none;
+  transition: box-shadow 0.3s ease;
+}
+
+.input-box:focus {
+  box-shadow: 0 0 15px rgba(255, 200, 50, 0.8); /* 포커스 시 진하게 */
+}
+
+/* =========================================
+   5. 하단 링크 및 버튼
+   ========================================= */
+.register-link {
+  font-family: 'suit-regular', sans-serif;
+  color: #FFCB2E;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: auto;     /* 버튼을 맨 아래로 밀어내기 위해 여백 자동 조절 */
+  text-decoration: underline;
+}
+
+.login-button {
+  width: 100%;
+  max-width: 400px;
+  padding: 16px;
+  margin-top: 30px;        /* 링크와 버튼 사이 간격 */
+  background: #FFEEBB;
+  border: none;
+  border-radius: 30px;     /* 둥근 버튼 */
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: background 0.3s;
+}
+
+.login-button span {
+  color: #876400;
+  font-family: 'suit', sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.login-button:hover {
+  background: #ffe082;
+}
+
+/* =========================================
+   6. SweetAlert (팝업) 스타일 커스텀
+   ========================================= */
+.swal2-container { z-index: 99999 !important; }
 .swal2-popup {
   border-radius: 16px !important;
   padding: 25px 20px !important;
-  font-family: 'suit', sans-serif !important;
-  border: 2px solid #87640033 !important; /* 은은한 금색 라인 */
+  border: 2px solid rgba(135, 100, 0, 0.2) !important;
 }
-
-/* 제목 */
-.swal2-title {
-  color: #876400 !important;
-  font-size: 20px !important;
-  font-weight: 700 !important;
-  margin-bottom: 10px !important;
-}
-
-/* 내용 텍스트 */
-.swal2-html-container, .swal2-content {
-  color: #5a4a2b !important;
-  font-size: 16px !important;
-}
-
-/* 버튼 공통 스타일 */
-.swal2-confirm, .swal2-cancel {
-  font-family: 'suit', sans-serif !important;
-  font-size: 15px !important;
-  border-radius: 10px !important;
-  padding: 10px 20px !important;
-}
-
-/* 확인 버튼 (골드 포인트) */
-.swal2-confirm {
-  background-color: #876400 !important;
-  color: white !important;
-  border: none !important;
-}
-
-/* 취소 버튼 */
-.swal2-cancel {
-  background-color: #e6dfcf !important;
-  color: #876400 !important;
-  border: 1px solid #b8a374 !important;
-}
-
-/* 버튼 간격 */
-.swal2-actions {
-  gap: 12px !important;
-}
+.swal2-title { color: #876400 !important; font-size: 20px !important; }
+.swal2-confirm { background-color: #876400 !important; border-radius: 10px !important; }

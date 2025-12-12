@@ -79,8 +79,8 @@ function MainPage() {
     return null; // 화면에 아무것도 그리지 않고 에러 방지
   }
   return (
-    <div className="app-container">
-      <div className="App">
+    <div className="App">
+      <div className="app-container">
         <Headers
           onMenuClick={toggleMenu}
           isOpen={menuOpen}
