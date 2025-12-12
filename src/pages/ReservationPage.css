@@ -281,7 +281,6 @@
 .time-select-section {
   font-family: 'suit-regular';
   color: #876400;
-  margin-top: 20px;
 }
 
 /* 제목 */
@@ -294,7 +293,7 @@
 
 /* 오전/오후 그룹 */
 .time-group {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 /* "오전", "오후" 텍스트 */
@@ -307,28 +306,33 @@
 
 /* 버튼 묶음 */
 .time-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  display: grid; /* Flex 대신 Grid 사용 */
+  grid-template-columns: repeat(4, 1fr); /* 1줄에 4개씩 균등 분할 */
+  gap: 8px; /* 간격 조절 (버튼이 작아지므로 간격도 살짝 줄임) */
+  width: 100%;
 }
 
-/* 기본 시간 버튼 스타일 -->
-   custom-select-display 와 스타일을 일치시킴 */
 .time-btn {
   background-color: #fff;
-  padding: 10px 18px;
+  padding: 10px 0; /* 좌우 패딩을 0으로 줄여 텍스트 공간 확보 */
   border-radius: 30px;
   border: 1px solid #fff;
   box-shadow: 0 0 15px rgba(255, 230, 130, 0.8);
 
   font-family: 'suit-regular';
-  font-size: 15px;
+  font-size: 14px; /* 글자 크기를 살짝 줄임 (15px -> 14px 추천) */
   color: #876400;
 
   cursor: pointer;
   transition: all 0.2s ease;
-  min-width: 90px;
+  
+  /* 중요: 기존 min-width 삭제 또는 auto로 변경 */
+  min-width: auto; 
+  width: 100%; /* 그리드 칸을 꽉 채우도록 설정 */
   text-align: center;
+  
+  /* 텍스트가 넘치지 않도록 설정 */
+  white-space: nowrap; 
 }
 
 /* Hover 효과 */
@@ -354,4 +358,3 @@
   cursor: not-allowed;
   font-weight: normal;
 }
-

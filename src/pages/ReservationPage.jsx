@@ -283,14 +283,14 @@ function ReservationPage() {
 
   const hourSlots = Array.from({ length: 14 }, (_, idx) => {
     const hour = 9 + idx;
-    const timeString = `${hour.toString().padStart(2, '0')}:00`; 
+    const timeString = `${hour.toString().padStart(2, '0')}:00`;
 
     return {
       time: timeString,
       label: `${hour}:00`,
       hour,
-      disabled: songs.some(s => 
-        s.date === selectedDate && 
+      disabled: songs.some(s =>
+        s.date === selectedDate &&
         (s.startTime ? s.startTime.substring(0, 5) : "") === timeString
       )
     };
@@ -414,7 +414,7 @@ function ReservationPage() {
           </div>
 
           <div className="time-select-section">
-            <h3 className="time-section-title">연습 시간 선택</h3>
+            <div className="time-section-title">연습 시간 선택</div>
             {/* 오전 */}
             <div className="time-group">
               <div className="time-group-title">오전</div>
