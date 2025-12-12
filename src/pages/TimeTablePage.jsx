@@ -12,40 +12,112 @@ function TimeTablePage() {
   const closeMenu = () => setMenuOpen(false);
 
   const { user } = useAuth();
-  const userName = user?.userName;
+  const userName = user?.name;
 
   // ✅ state로 관리 (초기엔 빈 배열)
   const [sessions, setSessions] = useState([]);
-  const [mySchedule, setMySchedule] = useState([]);
-  const [expandedSession, setExpandedSession] = useState(null);
+  const [timeTables, setTimeTables] = useState([]);
+
+  const [selectedFriend, setSelectedFriend] = useState(null); // 선택된 친구 정보
+  const [friendSchedule, setFriendSchedule] = useState([]);   // 친구 시간표 데이터
+
+  const getSchedule = (scheduleData, dayIndex, hour) => {
+    if (!Array.isArray(scheduleData)) return undefined;
+    const weekDays = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
+    const currentDay = weekDays[dayIndex];
+
+    return scheduleData.find(t => {
+      const startH = parseInt(t.startTime.split(':')[0], 10);
+      const endH = parseInt(t.endTime.split(':')[0], 10);
+      return t.dayOfWeek === currentDay && hour >= startH && hour < endH;
+    });
+  };
+
 
   // ✅ 컴포넌트 마운트 시 백엔드에서 데이터 불러오기
   useEffect(() => {
     // 내 시간표 불러오기
-    api.get(`/scops/myschedule/${userName}`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-    })
-    .then(res => {
-      setMySchedule(res.data); // [{ day, start, end, subject, place }, ...]
-    })
-    .catch(err => {
-      console.error("내 시간표 로드 실패:", err);
-    });
+    api.get('/scops/timetable')
+      .then(res => setTimeTables(res.data))
+      .catch(err => console.error("시간표 로딩 실패", err));
 
     // 다른 사람들 리스트 불러오기
     api.get(`/scops/sessions`)
-    .then(res => {
-      setSessions(res.data); // [{ name, userYear, session: ["V","G"] }, ...]
-    })
-    .catch(err => {
-      console.error("세션 목록 로드 실패:", err);
-    });
+      .then(res => {
+        setSessions(res.data); // [{ name, userYear, session: ["V","G"] }, ...]
+      })
+      .catch(err => {
+        console.error("세션 목록 로드 실패:", err);
+      });
   }, [userName]);
+
+  const handleFriendClick = (friend) => {
+    setSelectedFriend(friend); // 친구 선택 (모달 열기)
+
+    api.get(`/timetables/user/${friend.userID}`)
+      .then(res => setFriendSchedule(res.data))
+      .catch(err => {
+        console.error("친구 시간표 로드 실패:", err);
+        setFriendSchedule([]);
+      });
+  };
+
+  const renderTimetableGrid = (scheduleData) => {
+    return (
+      <div className="timetable-body">
+        {/* 왼쪽 시간 라벨 */}
+        <div className="time-column">
+          {Array.from({ length: 12 }).map((_, idx) => (
+            <div key={idx} className="time-label">{9 + idx}</div>
+          ))}
+        </div>
+
+        {/* 오른쪽 시간표 그리드 */}
+        <div className="timetable-grid">
+          {Array.from({ length: 12 }).map((_, row) => {
+            const currentHour = 9 + row;
+            return (
+              <React.Fragment key={row}>
+                {Array.from({ length: 7 }).map((_, col) => {
+                  const schedule = getSchedule(scheduleData, col, currentHour);
+                  const isStartBlock = schedule && parseInt(schedule.startTime.split(':')[0], 10) === currentHour;
+
+                  return (
+                    <div
+                      key={`${row}-${col}`}
+                      className="timetable-cell"
+                      style={schedule ? { backgroundColor: '#FFEEBB', padding: '1px' } : {}}
+                    >
+                      {isStartBlock && (
+                        <div style={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                          <div style={{
+                            fontFamily: 'suit',
+                            color: '#634900',
+                            fontSize: '9px', // 글자 크기 조정
+                            lineHeight: '1.1'
+                          }}>{schedule.title}</div>
+                          <div style={{
+                            fontSize: '7px',
+                            color: '#EAB211',
+                            lineHeight: '1'
+                          }}>{schedule.memo}</div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </React.Fragment>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="app-container">
       <div className="App">
-        <Headers 
+        <Headers
           onMenuClick={toggleMenu}
           isOpen={menuOpen}
           onClose={closeMenu}
@@ -53,64 +125,92 @@ function TimeTablePage() {
 
         <div className="timetable-container">
           {/* 내 시간표 */}
-          <div className="my-timetable">
-            <h2>{userName}의 시간표</h2>
-            <div className="calendar">
+          <div className="timetable-main-container">
+            {/* 내 시간표 제목 */}
+            <section className="section-title">
+              <span>내 시간표</span>
+            </section>
+
+            {/* 시간표 박스 */}
+            <section className="timetable-wrapper">
               {/* 요일 헤더 */}
-              <div className="header-cell" style={{ gridColumn: 1, gridRow: 1 }}></div>
-              {["SUN","MON","TUE","WED","THU","FRI","SAT"].map((day, idx) => (
-                <div
-                  key={day}
-                  className="header-cell"
-                  style={{ gridColumn: idx + 2, gridRow: 1 }}
-                >
-                  {day}
+              <div className="timetable-header-row">
+                <div className="time-header-empty" />
+                <div className="day-cell">SUN</div>
+                <div className="day-cell">MON</div>
+                <div className="day-cell">TUE</div>
+                <div className="day-cell">WED</div>
+                <div className="day-cell">THU</div>
+                <div className="day-cell">FRI</div>
+                <div className="day-cell">SAT</div>
+              </div>
+
+              {/* 시간 + 그리드 */}
+              <div className="timetable-body">
+                {/* 왼쪽 시간 라벨 */}
+                <div className="time-column">
+                  {Array.from({ length: 12 }).map((_, idx) => {
+                    const hour = 9 + idx; // 10 ~ 20
+                    return (
+                      <div key={hour} className="time-label">
+                        {hour}
+                      </div>
+                    );
+                  })}
                 </div>
-              ))}
 
-              {/* 시간열 + 요일셀 */}
-              {Array.from({ length: 11 }, (_, i) => {
-                const hour = 10 + i;       // 10시~20시
-                const row = i + 2;         // 헤더 1행 포함
-                return (
-                  <React.Fragment key={hour}>
-                    <div className="time-cell" style={{ gridColumn: 1, gridRow: row }}>
-                      {hour}
-                    </div>
-                    {["SUN","MON","TUE","WED","THU","FRI","SAT"].map((day, colIdx) => (
-                      <div
-                        key={`${day}-${hour}`}
-                        className="calendar-cell"
-                        style={{ gridColumn: colIdx + 2, gridRow: row }}
-                      ></div>
-                    ))}
-                  </React.Fragment>
-                );
-              })}
-
-              {/* 수업 블록 */}
-              {mySchedule.map((cls, idx) => {
-                const col = ["SUN","MON","TUE","WED","THU","FRI","SAT"].indexOf(cls.day) + 2;
-                let rowStart = cls.start - 10 + 2;
-                let rowEnd = cls.end - 10 + 2;
-
-                if (rowEnd > 12) rowEnd = 12; // 마지막 20시 행 초과 방지
-
-                return (
-                  <div
-                    key={idx}
-                    className="class-block"
-                    style={{
-                      gridColumn: col,
-                      gridRow: `${rowStart} / ${rowEnd}`,
-                    }}
-                  >
-                    <div className="class-subject">{cls.subject}</div>
-                    <div className="class-place">{cls.place}</div>
-                  </div>
-                );
-              })}
-            </div>
+                {/* 오른쪽 시간표 그리드 */}
+                <div className="timetable-grid">
+                  {Array.from({ length: 12 }).map((_, row) => {
+                    const currentHour = 9 + row; // 10시, 11시...
+                    return (
+                      <React.Fragment key={row}>
+                        {Array.from({ length: 7 }).map((_, col) => {
+                          const schedule = getSchedule(timeTables, col, currentHour);; // 일정 찾기
+                          const isStartBlock = schedule &&
+                            parseInt(schedule.startTime.split(':')[0], 10) === currentHour;
+                          return (
+                            <div
+                              key={`${row}-${col}`}
+                              className="timetable-cell"
+                              // 수업이 있으면 색칠하기
+                              style={schedule ? { backgroundColor: '#FFEEBB', padding: '1px' } : {}}
+                            >
+                              {/* 🔥 [핵심] 수업의 "시작 시간 칸"에만 제목과 메모 표시 */}
+                              {isStartBlock && (
+                                <div style={{
+                                  height: '100%',
+                                  overflow: 'hidden',
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  justifyContent: 'center' // 세로 중앙 정렬
+                                }}>
+                                  <div style={{
+                                    fontFamily: 'suit',
+                                    color: '#634900',
+                                    fontSize: '9px', // 글자 크기 조정
+                                    lineHeight: '1.1'
+                                  }}>
+                                    {schedule.title}
+                                  </div>
+                                  <div style={{
+                                    fontSize: '7px',
+                                    color: '#EAB211',
+                                    lineHeight: '1'
+                                  }}>
+                                    {schedule.memo}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </React.Fragment>
+                    );
+                  })}
+                </div>
+              </div>
+            </section>
           </div>
 
           {/* 다른 사람들 */}
@@ -119,39 +219,38 @@ function TimeTablePage() {
               <React.Fragment key={idx}>
                 <div
                   className="session-card"
-                  onClick={() =>
-                    setExpandedSession(expandedSession === idx ? null : idx)
-                  }
+                  onClick={() => handleFriendClick(s)}
                 >
-                  <span>{s.userName}_{s.userYear}</span>
+                  <span className='session-info'>{s.userName}_{s.userYear}th</span>
                   <span className="tags">{s.session}</span>
                 </div>
-
-                {/* 클릭된 카드 밑에만 시간표 표시 */}
-                {expandedSession === idx && (
-                  <div className="expanded-timetable">
-                    <h3>{s.userName}님의 시간표</h3>
-                    <div className="calendar small">
-                      {/* TODO: 해당 사람 시간표 백엔드에서 불러와서 표시 */}
-                    </div>
-                    <button onClick={() => setExpandedSession(null)}>닫기</button>
-                  </div>
-                )}
               </React.Fragment>
             ))}
           </div>
-
-          {/* 클릭한 사람 시간표 */}
-          {expandedSession !== null && (
-            <div className="expanded-timetable">
-              <h3>{sessions[expandedSession].userName}님의 시간표</h3>
-              <div className="calendar small">
-                {/* TODO: 해당 사람 시간표도 백엔드에서 불러와서 표시 */}
-              </div>
-              <button onClick={() => setExpandedSession(null)}>닫기</button>
-            </div>
-          )}
         </div>
+        {selectedFriend && (
+          <div className="modal-overlay" onClick={() => setSelectedFriend(null)}>
+            <div className="modal-content add-modal" style={{ width: '350px', padding: '10px' }} onClick={(e) => e.stopPropagation()}>
+              <div className="modal-header-row" style={{ marginBottom: '10px' }}>
+                <h2 className="modal-title" style={{ fontSize: '18px' }}>
+                  {selectedFriend.userName}님의 시간표
+                </h2>
+                <button className="modal-close-btn" onClick={() => setSelectedFriend(null)}>X</button>
+              </div>
+
+              {/* 친구 시간표 그리드 (Wrapper로 감싸서 스타일 적용) */}
+              <div className="timetable-wrapper" style={{ marginTop: '0', border: '1px solid #eee' }}>
+                <div className="timetable-header-row">
+                  <div className="time-header-empty" />
+                  {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map(d => <div key={d} className="day-cell">{d}</div>)}
+                </div>
+                {renderTimetableGrid(friendSchedule)}
+              </div>
+
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );

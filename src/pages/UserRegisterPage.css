@@ -1,31 +1,48 @@
-.App {
+.registerApp {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   background-color: #FFFEF8;
+  justify-content: center;
 }
 
-.login-container {
+.register-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
 }
-
-.logo-box img {
+.register-logo-box{
+  margin-bottom: 50px;
+}
+.register-logo-box img {
   width: 120px;
   height: auto;
-  margin-bottom: 20px;
+  margin-bottom: auto;
 }
 
-.input-box {
-  width: 80%;
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
+.userinput-box {
+  width: 90%;
+  padding: 15px;
+  margin-bottom: 15px;           /* 입력창 간격 */
+  box-sizing: border-box;        /* padding 포함해서 width 계산 */
+  border-radius: 30px;           /* 모서리 둥글게 */
+  border: none;                  /* 테두리 제거 */
+  box-shadow: 0 0 10px rgba(255, 238, 187, 1); /* 번지는 효과 */
+  background-color: #FFEEBB;
+  color: #876400;
 }
-
-.input-box input {
+.usersinput-box{
+  width: 90%;
+  padding: 12px;
+  margin-bottom: 15px;           /* 입력창 간격 */
+  box-sizing: border-box;        /* padding 포함해서 width 계산 */
+  border-radius: 30px;           /* 모서리 둥글게 */
+  border: none;                  /* 테두리 제거 */
+  box-shadow: 0 0 10px rgba(255, 238, 187, 1); /* 번지는 효과 */
+  background-color: #FFEEBB;
+  color: #876400;
+}
+.userinput-box input {
   padding: 12px 15px;
   border-radius: 30px;
   border: none;
@@ -35,99 +52,179 @@
   box-sizing: border-box;
 }
 
-.section-label {
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
 /* 라디오 버튼 그룹 */
 .radio-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px; /* 버튼 간격 */
-  background-color: #FFEEBB;
-  box-shadow: 0 0 5px rgba(255, 238, 187, 1);
-  border-radius: 30px;
-  padding: 12px 15px;
+  justify-content: center;
   align-items: center;
+  gap: 5px;
+  /* 아이템 간 간격 */
+  background-color: #FFFEF8;
+  /* 입력창과 동일한 배경색 */
+  border-radius: 30px;
+  /* 동일한 둥근 모서리 */
+  padding: 0px 10px;
+  /* 내부 여백 */
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
 }
 
 /* 라벨 */
 .radio-group label {
   display: flex;
+  
   align-items: center;
-  font-size: 14px;
+  font-size: 11.5px;
+  color: #876400;
+  /* 텍스트 색상을 부드러운 갈색톤으로 */
   cursor: pointer;
+  font-weight: 500;
+  transition: transform 0.1s;
+  flex: 0 0 25%;
+}
+
+.radio-group label:active {
+  transform: scale(0.95);
+  /* 클릭 시 살짝 눌리는 효과 */
 }
 
 /* 라디오 버튼 */
 .radio-group input[type="radio"] {
   appearance: none;
-  width: 18px;
-  height: 18px;
-  border: 2px solid #888;
+  /* 기본 브라우저 스타일 제거 */
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  transform: scale(0.6);
+  border: 2px solid #f5c068;
+  box-shadow: 0 0 5px rgba(255, 238, 187, 1);
   border-radius: 50%;
-  margin-right: 6px;
-  cursor: pointer;
+  margin-right: 8px;
   background-color: #fff;
+  cursor: pointer;
   position: relative;
+  display: grid;
+  place-content: center;
+  transition: all 0.2s ease-in-out;
 }
 
 .radio-group input[type="radio"]:checked::after {
   content: '';
   display: block;
-  width: 10px;   /* 체크 표시 크기 */
+  width: 10px;
+  /* 체크 표시 크기 */
   height: 10px;
   border-radius: 50%;
-  background-color: #ffb347; /* 체크 시 색 */
+  background-color: #ffb347;
+  /* 체크 시 색 */
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
+.radio-group input[type="radio"]:checked {
+  background-color: #fff;
+  border: 2px solid #f5c068;
+  box-shadow: 0 0 5px rgba(255, 238, 187, 1);
+}
+
+.radio-group input[type="radio"]:checked::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ffb347;
+  /* 체크 시 내부 색상 (테마색) */
+  display: block;
+}
+
 /* 기타 입력창 */
 .radio-group .input-etc {
-  padding: 6px 10px;
-  border-radius: 20px;
-  border: none;
-  background-color: #FFEEBB;
-  box-shadow: 0 0 5px rgba(255, 238, 187, 1);
-  width: 120px;
+  padding: 8px 12px;
+  border-radius: 15px;
+  border: 1px solid #ebdca7;
+  /* 살짝 진한 노란 테두리 */
+  background-color: #ffffff;
+  /* 흰색 배경으로 강조 */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  /* 내부 그림자 */
+  width: 100px;
+  font-size: 14px;
+  color: #5a4a1e;
+  margin-left: 5px;
+  transition: all 0.3s;
+}
+
+.radio-group .input-etc:focus {
+  outline: none;
+  border-color: #000000;
 }
 
 .radio-group .input-etc:disabled {
-  background-color: #f5f5f5;
+  background-color: #FFFFFF;
+  /* 회색 배경 */
+  border-color: transparent;
   box-shadow: none;
+  color: #999;
   cursor: not-allowed;
+  opacity: 0.6;
 }
 
 /* 등록완료 버튼 */
-.submit-button {
-  width: 115%;
-  padding: 3%;
+.submit-button2 {
+  width: 100%;
+  /* 컨테이너에 맞게 조정 */
+  padding: 15px;
   background: #FFEEBB;
   border: none;
-  border-radius: 4px;
+  border-radius: 30px;
+  /* 다른 입력창과 같은 둥근 모서리 */
   cursor: pointer;
-  margin-top: 0%;
+  /* 위 요소와 간격 */
+  font-weight: bold;
+  font-size: 16px;
+  color: #876400;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.submit-button {
+  width: 100%;
+  /* 컨테이너에 맞게 조정 */
+  margin-bottom: 15px;
+  background: #FFEEBB;
+  border: none;
+  border-radius: 30px;
+  /* 다른 입력창과 같은 둥근 모서리 */
+  cursor: pointer;
+  /* 위 요소와 간격 */
+  font-weight: bold;
+  font-size: 16px;
+  color: #876400;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .submit-button:hover {
-  background: #ccc;
+  background: #ffd54f;
+  /* 호버 시 조금 더 진한 노란색 */
 }
 
 .app-container {
   position: relative;
-  width: 393px;          /* iPhone 16 Pro 가로폭 */
-  height: 752px;         /* iPhone 16 Pro 세로높이 */
-  margin: 40px auto;     /* 브라우저 중앙 배치 */
-  overflow: hidden;      /* 내부 넘치면 숨김 */
-  background: #fff;      /* 내부 배경 흰색 */
-  box-shadow: 0 0 20px rgba(0,0,0,0.1); /* 살짝 그림자 (테두리X) */
-  border-radius: 20px;   /* 둥근 모서리 (원하면 삭제 가능) */
+  width: 393px;
+  /* iPhone 16 Pro 가로폭 */
+  height: 752px;
+  /* iPhone 16 Pro 세로높이 */
+  margin: 40px auto;
+  /* 브라우저 중앙 배치 */
+  overflow: hidden;
+  /* 내부 넘치면 숨김 */
+  background: #fff;
+  /* 내부 배경 흰색 */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  /* 살짝 그림자 (테두리X) */
 }
-
 
 body {
   background: #eaeaea;
@@ -137,11 +234,114 @@ body {
   .login-container {
     padding: 20px;
   }
+
   .logo-box {
     height: 80px;
   }
 }
+
 .submit-button.disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+/* 임원 체크박스 영역 */
+/* 체크박스 라인 */
+.exec-check-container {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  color: #876400;
+}
+
+/* 인증 영역 - 공간 유지 + 초기에 숨김 */
+.exec-auth-container {
+  width: 90%;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  height: 48px; /* input + button 높이에 맞게 고정 */
+  visibility: hidden; /* 공간만 유지 */
+}
+
+/* 체크되면 보이게 */
+.exec-auth-container.active {
+  visibility: visible;
+}
+
+/* 인증 입력칸 */
+.exec-input {
+  flex: 1;
+  border-radius: 30px;
+  border: none;
+  background: #FFEEBB;
+  box-shadow: 0 0 10px rgba(255, 238, 187, 1);
+  color: #876400;
+}
+
+/* 인증 버튼 */
+.exec-btn {
+  background: #FFEEBB;
+  border: none;
+  cursor: pointer;
+  border-radius: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #876400;
+  font-weight: bold;
+}
+.exec-btn:hover {
+  background: #ffd54f;
+}
+.swal2-container {
+  z-index: 99999 !important;
+}
+
+/* 팝업 스타일 */
+.swal2-popup {
+  border-radius: 16px !important;
+  padding: 25px 20px !important;
+  font-family: 'suit', sans-serif !important;
+  border: 2px solid #87640033 !important; /* 은은한 금색 라인 */
+}
+
+/* 제목 */
+.swal2-title {
+  color: #876400 !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  margin-bottom: 10px !important;
+}
+
+/* 내용 텍스트 */
+.swal2-html-container, .swal2-content {
+  color: #5a4a2b !important;
+  font-size: 16px !important;
+}
+
+/* 버튼 공통 스타일 */
+.swal2-confirm, .swal2-cancel {
+  font-family: 'suit', sans-serif !important;
+  font-size: 15px !important;
+  border-radius: 10px !important;
+  padding: 10px 20px !important;
+}
+
+/* 확인 버튼 (골드 포인트) */
+.swal2-confirm {
+  background-color: #876400 !important;
+  color: white !important;
+  border: none !important;
+}
+
+/* 취소 버튼 */
+.swal2-cancel {
+  background-color: #e6dfcf !important;
+  color: #876400 !important;
+  border: 1px solid #b8a374 !important;
+}
+
+/* 버튼 간격 */
+.swal2-actions {
+  gap: 12px !important;
 }

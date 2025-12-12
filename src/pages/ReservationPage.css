@@ -6,14 +6,13 @@
 }
 
 .app-container {
-  position: relative;
+  position: flex;
   width: 393px;          /* iPhone 16 Pro 가로폭 */
   height: 752px;         /* iPhone 16 Pro 세로높이 */
   margin: 40px auto;     /* 브라우저 중앙 배치 */
   overflow: hidden;      /* 내부 넘치면 숨김 */
   background: #fff;      /* 내부 배경 흰색 */
   box-shadow: 0 0 20px rgba(0,0,0,0.1); /* 살짝 그림자 (테두리X) */
-  border-radius: 20px;   /* 둥근 모서리 (원하면 삭제 가능) */
 }
 
 
@@ -85,9 +84,8 @@
   border-radius: 4px;
 }
 .reservation-calendar-cell.selected {
-  border: 2px solid #FFEEBB;
   background-color: #FFEEBB;
-  border-radius: 20px;
+  border-radius: 15px;
 }
 
 .reservation-controls {
@@ -173,13 +171,10 @@
   background-color: rgba(255, 230, 130, 0.2);
 }
 .reservation-submit-btn {
-  position: fixed;
-  bottom: 70px;            /* 휴대폰 프레임 아래쪽에서 살짝 띄움 */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;              /* 가로 너비 조절 */
-  max-width: 360px;        /* 최대 너비 */
+  width: 100%;
+  max-width: 360px;
   padding: 14px 0;
+  margin: 20px auto 40px; /* 하단 여백 */
   font-size: 18px;
   background-color: #FFEEBB;
   color: #876400;
@@ -188,7 +183,9 @@
   cursor: pointer;
   box-shadow: 0 0 12px rgba(255, 230, 130, 0.8);
   transition: background-color 0.3s ease;
-  z-index: 1100;           /* 드롭다운 위에도 뜨도록 충분히 높게 */
+  z-index: 10;
+  display: block;
+  margin-top: auto;
 }
 
 .reservation-submit-btn:disabled {
@@ -196,4 +193,88 @@
   color: #999;
   cursor: not-allowed;
   box-shadow: none;
+}
+/* 기존 CSS 아래에 추가 */
+
+/* 상단 알림바 스타일 */
+.notification-banner {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #876400; /* 동아리 테마색 */
+  color: white;
+  padding: 12px 24px;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 2000; /* 헤더보다 위에 뜨도록 높게 설정 */
+  font-weight: bold;
+  font-size: 15px;
+  white-space: nowrap;
+  opacity: 0;
+  animation: slideDown 0.5s forwards;
+}
+
+/* 내려오는 애니메이션 */
+@keyframes slideDown {
+  from {
+    top: -50px;
+    opacity: 0;
+  }
+  to {
+    top: 80px; /* 헤더 아래쪽 적당한 위치 */
+    opacity: 1;
+  }
+}
+.swal2-container {
+  z-index: 99999 !important;
+}
+
+/* 팝업 스타일 */
+.swal2-popup {
+  border-radius: 16px !important;
+  padding: 25px 20px !important;
+  font-family: 'suit', sans-serif !important;
+  border: 2px solid #87640033 !important; /* 은은한 금색 라인 */
+}
+
+/* 제목 */
+.swal2-title {
+  color: #876400 !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  margin-bottom: 10px !important;
+}
+
+/* 내용 텍스트 */
+.swal2-html-container, .swal2-content {
+  color: #5a4a2b !important;
+  font-size: 16px !important;
+}
+
+/* 버튼 공통 스타일 */
+.swal2-confirm, .swal2-cancel {
+  font-family: 'suit', sans-serif !important;
+  font-size: 15px !important;
+  border-radius: 10px !important;
+  padding: 10px 20px !important;
+}
+
+/* 확인 버튼 (골드 포인트) */
+.swal2-confirm {
+  background-color: #876400 !important;
+  color: white !important;
+  border: none !important;
+}
+
+/* 취소 버튼 */
+.swal2-cancel {
+  background-color: #e6dfcf !important;
+  color: #876400 !important;
+  border: 1px solid #b8a374 !important;
+}
+
+/* 버튼 간격 */
+.swal2-actions {
+  gap: 12px !important;
 }

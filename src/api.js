@@ -1,8 +1,9 @@
 import axios from 'axios';
+export const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
 
 // 1. 기본 URL로 Axios 인스턴스 생성
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: BASE_URL,
 });
 
 // 2. 🚀 요청 인터셉터 (Request Interceptor) - 마법의 시작

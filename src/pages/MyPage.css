@@ -1,0 +1,351 @@
+/* 앱 전체 컨테이너: 아이폰 화면 사이즈 고정 */
+.app-container {
+  position: relative;
+  width: 393px;          /* iPhone 16 Pro 가로폭 */
+  height: 752px;         /* iPhone 16 Pro 세로높이 */
+  margin: 40px auto;     /* 브라우저 중앙 배치 */
+  overflow: hidden;      /* 내부 넘치면 숨김 */
+  background: #fff;      /* 내부 배경 흰색 */
+  box-shadow: 0 0 20px rgba(0,0,0,0.1); /* 살짝 그림자 */
+}
+
+.App {
+  display: flex;
+  flex-direction: column;   
+  width: 100%;
+  height: 100%;
+}
+
+.mypage-main-container {
+  position: relative;
+  padding: 10px;
+  font-family: sans-serif;
+  margin-top: 7%;
+}
+/* ---------------- 마이페이지 ---------------- */
+
+/* 전체 배경 */
+.mypage-root {
+  width: 100%;
+  height: 100%;
+  background: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+    system-ui, sans-serif;
+}
+
+.mypage-phone {
+  width: 390px;
+  background: #fffaf0;
+  border-radius: 24px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  padding: 20px 18px 32px;
+  box-sizing: border-box;
+  color: #c1972c;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.overlay {
+  position: absolute;     /* fixed → absolute */
+  top: 0;
+  left: 0;
+  width: 100%;            /* 프레임 가로 전체 */
+  height: 100%;           /* 프레임 세로 전체 */
+  background: rgba(0,0,0,0.4);
+  z-index: 20;
+}
+
+
+/* 헤더 */
+.mypage-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 햄버거 메뉴 버튼 */
+.menu-button {
+  border: none;
+  background: none;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.menu-button span {
+  width: 20px;
+  height: 2px;
+  border-radius: 999px;
+  background: #ffe7a6;
+}
+
+/* 로고 */
+.logo-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.logo-icon {
+  font-size: 20px;
+}
+
+.logo-text {
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+/* 인사말 */
+.greeting {
+  text-align: right;
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+.greeting-name {
+  font-weight: 600;
+}
+
+/* 프로필 */
+.profile-section {
+  display: flex;            /* 가로(한 줄) 배치를 위해 Flexbox 사용 */
+  align-items: center;      /* 구성 요소들의 세로 중앙 정렬 */
+  gap: 10px;                /* 이름과 기수 정보 사이의 간격 */
+  width: 100%;              /* 가로를 꽉 채우기 */
+}
+
+.profile-sessionAndYear {
+  display: flex;             /* 인라인(inline) 대신 플렉스박스 사용 */
+  flex-direction: column;    /* 내부 요소를 세로 방향으로 정렬 */
+  gap: 2px;                  /* 요소 간격 (필요에 따라 조절) */
+  align-items: flex-start;   /* 왼쪽 정렬 (필요시 center나 flex-end로 변경) */
+}
+
+.profile-name {
+  font-size: 40px;
+  padding: 7px;
+  color: #634900;
+  border: none;        /* 테두리 */
+  border-radius: 30px;            /* 모서리 둥글게 */
+  box-shadow: 0 0 10px rgba(252, 217, 77, 0.9);
+  font-family: 'suit-regular';
+  background-color: #FFFFFF;
+}
+
+/* 세션 / 기수 */
+.profile-meta {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  gap: 2px;
+}
+
+.profile-code {
+    color: #EAB211;
+    font-family: 'suit-regular';
+}
+
+.profile-generation {
+  color: #634900;
+  font-family: 'suit-regular';
+}
+
+
+.edit-button {
+  margin-left: auto; 
+  border: none;
+  border-radius: 15px;
+  padding: 5px 12px;
+  font-size: 12px;
+  background-color: #fff4cf;
+  box-shadow: 0 2px 6px rgba(255, 204, 102, 0.7);
+  color: #c1972c;
+  cursor: pointer;
+}
+/* 타이틀 */
+.section-title {
+  margin-top: 9%;
+  font-size: 13px;
+  color: #EAB211;
+}
+
+/* 시간표 박스 */
+.timetable-wrapper {
+  margin-top: 3%;
+  background: #FFFFFF;
+  border-radius: 18px;
+  padding: 0; /* 패딩 제거 (선이 끝까지 닿게 하기 위함) */
+  border: 1px solid #FFFFFF;
+  box-shadow: 0 0 10px rgba(255, 230, 130, 0.9);
+  overflow: hidden; /* 둥근 모서리 밖으로 선이 삐져나가지 않게 */
+}
+
+/* 요일 헤더 */
+.timetable-header-row {
+  display: grid; /* Flex -> Grid 변경 */
+  /* 왼쪽 32px 고정, 나머지 공간을 7등분(1fr * 7) */
+  grid-template-columns: 32px repeat(7, 1fr); 
+  border-bottom: 1px solid #f0e0a0;
+  background-color: #fff;
+  width: 100%;
+}
+.time-header-empty {
+  border-right: 1px solid #f0e0a0;
+  box-sizing: border-box;
+}
+.day-cell {
+  /* flex: 1; <-- 삭제 (Grid Item이 됨) */
+  text-align: center;
+  font-size: 10px;
+  color: #EAB211;
+  font-family: "suit";
+  padding: 5px;
+  border-right: 1px solid #f0e0a0;
+  box-sizing: border-box;
+  
+  /* 내용이 넘칠 경우를 대비해 min-width 0 설정 (Grid 특성) */
+  min-width: 0; 
+}
+.day-cell:last-child {
+  border-right: none;
+}
+.day-cell:not(:last-child) {
+  border-right: 1px solid #f0e0a0;
+}
+
+/* 시간표 바디 */
+.timetable-body {
+  display: grid; /* Flex -> Grid 변경 */
+  /* 왼쪽 32px 고정, 나머지 공간 전체(1fr) -> 내부는 또 그리드로 쪼개짐 */
+  grid-template-columns: 32px 1fr;
+  width: 100%;
+}
+
+/* 시간 라벨 */
+.time-column {
+  border-right: 1px solid #f0e0a0;
+  box-sizing: border-box;
+}
+
+.time-label {
+  height: 28px;
+  font-size: 9px;
+  color: #d2ad60;
+  display: flex;
+  align-items: center; /* 수직 중앙 정렬 */
+  justify-content: center;
+  border-bottom: 1px solid #f0e0a0; /* 시간 사이 가로선 */
+  box-sizing: border-box; /* 테두리 포함 크기 계산 */
+}
+.time-column .time-label:last-child {
+  border-bottom: none;
+}
+/* 그리드 */
+.timetable-grid {
+  /* 부모(.timetable-body)의 1fr 영역을 꽉 채움 */
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 여기도 똑같이 7등분 */
+  grid-auto-rows: 28px;
+  width: 100%;
+}
+
+.timetable-cell {
+  border-right: 1px solid #f0e0a0;  /* 세로선 */
+  border-bottom: 1px solid #f0e0a0; /* 가로선 */
+  box-sizing: border-box;
+}
+
+.timetable-cell:not(:nth-last-child(-n + 7)) {
+  border-bottom: 1px solid #f0e0a0;
+}
+.timetable-cell:nth-last-child(-n+7) {
+  border-bottom: none;
+}
+.timetable-cell:nth-child(7n) {
+  border-right: none;
+}
+
+/* 일정 */
+.event-block {
+  position: absolute;
+  margin: 0 2px;
+  background: #ffe7a6;
+  border-radius: 4px;
+  padding: 4px 6px;
+  font-size: 9px;
+  line-height: 1.3;
+  color: #c1972c;
+}
+
+/* 일정 위치들 */
+.event-mon-branding {
+  width: calc(100% / 7 - 4px);
+  left: calc((100% / 7) * 1 + 2px);
+  top: calc(28px * 1);
+  height: calc(28px * 4);
+}
+
+.event-mon-studio {
+  width: calc(100% / 7 - 4px);
+  left: calc((100% / 7) * 1 + 2px);
+  top: calc(28px * 5.1);
+  height: calc(28px * 2.2);
+}
+
+.event-wed-etc {
+  width: calc(100% / 7 - 4px);
+  left: calc((100% / 7) * 3 + 2px);
+  top: calc(28px * 4);
+  height: calc(28px * 3);
+}
+
+.event-fri-burger {
+  width: calc(100% / 7 - 4px);
+  left: calc((100% / 7) * 5 + 2px);
+  top: calc(28px * 2.1);
+  height: calc(28px * 3);
+}
+
+.event-sat-inspect {
+  width: calc(100% / 7 - 4px);
+  left: calc((100% / 7) * 6 + 2px);
+  top: calc(28px * 6);
+  height: calc(28px * 3);
+}
+
+/* 하단 버튼 */
+.bottom-button-area {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.friends-button {
+  border: none;
+  border-radius: 999px;
+  padding: 8px 24px;
+  font-size: 12px;
+  background: #fff4cf;
+  box-shadow: 0 6px 10px rgba(255, 204, 102, 0.8);
+  cursor: pointer;
+  color: #c1972c;
+}
+
+/* 반응형 */
+@media (max-width: 420px) {
+  .mypage-phone {
+    width: 100%;
+    margin: 0 12px;
+  }
+}

@@ -6,7 +6,6 @@
   overflow: hidden;      /* 내부 넘치면 숨김 */
   background: #fff;      /* 내부 배경 흰색 */
   box-shadow: 0 0 20px rgba(0,0,0,0.1); /* 살짝 그림자 (테두리X) */
-  border-radius: 20px;   /* 둥근 모서리 (원하면 삭제 가능) */
 }
 
 .App {
@@ -55,7 +54,7 @@
   color: #876400;
   margin-right: 8px;
   justify-self: end; /* 가운데 정렬 */
-  font-size: 30px;
+  font-size: 25px;
   margin-right: 5%;
 }
 .main-container-songname{
@@ -68,13 +67,12 @@
 }
 .main-container-songname-style{
   font-family: 'suit-regular';
-  margin-right: 5px;
+  margin-right: 1.5%;
   border-radius: 50px;
   background-color: rgba(255, 238, 187, 0.9);
   box-shadow: 0 0 5px rgba(255, 230, 130, 0.9);
   color: #634900;
   padding: 0;
-  margin-left: 5%;
 }
 .main-container-songtime{
   font-family: 'suit-regular';

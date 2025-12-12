@@ -16,6 +16,7 @@
   width: 350px;                  /* 최대 폭 */
   margin: 0 auto;                /* 수평 중앙 정렬 */
 }
+
 .login-container form {
   margin: 0;
   padding: 0;
@@ -23,10 +24,14 @@
   flex-direction: column; /* 세로 정렬 유지 */
   gap: 10px; /* 입력창 간 간격 */
 }
+.logo-box{
+  margin-top: auto;
+}
 /* 로고 박스 영역 */
 .logo-box img {
   width: 150px;
   height: auto;  /* 비율 유지 */
+  margin: auto;
 }
 
 /* 슬로건 문구 */
@@ -36,12 +41,12 @@
   font-size: 30px;
   margin-block-end: 0;
   margin-block-start: 0;
-  margin-bottom: 20px;
+  margin-bottom: auto;
 }
 
 /* 학번/비밀번호 입력 박스 */
 .input-box {
-  width: 70%;
+  width: 100%;
   padding: 20px;
   margin-bottom: 15px;           /* 입력창 간격 */
   box-sizing: border-box;        /* padding 포함해서 width 계산 */
@@ -54,9 +59,9 @@
 /* 신규 부원 등록 링크 */
 .register-link {
   font-family: 'suit-regular';
-  margin-bottom: 200px;
   color: #FFCB2E;
   cursor: pointer;               /* 마우스 커서 포인터 */
+  text-align: center;
 }
 
 /* 로그인 버튼 */
@@ -67,7 +72,7 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  margin-top: 20px;   /* 살짝 간격만 */
+  margin-top: auto;
 }
 
 
@@ -76,41 +81,100 @@
   background: #ccc;
 }
 
-/* 백엔드 메시지 표시 영역 (선택사항) */
-.backend-message {
-  margin-top: 20px;
-}
+
 
 /* 휴대폰 화면 기준 반응형 */
-@media (max-width: 480px) {
+/* 화면이 아주 좁아졌을 때 로고 튀는 문제 해결 */
+@media (max-width: 424px), (max-height: 378px) {
+  .logo-box img {
+    width: 110px;      /* 로고 크기 줄임 */
+    margin-top: 20px;  /* 상단 여백 크게 줄임 */
+  }
+
+  .slogan {
+    font-size: 24px;   /* 슬로건도 약간 축소 */
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+
   .login-container {
-    padding: 20px;               /* 모바일에서 패딩 추가 */
-  }
-
-  .logo-box {
-    height: 80px;                /* 모바일에서 로고 박스 높이 줄임 */
-  }
-
-  .input-box,
-  .login-button {
-    padding: 14px;               /* 모바일에서 패딩 약간 줄임 */
+    justify-content: flex-start; /* 중앙 배치 때문에 겹치지 않도록 조정 */
+    padding-top: 20px;
   }
 }
+
 
 /* 휴대폰 프레임 (iPhone 16 기준, 검은 테두리 제거) */
 .app-container {
   position: relative;
-  width: 393px;          /* iPhone 16 Pro 가로폭 */
-  height: 752px;         /* iPhone 16 Pro 세로높이 */
-  margin: 40px auto;     /* 브라우저 중앙 배치 */
-  overflow: hidden;      /* 내부 넘치면 숨김 */
-  background: #fff;      /* 내부 배경 흰색 */
-  box-shadow: 0 0 20px rgba(0,0,0,0.1); /* 살짝 그림자 (테두리X) */
-  border-radius: 20px;   /* 둥근 모서리 (원하면 삭제 가능) */
+  width: 100%;             /* 화면 전체 너비 사용 */
+  max-width: 480px;        /* 최대 폭(모바일 기준) */
+  min-height: 100vh;       /* 화면 높이 꽉 채움 */
+  margin: 0 auto;          /* 가운데 정렬 */
+  background: #fff;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
-
 
 /* 프레임 바깥쪽 전체 배경 */
 body {
   background: #eaeaea;           /* 연한 회색 배경으로 휴대폰 외부 구분 */
+}
+.form-area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.swal2-container {
+  z-index: 99999 !important;
+}
+
+/* 팝업 스타일 */
+.swal2-popup {
+  border-radius: 16px !important;
+  padding: 25px 20px !important;
+  font-family: 'suit', sans-serif !important;
+  border: 2px solid #87640033 !important; /* 은은한 금색 라인 */
+}
+
+/* 제목 */
+.swal2-title {
+  color: #876400 !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  margin-bottom: 10px !important;
+}
+
+/* 내용 텍스트 */
+.swal2-html-container, .swal2-content {
+  color: #5a4a2b !important;
+  font-size: 16px !important;
+}
+
+/* 버튼 공통 스타일 */
+.swal2-confirm, .swal2-cancel {
+  font-family: 'suit', sans-serif !important;
+  font-size: 15px !important;
+  border-radius: 10px !important;
+  padding: 10px 20px !important;
+}
+
+/* 확인 버튼 (골드 포인트) */
+.swal2-confirm {
+  background-color: #876400 !important;
+  color: white !important;
+  border: none !important;
+}
+
+/* 취소 버튼 */
+.swal2-cancel {
+  background-color: #e6dfcf !important;
+  color: #876400 !important;
+  border: 1px solid #b8a374 !important;
+}
+
+/* 버튼 간격 */
+.swal2-actions {
+  gap: 12px !important;
 }
