@@ -99,14 +99,15 @@
 .calendarPage-calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  /* 🔥 [핵심 수정] 1fr 대신 minmax(0, 1fr) 사용 */
+  grid-auto-rows: minmax(0, 1fr); 
+  
   border: 1px solid #FFFFFF;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(255, 230, 130, 0.9);
-  overflow: hidden;
+  overflow: hidden; /* 그리드 전체 넘침 방지 */
 
   flex-grow: 1;
-
-  grid-auto-rows: 1fr;
 }
 
 /* 내부 구분선: 우측 선 (7번째 칸 제외) */
@@ -123,10 +124,14 @@
   min-height: 0;
   display: flex;
   flex-direction: column; 
-  justify-content: space-between; /* 위쪽(날짜+곡)과 아래쪽(행사)을 양끝으로 벌림 */
+  justify-content: space-between;
   gap: 2px;
   position: relative;
   padding-bottom: 2px;
+  
+  /* 🔥 [핵심 수정] 내용이 많아도 셀 크기를 유지하도록 넘침 숨김 처리 */
+  overflow: hidden;
+  width: 100%; /* 가로폭도 강제 */
 }
 .cell-top {
   display: flex;
@@ -223,6 +228,11 @@
   flex-direction: column;
   gap: 1px;
   margin-left: 3%;
+  
+  /* 🔥 [핵심 추가] 예약 목록이 너무 길어지면 셀을 밀어내지 않게 함 */
+  flex: 1;           /* 남은 공간 차지 */
+  min-height: 0;     /* Flex 아이템 축소 가능하게 설정 */
+  overflow: hidden;  /* 넘치면 안 보이게 (또는 overflow-y: scroll) */
 }
 
 .reservation-item {

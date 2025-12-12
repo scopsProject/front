@@ -1,13 +1,13 @@
 .header {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  /* 가운데 요소 배치 */
+  align-items: center;      /* 수직 중앙 정렬 (핵심) */
+  justify-content: space-between; /* 좌-중-우 배치 */
   position: relative;
-  height: 50px;
-  padding: 10px 20px;
+  height: 60px;             /* 터치 편의성을 위해 높이를 조금 늘림 (50px -> 60px) */
+  padding: 0 20px;          /* 상하 패딩 0, 좌우 20px */
+  z-index: 100;
+  box-sizing: border-box;   /* 패딩 포함해서 높이 계산 */
 }
-/* SweetAlert2가 모든 UI보다 위로 오도록 z-index 상승 */
 /* SweetAlert2 최상단 표시 */
 .swal2-container {
   z-index: 99999 !important;
@@ -62,10 +62,8 @@
   gap: 12px !important;
 }
 
-
-
 .menuButton {
-  font-size: 50px;
+  font-size: 35px;
   cursor: pointer;
   margin-right: auto;
   /* 왼쪽 정렬 */
@@ -114,18 +112,25 @@
 .logo-box2 {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  top: 50%;                 /* 상단에서 50% 내려옴 */
+  transform: translate(-50%, -50%); /* 자신의 크기만큼 다시 이동 -> 완벽한 중앙 */
+  
   width: 70px;
   height: auto;
-  /* 비율 유지 */
-  display: flex;
-  bottom: 10px;
+  cursor: pointer;
 }
 
 .username {
   font-size: 14px;
-  font-family: 'suit-EL';
+  font-family: 'suit-EL', sans-serif;
   color: #FFCB2E;
+  text-align: right;
+  
+  /* 텍스트 수직 정렬 보장 */
+  display: flex;
+  align-items: center;
+  height: 100%;
+  line-height: 1.2;         /* 줄간격 조정 */
 }
 
 .sideMyPageBtn {
