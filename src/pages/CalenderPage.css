@@ -1,25 +1,37 @@
 /* 앱 전체 컨테이너: 아이폰 화면 사이즈 고정 */
-.app-container {
+.app-container-Calendar {
   position: relative;
-  width: 393px;          /* iPhone 16 Pro 가로폭 */
-  height: 752px;         /* iPhone 16 Pro 세로높이 */
-  margin: 40px auto;     /* 브라우저 중앙 배치 */
+  width: 100%;          /* iPhone 16 Pro 가로폭 */
+  height: 100vh;         /* iPhone 16 Pro 세로높이 */
+  max-width: 450px;
+  margin:  0 auto;     /* 브라우저 중앙 배치 */
+  
   overflow: hidden;      /* 내부 넘치면 숨김 */
   background: #fff;      /* 내부 배경 흰색 */
   box-shadow: 0 0 20px rgba(0,0,0,0.1); /* 살짝 그림자 */
 }
 
-.App {
+.App-Calendar {
   display: flex;
   flex-direction: column;   
   width: 100%;
   height: 100%;
+
+  overflow-y: auto; /* 세로 스크롤 허용 */
+}
+
+.App::-webkit-scrollbar {
+  display: none;
 }
 
 .calendarPage-calendar-container {
   position: relative;
   padding: 10px;
   font-family: sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 /* 월 타이틀 */
@@ -40,6 +52,9 @@
   cursor: pointer;
   font-size: 18px;
   color: #FFFFFF;
+
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(255, 230, 130, 0.5);
 }
 
 .month-header {
@@ -51,16 +66,12 @@
 
 .left-btn {
   margin-left: 10px;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 0 10px rgba(255, 230, 130, 0.5);
+  border: none; 
 }
 
 .right-btn {
   margin-right: 10px;
   border: none;
-  border-radius: 15px;
-  box-shadow: 0 0 10px rgba(255, 230, 130, 0.5);
 }
 
 .calendar-day-header-container {
@@ -88,6 +99,10 @@
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(255, 230, 130, 0.9);
   overflow: hidden;
+
+  flex-grow: 1;
+
+  grid-auto-rows: 1fr;
 }
 
 /* 내부 구분선: 우측 선 (7번째 칸 제외) */
@@ -101,12 +116,13 @@
 }
 
 .calendarPage-calendar-cell {
-  min-height: 80px;
+  min-height: 0;
   display: flex;
   flex-direction: column; 
-  justify-content: space-between; /* ⬆️ 위쪽(날짜+곡)과 ⬇️ 아래쪽(행사)을 양끝으로 벌림 */
-  gap: 5px;
+  justify-content: space-between; /* 위쪽(날짜+곡)과 아래쪽(행사)을 양끝으로 벌림 */
+  gap: 2px;
   position: relative;
+  padding-bottom: 2px;
 }
 .cell-top {
   display: flex;
@@ -118,9 +134,7 @@
   width: 100%;
   margin-top: auto; /* 내용이 적어도 항상 바닥에 붙게 함 */
 }
-/* =========================================
-   🔥 [수정됨] 날짜 숫자
-========================================= */
+
 .date-number {
   font-size: 11px;
   font-family: "suit";
@@ -142,9 +156,6 @@
   box-shadow: 0 0 10px rgba(255, 230, 130, 0.9);
 }
 
-/* =========================================
-   🔥 [수정됨] 이벤트 컨테이너 (스크롤 기능)
-========================================= */
 .events {
   display: flex;
   flex-direction: column; /* 바를 위아래로 쌓음 */
@@ -154,7 +165,7 @@
   /* 내용이 많으면 스크롤 생기게 하기 */
   flex-grow: 1;
   overflow-y: auto; 
-  max-height: 70px; /* 높이 제한 */
+  height: 100%;
 }
 
 /* 스크롤바 숨기기 (깔끔하게) */
@@ -162,21 +173,16 @@
   display: none;
 }
 
-/* =========================================
-   🔥 [수정됨] 행사용 바 스타일
-   - 기존 중복된 코드 정리 및 디자인 개선
-========================================= */
 .event-bar {
   color: #787878;
   font-size: 6px;
   font-family: "suit";
   
-  /* ✨ [핵심 1] 높이 고정 및 여백 제거 */
+
   height: 11px;       /* 텍스트가 없어도 높이 유지 */
   line-height: 11px;  /* 텍스트 수직 중앙 정렬 */
   margin-bottom: 2px;
   
-  /* ✨ [핵심 2] 달력 칸의 패딩(5px)을 무시하고 꽉 채우기 (이어져 보이게 함) */
   margin-left: -5px;
   margin-right: -5px;
   padding-left: 5px;  /* 텍스트가 너무 왼쪽에 붙지 않게 */
@@ -227,7 +233,7 @@
   color: #967720;
 }
 
-/* 🔥 [신규] 모달 스타일 */
+/* [신규] 모달 스타일 */
 /* 모달 내부 컨테이너 */
 .calender-main-container {
   border: none;
@@ -249,7 +255,7 @@
 
 /* 개별 곡 아이템 (줄) */
 .calender-main-container-song {
-  /* 🔥 구분선 색상 변경 (기존: #FFE495 -> 예: #EAB211) */
+  /* 구분선 색상 변경 (기존: #FFE495 -> 예: #EAB211) */
   border-bottom: 1px solid #FFFFFF; 
   padding-bottom: 8px;
   margin-bottom: 8px;
@@ -273,7 +279,7 @@
   padding: 2px 10px;
   font-size: 16px;
 
-  /* 🔥 뱃지 색상 변경 (여기를 수정하세요!) */
+  /* 뱃지 색상 변경 (여기를 수정하세요!) */
   background-color: #FFFFFF;  /* 진한 노랑 배경 */
   color: #634900;             /* 흰색 글씨 */
   box-shadow: 0 0 5px rgba(234, 178, 17, 0.4);
