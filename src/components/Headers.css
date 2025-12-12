@@ -127,29 +127,6 @@
   color: #FFCB2E;
 }
 
-.sidefont {
-  font-family: "suit";
-  font-weight: bold;
-  font-size: 40px;
-  color: #634900;
-  background-color: #FFFFFF;
-  border-radius: 30px;
-  box-shadow: 0 0 10px rgb(255, 226, 111);
-  margin-left: 3%;
-}
-.sidefont-year{
-  font-family: "suit";
-  font-size: 15px;
-  margin-left: 5%;
-  color: #634900;
-}
-.sidefont-session{
-  font-family: "suit";
-  font-size: 15px;
-  margin-left: 6%;
-  color: #EAB211;
-}
-
 .sideMyPageBtn {
   color: #EAB211;
   background-color: #FFEEBB;

@@ -174,7 +174,6 @@
   width: 100%;
   max-width: 360px;
   padding: 14px 0;
-  margin: 20px auto 40px; /* 하단 여백 */
   font-size: 18px;
   background-color: #FFEEBB;
   color: #876400;
@@ -194,7 +193,6 @@
   cursor: not-allowed;
   box-shadow: none;
 }
-/* 기존 CSS 아래에 추가 */
 
 /* 상단 알림바 스타일 */
 .notification-banner {
@@ -278,3 +276,82 @@
 .swal2-actions {
   gap: 12px !important;
 }
+
+/* 전체 섹션 */
+.time-select-section {
+  font-family: 'suit-regular';
+  color: #876400;
+  margin-top: 20px;
+}
+
+/* 제목 */
+.time-section-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #876400;
+}
+
+/* 오전/오후 그룹 */
+.time-group {
+  margin-bottom: 20px;
+}
+
+/* "오전", "오후" 텍스트 */
+.time-group-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #876400;
+  margin-bottom: 10px;
+}
+
+/* 버튼 묶음 */
+.time-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* 기본 시간 버튼 스타일 -->
+   custom-select-display 와 스타일을 일치시킴 */
+.time-btn {
+  background-color: #fff;
+  padding: 10px 18px;
+  border-radius: 30px;
+  border: 1px solid #fff;
+  box-shadow: 0 0 15px rgba(255, 230, 130, 0.8);
+
+  font-family: 'suit-regular';
+  font-size: 15px;
+  color: #876400;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 90px;
+  text-align: center;
+}
+
+/* Hover 효과 */
+.time-btn:hover:not(.disabled):not(.selected) {
+  background-color: rgba(255, 230, 130, 0.15);
+}
+
+/* 선택된 버튼 */
+.time-btn.selected {
+  background-color: #FFE79F;
+  color: #876400;
+  border: 1px solid #FFD970;
+  box-shadow: 0 0 15px rgba(255, 215, 100, 0.9);
+  font-weight: 600;
+}
+
+/* 이미 예약되어 비활성화된 버튼 */
+.time-btn.disabled {
+  background-color: #f3f3f3;
+  color: #b8b8b8;
+  border: 1px solid #e0e0e0;
+  box-shadow: none;
+  cursor: not-allowed;
+  font-weight: normal;
+}
+

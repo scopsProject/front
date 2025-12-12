@@ -27,15 +27,11 @@ function ReservationPage() {
   // 드롭다운 오픈 상태 관리용
   const [eventDropdownOpen, setEventDropdownOpen] = useState(false);
   const [songDropdownOpen, setSongDropdownOpen] = useState(false);
-  const [startTimeDropdownOpen, setStartTimeDropdownOpen] = useState(false);
-  const [endTimeDropdownOpen, setEndTimeDropdownOpen] = useState(false);
 
   const [isBookingOpen, setIsBookingOpen] = useState(false);
 
   const eventRef = useRef(null);
   const songRef = useRef(null);
-  const startTimeRef = useRef(null);
-  const endTimeRef = useRef(null);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
@@ -45,8 +41,6 @@ function ReservationPage() {
     function handleClickOutside(e) {
       if (eventRef.current && !eventRef.current.contains(e.target)) setEventDropdownOpen(false);
       if (songRef.current && !songRef.current.contains(e.target)) setSongDropdownOpen(false);
-      if (startTimeRef.current && !startTimeRef.current.contains(e.target)) setStartTimeDropdownOpen(false);
-      if (endTimeRef.current && !endTimeRef.current.contains(e.target)) setEndTimeDropdownOpen(false);
     }
     window.addEventListener('mousedown', handleClickOutside);
     return () => window.removeEventListener('mousedown', handleClickOutside);
@@ -287,11 +281,31 @@ function ReservationPage() {
     }
   };
 
-  const timeOptions = Array.from({ length: 48 }, (_, i) => {
-    const hour = Math.floor(i / 2).toString().padStart(2, '0');
-    const minute = i % 2 === 0 ? '00' : '30';
-    return `${hour}:${minute}`;
+  const hourSlots = Array.from({ length: 14 }, (_, idx) => {
+    const hour = 9 + idx;
+    const timeString = `${hour.toString().padStart(2, '0')}:00`; 
+
+    return {
+      time: timeString,
+      label: `${hour}:00`,
+      hour,
+      disabled: songs.some(s => 
+        s.date === selectedDate && 
+        (s.startTime ? s.startTime.substring(0, 5) : "") === timeString
+      )
+    };
   });
+
+  // 클릭 처리 (1시간 선택)
+  const handleTimeClick = (time) => {
+    setStartTime(time);
+
+    // 자동으로 1시간 뒤로 endTime 설정
+    const h = parseInt(time.split(':')[0]);
+    const end = `${(h + 1).toString().padStart(2, '0')}:00`;
+    setEndTime(end);
+  };
+
 
   return (
     <div className="app-container">
@@ -399,85 +413,56 @@ function ReservationPage() {
             )}
           </div>
 
-          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-            <div
-              className="custom-select-container"
-              ref={startTimeRef}
-              style={{ marginBottom: 12, width: 120, display: 'inline-block', marginRight: 8 }}
-            >
-              <div
-                className={`custom-select-display ${!startTime ? 'custom-select-placeholder' : ''}`}
-                onClick={() => setStartTimeDropdownOpen(o => !o)}
-              >
-                {startTime || '연습시간'}
-                <span className="custom-select-arrow">▼</span>
-              </div>
-              {startTimeDropdownOpen && (
-                <ul className="custom-select-list" style={{ maxHeight: 150 }}>
-                  <li
-                    className="custom-select-list-item"
-                    onClick={() => { setStartTime(''); setStartTimeDropdownOpen(false); }}
-                  >
-                    연습시간
-                  </li>
-                  {timeOptions.map((time, idx) => (
-                    <li
+          <div className="time-select-section">
+            <h3 className="time-section-title">연습 시간 선택</h3>
+            {/* 오전 */}
+            <div className="time-group">
+              <div className="time-group-title">오전</div>
+              <div className="time-buttons">
+                {hourSlots
+                  .filter(t => t.hour >= 9 && t.hour < 12)
+                  .map((t, idx) => (
+                    <button
                       key={idx}
-                      className="custom-select-list-item"
-                      onClick={() => { setStartTime(time); setStartTimeDropdownOpen(false); }}
+                      className={`time-btn ${t.disabled ? 'disabled' : ''} ${startTime === t.time ? 'selected' : ''}`}
+                      disabled={t.disabled}
+                      onClick={() => handleTimeClick(t.time)}
                     >
-                      {time}
-                    </li>
+                      {t.label}
+                    </button>
                   ))}
-                </ul>
-              )}
+              </div>
             </div>
 
-            <span style={{ color: "#876400" }}> - </span>
-
-            <div
-              className="custom-select-container"
-              ref={endTimeRef}
-              style={{ marginBottom: 12, width: 120, display: 'inline-block' }}
-            >
-              <div
-                className={`custom-select-display ${!endTime ? 'custom-select-placeholder' : ''}`}
-                onClick={() => setEndTimeDropdownOpen(o => !o)}
-              >
-                {endTime || '연습시간'}
-                <span className="custom-select-arrow">▼</span>
-              </div>
-              {endTimeDropdownOpen && (
-                <ul className="custom-select-list" style={{ maxHeight: 150 }}>
-                  <li
-                    className="custom-select-list-item"
-                    onClick={() => { setEndTime(''); setEndTimeDropdownOpen(false); }}
-                  >
-                    연습시간
-                  </li>
-                  {timeOptions.map((time, idx) => (
-                    <li
+            {/* 오후 */}
+            <div className="time-group">
+              <div className="time-group-title">오후</div>
+              <div className="time-buttons">
+                {hourSlots
+                  .filter(t => t.hour >= 12 && t.hour <= 22)
+                  .map((t, idx) => (
+                    <button
                       key={idx}
-                      className="custom-select-list-item"
-                      onClick={() => { setEndTime(time); setEndTimeDropdownOpen(false); }}
+                      className={`time-btn ${t.disabled ? 'disabled' : ''} ${startTime === t.time ? 'selected' : ''}`}
+                      disabled={t.disabled}
+                      onClick={() => handleTimeClick(t.time)}
                     >
-                      {time}
-                    </li>
+                      {t.label}
+                    </button>
                   ))}
-                </ul>
-              )}
+              </div>
             </div>
           </div>
-          <button
-             className={`reservation-submit-btn ${!isBookingOpen ? 'disabled' : ''}`}
-             // 기존 disabled 조건에 !isBookingOpen 추가
-             disabled={!isBookingOpen || !selectedDate || !selectedEvent || !selectedSong || !startTime || !endTime}
-             onClick={handleReservation}
-             style={!isBookingOpen ? { backgroundColor: '#ccc', cursor: 'not-allowed' } : {}} // 스타일 추가
-           >
-             {isBookingOpen ? "예약하기" : "예약 불가"}
-           </button>
         </div>
+        <button
+          className={`reservation-submit-btn ${!isBookingOpen ? 'disabled' : ''}`}
+          // 기존 disabled 조건에 !isBookingOpen 추가
+          disabled={!isBookingOpen || !selectedDate || !selectedEvent || !selectedSong || !startTime || !endTime}
+          onClick={handleReservation}
+          style={!isBookingOpen ? { backgroundColor: '#ccc', cursor: 'not-allowed' } : {}} // 스타일 추가
+        >
+          {isBookingOpen ? "예약하기" : "예약 불가"}
+        </button>
       </div>
     </div>
   );
