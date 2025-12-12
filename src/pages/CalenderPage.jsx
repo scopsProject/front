@@ -80,25 +80,25 @@ function CalenderPage() {
       const endB = b.endDate || "";
 
       if (startA !== startB) return startA.localeCompare(startB);
-      return endB.localeCompare(endA); 
+      return endB.localeCompare(endA);
     });
 
     const eventsWithRows = [];
 
     sortedEvents.forEach((event) => {
       let rowIndex = 0;
-      
+
       // 날짜가 없는 잘못된 데이터는 건너뛰기 (선택사항)
       if (!event.createdDate || !event.endDate) return;
 
       while (true) {
         let isOccupied = false;
-        
+
         for (const existingEvent of eventsWithRows) {
           if (existingEvent.rowIndex === rowIndex) {
             if (event.createdDate <= existingEvent.endDate && event.endDate >= existingEvent.createdDate) {
               isOccupied = true;
-              break; 
+              break;
             }
           }
         }
@@ -107,7 +107,7 @@ function CalenderPage() {
           eventsWithRows.push({ ...event, rowIndex });
           break;
         }
-        rowIndex++; 
+        rowIndex++;
       }
     });
 
@@ -127,10 +127,15 @@ function CalenderPage() {
       .catch(console.error);
 
     // 행사 조회
-    api.get(`/songs/events/period?start=${startStr}&end=${endStr}`)
+    const timestamp = new Date().getTime(); // 매번 새로운 주소로 인식하게 함
+
+    api.get(`/songs/events/period?start=${startStr}&end=${endStr}&t=${timestamp}`)
       .then((res) => {
-        // 🔥 받아온 데이터를 알고리즘에 넣어서 층수 계산 후 저장
+        console.log("🔥 서버에서 받은 행사 데이터:", res.data); // F12 콘솔에서 확인 필수!
+
         const calculatedEvents = processEventsWithRows(res.data);
+        console.log("✅ 가공된 행사 데이터:", calculatedEvents); // 여기서 데이터가 사라지는지 확인
+
         setProcessedEvents(calculatedEvents);
       })
       .catch((err) => console.error("행사 정보 실패:", err));

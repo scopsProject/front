@@ -63,17 +63,6 @@
   overflow: hidden;
 }
 
-.overlay {
-  position: absolute;     /* fixed → absolute */
-  top: 0;
-  left: 0;
-  width: 100%;            /* 프레임 가로 전체 */
-  height: 100%;           /* 프레임 세로 전체 */
-  background: rgba(0,0,0,0.4);
-  z-index: 20;
-}
-
-
 /* 헤더 */
 .mypage-header {
   display: flex;
