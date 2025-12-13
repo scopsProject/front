@@ -64,35 +64,18 @@
 
 /* 세션 선택 라벨 컨테이너 */
 .session-label-container {
-  width: 90%;
+  width: 75%;
   text-align: left;
   /* 왼쪽 정렬 */
   margin-bottom: 8px;
   /* 아래 라디오 버튼과 간격 */
-  padding-left: 12px;
+
   /* 입력창 내부 텍스트와 시작점 맞추기 */
 }
 
 .userinput-box {
-  width: 90%;
-  padding: 15px;
-  margin-bottom: 15px;
-  /* 입력창 간격 */
-  box-sizing: border-box;
-  /* padding 포함해서 width 계산 */
-  border-radius: 30px;
-  /* 모서리 둥글게 */
-  border: none;
-  /* 테두리 제거 */
-  box-shadow: 0 0 10px rgba(255, 238, 187, 1);
-  /* 번지는 효과 */
-  background-color: #FFEEBB;
-  color: #876400;
-}
-
-.usersinput-box {
-  width: 90%;
-  padding: 12px;
+  width: 80%;
+  padding: 13px;
   margin-bottom: 15px;
   /* 입력창 간격 */
   box-sizing: border-box;
@@ -123,7 +106,6 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 10px;
   /* 아이템 간 간격 */
   background-color: #FFFEF8;
   /* 입력창과 동일한 배경색 */
@@ -131,7 +113,7 @@
   /* 동일한 둥근 모서리 */
   padding: 0px 10px;
   /* 내부 여백 */
-  width: 100%;
+  width: 90%;
   box-sizing: border-box;
   margin-bottom: 20px;
 }
@@ -204,9 +186,9 @@
 
 /* 등록완료 버튼 */
 .submit-button2 {
-  width: 90%;
+  width: 80%;
   /* 컨테이너에 맞게 조정 */
-  padding: 15px;
+  padding: 2%;
   background: #FFEEBB;
   border: none;
   border-radius: 30px;
@@ -269,7 +251,7 @@ body {
 /* 임원 체크박스 영역 */
 /* 체크박스 라인 */
 .exec-check-container {
-  width: 90%;
+  width: 80%;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -296,7 +278,7 @@ body {
 
 /* 인증 입력칸 */
 .exec-input {
-  width: 80%;
+  width: 70%;
   border-radius: 30px;
   border: none;
   background: #FFEEBB;

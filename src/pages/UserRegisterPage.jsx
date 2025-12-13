@@ -179,7 +179,7 @@ const UserRegisterPage = () => {
           </div>
           <div className="radio-group">
             {sectionList.map((sec, idx) => (
-              <label key={idx} style={{ marginRight: '10px', display: 'flex', alignItems: 'center' }}>
+              <label key={idx} style={{ marginRight: '5px', display: 'flex', alignItems: 'center' }}>
                 <input
                   type="radio"
                   name="session"
