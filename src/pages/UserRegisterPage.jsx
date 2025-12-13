@@ -248,7 +248,6 @@ const UserRegisterPage = () => {
             onChange={(e) => setUserPasswordConfirm(e.target.value)}
             className="userinput-box"
           />
-          <intput type="chechbox"></intput>
           {/* 임원 체크박스 */}
           <div className="exec-check-container">
             <input
