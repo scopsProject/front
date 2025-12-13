@@ -52,7 +52,6 @@ function ManagementPage() {
 
   // 3. 거절 처리 함수
   const handleReject = async (userID) => {
-    console.log("현재 토큰:", localStorage.getItem('token'));
     if (!window.confirm('정말 거절하시겠습니까? (데이터가 삭제됩니다)')) return;
 
     try {
