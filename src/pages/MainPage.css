@@ -34,21 +34,22 @@
   /* 세로 내용이 길어지면 스크롤 */
 
   /* 모바일 하단바나 노치 영역 고려 (선택 사항) */
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 .main-container {
+  /* 기존 속성 유지 */
   border: none;
-  /* 테두리 없음 */
   border-radius: 40px;
   padding: 16px;
-  /* 안쪽 여백 */
   border-radius: 0px;
-  height: 400px;
-  /* 원하는 고정 높이 */
+  height: 400px; /* 고정 높이 */
   overflow-y: auto;
-  /* 내용 넘칠 때 세로 스크롤 생성 */
   margin: 2%;
+
+  /* 🔥 [추가] Flexbox 설정 */
+  display: flex;
+  flex-direction: column;
 }
 
 .main-container-time {
@@ -57,6 +58,17 @@
   grid-template-columns: 1fr auto;
   align-items: center;
   width: 100%;
+}
+.no-songs-message {
+  flex: 1; /* 남은 높이(공간)를 모두 차지함 */
+  display: flex;
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center;     /* 세로 중앙 정렬 */
+  
+  /* 폰트 스타일 이동 */
+  font-family: "suit-R";
+  color: #634900;
+  font-size: 16px; /* 필요시 크기 조절 */
 }
 
 /* 날짜는 왼쪽 칸에 위치 */

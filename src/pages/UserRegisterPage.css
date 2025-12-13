@@ -116,6 +116,7 @@
   width: 90%;
   box-sizing: border-box;
   margin-bottom: 20px;
+  gap: 14px;
 }
 
 /* 라벨 */
@@ -184,11 +185,64 @@
   display: block;
 }
 
+/* 체크박스 전체 */
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+/* 진짜 checkbox 숨김 */
+.custom-checkbox input {
+  display: none;
+}
+
+/* 가짜 체크박스 */
+.checkmark {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #868688;
+  border-radius: 4px;
+  position: relative;
+  background-color: #fff;
+}
+
+/* 체크된 상태 */
+.custom-checkbox input:checked + .checkmark {
+  background-color: #4f46e5;
+  border-color: #4f46e5;
+}
+
+/* 체크 표시 */
+.custom-checkbox input:checked + .checkmark::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* 텍스트 */
+.checkbox-text {
+  white-space: nowrap;
+  color: #868688ff;
+  font-size: 12px;
+}
+
+
 /* 등록완료 버튼 */
 .submit-button2 {
-  width: 80%;
+  width: 85%;
   /* 컨테이너에 맞게 조정 */
-  padding: 2%;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-bottom: 2%;
+  padding-top: 3%;
   background: #FFEEBB;
   border: none;
   border-radius: 30px;
@@ -198,7 +252,8 @@
   font-weight: bold;
   font-size: 16px;
   color: #876400;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #FFEEBB;
+  box-shadow: 0 0 10px rgba(255, 230, 130, 0.6);
 
   margin-top: auto;
   /* 위쪽 내용 밀어내고 바닥으로 */
@@ -208,24 +263,8 @@
   /* 🔥 [추가] 가로 중앙 정렬 */
 }
 
-.submit-button {
-  width: 100%;
-  /* 컨테이너에 맞게 조정 */
-  margin-bottom: 15px;
-  background: #FFEEBB;
-  border: none;
-  border-radius: 30px;
-  /* 다른 입력창과 같은 둥근 모서리 */
-  cursor: pointer;
-  /* 위 요소와 간격 */
-  font-weight: bold;
-  font-size: 16px;
-  color: #876400;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.submit-button:hover {
-  background: #ffd54f;
+.submit-button2:hover {
+  background: #fcd75e;
   /* 호버 시 조금 더 진한 노란색 */
 }
 
@@ -284,18 +323,20 @@ body {
   background: #FFEEBB;
   box-shadow: 0 0 10px rgba(255, 238, 187, 1);
   color: #876400;
+  padding-left: 5%;
+  margin: 1%;
 }
 
 /* 인증 버튼 */
 .exec-btn {
-  background: #FFEEBB;
   border: none;
   cursor: pointer;
   border-radius: 30px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  color: #876400;
-  font-weight: bold;
+  background: #FFEEBB;
+  box-shadow: 0 0 10px rgba(255, 238, 187, 1);
+  color: #868688ff;
   flex: 1;
+  margin: 1%;
 }
 
 .exec-btn:hover {

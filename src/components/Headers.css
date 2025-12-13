@@ -114,7 +114,7 @@
   top: 50%;                 /* 상단에서 50% 내려옴 */
   transform: translate(-50%, -50%); /* 자신의 크기만큼 다시 이동 -> 완벽한 중앙 */
   
-  width: 70px;
+  width: 60px;
   height: auto;
   cursor: pointer;
 }

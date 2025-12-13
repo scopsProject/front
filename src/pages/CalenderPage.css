@@ -32,7 +32,7 @@
   /* 세로 내용이 길어지면 스크롤 */
 
   /* 모바일 하단바나 노치 영역 고려 (선택 사항) */
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 .calendarPage-calendar-container {

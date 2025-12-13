@@ -54,7 +54,7 @@ function MainPage() {
       result.push({
         fullDate: d.toISOString().slice(0, 10), // yyyy-mm-dd
         date: `${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}`, // MM-DD
-        day: shortWeekdays[d.getDay()],
+        day: shortWeekdays[d.getDay()].toUpperCase(),
       });
     }
     setWeekInfo(result);
@@ -93,7 +93,9 @@ function MainPage() {
           </div>
           {/* 오늘 곡 목록 */}
           {todaySongs.length === 0 ? (
-            <p style={{fontFamily:"suit-R", color:"#634900", marginLeft:"5%"}}>예정된 합주가 없습니다.</p>
+            <div className="no-songs-message">
+              예정된 합주가 없습니다.
+            </div>
           ) : (
             todaySongs
               .sort((a, b) => a.startTime.localeCompare(b.startTime))

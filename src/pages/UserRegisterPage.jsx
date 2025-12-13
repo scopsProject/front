@@ -187,7 +187,7 @@ const UserRegisterPage = () => {
                   checked={userSession === sec.value}
                   onChange={() => setUserSession(sec.value)}
                 />
-                {sec.label}
+                <span style={{marginTop: "2px"}}>{sec.label}</span>
               </label>
             ))}
           </div>
@@ -228,20 +228,23 @@ const UserRegisterPage = () => {
           />
           {/* 임원 체크박스 */}
           <div className="exec-check-container">
-            <input
-              type="checkbox"
-              checked={isExecutive}
-              onChange={(e) => {
-                setIsExecutive(e.target.checked);
+            <label className="custom-checkbox">
+              <input
+                type="checkbox"
+                checked={isExecutive}
+                onChange={(e) => {
+                  setIsExecutive(e.target.checked);
 
-                if (!e.target.checked) {
-                  setExecCode("");
-                  setExecVerified(false);
-                  setRole("none");
-                }
-              }}
-            />
-            <span style={{ whiteSpace: "nowrap", color:"#868688ff"}}>임원입니까?</span>
+                  if (!e.target.checked) {
+                    setExecCode("");
+                    setExecVerified(false);
+                    setRole("none");
+                  }
+                }}
+              />
+              <span className="checkmark"></span>
+              <span className="checkbox-text">임원입니까?</span>
+            </label>
 
             <div className={`exec-auth-container ${isExecutive ? "active" : ""}`}>
               <input
@@ -259,6 +262,7 @@ const UserRegisterPage = () => {
               </button>
             </div>
           </div>
+
         </div>
         <button
           onClick={handleUserRegister}
