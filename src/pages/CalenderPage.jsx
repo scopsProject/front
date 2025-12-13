@@ -280,9 +280,9 @@ function CalenderPage() {
         <div className="calendarPage-calendar-container">
 
           <div className="month-header">
-            <img src={`/images/left.png`} onClick={prevMonth} className='calender-left-btn'></img>
+            <img src={`/images/left.png`} onClick={prevMonth} className='calender-left-btn' alt="이전 달"></img>
             <h2 className="month-title">{currentYear}년 {currentMonth}월</h2>
-            <img src={`/images/right.png`} onClick={nextMonth} className='calender-right-btn'></img>
+            <img src={`/images/right.png`} onClick={nextMonth} className='calender-right-btn' alt="다음 달"></img>
           </div>
           <div className="calendar-day-header-container">
             {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((day) => (
