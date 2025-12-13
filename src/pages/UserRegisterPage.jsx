@@ -265,7 +265,7 @@ const UserRegisterPage = () => {
           disabled={!isFormValid}
           className={`submit-button2 ${isFormValid ? "" : "disabled"}`}
         >
-          등 록 완 료
+          가입신청
         </button>
       </div>
     </div>
