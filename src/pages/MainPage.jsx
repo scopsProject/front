@@ -93,7 +93,7 @@ function MainPage() {
           </div>
           {/* 오늘 곡 목록 */}
           {todaySongs.length === 0 ? (
-            <p>예정된 합주가 없습니다.</p>
+            <p style={{fontFamily:"suit-R", color:"#634900", marginLeft:"5%"}}>예정된 합주가 없습니다.</p>
           ) : (
             todaySongs
               .sort((a, b) => a.startTime.localeCompare(b.startTime))

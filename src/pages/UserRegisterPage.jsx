@@ -96,7 +96,7 @@ const UserRegisterPage = () => {
         console.log('회원가입:', res.data);
         Swal.fire({
           title: '성공',
-          text: '회원가입이 완료되었습니다.',
+          text: '회원가입이 신청이 완료되었습니다.',
           width: '400px',
           icon: 'success'
         });
@@ -265,7 +265,7 @@ const UserRegisterPage = () => {
           disabled={!isFormValid}
           className={`submit-button2 ${isFormValid ? "" : "disabled"}`}
         >
-          <img src={`/images/registerbtn.png`}></img>
+          <img src={`/images/registerbtn.png`} alt='등록완료'></img>
         </button>
       </div>
     </div>
