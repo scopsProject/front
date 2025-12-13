@@ -129,8 +129,6 @@
   position: relative;
   padding-bottom: 2px;
   
-  /* 🔥 [핵심 수정] 내용이 많아도 셀 크기를 유지하도록 넘침 숨김 처리 */
-  overflow: hidden;
   width: 100%; /* 가로폭도 강제 */
 }
 .cell-top {
@@ -379,8 +377,6 @@
   box-shadow: 0 0 10px rgba(241, 204, 56, 0.9);
   border-radius: 30px;
 }
-/* ... 기존 CalenderPage.css 내용은 그대로 두시고 아래 내용을 맨 밑에 추가하세요 ... */
-
 /* 🔥 [신규] 달력 페이지용 행사 추가 버튼 */
 .add-event-btn-small {
   background-color: #FFEEBB;
