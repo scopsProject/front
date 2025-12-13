@@ -280,9 +280,9 @@ function CalenderPage() {
         <div className="calendarPage-calendar-container">
 
           <div className="month-header">
-            <button className="circle-btn left-btn" onClick={prevMonth}>{"⬅"}</button>
+            <img src={`/images/left.png`} onClick={prevMonth} className='calender-left-btn'></img>
             <h2 className="month-title">{currentYear}년 {currentMonth}월</h2>
-            <button className="circle-btn right-btn" onClick={nextMonth}>{"➡"}</button>
+            <img src={`/images/right.png`} onClick={nextMonth} className='calender-right-btn'></img>
           </div>
           <div className="calendar-day-header-container">
             {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((day) => (

@@ -173,7 +173,7 @@ const UserRegisterPage = () => {
           />
           {/* 세션 라디오 버튼 */}
           <div className="session-label-container">
-            <span style={{ color: "#876400", fontSize: "14px", backgroundColor: "#FFFEF8" }}>
+            <span style={{ color: "#868688ff", fontSize: "14px", backgroundColor: "#FFFEF8" }}>
               세션 선택
             </span>
           </div>
@@ -241,7 +241,7 @@ const UserRegisterPage = () => {
                 }
               }}
             />
-            <span style={{ whiteSpace: "nowrap" }}>임원입니까?</span>
+            <span style={{ whiteSpace: "nowrap", color:"#868688ff"}}>임원입니까?</span>
 
             <div className={`exec-auth-container ${isExecutive ? "active" : ""}`}>
               <input

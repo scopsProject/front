@@ -114,7 +114,7 @@ function LoginPage() {
             className="login-button"
             onClick={handleLogin}
           >
-            <span style={{color: "#876400", fontFamily:"suit"}}>LOGIN</span>
+            <img src='/images/LOGIN.png'></img>
           </button>
         </div>
       </div>

@@ -1,26 +1,36 @@
 /* 전체 배경 (데스크탑에서는 배경색이 보이고, 모바일에서는 가려짐) */
 .App {
   display: flex;
-  justify-content: center; /* 가로 중앙 정렬 */
-  min-height: 100vh;       /* 최소 높이를 화면 전체로 */
-  background-color: #f5f5f5; /* 데스크탑용 배경색 (앱 밖의 영역) */
+  justify-content: center;
+  /* 가로 중앙 정렬 */
+  min-height: 100vh;
+  /* 최소 높이를 화면 전체로 */
+  background-color: #f5f5f5;
+  /* 데스크탑용 배경색 (앱 밖의 영역) */
   margin: 0;
   padding: 0;
 }
 
 /* 실제 앱 컨테이너 */
 .app-container {
-  width: 100%;            /* 모바일: 화면 꽉 차게 */
-  max-width: 450px;       /* 데스크탑/태블릿: 최대 너비 제한 (아이폰 Pro Max 정도) */
-  min-height: 100vh;      /* 높이는 내용에 따라 늘어나되, 최소 화면 전체 */
+  width: 100%;
+  /* 모바일: 화면 꽉 차게 */
+  max-width: 450px;
+  /* 데스크탑/태블릿: 최대 너비 제한 (아이폰 Pro Max 정도) */
+  min-height: 100vh;
+  /* 높이는 내용에 따라 늘어나되, 최소 화면 전체 */
   position: relative;
-  background: #FFFEF8;       /* 앱 내부 배경 흰색 */
-  margin: 0 auto;         /* 중앙 정렬 */
-  
+  background: #FFFEF8;
+  /* 앱 내부 배경 흰색 */
+  margin: 0 auto;
+  /* 중앙 정렬 */
+
   /* 내부 스크롤 허용 (overflow: hidden 제거) */
-  overflow-x: hidden;     /* 가로 스크롤 방지 */
-  overflow-y: auto;       /* 세로 내용이 길어지면 스크롤 */
-  
+  overflow-x: hidden;
+  /* 가로 스크롤 방지 */
+  overflow-y: auto;
+  /* 세로 내용이 길어지면 스크롤 */
+
   /* 모바일 하단바나 노치 영역 고려 (선택 사항) */
   padding-bottom: 20px;
 }
@@ -44,35 +54,11 @@
   font-family: "suit";
 }
 
-/* 양쪽 화살표 버튼 */
-.circle-btn {
-  width: 35px;
-  height: 35px;
-  border: none;
-  background-color: #ffeaa7;
-  cursor: pointer;
-  font-size: 18px;
-  color: #FFFFFF;
-
-  border-radius: 15px;
-  box-shadow: 0 0 10px rgba(255, 230, 130, 0.5);
-}
-
 .month-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
-}
-
-.left-btn {
-  margin-left: 10px;
-  border: none; 
-}
-
-.right-btn {
-  margin-right: 10px;
-  border: none;
 }
 
 .calendar-day-header-container {
@@ -97,47 +83,52 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   /* 🔥 [핵심 수정] 1fr 대신 minmax(0, 1fr) 사용 */
-  grid-auto-rows: minmax(0, 1fr); 
-  
+  grid-auto-rows: minmax(0, 1fr);
+
   border: 1px solid #FFFFFF;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(255, 230, 130, 0.9);
-  overflow: hidden; /* 그리드 전체 넘침 방지 */
+  overflow: hidden;
+  /* 그리드 전체 넘침 방지 */
 
   flex-grow: 1;
 }
 
 /* 내부 구분선: 우측 선 (7번째 칸 제외) */
-.calendarPage-calendar-grid > .calendarPage-calendar-cell:not(:nth-child(7n)) {
+.calendarPage-calendar-grid>.calendarPage-calendar-cell:not(:nth-child(7n)) {
   border-right: 1px solid #f0e0a0;
 }
 
 /* 내부 구분선: 하단 선 (마지막 줄 제외) */
-.calendarPage-calendar-grid > .calendarPage-calendar-cell:not(:nth-last-child(-n + 7)) {
+.calendarPage-calendar-grid>.calendarPage-calendar-cell:not(:nth-last-child(-n + 7)) {
   border-bottom: 1px solid #f0e0a0;
 }
 
 .calendarPage-calendar-cell {
   min-height: 0;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   justify-content: space-between;
   gap: 2px;
   position: relative;
   padding-bottom: 2px;
-  
-  width: 100%; /* 가로폭도 강제 */
+
+  width: 100%;
+  /* 가로폭도 강제 */
 }
+
 .cell-top {
   display: flex;
   flex-direction: column;
   margin-top: 5%;
 }
+
 .cell-bottom {
   display: flex;
   flex-direction: column-reverse;
   width: 100%;
-  margin-top: auto; /* 내용이 적어도 항상 바닥에 붙게 함 */
+  margin-top: auto;
+  /* 내용이 적어도 항상 바닥에 붙게 함 */
 }
 
 .date-number {
@@ -145,7 +136,7 @@
   font-family: "suit";
   color: #EAB211;
   font-weight: bold;
-  
+
   /* 기본 크기 잡아두기 (동그라미 모양 유지 위해) */
   width: 17px;
   height: 17px;
@@ -153,23 +144,27 @@
   align-items: center;
   justify-content: center;
 }
+
 .today-mark {
   background-color: #FFDB74;
   color: #967720;
-  border: none;;
+  border: none;
+  ;
   border-radius: 30px;
   box-shadow: 0 0 10px rgba(255, 230, 130, 0.9);
 }
 
 .events {
   display: flex;
-  flex-direction: column; /* 바를 위아래로 쌓음 */
-  gap: 2px; /* 바 사이 간격 */
+  flex-direction: column;
+  /* 바를 위아래로 쌓음 */
+  gap: 2px;
+  /* 바 사이 간격 */
   width: 100%;
-  
+
   /* 내용이 많으면 스크롤 생기게 하기 */
   flex-grow: 1;
-  overflow-y: auto; 
+  overflow-y: auto;
   height: 100%;
 }
 
@@ -182,17 +177,21 @@
   color: #787878;
   font-size: 6px;
   font-family: "suit";
-  
 
-  height: 11px;       /* 텍스트가 없어도 높이 유지 */
-  line-height: 11px;  /* 텍스트 수직 중앙 정렬 */
+
+  height: 11px;
+  /* 텍스트가 없어도 높이 유지 */
+  line-height: 11px;
+  /* 텍스트 수직 중앙 정렬 */
   margin-bottom: 2px;
-  
+
   margin-left: -5px;
   margin-right: -5px;
-  padding-left: 5px;  /* 텍스트가 너무 왼쪽에 붙지 않게 */
-  
-  border-radius: 0;   /* 기본적으로 네모 반듯하게 (중간 날짜들) */
+  padding-left: 5px;
+  /* 텍스트가 너무 왼쪽에 붙지 않게 */
+
+  border-radius: 0;
+  /* 기본적으로 네모 반듯하게 (중간 날짜들) */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -201,22 +200,31 @@
   position: relative;
   z-index: 2;
 }
+
 .event-bar:hover {
   opacity: 0.8;
 }
 
 .event-bar.spacer {
-  background-color: transparent; /* 투명 */
-  box-shadow: none; /* 그림자 제거 */
+  background-color: transparent;
+  /* 투명 */
+  box-shadow: none;
+  /* 그림자 제거 */
   cursor: default;
-  pointer-events: none; /* 클릭 안 되게 */
+  pointer-events: none;
+  /* 클릭 안 되게 */
 }
+
 .event-bar.start {
-  margin-left: 0px; /* 시작일은 왼쪽 여백 둠 */
-  z-index: 3; /* 시작 부분이 더 위에 오도록 */
+  margin-left: 0px;
+  /* 시작일은 왼쪽 여백 둠 */
+  z-index: 3;
+  /* 시작 부분이 더 위에 오도록 */
 }
+
 .event-bar.end {
-  margin-right: 0px; /* 종료일은 오른쪽 여백 둠 */
+  margin-right: 0px;
+  /* 종료일은 오른쪽 여백 둠 */
 }
 
 .reservation-list {
@@ -224,17 +232,21 @@
   flex-direction: column;
   gap: 1px;
   margin-left: 3%;
-  
+
   /* 🔥 [핵심 추가] 예약 목록이 너무 길어지면 셀을 밀어내지 않게 함 */
-  flex: 1;           /* 남은 공간 차지 */
-  min-height: 0;     /* Flex 아이템 축소 가능하게 설정 */
-  overflow: hidden;  /* 넘치면 안 보이게 (또는 overflow-y: scroll) */
+  flex: 1;
+  /* 남은 공간 차지 */
+  min-height: 0;
+  /* Flex 아이템 축소 가능하게 설정 */
+  overflow: hidden;
+  /* 넘치면 안 보이게 (또는 overflow-y: scroll) */
 }
 
 .reservation-item {
   font-size: 6px;
   padding-left: 2px;
-  border-left: 1px solid #EAB211; /* 왼쪽에 노란 포인트 줄 */
+  border-left: 1px solid #EAB211;
+  /* 왼쪽에 노란 포인트 줄 */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -243,21 +255,30 @@
   color: #967720;
 }
 
-/* [신규] 모달 스타일 */
 /* 모달 내부 컨테이너 */
 .calender-main-container {
   border: none;
   border-radius: 0px;
-  height: 300px; /* 모달 크기에 맞춤 */
+  height: 300px;
+  /* 모달 크기에 맞춤 */
   overflow-y: auto;
   padding: 10px;
   margin: 0;
+}
+
+.calender-left-btn {
+  cursor: pointer;
+}
+
+.calender-right-btn {
+  cursor: pointer;
 }
 
 /* 스크롤바 숨기기 (선택사항) */
 .calender-main-container::-webkit-scrollbar {
   width: 5px;
 }
+
 .calender-main-container::-webkit-scrollbar-thumb {
   background-color: #FFE495;
   border-radius: 10px;
@@ -266,18 +287,20 @@
 /* 개별 곡 아이템 (줄) */
 .calender-main-container-song {
   /* 구분선 색상 변경 (기존: #FFE495 -> 예: #EAB211) */
-  border-bottom: 1px solid #FFFFFF; 
+  border-bottom: 1px solid #FFFFFF;
   padding-bottom: 8px;
   margin-bottom: 8px;
 }
 
 .calender-main-container-song:last-child {
-  border-bottom: none; /* 마지막 줄은 선 없애기 */
+  border-bottom: none;
+  /* 마지막 줄은 선 없애기 */
 }
 
 /* 곡 제목 영역 */
 .calender-main-container-songname {
-  font-size: 20px; /* 모달이라 폰트 살짝 줄임 (MainPage는 30px) */
+  font-size: 20px;
+  /* 모달이라 폰트 살짝 줄임 (MainPage는 30px) */
   margin-bottom: 4px;
 }
 
@@ -290,15 +313,18 @@
   font-size: 16px;
 
   /* 뱃지 색상 변경 (여기를 수정하세요!) */
-  background-color: #FFFFFF;  /* 진한 노랑 배경 */
-  color: #634900;             /* 흰색 글씨 */
+  background-color: #FFFFFF;
+  /* 진한 노랑 배경 */
+  color: #634900;
+  /* 흰색 글씨 */
   box-shadow: 0 0 5px rgba(234, 178, 17, 0.4);
 }
 
 /* 가수 이름 */
 .calender-main-container-singer {
   font-size: 9px;
-  color: #876400; /* 짙은 갈색 */
+  color: #876400;
+  /* 짙은 갈색 */
 }
 
 /* 시간 표시 */
@@ -313,30 +339,33 @@
 .calender-main-container-songperson {
   font-family: 'suit-regular';
   margin-bottom: 5px;
-  color: #9C7F2C; /* 포인트 색상 */
+  color: #9C7F2C;
+  /* 포인트 색상 */
   font-size: 12px;
   margin-top: 2px;
 }
-.calendermodal-overlay{
+
+.calendermodal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정 배경 */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* 반투명 검정 배경 */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
 }
 
-.calendermodal-content{
+.calendermodal-content {
   background-color: #FFF6DC;
   width: 85%;
   max-width: 350px;
   border-radius: 20px;
   padding: 20px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
 }
@@ -359,11 +388,13 @@
   background-color: #FFFFFF;
   box-shadow: 0 0 10px rgba(241, 204, 56, 0.9);
 }
-.calendermodal-day{
+
+.calendermodal-day {
   font-family: 'suit-regular';
   color: #876400;
   font-size: 24px;
 }
+
 .calenderclose-btn {
   border: none;
   font-size: 20px;
@@ -373,6 +404,7 @@
   box-shadow: 0 0 10px rgba(241, 204, 56, 0.9);
   border-radius: 30px;
 }
+
 /* 🔥 [신규] 달력 페이지용 행사 추가 버튼 */
 .add-event-btn-small {
   background-color: #FFEEBB;
