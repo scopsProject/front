@@ -378,7 +378,7 @@
   justify-content: center;
 }
 
-.modal-overlay {
+.mypagemodal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -395,7 +395,7 @@
 .add-modal {
   background: #FFF9E5;
   /* 연한 노랑 배경 */
-  width: 320px;
+  width: 400px;
   border-radius: 20px;
   padding: 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -404,13 +404,13 @@
   gap: 15px;
 }
 
-.modal-header-row {
+.mypagemodal-header-row {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.modal-title {
+.mypagemodal-title {
   font-size: 24px;
   color: #634900;
   /* 짙은 갈색 */
@@ -418,7 +418,7 @@
   margin: 0;
 }
 
-.modal-memo {
+.mypagemodal-memo {
   font-size: 12px;
   color: #EAB211;
   /* 짙은 갈색 */
@@ -427,7 +427,7 @@
   margin-top: 3%;
 }
 
-.modal-close-btn {
+.mypagemodal-close-btn {
   background: #FFEAA7;
   border: none;
   border-radius: 50%;

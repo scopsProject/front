@@ -261,12 +261,12 @@ const MyPageEdit = () => {
                     </section>
                 </div>
                 {showModal && (
-                    <div className="modal-overlay">
+                    <div className="mypagemodal-overlay">
                         <div className="modal-content add-modal">
-                            <div className="modal-header-row">
-                                <h2 className="modal-title">{selectedId ? formData.title : "추가하기"}</h2>
-                                <span className="modal-memo">{selectedId ? formData.memo : ""}</span>
-                                <button className="modal-close-btn" onClick={() => setShowModal(false)}>X</button>
+                            <div className="mypagemodal-header-row">
+                                <h2 className="mypagemodal-title">{selectedId ? formData.title : "추가하기"}</h2>
+                                <span className="mypagemodal-memo">{selectedId ? formData.memo : ""}</span>
+                                <button className="mypagemodal-close-btn" onClick={() => setShowModal(false)}>X</button>
                             </div>
 
                             <div className="input-group">

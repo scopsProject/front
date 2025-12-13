@@ -317,8 +317,7 @@
   font-size: 12px;
   margin-top: 2px;
 }
-.calendermodal-overlay,
-.modal-overlay {
+.calendermodal-overlay{
   position: fixed;
   top: 0;
   left: 0;
@@ -331,8 +330,7 @@
   z-index: 1000;
 }
 
-.calendermodal-content,
-.modal-content {
+.calendermodal-content{
   background-color: #FFF6DC;
   width: 85%;
   max-width: 350px;
@@ -395,7 +393,7 @@
 }
 
 /* 🔥 [신규] 모달 스타일 (SongAddPage에서 가져옴) */
-.modal-title {
+.calendermodal-title {
   font-size: 18px;
   font-weight: bold;
   color: #333;
@@ -404,20 +402,20 @@
   font-family: 'suit-R';
 }
 
-.modal-input-group {
+.calendermodal-input-group {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-.modal-input-group label {
+.calendermodal-input-group label {
   font-size: 14px;
   color: #876400;
   font-weight: bold;
   font-family: 'suit-regular';
 }
 
-.modal-input {
+.calendermodal-input {
   padding: 10px;
   border-radius: 10px;
   border: none;
@@ -427,13 +425,13 @@
   font-family: 'suit-regular';
 }
 
-.modal-actions {
+.calendermodal-actions {
   display: flex;
   gap: 10px;
   margin-top: 10px;
 }
 
-.modal-btn {
+.calendermodal-btn {
   flex: 1;
   padding: 10px;
   border: none;
@@ -443,12 +441,12 @@
   font-family: 'suit-regular';
 }
 
-.modal-btn.cancel {
+.calendermodal-btn.cancel {
   background-color: #eee;
   color: #555;
 }
 
-.modal-btn.save {
+.calendermodal-btn.save {
   background-color: #EAB211;
   color: white;
 }

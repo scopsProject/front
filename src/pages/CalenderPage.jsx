@@ -381,41 +381,41 @@ function CalenderPage() {
           </div>
         )}
         {showEventModal && (
-          <div className="modal-overlay" onClick={() => setShowEventModal(false)}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <div className="modal-title">새 행사 추가</div>
+          <div className="calendermodal-overlay" onClick={() => setShowEventModal(false)}>
+            <div className="calendermodal-content" onClick={(e) => e.stopPropagation()}>
+              <div className="calendermodal-title">새 행사 추가</div>
 
-              <div className="modal-input-group">
+              <div className="calendermodal-input-group">
                 <label>행사명</label>
                 <input
                   type="text"
-                  className="modal-input"
+                  className="calendermodal-input"
                   placeholder="예: 2025 정기공연"
                   value={newEventData.eventName}
                   onChange={(e) => setNewEventData({ ...newEventData, eventName: e.target.value })}
                 />
               </div>
 
-              <div className="modal-input-group">
+              <div className="calendermodal-input-group">
                 <label>시작일</label>
                 <input
                   type="date"
-                  className="modal-input"
+                  className="calendermodal-input"
                   value={newEventData.createdDate}
                   onChange={(e) => setNewEventData({ ...newEventData, createdDate: e.target.value })}
                 />
               </div>
 
-              <div className="modal-input-group">
+              <div className="calendermodal-input-group">
                 <label>종료일</label>
                 <input
                   type="date"
-                  className="modal-input"
+                  className="calendermodal-input"
                   value={newEventData.endDate}
                   onChange={(e) => setNewEventData({ ...newEventData, endDate: e.target.value })}
                 />
               </div>
-              <div className="modal-input-group" style={{ flexDirection: 'row', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
+              <div className="calendermodal-input-group" style={{ flexDirection: 'row', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
                 <input
                   type="checkbox"
                   id="availableCheck"
@@ -427,9 +427,9 @@ function CalenderPage() {
                   이 행사에 곡 등록을 허용하시겠습니까?
                 </label>
               </div>
-              <div className="modal-actions">
-                <button className="modal-btn cancel" onClick={() => setShowEventModal(false)}>취소</button>
-                <button className="modal-btn save" onClick={handleAddEvent}>저장</button>
+              <div className="calendermodal-actions">
+                <button className="calendermodal-btn cancel" onClick={() => setShowEventModal(false)}>취소</button>
+                <button className="calendermodal-btn save" onClick={handleAddEvent}>저장</button>
               </div>
             </div>
           </div>

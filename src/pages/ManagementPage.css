@@ -1,3 +1,4 @@
+/* 전체 배경 (데스크탑에서는 배경색이 보이고, 모바일에서는 가려짐) */
 .App {
   display: flex;
   justify-content: center;
@@ -23,9 +24,7 @@
   /* 앱 내부 배경 흰색 */
   margin: 0 auto;
   /* 중앙 정렬 */
-
   position: relative;
-
   /* 내부 스크롤 허용 (overflow: hidden 제거) */
   overflow-x: hidden;
   /* 가로 스크롤 방지 */
@@ -34,4 +33,188 @@
 
   /* 모바일 하단바나 노치 영역 고려 (선택 사항) */
   padding-bottom: 20px;
+}
+
+/* 관리 페이지 내부 컨테이너 */
+.management-page-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* 메인 버튼 스타일 */
+.manage-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #4A90E2;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: background-color 0.2s;
+}
+
+.manage-btn:hover {
+  background-color: #357ABD;
+}
+
+/* 모달 배경 (어두운 반투명) */
+.managemodal-overlay {
+  position: absolute; /* app-container 기준 꽉 차게 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* 최상단 배치 */
+}
+
+/* 모달 내용 박스 */
+.managemodal-content {
+  background-color: white;
+  width: 85%; /* 모바일에서 적절한 너비 */
+  max-width: 380px;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  max-height: 80vh; /* 화면 높이의 80%까지만 */
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease-out; /* 나타날 때 애니메이션 */
+}
+
+/* 모달 헤더 */
+.managemodal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.managemodal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.manageclose-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #999;
+  padding: 0 5px;
+  margin-left: ;
+}
+
+.manageclose-btn:hover {
+  color: #333;
+}
+
+/* 리스트 영역 */
+.request-list {
+  overflow-y: auto; /* 내용 많으면 스크롤 */
+  flex: 1;
+  padding-right: 5px; /* 스크롤바 공간 확보 */
+}
+
+/* 스크롤바 스타일 (선택사항) */
+.request-list::-webkit-scrollbar {
+  width: 4px;
+}
+.request-list::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.no-data {
+  text-align: center;
+  color: #888;
+  padding: 30px 0;
+  font-size: 14px;
+}
+
+/* 개별 요청 아이템 */
+.request-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.request-item:last-child {
+  border-bottom: none;
+}
+
+/* 유저 정보 (기수, 이름) */
+.user-info {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.generation {
+  background-color: #f0f4f8;
+  color: #4A90E2;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* 승인/거절 버튼 그룹 */
+.action-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.action-buttons button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  color: white;
+  transition: opacity 0.2s;
+}
+
+.action-buttons button:hover {
+  opacity: 0.9;
+}
+
+.btn-approve {
+  background-color: #4CAF50; /* 초록색 */
+}
+
+.btn-reject {
+  background-color: #FF5252; /* 빨간색 */
+}
+
+/* 간단한 애니메이션 효과 */
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
