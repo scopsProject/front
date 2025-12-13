@@ -1,32 +1,42 @@
 /* 전체 배경 (데스크탑에서는 배경색이 보이고, 모바일에서는 가려짐) */
 .App {
   display: flex;
-  justify-content: center; /* 가로 중앙 정렬 */
-  min-height: 100vh;       /* 최소 높이를 화면 전체로 */
-  background-color: #f5f5f5; /* 데스크탑용 배경색 (앱 밖의 영역) */
+  justify-content: center;
+  /* 가로 중앙 정렬 */
+  min-height: 100vh;
+  /* 최소 높이를 화면 전체로 */
+  background-color: #f5f5f5;
+  /* 데스크탑용 배경색 (앱 밖의 영역) */
   margin: 0;
   padding: 0;
 }
 
 /* 실제 앱 컨테이너 */
 .app-container {
-  width: 100%;            /* 모바일: 화면 꽉 차게 */
-  max-width: 450px;       /* 데스크탑/태블릿: 최대 너비 제한 (아이폰 Pro Max 정도) */
-  min-height: 100vh;      /* 높이는 내용에 따라 늘어나되, 최소 화면 전체 */
-  
-  background: #FFFEF8;       /* 앱 내부 배경 흰색 */
-  margin: 0 auto;         /* 중앙 정렬 */
-  
-  /* 그림자: 데스크탑에서 앱처럼 보이게 함 (선택 사항) */
-  box-shadow: 0 0 20px rgba(0,0,0,0.1); 
-  
+  width: 100%;
+  /* 모바일: 화면 꽉 차게 */
+  max-width: 450px;
+  /* 데스크탑/태블릿: 최대 너비 제한 (아이폰 Pro Max 정도) */
+  min-height: 100vh;
+  /* 높이는 내용에 따라 늘어나되, 최소 화면 전체 */
+
+  background: #FFFEF8;
+  /* 앱 내부 배경 흰색 */
+  margin: 0 auto;
+  /* 중앙 정렬 */
+
+  position: relative;
+
   /* 내부 스크롤 허용 (overflow: hidden 제거) */
-  overflow-x: hidden;     /* 가로 스크롤 방지 */
-  overflow-y: auto;       /* 세로 내용이 길어지면 스크롤 */
-  
+  overflow-x: hidden;
+  /* 가로 스크롤 방지 */
+  overflow-y: auto;
+  /* 세로 내용이 길어지면 스크롤 */
+
   /* 모바일 하단바나 노치 영역 고려 (선택 사항) */
   padding-bottom: 20px;
 }
+
 .registerApp {
   display: flex;
   flex-direction: column;
@@ -40,44 +50,62 @@
   flex-direction: column;
   align-items: center;
 }
-.register-logo-box{
+
+.register-logo-box {
   margin-bottom: 50px;
 }
+
 .register-logo-box img {
   width: 120px;
   height: auto;
   margin-bottom: auto;
 }
+
 /* 세션 선택 라벨 컨테이너 */
 .session-label-container {
   width: 90%;
-  text-align: left; /* 왼쪽 정렬 */
-  margin-bottom: 8px; /* 아래 라디오 버튼과 간격 */
-  padding-left: 12px; /* 입력창 내부 텍스트와 시작점 맞추기 */
+  text-align: left;
+  /* 왼쪽 정렬 */
+  margin-bottom: 8px;
+  /* 아래 라디오 버튼과 간격 */
+  padding-left: 12px;
+  /* 입력창 내부 텍스트와 시작점 맞추기 */
 }
 
 .userinput-box {
   width: 90%;
   padding: 15px;
-  margin-bottom: 15px;           /* 입력창 간격 */
-  box-sizing: border-box;        /* padding 포함해서 width 계산 */
-  border-radius: 30px;           /* 모서리 둥글게 */
-  border: none;                  /* 테두리 제거 */
-  box-shadow: 0 0 10px rgba(255, 238, 187, 1); /* 번지는 효과 */
+  margin-bottom: 15px;
+  /* 입력창 간격 */
+  box-sizing: border-box;
+  /* padding 포함해서 width 계산 */
+  border-radius: 30px;
+  /* 모서리 둥글게 */
+  border: none;
+  /* 테두리 제거 */
+  box-shadow: 0 0 10px rgba(255, 238, 187, 1);
+  /* 번지는 효과 */
   background-color: #FFEEBB;
   color: #876400;
 }
-.usersinput-box{
+
+.usersinput-box {
   width: 90%;
   padding: 12px;
-  margin-bottom: 15px;           /* 입력창 간격 */
-  box-sizing: border-box;        /* padding 포함해서 width 계산 */
-  border-radius: 30px;           /* 모서리 둥글게 */
-  border: none;                  /* 테두리 제거 */
-  box-shadow: 0 0 10px rgba(255, 238, 187, 1); /* 번지는 효과 */
+  margin-bottom: 15px;
+  /* 입력창 간격 */
+  box-sizing: border-box;
+  /* padding 포함해서 width 계산 */
+  border-radius: 30px;
+  /* 모서리 둥글게 */
+  border: none;
+  /* 테두리 제거 */
+  box-shadow: 0 0 10px rgba(255, 238, 187, 1);
+  /* 번지는 효과 */
   background-color: #FFEEBB;
   color: #876400;
 }
+
 .userinput-box input {
   padding: 12px 15px;
   border-radius: 30px;
@@ -110,7 +138,7 @@
 /* 라벨 */
 .radio-group label {
   display: flex;
-  
+
   align-items: center;
   font-size: 11.5px;
   color: #876400;
@@ -177,38 +205,6 @@
   display: block;
 }
 
-/* 기타 입력창 */
-.radio-group .input-etc {
-  padding: 8px 12px;
-  border-radius: 15px;
-  border: 1px solid #ebdca7;
-  /* 살짝 진한 노란 테두리 */
-  background-color: #ffffff;
-  /* 흰색 배경으로 강조 */
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-  /* 내부 그림자 */
-  width: 100px;
-  font-size: 14px;
-  color: #5a4a1e;
-  margin-left: 5px;
-  transition: all 0.3s;
-}
-
-.radio-group .input-etc:focus {
-  outline: none;
-  border-color: #000000;
-}
-
-.radio-group .input-etc:disabled {
-  background-color: #FFFFFF;
-  /* 회색 배경 */
-  border-color: transparent;
-  box-shadow: none;
-  color: #999;
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
 /* 등록완료 버튼 */
 .submit-button2 {
   width: 90%;
@@ -224,11 +220,15 @@
   font-size: 16px;
   color: #876400;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  
-  margin-top: auto;    /* 위쪽 내용 밀어내고 바닥으로 */
-  margin-left: auto;   /* 🔥 [추가] 가로 중앙 정렬 */
-  margin-right: auto;  /* 🔥 [추가] 가로 중앙 정렬 */
+
+  margin-top: auto;
+  /* 위쪽 내용 밀어내고 바닥으로 */
+  margin-left: auto;
+  /* 🔥 [추가] 가로 중앙 정렬 */
+  margin-right: auto;
+  /* 🔥 [추가] 가로 중앙 정렬 */
 }
+
 .submit-button {
   width: 100%;
   /* 컨테이너에 맞게 조정 */
@@ -250,22 +250,6 @@
   /* 호버 시 조금 더 진한 노란색 */
 }
 
-.app-container {
-  position: relative;
-  width: 393px;
-  /* iPhone 16 Pro 가로폭 */
-  height: 752px;
-  /* iPhone 16 Pro 세로높이 */
-  margin: 40px auto;
-  /* 브라우저 중앙 배치 */
-  overflow: hidden;
-  /* 내부 넘치면 숨김 */
-  background: #fff;
-  /* 내부 배경 흰색 */
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  /* 살짝 그림자 (테두리X) */
-}
-
 body {
   background: #eaeaea;
 }
@@ -284,6 +268,7 @@ body {
   background-color: #ccc;
   cursor: not-allowed;
 }
+
 /* 임원 체크박스 영역 */
 /* 체크박스 라인 */
 .exec-check-container {
@@ -301,8 +286,10 @@ body {
   display: flex;
   gap: 8px;
   justify-content: center;
-  height: 48px; /* input + button 높이에 맞게 고정 */
-  visibility: hidden; /* 공간만 유지 */
+  height: 48px;
+  /* input + button 높이에 맞게 고정 */
+  visibility: hidden;
+  /* 공간만 유지 */
 }
 
 /* 체크되면 보이게 */
@@ -330,9 +317,11 @@ body {
   color: #876400;
   font-weight: bold;
 }
+
 .exec-btn:hover {
   background: #ffd54f;
 }
+
 .swal2-container {
   z-index: 99999 !important;
 }
@@ -342,7 +331,8 @@ body {
   border-radius: 16px !important;
   padding: 25px 20px !important;
   font-family: 'suit', sans-serif !important;
-  border: 2px solid #87640033 !important; /* 은은한 금색 라인 */
+  border: 2px solid #87640033 !important;
+  /* 은은한 금색 라인 */
 }
 
 /* 제목 */
@@ -354,13 +344,15 @@ body {
 }
 
 /* 내용 텍스트 */
-.swal2-html-container, .swal2-content {
+.swal2-html-container,
+.swal2-content {
   color: #5a4a2b !important;
   font-size: 16px !important;
 }
 
 /* 버튼 공통 스타일 */
-.swal2-confirm, .swal2-cancel {
+.swal2-confirm,
+.swal2-cancel {
   font-family: 'suit', sans-serif !important;
   font-size: 15px !important;
   border-radius: 10px !important;

@@ -1,47 +1,62 @@
 /* 전체 배경 (데스크탑에서는 배경색이 보이고, 모바일에서는 가려짐) */
 .App {
   display: flex;
-  justify-content: center; /* 가로 중앙 정렬 */
-  min-height: 100vh;       /* 최소 높이를 화면 전체로 */
-  background-color: #f5f5f5; /* 데스크탑용 배경색 (앱 밖의 영역) */
+  justify-content: center;
+  /* 가로 중앙 정렬 */
+  min-height: 100vh;
+  /* 최소 높이를 화면 전체로 */
+  background-color: #f5f5f5;
+  /* 데스크탑용 배경색 (앱 밖의 영역) */
   margin: 0;
   padding: 0;
 }
 
 /* 실제 앱 컨테이너 */
 .app-container {
-  width: 100%;            /* 모바일: 화면 꽉 차게 */
-  max-width: 450px;       /* 데스크탑/태블릿: 최대 너비 제한 (아이폰 Pro Max 정도) */
-  min-height: 100vh;      /* 높이는 내용에 따라 늘어나되, 최소 화면 전체 */
-  
-  background: #FFFEF8;       /* 앱 내부 배경 흰색 */
-  margin: 0 auto;         /* 중앙 정렬 */
-  
-  /* 그림자: 데스크탑에서 앱처럼 보이게 함 (선택 사항) */
-  box-shadow: 0 0 20px rgba(0,0,0,0.1); 
-  
+  width: 100%;
+  /* 모바일: 화면 꽉 차게 */
+  max-width: 450px;
+  /* 데스크탑/태블릿: 최대 너비 제한 (아이폰 Pro Max 정도) */
+  min-height: 100vh;
+  /* 높이는 내용에 따라 늘어나되, 최소 화면 전체 */
+
+  background: #FFFEF8;
+  /* 앱 내부 배경 흰색 */
+  margin: 0 auto;
+  /* 중앙 정렬 */
+
+
+
   /* 내부 스크롤 허용 (overflow: hidden 제거) */
-  overflow-x: hidden;     /* 가로 스크롤 방지 */
-  overflow-y: auto;       /* 세로 내용이 길어지면 스크롤 */
-  
+  overflow-x: hidden;
+  /* 가로 스크롤 방지 */
+  overflow-y: auto;
+  /* 세로 내용이 길어지면 스크롤 */
+
   /* 모바일 하단바나 노치 영역 고려 (선택 사항) */
   padding-bottom: 20px;
 }
 
-.reservation-calendar-grid-container{
-  margin-top: 50px;
-  border: 1px solid #FFFFFF;        /* 테두리 */
-  border-radius: 30px;            /* 모서리 둥글게 */
+.reservation-calendar-grid-container {
+  margin-top: 5%;
+  border: 1px solid #FFFFFF;
+  /* 테두리 */
+  border-radius: 30px;
+  /* 모서리 둥글게 */
   box-shadow: 0 0 15px rgba(255, 230, 130, 0.9);
-
+  margin-left: 5%;
+  margin-right: 5%;
 }
+
 .reservation-calendar-grid {
   min-height: 150px;
-  display: flex;              /* flex로 변경 */
+  display: flex;
+  /* flex로 변경 */
 }
 
 .reservation-calendar-cell {
-  position: relative;  /* 추가 */
+  position: relative;
+  /* 추가 */
   background-color: #FFFFFF;
   border: none;
   padding: 8px;
@@ -52,11 +67,15 @@
   display: flex;
   flex-direction: column;
 }
-.reservation-calendar-time{
+
+.reservation-calendar-time {
   display: flex;
-  gap: 8px;          /* 날짜와 요일 사이 간격 */
-  align-items: center; /* 세로 중앙 정렬 */
+  gap: 8px;
+  /* 날짜와 요일 사이 간격 */
+  align-items: center;
+  /* 세로 중앙 정렬 */
 }
+
 .reservation-calendar-cell:not(:nth-child(5n))::after {
   content: "";
   position: absolute;
@@ -75,11 +94,15 @@
   font-size: 9px;
   text-align: center;
 }
-#reservation-calender-date-span{
-  border: 1px solid #FFFFFF;        /* 테두리 */
-  border-radius: 30px;            /* 모서리 둥글게 */
+
+#reservation-calender-date-span {
+  border: 1px solid #FFFFFF;
+  /* 테두리 */
+  border-radius: 30px;
+  /* 모서리 둥글게 */
   box-shadow: 0 0 10px rgba(255, 230, 130, 0.9);
 }
+
 .reservation-calendar-day {
   font-family: 'suit-regular';
   font-size: 8px;
@@ -95,6 +118,7 @@
   margin: 2px 0;
   border-radius: 4px;
 }
+
 .reservation-calendar-cell.selected {
   background-color: #FFEEBB;
   border-radius: 15px;
@@ -112,6 +136,7 @@
   padding: 8px;
   font-size: 14px;
 }
+
 .custom-select-container {
   position: relative;
   font-family: 'suit-regular';
@@ -182,6 +207,7 @@
 .custom-select-list-item:hover {
   background-color: rgba(255, 230, 130, 0.2);
 }
+
 .reservation-submit-btn {
   width: 100%;
   max-width: 360px;
@@ -214,12 +240,14 @@
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #876400; /* 동아리 테마색 */
+  background-color: #876400;
+  /* 동아리 테마색 */
   color: white;
   padding: 12px 24px;
   border-radius: 30px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 2000; /* 헤더보다 위에 뜨도록 높게 설정 */
+  z-index: 2000;
+  /* 헤더보다 위에 뜨도록 높게 설정 */
   font-weight: bold;
   font-size: 15px;
   white-space: nowrap;
@@ -233,11 +261,14 @@
     top: -50px;
     opacity: 0;
   }
+
   to {
-    top: 80px; /* 헤더 아래쪽 적당한 위치 */
+    top: 80px;
+    /* 헤더 아래쪽 적당한 위치 */
     opacity: 1;
   }
 }
+
 .swal2-container {
   z-index: 99999 !important;
 }
@@ -247,7 +278,8 @@
   border-radius: 16px !important;
   padding: 25px 20px !important;
   font-family: 'suit', sans-serif !important;
-  border: 2px solid #87640033 !important; /* 은은한 금색 라인 */
+  border: 2px solid #87640033 !important;
+  /* 은은한 금색 라인 */
 }
 
 /* 제목 */
@@ -259,13 +291,15 @@
 }
 
 /* 내용 텍스트 */
-.swal2-html-container, .swal2-content {
+.swal2-html-container,
+.swal2-content {
   color: #5a4a2b !important;
   font-size: 16px !important;
 }
 
 /* 버튼 공통 스타일 */
-.swal2-confirm, .swal2-cancel {
+.swal2-confirm,
+.swal2-cancel {
   font-family: 'suit', sans-serif !important;
   font-size: 15px !important;
   border-radius: 10px !important;
@@ -320,33 +354,39 @@
 
 /* 버튼 묶음 */
 .time-buttons {
-  display: grid; /* Flex 대신 Grid 사용 */
-  grid-template-columns: repeat(4, 1fr); /* 1줄에 4개씩 균등 분할 */
-  gap: 8px; /* 간격 조절 (버튼이 작아지므로 간격도 살짝 줄임) */
+  display: grid;
+  /* Flex 대신 Grid 사용 */
+  grid-template-columns: repeat(4, 1fr);
+  /* 1줄에 4개씩 균등 분할 */
+  gap: 8px;
+  /* 간격 조절 (버튼이 작아지므로 간격도 살짝 줄임) */
   width: 100%;
 }
 
 .time-btn {
   background-color: #fff;
-  padding: 10px 0; /* 좌우 패딩을 0으로 줄여 텍스트 공간 확보 */
+  padding: 10px 0;
+  /* 좌우 패딩을 0으로 줄여 텍스트 공간 확보 */
   border-radius: 30px;
   border: 1px solid #fff;
   box-shadow: 0 0 15px rgba(255, 230, 130, 0.8);
 
   font-family: 'suit-regular';
-  font-size: 14px; /* 글자 크기를 살짝 줄임 (15px -> 14px 추천) */
+  font-size: 14px;
+  /* 글자 크기를 살짝 줄임 (15px -> 14px 추천) */
   color: #876400;
 
   cursor: pointer;
   transition: all 0.2s ease;
-  
+
   /* 중요: 기존 min-width 삭제 또는 auto로 변경 */
-  min-width: auto; 
-  width: 100%; /* 그리드 칸을 꽉 채우도록 설정 */
+  min-width: auto;
+  width: 100%;
+  /* 그리드 칸을 꽉 채우도록 설정 */
   text-align: center;
-  
+
   /* 텍스트가 넘치지 않도록 설정 */
-  white-space: nowrap; 
+  white-space: nowrap;
 }
 
 /* Hover 효과 */

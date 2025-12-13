@@ -15,7 +15,7 @@
   min-height: 100vh;
   background: #FFFEF8;
   margin: 0 auto;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  position: relative;
   overflow-x: hidden;
   overflow-y: auto;
   padding-bottom: 20px;
@@ -165,7 +165,7 @@
 }
 
 .register-button {
-  margin-top: 50px; 
+  margin-top: 50px;
   position: sticky;
   bottom: 0;
   border: none;
@@ -185,10 +185,39 @@
 }
 
 /* SweetAlert (공통) */
-.swal2-container { z-index: 99999 !important; }
-.swal2-popup { border-radius: 16px !important; padding: 25px 20px !important; border: 2px solid #87640033 !important; }
-.swal2-title { color: #876400 !important; font-size: 20px !important; margin-bottom: 10px !important; }
-.swal2-html-container { color: #5a4a2b !important; font-size: 16px !important; }
-.swal2-confirm { background-color: #876400 !important; color: white !important; border-radius: 10px !important; }
-.swal2-cancel { background-color: #e6dfcf !important; color: #876400 !important; border: 1px solid #b8a374 !important; }
-.swal2-actions { gap: 12px !important; }
+.swal2-container {
+  z-index: 99999 !important;
+}
+
+.swal2-popup {
+  border-radius: 16px !important;
+  padding: 25px 20px !important;
+  border: 2px solid #87640033 !important;
+}
+
+.swal2-title {
+  color: #876400 !important;
+  font-size: 20px !important;
+  margin-bottom: 10px !important;
+}
+
+.swal2-html-container {
+  color: #5a4a2b !important;
+  font-size: 16px !important;
+}
+
+.swal2-confirm {
+  background-color: #876400 !important;
+  color: white !important;
+  border-radius: 10px !important;
+}
+
+.swal2-cancel {
+  background-color: #e6dfcf !important;
+  color: #876400 !important;
+  border: 1px solid #b8a374 !important;
+}
+
+.swal2-actions {
+  gap: 12px !important;
+}

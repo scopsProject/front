@@ -1,29 +1,37 @@
 /* 전체 배경 (데스크탑에서는 배경색이 보이고, 모바일에서는 가려짐) */
 .App {
   display: flex;
-  justify-content: center; /* 가로 중앙 정렬 */
-  min-height: 100vh;       /* 최소 높이를 화면 전체로 */
-  background-color: #f5f5f5; /* 데스크탑용 배경색 (앱 밖의 영역) */
+  justify-content: center;
+  /* 가로 중앙 정렬 */
+  min-height: 100vh;
+  /* 최소 높이를 화면 전체로 */
+  background-color: #f5f5f5;
+  /* 데스크탑용 배경색 (앱 밖의 영역) */
   margin: 0;
   padding: 0;
 }
 
 /* 실제 앱 컨테이너 */
 .app-container {
-  width: 100%;            /* 모바일: 화면 꽉 차게 */
-  max-width: 450px;       /* 데스크탑/태블릿: 최대 너비 제한 (아이폰 Pro Max 정도) */
-  min-height: 100vh;      /* 높이는 내용에 따라 늘어나되, 최소 화면 전체 */
-  
-  background: #FFFEF8;       /* 앱 내부 배경 흰색 */
-  margin: 0 auto;         /* 중앙 정렬 */
-  
-  /* 그림자: 데스크탑에서 앱처럼 보이게 함 (선택 사항) */
-  box-shadow: 0 0 20px rgba(0,0,0,0.1); 
-  
+  width: 100%;
+  /* 모바일: 화면 꽉 차게 */
+  max-width: 450px;
+  /* 데스크탑/태블릿: 최대 너비 제한 (아이폰 Pro Max 정도) */
+  min-height: 100vh;
+  /* 높이는 내용에 따라 늘어나되, 최소 화면 전체 */
+
+  background: #FFFEF8;
+  /* 앱 내부 배경 흰색 */
+  margin: 0 auto;
+  /* 중앙 정렬 */
+  position: relative;
+
   /* 내부 스크롤 허용 (overflow: hidden 제거) */
-  overflow-x: hidden;     /* 가로 스크롤 방지 */
-  overflow-y: auto;       /* 세로 내용이 길어지면 스크롤 */
-  
+  overflow-x: hidden;
+  /* 가로 스크롤 방지 */
+  overflow-y: auto;
+  /* 세로 내용이 길어지면 스크롤 */
+
   /* 모바일 하단바나 노치 영역 고려 (선택 사항) */
   padding-bottom: 20px;
 }
@@ -34,6 +42,7 @@
   font-family: sans-serif;
   margin-top: 7%;
 }
+
 /* ---------------- 마이페이지 ---------------- */
 
 /* 전체 배경 */
@@ -119,25 +128,35 @@
 
 /* 프로필 */
 .profile-section {
-  display: flex;            /* 가로(한 줄) 배치를 위해 Flexbox 사용 */
-  align-items: center;      /* 구성 요소들의 세로 중앙 정렬 */
-  gap: 10px;                /* 이름과 기수 정보 사이의 간격 */
-  width: 100%;              /* 가로를 꽉 채우기 */
+  display: flex;
+  /* 가로(한 줄) 배치를 위해 Flexbox 사용 */
+  align-items: center;
+  /* 구성 요소들의 세로 중앙 정렬 */
+  gap: 10px;
+  /* 이름과 기수 정보 사이의 간격 */
+  width: 100%;
+  /* 가로를 꽉 채우기 */
 }
 
 .profile-sessionAndYear {
-  display: flex;             /* 인라인(inline) 대신 플렉스박스 사용 */
-  flex-direction: column;    /* 내부 요소를 세로 방향으로 정렬 */
-  gap: 2px;                  /* 요소 간격 (필요에 따라 조절) */
-  align-items: flex-start;   /* 왼쪽 정렬 (필요시 center나 flex-end로 변경) */
+  display: flex;
+  /* 인라인(inline) 대신 플렉스박스 사용 */
+  flex-direction: column;
+  /* 내부 요소를 세로 방향으로 정렬 */
+  gap: 2px;
+  /* 요소 간격 (필요에 따라 조절) */
+  align-items: flex-start;
+  /* 왼쪽 정렬 (필요시 center나 flex-end로 변경) */
 }
 
 .profile-name {
   font-size: 40px;
   padding: 7px;
   color: #634900;
-  border: none;        /* 테두리 */
-  border-radius: 30px;            /* 모서리 둥글게 */
+  border: none;
+  /* 테두리 */
+  border-radius: 30px;
+  /* 모서리 둥글게 */
   box-shadow: 0 0 10px rgba(252, 217, 77, 0.9);
   font-family: 'suit-regular';
   background-color: #FFFFFF;
@@ -153,8 +172,8 @@
 }
 
 .profile-code {
-    color: #EAB211;
-    font-family: 'suit-regular';
+  color: #EAB211;
+  font-family: 'suit-regular';
 }
 
 .profile-generation {
@@ -164,7 +183,7 @@
 
 
 .edit-button {
-  margin-left: auto; 
+  margin-left: auto;
   border: none;
   border-radius: 15px;
   padding: 5px 12px;
@@ -174,6 +193,7 @@
   color: #c1972c;
   cursor: pointer;
 }
+
 /* 타이틀 */
 .section-title {
   margin-top: 9%;
@@ -186,25 +206,30 @@
   margin-top: 3%;
   background: #FFFFFF;
   border-radius: 18px;
-  padding: 0; /* 패딩 제거 (선이 끝까지 닿게 하기 위함) */
+  padding: 0;
+  /* 패딩 제거 (선이 끝까지 닿게 하기 위함) */
   border: 1px solid #FFFFFF;
   box-shadow: 0 0 10px rgba(255, 230, 130, 0.9);
-  overflow: hidden; /* 둥근 모서리 밖으로 선이 삐져나가지 않게 */
+  overflow: hidden;
+  /* 둥근 모서리 밖으로 선이 삐져나가지 않게 */
 }
 
 /* 요일 헤더 */
 .timetable-header-row {
-  display: grid; /* Flex -> Grid 변경 */
+  display: grid;
+  /* Flex -> Grid 변경 */
   /* 왼쪽 32px 고정, 나머지 공간을 7등분(1fr * 7) */
-  grid-template-columns: 32px repeat(7, 1fr); 
+  grid-template-columns: 32px repeat(7, 1fr);
   border-bottom: 1px solid #f0e0a0;
   background-color: #fff;
   width: 100%;
 }
+
 .time-header-empty {
   border-right: 1px solid #f0e0a0;
   box-sizing: border-box;
 }
+
 .day-cell {
   /* flex: 1; <-- 삭제 (Grid Item이 됨) */
   text-align: center;
@@ -214,20 +239,23 @@
   padding: 5px;
   border-right: 1px solid #f0e0a0;
   box-sizing: border-box;
-  
+
   /* 내용이 넘칠 경우를 대비해 min-width 0 설정 (Grid 특성) */
-  min-width: 0; 
+  min-width: 0;
 }
+
 .day-cell:last-child {
   border-right: none;
 }
+
 .day-cell:not(:last-child) {
   border-right: 1px solid #f0e0a0;
 }
 
 /* 시간표 바디 */
 .timetable-body {
-  display: grid; /* Flex -> Grid 변경 */
+  display: grid;
+  /* Flex -> Grid 변경 */
   /* 왼쪽 32px 고정, 나머지 공간 전체(1fr) -> 내부는 또 그리드로 쪼개짐 */
   grid-template-columns: 32px 1fr;
   width: 100%;
@@ -244,35 +272,45 @@
   font-size: 9px;
   color: #d2ad60;
   display: flex;
-  align-items: center; /* 수직 중앙 정렬 */
+  align-items: center;
+  /* 수직 중앙 정렬 */
   justify-content: center;
-  border-bottom: 1px solid #f0e0a0; /* 시간 사이 가로선 */
-  box-sizing: border-box; /* 테두리 포함 크기 계산 */
+  border-bottom: 1px solid #f0e0a0;
+  /* 시간 사이 가로선 */
+  box-sizing: border-box;
+  /* 테두리 포함 크기 계산 */
 }
+
 .time-column .time-label:last-child {
   border-bottom: none;
 }
+
 /* 그리드 */
 .timetable-grid {
   /* 부모(.timetable-body)의 1fr 영역을 꽉 채움 */
   display: grid;
-  grid-template-columns: repeat(7, 1fr); /* 여기도 똑같이 7등분 */
+  grid-template-columns: repeat(7, 1fr);
+  /* 여기도 똑같이 7등분 */
   grid-auto-rows: 28px;
   width: 100%;
 }
 
 .timetable-cell {
-  border-right: 1px solid #f0e0a0;  /* 세로선 */
-  border-bottom: 1px solid #f0e0a0; /* 가로선 */
+  border-right: 1px solid #f0e0a0;
+  /* 세로선 */
+  border-bottom: 1px solid #f0e0a0;
+  /* 가로선 */
   box-sizing: border-box;
 }
 
 .timetable-cell:not(:nth-last-child(-n + 7)) {
   border-bottom: 1px solid #f0e0a0;
 }
+
 .timetable-cell:nth-last-child(-n+7) {
   border-bottom: none;
 }
+
 .timetable-cell:nth-child(7n) {
   border-right: none;
 }

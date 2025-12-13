@@ -12,7 +12,6 @@ const sectionList = [
   { label: "베이스", value: "B" },
   { label: "드럼", value: "D" },
   { label: "건반", value: "P" },
-  { label: "직접 입력", value: "etc" }
 ];
 
 
@@ -24,7 +23,6 @@ const UserRegisterPage = () => {
   const [userName, setUserName] = useState("");
   const [userYear, setUserYear] = useState("");
   const [userSession, setUserSession] = useState("");
-  const [customSession, setCustomSession] = useState("");
 
   const [isExecutive, setIsExecutive] = useState(false); // 체크박스 상태
   const [execCode, setExecCode] = useState("");          // 입력 코드
@@ -39,8 +37,7 @@ const UserRegisterPage = () => {
     userPasswordConfirm.trim() !== "" &&
     userName.trim() !== "" &&
     userYear.trim() !== "" &&
-    userSession.trim() !== "" &&
-    (userSession !== "etc" || customSession.trim() !== "");
+    userSession.trim() !== "";
 
   const handleExecVerify = () => {
     if (execCode === EXECUTIVE_SECRET) {
@@ -90,7 +87,7 @@ const UserRegisterPage = () => {
     axios.post(`${process.env.REACT_APP_API_URL}/scops/userRegister`, {
       userName,
       userYear,
-      session: userSession === "etc" ? customSession : userSession,
+      session: userSession,
       userID: userId,
       userPassword,
       role
@@ -174,48 +171,26 @@ const UserRegisterPage = () => {
             }}
             className="userinput-box"
           />
-
-
           {/* 세션 라디오 버튼 */}
-          {/* 세션 라디오 버튼 */}
-          <div className="session-label-container"> {/* 🔥 클래스 적용 */}
+          <div className="session-label-container">
             <span style={{ color: "#876400", fontSize: "14px", backgroundColor: "#FFFEF8" }}>
               세션 선택
             </span>
           </div>
           <div className="radio-group">
             {sectionList.map((sec, idx) => (
-              <React.Fragment key={idx}>
-                <label style={{ marginRight: '10px', display: 'flex', alignItems: 'center' }}>
-                  <input
-                    type="radio"
-                    name="session"
-                    value={sec.value}
-                    checked={userSession === sec.value}
-                    onChange={() => {
-                      setUserSession(sec.value);
-                      if (sec.value !== "etc") setCustomSession("");
-                    }}
-                  />
-                  {sec.label}
-                </label>
-
-                {sec.value === "etc" && userSession === "etc" && (
-                  <input
-                    type="text"
-                    placeholder="직접 입력"
-                    value={customSession}
-                    onChange={(e) => setCustomSession(e.target.value)}
-                    className="input-etc"
-                    style={{ margin: '5px auto 0', display: 'block' }}
-                  />
-                )}
-              </React.Fragment>
+              <label key={idx} style={{ marginRight: '10px', display: 'flex', alignItems: 'center' }}>
+                <input
+                  type="radio"
+                  name="session"
+                  value={sec.value}
+                  checked={userSession === sec.value}
+                  onChange={() => setUserSession(sec.value)}
+                />
+                {sec.label}
+              </label>
             ))}
           </div>
-
-
-
           <input
             type="tel"
             placeholder="학번"

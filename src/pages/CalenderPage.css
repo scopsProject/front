@@ -13,12 +13,9 @@
   width: 100%;            /* 모바일: 화면 꽉 차게 */
   max-width: 450px;       /* 데스크탑/태블릿: 최대 너비 제한 (아이폰 Pro Max 정도) */
   min-height: 100vh;      /* 높이는 내용에 따라 늘어나되, 최소 화면 전체 */
-  
+  position: relative;
   background: #FFFEF8;       /* 앱 내부 배경 흰색 */
   margin: 0 auto;         /* 중앙 정렬 */
-  
-  /* 그림자: 데스크탑에서 앱처럼 보이게 함 (선택 사항) */
-  box-shadow: 0 0 20px rgba(0,0,0,0.1); 
   
   /* 내부 스크롤 허용 (overflow: hidden 제거) */
   overflow-x: hidden;     /* 가로 스크롤 방지 */
@@ -30,12 +27,12 @@
 
 .calendarPage-calendar-container {
   position: relative;
-  padding: 10px;
+  padding: 5%;
   font-family: sans-serif;
 
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 90%;
 }
 
 /* 월 타이틀 */
@@ -134,6 +131,7 @@
 .cell-top {
   display: flex;
   flex-direction: column;
+  margin-top: 5%;
 }
 .cell-bottom {
   display: flex;

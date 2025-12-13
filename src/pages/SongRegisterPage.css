@@ -1,29 +1,37 @@
 /* 전체 배경 (데스크탑에서는 배경색이 보이고, 모바일에서는 가려짐) */
 .App {
   display: flex;
-  justify-content: center; /* 가로 중앙 정렬 */
-  min-height: 100vh;       /* 최소 높이를 화면 전체로 */
-  background-color: #f5f5f5; /* 데스크탑용 배경색 (앱 밖의 영역) */
+  justify-content: center;
+  /* 가로 중앙 정렬 */
+  min-height: 100vh;
+  /* 최소 높이를 화면 전체로 */
+  background-color: #f5f5f5;
+  /* 데스크탑용 배경색 (앱 밖의 영역) */
   margin: 0;
   padding: 0;
 }
 
 /* 실제 앱 컨테이너 */
 .app-container {
-  width: 100%;            /* 모바일: 화면 꽉 차게 */
-  max-width: 450px;       /* 데스크탑/태블릿: 최대 너비 제한 (아이폰 Pro Max 정도) */
-  min-height: 100vh;      /* 높이는 내용에 따라 늘어나되, 최소 화면 전체 */
-  
-  background: #FFFEF8;       /* 앱 내부 배경 흰색 */
-  margin: 0 auto;         /* 중앙 정렬 */
-  
-  /* 그림자: 데스크탑에서 앱처럼 보이게 함 (선택 사항) */
-  box-shadow: 0 0 20px rgba(0,0,0,0.1); 
-  
+  width: 100%;
+  /* 모바일: 화면 꽉 차게 */
+  max-width: 450px;
+  /* 데스크탑/태블릿: 최대 너비 제한 (아이폰 Pro Max 정도) */
+  min-height: 100vh;
+  /* 높이는 내용에 따라 늘어나되, 최소 화면 전체 */
+
+  background: #FFFEF8;
+  /* 앱 내부 배경 흰색 */
+  margin: 0 auto;
+  /* 중앙 정렬 */
+  position: relative;
+
   /* 내부 스크롤 허용 (overflow: hidden 제거) */
-  overflow-x: hidden;     /* 가로 스크롤 방지 */
-  overflow-y: auto;       /* 세로 내용이 길어지면 스크롤 */
-  
+  overflow-x: hidden;
+  /* 가로 스크롤 방지 */
+  overflow-y: auto;
+  /* 세로 내용이 길어지면 스크롤 */
+
   /* 모바일 하단바나 노치 영역 고려 (선택 사항) */
   padding-bottom: 20px;
 }
@@ -31,21 +39,25 @@
 .songResister-mainContainer {
   width: 95%;
   max-width: 400px;
-  margin: 20px auto;            /* 가운데 정렬과 위아래 여백 */
+  margin: 20px auto;
+  /* 가운데 정렬과 위아래 여백 */
   padding: 10px;
   box-sizing: border-box;
 }
 
 .songResister-mainContainer-eventName {
-  position: relative;           /* 드롭다운 절대위치에 대비 */
-  margin-bottom: 20px;          /* 아래 요소와 간격 */
+  position: relative;
+  /* 드롭다운 절대위치에 대비 */
+  margin-bottom: 20px;
+  /* 아래 요소와 간격 */
 }
 
 .songResister-mainContainer-eventName select {
   color: #876400;
   font-family: 'suit-regular';
   width: 100%;
-  padding: 12px 40px 12px 15px; /* 오른쪽 공간 확보 */
+  padding: 12px 40px 12px 15px;
+  /* 오른쪽 공간 확보 */
   font-size: 16px;
   background-color: #FFFFFF;
   outline: none;
@@ -66,7 +78,8 @@
   background-position: right 15px center;
   background-size: 12px;
 }
-.songResister-mainContainer-eventName-option{
+
+.songResister-mainContainer-eventName-option {
   color: #876400;
   font-family: 'suit-regular';
 }
@@ -79,9 +92,11 @@
 
 .songResister-mainContainer-eventName select:hover,
 .songResister-mainContainer-eventName select:focus {
-  border-color: #f1c40f;       /* 호버 또는 포커스 시 테두리 색 변화 */
+  border-color: #f1c40f;
+  /* 호버 또는 포커스 시 테두리 색 변화 */
   box-shadow: 0 0 8px rgba(241, 196, 15, 0.5);
 }
+
 .songResister-mainContainer-songs {
   max-height: 350px;
   overflow-y: auto;
@@ -103,12 +118,15 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
 .songResister-btnPlus {
-  position: absolute;  /* fixed → absolute */
+  position: absolute;
+  /* fixed → absolute */
   bottom: 20px;
   right: 20px;
   z-index: 100;
 }
+
 .plus-button {
   width: 50px;
   height: 50px;
@@ -122,13 +140,17 @@
   background-color: rgba(255, 238, 187, 0.9);
   box-shadow: 0 0 5px rgba(255, 230, 130, 0.9);
 }
+
 .plus-button:hover {
   background-color: #d4ac0d;
 }
-.song-item-subject{
+
+.song-item-subject {
   font-family: 'suit-regular';
-  grid-column: 1;    /* 첫 번째 칸에 위치 */
-  align-self: center; /* 세로 중앙 정렬 */
+  grid-column: 1;
+  /* 첫 번째 칸에 위치 */
+  align-self: center;
+  /* 세로 중앙 정렬 */
   justify-self: start;
   background-color: rgba(255, 238, 187, 0.9);
   box-shadow: 0 0 5px rgba(255, 230, 130, 0.9);
@@ -139,32 +161,45 @@
   overflow: hidden;
   max-width: 100%;
 }
-.song-item-singerName{
+
+.song-item-singerName {
   font-family: 'suit-regular';
-  grid-column: 2;    /* 첫 번째 칸에 위치 */
-  align-self: center; /* 세로 중앙 정렬 */
+  grid-column: 2;
+  /* 첫 번째 칸에 위치 */
+  align-self: center;
+  /* 세로 중앙 정렬 */
   justify-self: start;
   color: #876400;
   font-size: 15px;
 }
-.song-item-playerName{
+
+.song-item-playerName {
   font-family: 'suit-regular';
-  grid-column: 3;    /* 첫 번째 칸에 위치 */
-  align-self: center; /* 세로 중앙 정렬 */
+  grid-column: 3;
+  /* 첫 번째 칸에 위치 */
+  align-self: center;
+  /* 세로 중앙 정렬 */
   justify-self: start;
   color: #EAB211;
   font-size: 10px;
-  white-space: normal;        /* 줄바꿈 허용 */
-  word-break: break-word;     /* 단어가 길어도 줄 바꿈 */
-  display: flex;              /* 가로로 4명씩 배치하려고 flex 사용 */
-  flex-wrap: wrap;            /* 줄 바꿈 허용 */
-  gap: 5%;                   /* 아이템 간격 */
+  white-space: normal;
+  /* 줄바꿈 허용 */
+  word-break: break-word;
+  /* 단어가 길어도 줄 바꿈 */
+  display: flex;
+  /* 가로로 4명씩 배치하려고 flex 사용 */
+  flex-wrap: wrap;
+  /* 줄 바꿈 허용 */
+  gap: 5%;
+  /* 아이템 간격 */
 }
+
 .song-item-playerName span {
   flex: 1 1 22%;
   min-width: 0;
   white-space: nowrap;
 }
+
 .custom-select-display {
   color: #876400;
   font-family: 'suit-regular';
@@ -180,10 +215,12 @@
   position: relative;
   box-sizing: border-box;
 }
-.custom-select-display span{
+
+.custom-select-display span {
   position: absolute;
   right: 15px;
 }
+
 .custom-select-arrow {
   position: absolute;
   right: 15px;
@@ -222,9 +259,12 @@
   transition: background-color 0.2s ease;
   border-bottom: 1px solid #FFE79F;
 }
+
 .custom-select-list-item:last-child {
-  border-bottom: none;  /* 마지막 아이템은 구분선 없음 */
+  border-bottom: none;
+  /* 마지막 아이템은 구분선 없음 */
 }
+
 .custom-select-list-item:hover {
   background-color: rgba(255, 230, 130, 0.2);
 }
