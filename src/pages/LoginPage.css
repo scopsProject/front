@@ -55,14 +55,14 @@
 .logo-box {
   margin-top: auto;
   /* 위쪽 공간을 밀어내서 중앙~하단 배치 유도 */
-  margin-bottom: 20px;
   text-align: center;
+  margin-bottom: 30%;
 }
 
 .logo-box img {
   width: 140px;
   /* 로고 크기 적절히 조절 */
-  margin-bottom: 40%;
+  
 }
 
 form {

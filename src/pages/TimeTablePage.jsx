@@ -229,13 +229,13 @@ function TimeTablePage() {
           </div>
         </div>
         {selectedFriend && (
-          <div className="modal-overlay" onClick={() => setSelectedFriend(null)}>
-            <div className="modal-content add-modal" style={{ width: '350px', padding: '10px' }} onClick={(e) => e.stopPropagation()}>
-              <div className="modal-header-row" style={{ marginBottom: '10px' }}>
-                <h2 className="modal-title" style={{ fontSize: '18px' }}>
+          <div className="timetablemodal-overlay" onClick={() => setSelectedFriend(null)}>
+            <div className="timetablemodal-content add-modal" style={{ width: '350px', padding: '10px' }} onClick={(e) => e.stopPropagation()}>
+              <div className="timetablemodal-header-row" style={{ marginBottom: '10px' }}>
+                <h2 className="timetablemodal-title" style={{ fontSize: '18px' }}>
                   {selectedFriend.userName}님의 시간표
                 </h2>
-                <button className="modal-close-btn" onClick={() => setSelectedFriend(null)}>X</button>
+                <button className="timetablemodal-close-btn" onClick={() => setSelectedFriend(null)}>X</button>
               </div>
 
               {/* 친구 시간표 그리드 (Wrapper로 감싸서 스타일 적용) */}

@@ -113,7 +113,7 @@ function LoginPage() {
             className="login-button"
             onClick={handleLogin}
           >
-            <img src='/images/LOGIN.png' alt='로그인버튼'></img>
+            <img src='/images/LOGIN.png' alt='로그인버튼' width="20%"></img>
           </button>
         </div>
       </div>

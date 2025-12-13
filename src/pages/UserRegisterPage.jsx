@@ -265,7 +265,7 @@ const UserRegisterPage = () => {
           disabled={!isFormValid}
           className={`submit-button2 ${isFormValid ? "" : "disabled"}`}
         >
-          <img src={`/images/registerbtn.png`} alt='등록완료'></img>
+          <img src={`/images/registerbtn.png`} alt='등록완료' width="20%"></img>
         </button>
       </div>
     </div>
