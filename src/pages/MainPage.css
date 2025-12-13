@@ -137,14 +137,15 @@
   /* 모서리 둥글게 */
   box-shadow: 0 0 15px rgba(255, 230, 130, 0.9);
   margin-top: auto;
+  margin-left: 3%;
+  margin-right: 3%;
 }
 
 .calendar-grid {
   min-height: 200px;
   display: flex;
-  /* flex로 변경 */
   gap: 8px;
-  margin: 10px 10px 0 10px;
+  margin: 10px;
 }
 
 .calendar-cell {
