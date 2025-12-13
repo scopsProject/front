@@ -86,9 +86,8 @@ function LoginPage() {
       <div className="app-container">
         <div className="login-container">
           <div className="logo-box">
-            <img src={`/images/scopsLogo.png`} alt="Scops Logo" />
+            <img src={`/images/scopsandlogo.png`} alt="Scops Logo" />
           </div>
-          <p className="slogan">SCOPS</p>
           <form onSubmit={handleLogin}>
             <input
               type="text"

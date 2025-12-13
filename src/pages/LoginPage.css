@@ -62,22 +62,9 @@
 .logo-box img {
   width: 140px;
   /* 로고 크기 적절히 조절 */
-  height: auto;
+  margin-bottom: 40%;
 }
 
-.slogan {
-  font-family: 'ramaraja', sans-serif;
-  color: #FFE79F;
-  font-size: 32px;
-  margin: 0 0 40px 0;
-  /* 로고와 입력창 사이 간격 */
-  text-align: center;
-  font-weight: bold;
-}
-
-/* =========================================
-   4. 입력 폼 (Form)
-   ========================================= */
 form {
   width: 60%;
   display: flex;
