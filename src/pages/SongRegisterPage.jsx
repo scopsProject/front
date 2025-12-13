@@ -45,7 +45,7 @@ function SongRegisterPage() {
 
 
   useEffect(() => {
-    api.get(`/songs/events`)
+    api.get(`/songs/events/available`)
       .then(res => {
         const fetchedEvents = res.data;
         const incomingEvent = location.state?.eventName;

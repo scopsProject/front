@@ -1,30 +1,23 @@
-/* 전체 배경 (데스크탑에서는 배경색이 보이고, 모바일에서는 가려짐) */
+/* 전체 배경 */
 .App {
   display: flex;
-  justify-content: center; /* 가로 중앙 정렬 */
-  min-height: 100vh;       /* 최소 높이를 화면 전체로 */
-  background-color: #f5f5f5; /* 데스크탑용 배경색 (앱 밖의 영역) */
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
   margin: 0;
   padding: 0;
 }
 
-/* 실제 앱 컨테이너 */
+/* 앱 컨테이너 */
 .app-container {
-  width: 100%;            /* 모바일: 화면 꽉 차게 */
-  max-width: 450px;       /* 데스크탑/태블릿: 최대 너비 제한 (아이폰 Pro Max 정도) */
-  min-height: 100vh;      /* 높이는 내용에 따라 늘어나되, 최소 화면 전체 */
-  
-  background: #FFFEF8;       /* 앱 내부 배경 흰색 */
-  margin: 0 auto;         /* 중앙 정렬 */
-  
-  /* 그림자: 데스크탑에서 앱처럼 보이게 함 (선택 사항) */
-  box-shadow: 0 0 20px rgba(0,0,0,0.1); 
-  
-  /* 내부 스크롤 허용 (overflow: hidden 제거) */
-  overflow-x: hidden;     /* 가로 스크롤 방지 */
-  overflow-y: auto;       /* 세로 내용이 길어지면 스크롤 */
-  
-  /* 모바일 하단바나 노치 영역 고려 (선택 사항) */
+  width: 100%;
+  max-width: 450px;
+  min-height: 100vh;
+  background: #FFFEF8;
+  margin: 0 auto;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  overflow-x: hidden;
+  overflow-y: auto;
   padding-bottom: 20px;
 }
 
@@ -32,7 +25,7 @@
   position: relative;
   width: 95%;
   max-width: 400px;
-  height: 550px;          /* 원하는 높이 지정 */
+  height: 550px;
   margin: 10px auto;
   border: none;
   background-color: #FFFEF8;
@@ -47,14 +40,7 @@
   padding: 10px;
 }
 
-.songAdd-mainContainer-eventName{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
+/* 레이아웃 및 간격 */
 .songAdd-event-dropdown,
 .songAdd-mainContainer-eventOption,
 .songAdd-mainContainer-session {
@@ -65,61 +51,45 @@
   align-items: center;
 }
 
-.songAdd-mainContainer-eventName label,
-.songAdd-mainContainer-eventOption label,
-.session-input label {
-  font-weight: bold;
-  color: #333;
-}
-
-.songAdd-mainContainer-eventName input,
+/* 인풋 스타일 공통 */
 .songAdd-mainContainer-eventOption input,
 .songAdd-mainContainer-session input {
   padding: 10px 15px;
   border-radius: 20px;
-  border: none;                  /* 테두리 제거 */
-  box-shadow: 0 0 10px rgba(255, 238, 187, 1); /* 번지는 효과 */
+  border: none;
+  box-shadow: 0 0 10px rgba(255, 238, 187, 1);
   background-color: #FFEEBB;
   font-size: 14px;
   color: #876400;
   outline: none;
   transition: border-color 0.3s ease;
   width: 80%;
-  
 }
-.songAdd-mainContainer-eventName input::placeholder,
+
 .songAdd-mainContainer-eventOption input::placeholder,
 .songAdd-mainContainer-session input::placeholder {
   color: #876400;
   font-family: 'suit-regular';
 }
 
-.songAdd-mainContainer-eventName input:focus,
 .songAdd-mainContainer-eventOption input:focus,
 .songAdd-mainContainer-session input:focus {
   border-color: #f1c40f;
   box-shadow: 0 0 8px rgba(241, 196, 15, 0.5);
 }
 
+/* 세션 입력 줄 */
 .session-input {
   width: 88%;
   display: flex;
   gap: 7%;
-
 }
 
-.session-input label {
-  width: 20px;
-  font-weight: bold;
-  color: #333;
-}
-
-/* 드롭다운 select 요소 스타일링 */
 .session-input select {
-  width: 25%; /* 드롭다운 너비 좁게 */
+  width: 25%;
   padding: 8px;
-  border: none;                  /* 테두리 제거 */
-  box-shadow: 0 0 10px rgba(255, 238, 187, 1); /* 번지는 효과 */
+  border: none;
+  box-shadow: 0 0 10px rgba(255, 238, 187, 1);
   background-color: #FFEEBB;
   border-radius: 20px;
   font-size: 14px;
@@ -128,7 +98,7 @@
 }
 
 .session-input input {
-  flex: 40%; /* 남은 공간을 input이 차지 */
+  flex: 40%;
   padding: 10px 15px;
   border-radius: 20px;
   font-size: 14px;
@@ -140,13 +110,14 @@
   border-color: #f1c40f;
   box-shadow: 0 0 8px rgba(241, 196, 15, 0.5);
 }
-.songadd-input{
-  border: none;                  /* 테두리 제거 */
-  box-shadow: 0 0 10px rgba(255, 238, 187, 1); /* 번지는 효과 */
-  background-color: #FFEEBB;
 
+.songadd-input {
+  border: none;
+  box-shadow: 0 0 10px rgba(255, 238, 187, 1);
+  background-color: #FFEEBB;
 }
-/* + 버튼 위치 및 디자인 */
+
+/* + 버튼 */
 .songAdd-btnPlus {
   display: flex;
   margin-left: auto;
@@ -157,8 +128,8 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  border: none;                  /* 테두리 제거 */
-  box-shadow: 0 0 10px rgba(255, 238, 187, 1); /* 번지는 효과 */
+  border: none;
+  box-shadow: 0 0 10px rgba(255, 238, 187, 1);
   background-color: #FFEEBB;
   color: #876400;
   font-size: 24px;
@@ -170,32 +141,7 @@
   background-color: #f7d368;
 }
 
-/* 등록 버튼 영역 */
-.songAdd-btnSubmit {
-  display: flex;
-  justify-content: center;
-}
-
-.register-button {
-  margin-top: 50px; 
-  position: sticky;
-  bottom: 0;
-  border: none;                  /* 테두리 제거 */
-  box-shadow: 0 0 10px rgba(255, 238, 187, 1); /* 번지는 효과 */
-  background-color: #FFEEBB;
-  border-radius: 25px;
-  color: white;
-  font-size: 18px;
-  padding: 12px 0;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 90%;
-  
-}
-
-.register-button:hover {
-  background-color: #f7d368;
-}
+/* 삭제(x) 버튼 */
 .delete-button {
   background: transparent;
   border: none;
@@ -212,155 +158,37 @@
   color: darkred;
 }
 
-/* 행사 추가 버튼 (ADMIN 전용) */
-.add-event-btn {
-  width: 100%;
-  padding: 10px;
-  background-color: #FFEEBB;
-  border: 2px dashed #EAB211; /* 점선 테두리로 구분 */
-  border-radius: 20px;
-  color: #876400;
-  font-weight: bold;
-  cursor: pointer;
-  margin-bottom: 10px;
-  transition: all 0.3s;
-}
-
-.add-event-btn:hover {
-  background-color: #fcebb6;
-  border-color: #d4a00f;
-}
-
-/* 모달 오버레이 (배경 어둡게) */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+/* 등록 버튼 */
+.songAdd-btnSubmit {
   display: flex;
   justify-content: center;
-  align-items: center;
-  z-index: 1000;
 }
 
-/* 모달 박스 */
-.modal-content {
-  background-color: #fff;
-  padding: 25px;
-  border-radius: 20px;
-  width: 85%;
-  max-width: 350px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.modal-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-  text-align: center;
-  margin-bottom: 5px;
-}
-
-.modal-input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.modal-input-group label {
-  font-size: 14px;
-  color: #876400;
-  font-weight: bold;
-}
-
-/* 모달 내부 인풋 스타일 (기존 스타일 재사용) */
-.modal-input {
-  padding: 10px;
-  border-radius: 10px;
+.register-button {
+  margin-top: 50px; 
+  position: sticky;
+  bottom: 0;
   border: none;
+  box-shadow: 0 0 10px rgba(255, 238, 187, 1);
   background-color: #FFEEBB;
-  color: #333;
-  outline: none;
-}
-
-.modal-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.modal-btn {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.modal-btn.cancel {
-  background-color: #eee;
-  color: #555;
-}
-
-.modal-btn.save {
-  background-color: #EAB211;
+  border-radius: 25px;
   color: white;
-}
-.swal2-container {
-  z-index: 99999 !important;
-}
-
-/* 팝업 스타일 */
-.swal2-popup {
-  border-radius: 16px !important;
-  padding: 25px 20px !important;
-  font-family: 'suit', sans-serif !important;
-  border: 2px solid #87640033 !important; /* 은은한 금색 라인 */
+  font-size: 18px;
+  padding: 12px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 90%;
 }
 
-/* 제목 */
-.swal2-title {
-  color: #876400 !important;
-  font-size: 20px !important;
-  font-weight: 700 !important;
-  margin-bottom: 10px !important;
+.register-button:hover {
+  background-color: #f7d368;
 }
 
-/* 내용 텍스트 */
-.swal2-html-container, .swal2-content {
-  color: #5a4a2b !important;
-  font-size: 16px !important;
-}
-
-/* 버튼 공통 스타일 */
-.swal2-confirm, .swal2-cancel {
-  font-family: 'suit', sans-serif !important;
-  font-size: 15px !important;
-  border-radius: 10px !important;
-  padding: 10px 20px !important;
-}
-
-/* 확인 버튼 (골드 포인트) */
-.swal2-confirm {
-  background-color: #876400 !important;
-  color: white !important;
-  border: none !important;
-}
-
-/* 취소 버튼 */
-.swal2-cancel {
-  background-color: #e6dfcf !important;
-  color: #876400 !important;
-  border: 1px solid #b8a374 !important;
-}
-
-/* 버튼 간격 */
-.swal2-actions {
-  gap: 12px !important;
-}
+/* SweetAlert (공통) */
+.swal2-container { z-index: 99999 !important; }
+.swal2-popup { border-radius: 16px !important; padding: 25px 20px !important; border: 2px solid #87640033 !important; }
+.swal2-title { color: #876400 !important; font-size: 20px !important; margin-bottom: 10px !important; }
+.swal2-html-container { color: #5a4a2b !important; font-size: 16px !important; }
+.swal2-confirm { background-color: #876400 !important; color: white !important; border-radius: 10px !important; }
+.swal2-cancel { background-color: #e6dfcf !important; color: #876400 !important; border: 1px solid #b8a374 !important; }
+.swal2-actions { gap: 12px !important; }

@@ -10,6 +10,7 @@ import CalenderPage from '../pages/CalenderPage';
 import TimeTablePage from '../pages/TimeTablePage';
 import SongAddPage from '../pages/SongAddPage';
 import UserRegisterPage from '../pages/UserRegisterPage';
+import ManagementPage from '../pages/ManagementPage';
 
 // ⬇️ 방금 만든 PrivateRoute를 import 하세요 (경로 확인 필수)
 import PrivateRoute from '../components/PrivateRoute'; 
@@ -41,6 +42,7 @@ function Router() {
             <Route path="/scops/songAdd" element={<SongAddPage />} />
             <Route path="/scops/myPage" element={<MyPage />} />
             <Route path="/scops/edit" element={<MyPageEdit />} />
+            <Route path="/scops/management" element={<ManagementPage />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/scops/login" replace />} />

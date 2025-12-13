@@ -321,7 +321,8 @@
   font-size: 12px;
   margin-top: 2px;
 }
-.calendermodal-overlay {
+.calendermodal-overlay,
+.modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -334,7 +335,8 @@
   z-index: 1000;
 }
 
-.calendermodal-content {
+.calendermodal-content,
+.modal-content {
   background-color: #FFF6DC;
   width: 85%;
   max-width: 350px;
@@ -376,4 +378,83 @@
   background-color: #FFE79F;
   box-shadow: 0 0 10px rgba(241, 204, 56, 0.9);
   border-radius: 30px;
+}
+/* ... 기존 CalenderPage.css 내용은 그대로 두시고 아래 내용을 맨 밑에 추가하세요 ... */
+
+/* 🔥 [신규] 달력 페이지용 행사 추가 버튼 */
+.add-event-btn-small {
+  background-color: #FFEEBB;
+  border: 1px solid #EAB211;
+  border-radius: 15px;
+  color: #876400;
+  font-family: 'suit-regular';
+  font-size: 13px;
+  padding: 5px 12px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(234, 178, 17, 0.2);
+  transition: all 0.2s;
+}
+
+.add-event-btn-small:hover {
+  background-color: #fcebb6;
+  transform: translateY(-2px);
+}
+
+/* 🔥 [신규] 모달 스타일 (SongAddPage에서 가져옴) */
+.modal-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 5px;
+  font-family: 'suit-regular';
+}
+
+.modal-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.modal-input-group label {
+  font-size: 14px;
+  color: #876400;
+  font-weight: bold;
+  font-family: 'suit-regular';
+}
+
+.modal-input {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: #FFEEBB;
+  color: #333;
+  outline: none;
+  font-family: 'suit-regular';
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: 'suit-regular';
+}
+
+.modal-btn.cancel {
+  background-color: #eee;
+  color: #555;
+}
+
+.modal-btn.save {
+  background-color: #EAB211;
+  color: white;
 }

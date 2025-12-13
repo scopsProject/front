@@ -1,17 +1,27 @@
 import './CalenderPage.css';
 import Headers from '../components/Headers';
 import '../components/Headers.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import api from '../api';
 import { jwtDecode } from "jwt-decode";
+import Swal from 'sweetalert2';
 
 function CalenderPage() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const closeMenu = () => setMenuOpen(false);
   const today = new Date();
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
   const [currentMonth, setCurrentMonth] = useState(today.getMonth() + 1);
-  const toggleMenu = () => setMenuOpen(!menuOpen);
-  const closeMenu = () => setMenuOpen(false);
+
+  const role = localStorage.getItem("role");
+  const [showEventModal, setShowEventModal] = useState(false);
+  const [newEventData, setNewEventData] = useState({
+    eventName: "",
+    createdDate: "",
+    endDate: "",
+    isSongRegistrationAvailable: false
+  });
 
   const EVENT_COLORS = [
     "#FC9798",
@@ -115,7 +125,7 @@ function CalenderPage() {
   };
 
   // 데이터 불러오기
-  useEffect(() => {
+  const fetchCalendarData = useCallback(() => {
     const pad = (n) => String(n).padStart(2, "0");
     const startStr = `${currentYear}-${pad(currentMonth)}-01`;
     const lastDay = new Date(currentYear, currentMonth, 0).getDate();
@@ -127,21 +137,43 @@ function CalenderPage() {
       .catch(console.error);
 
     // 행사 조회
-    const timestamp = new Date().getTime(); // 매번 새로운 주소로 인식하게 함
-
+    const timestamp = new Date().getTime();
     api.get(`/songs/events/period?start=${startStr}&end=${endStr}&t=${timestamp}`)
       .then((res) => {
-        console.log("🔥 서버에서 받은 행사 데이터:", res.data); // F12 콘솔에서 확인 필수!
-
         const calculatedEvents = processEventsWithRows(res.data);
-        console.log("✅ 가공된 행사 데이터:", calculatedEvents); // 여기서 데이터가 사라지는지 확인
-
         setProcessedEvents(calculatedEvents);
       })
       .catch((err) => console.error("행사 정보 실패:", err));
+  }, [currentYear, currentMonth]); // 연도나 월이 바뀌면 함수 재생성
 
-  }, [currentYear, currentMonth]);
+  // 초기 로딩 및 달 변경 시 실행
+  useEffect(() => {
+    fetchCalendarData();
+  }, [fetchCalendarData]);
 
+  const handleAddEvent = async () => {
+    if (!newEventData.eventName || !newEventData.createdDate || !newEventData.endDate) {
+      Swal.fire({ icon: "warning", text: "모든 정보를 입력해주세요.", width: "300px" });
+      return;
+    }
+
+    try {
+      await api.post('/songs/events/new', newEventData);
+
+      Swal.fire({ icon: "success", text: "행사가 추가되었습니다!", width: "300px" });
+
+      // 모달 닫기 및 초기화
+      setShowEventModal(false);
+      setNewEventData({ eventName: "", createdDate: "", endDate: "" });
+
+      // 🔥 달력 데이터 즉시 새로고침
+      fetchCalendarData();
+
+    } catch (error) {
+      console.error(error);
+      Swal.fire({ icon: "error", text: error.response?.data || "행사 추가 실패", width: "300px" });
+    }
+  };
   // 예약 필터링
   const getReservationsByDate = (date) => {
     if (!date) return [];
@@ -246,6 +278,7 @@ function CalenderPage() {
         <Headers onMenuClick={toggleMenu} username={userName} isOpen={menuOpen} onClose={closeMenu} />
 
         <div className="calendarPage-calendar-container">
+
           <div className="month-header">
             <button className="circle-btn left-btn" onClick={prevMonth}>{"⬅"}</button>
             <h2 className="month-title">{currentYear}년 {currentMonth}월</h2>
@@ -286,6 +319,13 @@ function CalenderPage() {
               </div>
             ))}
           </div>
+          {role === "ADMIN" && (
+            <div style={{ marginTop: '10px', textAlign: 'right' }}>
+              <button className="add-event-btn-small" onClick={() => setShowEventModal(true)}>
+                + 행사 추가
+              </button>
+            </div>
+          )}
         </div>
         {showModal && (
           <div className="calendermodal-overlay" onClick={() => setShowModal(false)}>
@@ -336,6 +376,60 @@ function CalenderPage() {
                     </div>
                   ))
                 )}
+              </div>
+            </div>
+          </div>
+        )}
+        {showEventModal && (
+          <div className="modal-overlay" onClick={() => setShowEventModal(false)}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <div className="modal-title">새 행사 추가</div>
+
+              <div className="modal-input-group">
+                <label>행사명</label>
+                <input
+                  type="text"
+                  className="modal-input"
+                  placeholder="예: 2025 정기공연"
+                  value={newEventData.eventName}
+                  onChange={(e) => setNewEventData({ ...newEventData, eventName: e.target.value })}
+                />
+              </div>
+
+              <div className="modal-input-group">
+                <label>시작일</label>
+                <input
+                  type="date"
+                  className="modal-input"
+                  value={newEventData.createdDate}
+                  onChange={(e) => setNewEventData({ ...newEventData, createdDate: e.target.value })}
+                />
+              </div>
+
+              <div className="modal-input-group">
+                <label>종료일</label>
+                <input
+                  type="date"
+                  className="modal-input"
+                  value={newEventData.endDate}
+                  onChange={(e) => setNewEventData({ ...newEventData, endDate: e.target.value })}
+                />
+              </div>
+              <div className="modal-input-group" style={{ flexDirection: 'row', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="availableCheck"
+                  checked={newEventData.isSongRegistrationAvailable}
+                  onChange={(e) => setNewEventData({ ...newEventData, isSongRegistrationAvailable: e.target.checked })}
+                  style={{ width: '20px', height: '20px', accentColor: '#EAB211' }}
+                />
+                <label htmlFor="availableCheck" style={{ cursor: 'pointer', margin: 0 }}>
+                  이 행사에 곡 등록을 허용하시겠습니까?
+                </label>
+              </div>
+              <div className="modal-actions">
+                <button className="modal-btn cancel" onClick={() => setShowEventModal(false)}>취소</button>
+                <button className="modal-btn save" onClick={handleAddEvent}>저장</button>
               </div>
             </div>
           </div>

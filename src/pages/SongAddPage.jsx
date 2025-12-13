@@ -12,21 +12,12 @@ function SongAddPage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   // ---------------------
-  // 🔥 상태값
+  // 🔥 상태값 (행사 추가 관련 상태 삭제됨)
   // ---------------------
   const [eventList, setEventList] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const role = localStorage.getItem("role");
-
-  // 🔥 [수정] 모달 관련 상태
-  const [showEventModal, setShowEventModal] = useState(false);
-  const [newEventData, setNewEventData] = useState({
-    eventName: "",
-    createdDate: "",
-    endDate: ""
-  });
 
   const [songName, setSongName] = useState('');
   const [singerName, setSingerName] = useState('');
@@ -43,24 +34,23 @@ function SongAddPage() {
   }
 
   // ---------------------
-  // 🔥 행사명 불러오기 함수 (재사용을 위해 분리)
+  // 🔥 행사명 불러오기
   // ---------------------
   const fetchEvents = useCallback(() => {
     api.get(`/songs/events`)
       .then(res => {
         setEventList(res.data);
-        
-        // 데이터가 있고, 아직 선택된 게 없을 때만 첫 번째 자동 선택
-        // (주의: setSelectedEvent 함수형 업데이트를 사용하여 최신 상태 반영)
+
+        // 자동 선택 (목록이 있고 선택된 게 없을 때만)
         setSelectedEvent(prev => {
-            if (res.data.length > 0 && !prev) {
-                return res.data[0];
-            }
-            return prev;
+          if (res.data.length > 0 && !prev) {
+            return res.data[0];
+          }
+          return prev;
         });
       })
       .catch(err => console.error('행사명 불러오기 실패:', err));
-  }, []); // 의존성 배열 비워둠 (API 호출 함수는 한 번만 정의되면 됨)
+  }, []);
 
   useEffect(() => {
     fetchEvents();
@@ -101,35 +91,6 @@ function SongAddPage() {
   };
 
   // ---------------------
-  // 🔥 [신규] 행사 추가 로직
-  // ---------------------
-  const handleAddEvent = async () => {
-    if (!newEventData.eventName || !newEventData.createdDate || !newEventData.endDate) {
-      Swal.fire({ icon: "warning", text: "모든 정보를 입력해주세요.", width: "300px" });
-      return;
-    }
-
-    try {
-      // 백엔드로 행사 저장 요청
-      await api.post('/songs/events/new', newEventData);
-      
-      Swal.fire({ icon: "success", text: "행사가 추가되었습니다!", width: "300px" });
-      
-      // 모달 닫기 및 초기화
-      setShowEventModal(false);
-      setNewEventData({ eventName: "", createdDate: "", endDate: "" });
-      
-      // 목록 새로고침 및 방금 추가한 행사 자동 선택
-      fetchEvents();
-      setSelectedEvent(newEventData.eventName);
-      
-    } catch (error) {
-      console.error(error);
-      Swal.fire({ icon: "error", text: error.response?.data || "행사 추가 실패", width: "300px" });
-    }
-  };
-
-  // ---------------------
   // 🔥 곡 등록 처리
   // ---------------------
   const handleSubmit = async () => {
@@ -163,7 +124,7 @@ function SongAddPage() {
   return (
     <div className="App">
       <div className="app-container">
-        <Headers onMenuClick={toggleMenu} username={decoded.name} isOpen={menuOpen} onClose={closeMenu} />
+        <Headers onMenuClick={toggleMenu} isOpen={menuOpen} onClose={closeMenu} />
 
         <div className="songAdd-wrapper">
           <div className="songAdd-mainContainer">
@@ -186,14 +147,8 @@ function SongAddPage() {
               )}
             </div>
 
-            {/* 🔥 [수정] ADMIN용 행사 추가 버튼 */}
+            {/* 곡 정보 입력 */}
             <div className="songAdd-mainContainer-eventOption">
-              {role === "ADMIN" && (
-                <button className="add-event-btn" onClick={() => setShowEventModal(true)}>
-                  + 새 행사 만들기
-                </button>
-              )}
-
               <input type="text" value={songName} onChange={(e) => setSongName(e.target.value)} placeholder="곡 제목" />
               <input type="text" value={singerName} onChange={(e) => setSingerName(e.target.value)} placeholder="가수" />
             </div>
@@ -228,51 +183,6 @@ function SongAddPage() {
         <div className="songAdd-btnSubmit">
           <button className="register-button" onClick={handleSubmit}>등록</button>
         </div>
-
-        {/* 🔥 [신규] 행사 추가 모달 */}
-        {showEventModal && (
-          <div className="modal-overlay" onClick={() => setShowEventModal(false)}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <div className="modal-title">새 행사 추가</div>
-              
-              <div className="modal-input-group">
-                <label>행사명</label>
-                <input 
-                  type="text" 
-                  className="modal-input"
-                  placeholder="예: 2025 정기공연"
-                  value={newEventData.eventName}
-                  onChange={(e) => setNewEventData({...newEventData, eventName: e.target.value})}
-                />
-              </div>
-
-              <div className="modal-input-group">
-                <label>시작일</label>
-                <input 
-                  type="date" 
-                  className="modal-input"
-                  value={newEventData.createdDate}
-                  onChange={(e) => setNewEventData({...newEventData, createdDate: e.target.value})}
-                />
-              </div>
-
-              <div className="modal-input-group">
-                <label>종료일</label>
-                <input 
-                  type="date" 
-                  className="modal-input"
-                  value={newEventData.endDate}
-                  onChange={(e) => setNewEventData({...newEventData, endDate: e.target.value})}
-                />
-              </div>
-
-              <div className="modal-actions">
-                <button className="modal-btn cancel" onClick={() => setShowEventModal(false)}>취소</button>
-                <button className="modal-btn save" onClick={handleAddEvent}>저장</button>
-              </div>
-            </div>
-          </div>
-        )}
 
       </div>
     </div>
