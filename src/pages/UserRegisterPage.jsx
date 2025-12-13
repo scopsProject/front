@@ -177,8 +177,11 @@ const UserRegisterPage = () => {
 
 
           {/* 세션 라디오 버튼 */}
-          <div className="usersinput-box">
-            <span style={{ color: "#8f8686ff", fontSize: "14px" }}>세션</span>
+          {/* 세션 라디오 버튼 */}
+          <div className="session-label-container"> {/* 🔥 클래스 적용 */}
+            <span style={{ color: "#876400", fontSize: "14px", backgroundColor: "#FFFEF8" }}>
+              세션 선택
+            </span>
           </div>
           <div className="radio-group">
             {sectionList.map((sec, idx) => (

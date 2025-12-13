@@ -48,6 +48,13 @@
   height: auto;
   margin-bottom: auto;
 }
+/* 세션 선택 라벨 컨테이너 */
+.session-label-container {
+  width: 90%;
+  text-align: left; /* 왼쪽 정렬 */
+  margin-bottom: 8px; /* 아래 라디오 버튼과 간격 */
+  padding-left: 12px; /* 입력창 내부 텍스트와 시작점 맞추기 */
+}
 
 .userinput-box {
   width: 90%;
