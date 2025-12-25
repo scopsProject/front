@@ -36,6 +36,7 @@ function TimeTablePage() {
 
   // ✅ 컴포넌트 마운트 시 백엔드에서 데이터 불러오기
   useEffect(() => {
+    if (!userName) return;
     // 내 시간표 불러오기
     api.get('/scops/timetable')
       .then(res => setTimeTables(res.data))

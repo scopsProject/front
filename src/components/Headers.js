@@ -154,7 +154,7 @@ function Header({ onMenuClick, isOpen, onClose }) {
             <li className='menu-list-li' onClick={() => handleNavigation('/scops/songRegister')}>곡 등록</li>
             <li className='menu-list-li' onClick={() => handleNavigation('/scops/calender')}>캘린더</li>
             <li className='menu-list-li' onClick={() => handleNavigation('/scops/timeTable')}>시간표</li>
-            {user.role === 'ADMIN' && (
+            {user.role === 'ROLE_ADMIN' && (
               <li className='menu-list-li' onClick={() => handleNavigation('/scops/management')}>관리자페이지</li>
             )}
           </ul>
