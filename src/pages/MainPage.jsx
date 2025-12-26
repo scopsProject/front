@@ -68,7 +68,7 @@ function MainPage() {
     const end = result[result.length - 1].fullDate;
 
     api
-      .get(`/songs/by-week?start=${start}&end=${end}&userName=${userName}`)
+      .get(`/reservations/by-week?start=${start}&end=${end}&userName=${userName}`)
       .then(response => setSongs(response.data))
       .catch(console.error);
   }, [userName]);

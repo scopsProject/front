@@ -108,7 +108,7 @@ function ReservationPage() {
     const endDate = result[result.length - 1].date;
 
     // 1. 예약 정보 가져오기
-    api.get(`/songs/by-week?start=${startDate}&end=${endDate}`)
+    api.get(`/reservations/by-week?start=${startDate}&end=${endDate}`)
       // ... (이하 동일) ...
       .then(res => setSongs(res.data))
       .catch(err => console.error('이번 주 예약정보 실패:', err));
@@ -227,7 +227,7 @@ function ReservationPage() {
     };
 
     try {
-      await api.post(`/songs/reservation`, requestBody);
+      await api.post(`/reservations/reservation`, requestBody);
       Swal.fire({
         title: '운이 좋군...',
         text: '예약이 완료되었습니다!',

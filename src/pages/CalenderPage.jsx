@@ -132,7 +132,7 @@ function CalenderPage() {
     const endStr = `${currentYear}-${pad(currentMonth)}-${pad(lastDay)}`;
 
     // 예약 조회
-    api.get(`/songs/by-month?start=${startStr}&end=${endStr}`)
+    api.get(`/reservations/by-month?start=${startStr}&end=${endStr}`)
       .then((res) => setReservations(res.data))
       .catch(console.error);
 
