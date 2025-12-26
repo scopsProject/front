@@ -37,7 +37,7 @@ function SongAddPage() {
   // 🔥 행사명 불러오기
   // ---------------------
   const fetchEvents = useCallback(() => {
-    api.get(`/songs/events`)
+    api.get(`/songs/events/names/all`)
       .then(res => {
         setEventList(res.data);
 

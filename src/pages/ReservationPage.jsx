@@ -114,7 +114,7 @@ function ReservationPage() {
       .catch(err => console.error('이번 주 예약정보 실패:', err));
 
     // 2. 행사명 리스트 가져오기
-    api.get('/songs/events')
+    api.get('/songs/events/names/all')
       .then(res => setEventList(res.data))
       .catch(err => console.error('행사명 목록 실패:', err));
 
