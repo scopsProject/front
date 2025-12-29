@@ -130,6 +130,7 @@
   align-items: center;
   height: 100%;
   line-height: 1.2;         /* 줄간격 조정 */
+  cursor: pointer;
 }
 
 .sideMyPageBtn {

@@ -194,7 +194,7 @@ const MyPageEdit = () => {
                         <div className="timetable-body">
                             {/* 왼쪽 시간 라벨 */}
                             <div className="time-column">
-                                {Array.from({ length: 12 }).map((_, idx) => {
+                                {Array.from({ length: 13 }).map((_, idx) => {
                                     const hour = 9 + idx; // 10 ~ 20
                                     return (
                                         <div key={hour} className="time-label">
@@ -206,7 +206,7 @@ const MyPageEdit = () => {
 
                             {/* 오른쪽 시간표 그리드 */}
                             <div className="timetable-grid">
-                                {Array.from({ length: 12 }).map((_, row) => {
+                                {Array.from({ length: 13 }).map((_, row) => {
                                     const currentHour = 9 + row;
                                     return (
                                         <React.Fragment key={row}>
@@ -292,13 +292,13 @@ const MyPageEdit = () => {
                                 </select>
 
                                 <select name="startTime" value={formData.startTime} onChange={handleChange}>
-                                    {Array.from({ length: 11 }, (_, i) => i + 10).map(h => (
+                                    {Array.from({ length: 12 }, (_, i) => i + 10).map(h => (
                                         <option key={h} value={`${h}:00`}>{h}:00</option>
                                     ))}
                                 </select>
                                 <span>-</span>
                                 <select name="endTime" value={formData.endTime} onChange={handleChange}>
-                                    {Array.from({ length: 11 }, (_, i) => i + 11).map(h => (
+                                    {Array.from({ length: 12 }, (_, i) => i + 11).map(h => (
                                         <option key={h} value={`${h}:00`}>{h}:00</option>
                                     ))}
                                 </select>
