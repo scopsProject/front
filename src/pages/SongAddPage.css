@@ -138,7 +138,7 @@
 }
 
 .songAdd-btnPlus .plus-button:hover {
-  background-color: #f7d368;
+  background-color: #ffe082;
 }
 
 /* 삭제(x) 버튼 */
@@ -182,5 +182,5 @@
 }
 
 .register-button:hover {
-  background-color: #f7d368;
+  background-color: #ffe082;
 }

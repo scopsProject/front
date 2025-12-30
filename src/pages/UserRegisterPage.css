@@ -270,8 +270,7 @@
 }
 
 .submit-button2:hover {
-  background: #fcd75e;
-  /* 호버 시 조금 더 진한 노란색 */
+  background: #ffe082;
 }
 
 body {
