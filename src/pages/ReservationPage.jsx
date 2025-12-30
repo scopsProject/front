@@ -189,18 +189,31 @@ function ReservationPage() {
   const handleReservation = async () => {
     if (!selectedDate || !selectedEvent || !selectedSong || !startTime || !endTime) {
       Swal.fire({
+        icon: 'error',
+        title: '입력 확인',
         text: '모든 항목을 선택해주세요.',
-        width: '400px',
-        icon: 'error'
+        confirmButtonText: '확인',
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-confirm'
+        },
+        buttonsStyling: false
       });
       return;
     }
     if (startTime >= endTime) {
       Swal.fire({
+        icon: 'error',
         title: '시간 선택 오류',
         text: '시작 시간은 종료 시간보다 빨라야 합니다.',
-        icon: 'error',
-        width: '400px'
+        confirmButtonText: '확인',
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-confirm'
+        },
+        buttonsStyling: false
       });
       return;
     }
@@ -230,12 +243,17 @@ function ReservationPage() {
     try {
       await api.post(`/reservations/reservation`, requestBody);
       Swal.fire({
-        title: '운이 좋군...',
+        icon: 'success',
+        title: '당신은 럭키가이!',
         text: '예약이 완료되었습니다!',
-        width: '400px',
-        icon: 'success'
+        confirmButtonText: '확인',
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-confirm'
+        },
+        buttonsStyling: false
       });
-
 
       // 예약 후 초기화
       setSelectedDate(null);
@@ -247,38 +265,32 @@ function ReservationPage() {
     } catch (error) {
       console.error("예약 에러:", error);
 
+      let errorMsg = '예약 중 오류가 발생했습니다.';
+      
+      // 에러 메시지 추출 로직
       if (error.response && error.response.data) {
         if (error.response.data.message) {
-          Swal.fire({
-            title: '오류',
-            text: error.response.data.message,
-            width: '400px',
-            icon: 'error'
-          });
-        }
-        else if (typeof error.response.data === 'string') {
-          Swal.fire({
-            title: '오류',
-            text: error.response.data,
-            width: '400px',
-            icon: 'error'
-          });
-        } else {
-          Swal.fire({
-            title: '오류',
-            text: '예약 중 오류가 발생했습니다.',
-            width: '400px',
-            icon: 'error'
-          });
+          errorMsg = error.response.data.message;
+        } else if (typeof error.response.data === 'string') {
+          errorMsg = error.response.data;
         }
       } else {
-        Swal.fire({
-          title: '오류',
-          text: '서버와 연결할 수 없거나 알 수 없는 오류가 발생했습니다.',
-          width: '400px',
-          icon: 'error'
-        });
+        errorMsg = '서버와 연결할 수 없거나 알 수 없는 오류가 발생했습니다.';
       }
+
+      // 4. 실패 알림 (통합 처리)
+      Swal.fire({
+        icon: 'error',
+        title: '오류',
+        text: errorMsg,
+        confirmButtonText: '확인',
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-confirm'
+        },
+        buttonsStyling: false
+      });
     }
   };
 

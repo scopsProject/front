@@ -13,7 +13,6 @@ const sectionList = [
   { label: "건반", value: "P" },
 ];
 
-
 const UserRegisterPage = () => {
   const navigate = useNavigate();
   const [userId, setUserId] = useState("");
@@ -31,14 +30,13 @@ const UserRegisterPage = () => {
   const EXECUTIVE_SECRET = "SCOPS2025";
 
   const swalOptions = {
-    buttonsStyling: false, // 기본 버튼 스타일 끄기 (필수!)
+    confirmButtonText: '확인', // 기본 버튼 텍스트
+    buttonsStyling: false,     // 기본 스타일 끄기
     customClass: {
       popup: 'my-swal-popup',
       title: 'my-swal-title',
-      htmlContainer: 'my-swal-html-container', // CSS 4번 관련
       confirmButton: 'my-swal-confirm',
-      cancelButton: 'my-swal-cancel',
-      actions: 'my-swal-actions' // CSS 5번 관련 (이름 확인 필요)
+      cancelButton: 'my-swal-cancel'
     }
   };
 
@@ -55,6 +53,7 @@ const UserRegisterPage = () => {
       Swal.fire({
         ...swalOptions,
         icon: "success",
+        title: "인증 성공",
         text: "임원 인증이 완료되었습니다.",
       });
       setExecVerified(true);
@@ -63,34 +62,38 @@ const UserRegisterPage = () => {
       Swal.fire({
         ...swalOptions,
         icon: "error",
+        title: "인증 실패",
         text: "인증코드가 올바르지 않습니다.",
       });
       setExecVerified(false);
       setRole("none");
     }
   };
+
   const handleUserRegister = () => {
     if (!isFormValid) {
       Swal.fire({
         ...swalOptions,
+        icon: 'warning', // error -> warning (입력 미비는 경고가 적절)
+        title: "입력 확인",
         text: '모든 항목을 입력해주세요.',
-        icon: 'error'
       });
       return;
     }
     if (userPassword !== userPasswordConfirm) {
       Swal.fire({
         ...swalOptions,
-        title: '에러',
+        icon: 'error',
+        title: '비밀번호 오류',
         text: '비밀번호가 일치하지 않습니다.',
-        icon: 'error'
       });
       return;
     }
     if (isExecutive && !execVerified) {
       Swal.fire({
         ...swalOptions,
-        icon: "error",
+        icon: "warning",
+        title: "인증 필요",
         text: "임원 인증을 먼저 완료해주세요.",
       });
       return;
@@ -107,9 +110,9 @@ const UserRegisterPage = () => {
         console.log('회원가입:', res.data);
         Swal.fire({
           ...swalOptions,
-          title: '성공',
+          icon: 'success',
+          title: '가입 완료',
           text: '회원가입 신청이 완료되었습니다.',
-          icon: 'success'
         });
         navigate('/scops/login');
       })
@@ -118,9 +121,9 @@ const UserRegisterPage = () => {
         const errorMessage = err.response?.data?.message || err.response?.data || "회원가입 중 오류가 발생했습니다.";
         Swal.fire({
           ...swalOptions,
-          title: '회원가입 실패',
+          icon: 'error',
+          title: '가입 실패',
           text: errorMessage,
-          icon: 'error'
         });
       });
   };
@@ -141,17 +144,19 @@ const UserRegisterPage = () => {
               const value = e.target.value;
               if (/[^a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ]/.test(value)) {
                 Swal.fire({
+                  ...swalOptions,
                   icon: 'error',
-                  text: '이름에는 한글과 영문만 입력 가능합니다. (공백, 숫자, 특수문자 불가)',
-                  width: '400px'
+                  title: '입력 오류',
+                  text: '이름에는 한글과 영문만 입력 가능합니다.',
                 });
                 return;
               }
               if (value.length > 5) {
                 Swal.fire({
+                  ...swalOptions,
                   icon: 'error',
+                  title: '입력 오류',
                   text: '이름은 최대 5글자까지 입력 가능합니다.',
-                  width: '400px'
                 });
                 return;
               }
@@ -170,9 +175,10 @@ const UserRegisterPage = () => {
 
               if (!/^[0-9]*$/.test(value)) {
                 Swal.fire({
+                  ...swalOptions,
                   icon: 'error',
+                  title: '입력 오류',
                   text: '기수는 숫자만 입력 가능합니다.',
-                  width: '400px'
                 });
                 return;
               }
@@ -210,9 +216,10 @@ const UserRegisterPage = () => {
 
               if (!/^[0-9]*$/.test(value)) {
                 Swal.fire({
+                  ...swalOptions,
                   icon: 'error',
+                  title: '입력 오류',
                   text: '학번은 숫자만 입력 가능합니다.',
-                  width: '400px'
                 });
                 return;
               }

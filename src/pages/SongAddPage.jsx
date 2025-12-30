@@ -96,7 +96,18 @@ function SongAddPage() {
   // ---------------------
   const handleSubmit = async () => {
     if (!selectedEvent) {
-      Swal.fire({ icon: "error", text: "행사명을 선택해주세요.", width: "400px" });
+      Swal.fire({
+        icon: "error",
+        title: "입력 확인",
+        text: "행사명을 선택해주세요.",
+        confirmButtonText: "확인",
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-confirm'
+        },
+        buttonsStyling: false
+      });
       return;
     }
 
@@ -115,10 +126,32 @@ function SongAddPage() {
 
     try {
       await api.post(`/songs`, payload);
-      Swal.fire({ title: '성공!', text: '등록 완료!', width: '400px', icon: 'success' });
+      Swal.fire({
+        icon: 'success',
+        title: '등록 완료',
+        text: '곡 등록이 완료되었습니다!',
+        confirmButtonText: '확인',
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-confirm'
+        },
+        buttonsStyling: false
+      });
       navigate('/scops/songRegister', { state: { eventName: selectedEvent } });
     } catch (err) {
-      Swal.fire({ title: '실패!', text: '등록 실패!', width: '400px', icon: 'error' });
+      Swal.fire({
+        icon: 'error',
+        title: '등록 실패',
+        text: '곡 등록 중 오류가 발생했습니다.',
+        confirmButtonText: '확인',
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-confirm'
+        },
+        buttonsStyling: false
+      });
     }
   };
 

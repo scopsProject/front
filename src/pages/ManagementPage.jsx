@@ -62,26 +62,90 @@ function ManagementPage() {
   const handleApprove = async (userID) => {
     try {
       await api.post(`/scops/admin/approve/${userID}`);
-      alert('승인되었습니다.');
+      
+      Swal.fire({
+        icon: 'success',
+        title: '승인 완료',
+        text: '회원가입이 승인되었습니다.',
+        confirmButtonText: '확인',
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-confirm'
+        },
+        buttonsStyling: false
+      });
+
       setJoinRequests((prev) => prev.filter((req) => req.userID !== userID));
     } catch (error) {
-      alert('오류 발생');
+      Swal.fire({
+        icon: 'error',
+        title: '오류',
+        text: '승인 처리 중 오류가 발생했습니다.',
+        confirmButtonText: '확인',
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-confirm'
+        },
+        buttonsStyling: false
+      });
     }
   };
 
   // 거절 처리
   const handleReject = async (userID) => {
-    if (!window.confirm('정말 거절(삭제)하시겠습니까?')) return;
+    const result = await Swal.fire({
+      title: '거절 확인',
+      text: '정말 거절(삭제)하시겠습니까?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '거절',
+      cancelButtonText: '취소',
+      customClass: {
+        popup: 'my-swal-popup',
+        title: 'my-swal-title',
+        confirmButton: 'my-swal-confirm',
+        cancelButton: 'my-swal-cancel'
+      },
+      buttonsStyling: false
+    });
+
+    if (!result.isConfirmed) return;
+
     try {
       await api.delete(`/scops/admin/reject/${userID}`);
-      alert('거절되었습니다.');
+      
+      Swal.fire({
+        icon: 'success',
+        title: '처리 완료',
+        text: '가입 요청이 거절되었습니다.',
+        confirmButtonText: '확인',
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-confirm'
+        },
+        buttonsStyling: false
+      });
+
       setJoinRequests((prev) => prev.filter((req) => req.userID !== userID));
     } catch (error) {
-      alert('오류 발생');
+      Swal.fire({
+        icon: 'error',
+        title: '오류',
+        text: '거절 처리 중 오류가 발생했습니다.',
+        confirmButtonText: '확인',
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-confirm'
+        },
+        buttonsStyling: false
+      });
     }
   };
 
-  // --- 🔥 기능: 직위 변경 (User <-> Admin) ---
   const handleChangeRole = async (user) => {
     // 현재 권한의 반대로 설정 로직
     const currentRole = user.role;
@@ -94,11 +158,15 @@ function ManagementPage() {
       text: `${user.userName}님을 [${roleName}]로 변경하시겠습니까?`,
       icon: 'question',
       showCancelButton: true,
-      confirmButtonColor: '#4A90E2', // 승인 버튼 색상 (파랑)
-      cancelButtonColor: '#d33',     // 취소 버튼 색상 (빨강)
       confirmButtonText: '변경',
       cancelButtonText: '취소',
-      width: "400px"
+      customClass: {
+        popup: 'my-swal-popup',
+        title: 'my-swal-title',
+        confirmButton: 'my-swal-confirm',
+        cancelButton: 'my-swal-cancel'
+      },
+      buttonsStyling: false
     });
 
     // 사용자가 '변경' 버튼을 눌렀을 때만 실행
@@ -112,9 +180,13 @@ function ManagementPage() {
           title: '변경 완료!',
           text: `${user.userName}님의 직위가 변경되었습니다.`,
           icon: 'success',
-          confirmButtonColor: '#4A90E2',
           confirmButtonText: '확인',
-          width: "400px"
+          customClass: {
+            popup: 'my-swal-popup',
+            title: 'my-swal-title',
+            confirmButton: 'my-swal-confirm'
+          },
+          buttonsStyling: false
         });
 
         // 로컬 상태 업데이트 (화면 즉시 반영)
@@ -132,7 +204,12 @@ function ManagementPage() {
           text: '직위 변경 중 오류가 발생했습니다.',
           icon: 'error',
           confirmButtonText: '확인',
-          width: "400px"
+          customClass: {
+            popup: 'my-swal-popup',
+            title: 'my-swal-title',
+            confirmButton: 'my-swal-confirm'
+          },
+          buttonsStyling: false
         });
       }
     }

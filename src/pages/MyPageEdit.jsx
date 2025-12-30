@@ -43,8 +43,15 @@ const MyPageEdit = () => {
         if (name === "title" && value.length > 15) {
             Swal.fire({
                 icon: 'error',
+                title: '입력 오류',
                 text: '시간표 이름은 최대 15글자까지 입력 가능합니다.',
-                width: '350px'
+                confirmButtonText: '확인',
+                customClass: {
+                    popup: 'my-swal-popup',
+                    title: 'my-swal-title',
+                    confirmButton: 'my-swal-confirm'
+                },
+                buttonsStyling: false
             });
             return;
         }
@@ -94,11 +101,33 @@ const MyPageEdit = () => {
             if (selectedId) {
                 // 수정 (PUT)
                 await api.put(`/timetables/${selectedId}`, payload);
-                Swal.fire({ icon: 'success', title: '수정 완료', width: '300px' });
+                Swal.fire({
+                    icon: 'success',
+                    title: '수정 완료',
+                    text: '시간표가 수정되었습니다.',
+                    confirmButtonText: '확인',
+                    customClass: {
+                        popup: 'my-swal-popup',
+                        title: 'my-swal-title',
+                        confirmButton: 'my-swal-confirm'
+                    },
+                    buttonsStyling: false
+                });
             } else {
                 // 추가 (POST)
                 await api.post('/scops/timetable', payload);
-                Swal.fire({ icon: 'success', title: '추가 완료', width: '300px' });
+                Swal.fire({
+                    icon: 'success',
+                    title: '추가 완료',
+                    text: '새로운 시간표가 추가되었습니다.',
+                    confirmButtonText: '확인',
+                    customClass: {
+                        popup: 'my-swal-popup',
+                        title: 'my-swal-title',
+                        confirmButton: 'my-swal-confirm'
+                    },
+                    buttonsStyling: false
+                });
             }
 
             setShowModal(false);
@@ -106,7 +135,18 @@ const MyPageEdit = () => {
         } catch (error) {
             console.error(error);
             const msg = error.response?.data.message || "요청 실패";
-            Swal.fire({ icon: 'error', title: '오류', text: msg, width: '300px' });
+            Swal.fire({
+                icon: 'error',
+                title: '오류',
+                text: msg,
+                confirmButtonText: '확인',
+                customClass: {
+                    popup: 'my-swal-popup',
+                    title: 'my-swal-title',
+                    confirmButton: 'my-swal-confirm'
+                },
+                buttonsStyling: false
+            });
         }
     };
 
@@ -116,23 +156,52 @@ const MyPageEdit = () => {
 
         // 삭제 전 확인 (선택사항)
         const result = await Swal.fire({
-            title: '삭제하시겠습니까?',
+            title: '삭제 확인',
+            text: '정말 삭제하시겠습니까?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: '삭제',
             cancelButtonText: '취소',
-            width: '300px'
+            customClass: {
+                popup: 'my-swal-popup',
+                title: 'my-swal-title',
+                confirmButton: 'my-swal-confirm',
+                cancelButton: 'my-swal-cancel'
+            },
+            buttonsStyling: false
         });
 
         if (result.isConfirmed) {
             try {
                 await api.delete(`/timetables/${selectedId}`);
-                Swal.fire({ icon: 'success', title: '삭제 완료', width: '300px' });
+                Swal.fire({
+                    icon: 'success',
+                    title: '삭제 완료',
+                    text: '시간표가 삭제되었습니다.',
+                    confirmButtonText: '확인',
+                    customClass: {
+                        popup: 'my-swal-popup',
+                        title: 'my-swal-title',
+                        confirmButton: 'my-swal-confirm'
+                    },
+                    buttonsStyling: false
+                });
                 setShowModal(false);
                 fetchTimeTables(); // 목록 갱신
             } catch (error) {
                 console.error(error);
-                Swal.fire({ icon: 'error', title: '오류', text: "삭제 실패", width: '300px' });
+                Swal.fire({
+                    icon: 'error',
+                    title: '오류',
+                    text: "삭제 처리에 실패했습니다.",
+                    confirmButtonText: '확인',
+                    customClass: {
+                        popup: 'my-swal-popup',
+                        title: 'my-swal-title',
+                        confirmButton: 'my-swal-confirm'
+                    },
+                    buttonsStyling: false
+                });
             }
         }
     };

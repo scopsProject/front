@@ -28,7 +28,13 @@ function SongDetailView({ song, onClose, eventName, reloadSongs }) {
         icon: 'success',
         title: '수정 완료',
         text: '수정이 완료되었습니다.',
-        width: 400
+        confirmButtonText: '확인',
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-confirm'
+        },
+        buttonsStyling: false
       });
       reloadSongs();
       onClose();
@@ -39,8 +45,14 @@ function SongDetailView({ song, onClose, eventName, reloadSongs }) {
       Swal.fire({
         icon: 'error',
         title: '수정 실패',
-        text: err.response?.data?.message,
-        width: 400
+        text: err.response?.data?.message || '수정 중 오류가 발생했습니다.',
+        confirmButtonText: '확인',
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-confirm'
+        },
+        buttonsStyling: false
       });
     });
   };
@@ -48,11 +60,19 @@ function SongDetailView({ song, onClose, eventName, reloadSongs }) {
   // 삭제
   const handleDelete = () => {
     Swal.fire({
-      title: '정말 삭제하시겠습니까?',
+      title: '삭제 확인',
+      text: '정말 삭제하시겠습니까?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: '삭제',
-      cancelButtonText: '취소'
+      cancelButtonText: '취소',
+      customClass: {
+        popup: 'my-swal-popup',
+        title: 'my-swal-title',
+        confirmButton: 'my-swal-confirm',
+        cancelButton: 'my-swal-cancel'
+      },
+      buttonsStyling: false
     }).then((result) => {
       if (result.isConfirmed) {
         api.delete(`/songs/delete/${song.id}`)
@@ -61,7 +81,13 @@ function SongDetailView({ song, onClose, eventName, reloadSongs }) {
               icon: 'success',
               title: '삭제 완료',
               text: '곡이 삭제되었습니다.',
-              width: 400
+              confirmButtonText: '확인',
+              customClass: {
+                popup: 'my-swal-popup',
+                title: 'my-swal-title',
+                confirmButton: 'my-swal-confirm'
+              },
+              buttonsStyling: false
             });
             onClose();
             window.location.reload();
@@ -71,8 +97,14 @@ function SongDetailView({ song, onClose, eventName, reloadSongs }) {
             Swal.fire({
               icon: 'error',
               title: '삭제 실패',
-              text: err.response?.data?.message,
-              width: 400
+              text: err.response?.data?.message || '삭제 중 오류가 발생했습니다.',
+              confirmButtonText: '확인',
+              customClass: {
+                popup: 'my-swal-popup',
+                title: 'my-swal-title',
+                confirmButton: 'my-swal-confirm'
+              },
+              buttonsStyling: false
             });
           });
       }

@@ -110,7 +110,14 @@ function Header({ onMenuClick, isOpen, onClose }) {
 
 
       const token = localStorage.getItem("token");
-      if (!token) return alert("로그인 상태가 아닙니다.");
+      if (!token) {
+         Swal.fire({
+            ...swalOptions,
+            icon: 'error',
+            text: '로그인 상태가 아닙니다.'
+         });
+         return;
+      }
 
       await axios.delete(`${process.env.REACT_APP_API_URL}/scops/deleteUser`, {
         headers: {
@@ -125,13 +132,19 @@ function Header({ onMenuClick, isOpen, onClose }) {
       
       Swal.fire({
         ...swalOptions,
+        title: '탈퇴 완료',
         text: '회원 탈퇴 성공',
         icon: 'success'
       });
 
     } catch (error) {
       console.error(error);
-      alert("회원 탈퇴 중 오류가 발생했습니다.");
+      Swal.fire({
+        ...swalOptions,
+        title: '오류 발생',
+        text: '회원 탈퇴 중 오류가 발생했습니다.',
+        icon: 'error'
+      });
     }
   };
 
