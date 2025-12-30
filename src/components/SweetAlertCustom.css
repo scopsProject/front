@@ -167,3 +167,10 @@ button.my-swal-cancel {
 button.my-swal-confirm:hover {
     background-color: #f1960e !important;
 }
+/* ============================= */
+/* 9. 팝업 최상단 노출 (z-index 수정) */
+/* ============================= */
+/* 사이드바 z-index가 1200이므로, 그보다 높은 값으로 설정해야 합니다. */
+div.swal2-container {
+    z-index: 9999 !important;
+}
