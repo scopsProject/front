@@ -1,24 +1,50 @@
-// src/context/AuthContext.js
-import { createContext, useContext, useState} from 'react';
+import { createContext, useContext, useState } from 'react';
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  // ⬇️ ‼️ 수정된 부분: 초기값을 null 대신 localStorage에서 읽어옵니다 ‼️
+  const isTokenExpired = (token) => {
+    try {
+      const decoded = jwtDecode(token);
+      if (decoded.exp * 1000 < Date.now()) {
+        return true; // 유효기간 지남
+      }
+      return false; // 유효함
+    } catch (error) {
+      return true; // 토큰 형식이 이상하면 만료된 것으로 취급
+    }
+  };
+
   const [user, setUser] = useState(() => {
     try {
+      const token = localStorage.getItem('token');
       const savedUser = localStorage.getItem('userInfo');
-      return savedUser ? JSON.parse(savedUser) : null;
+
+      // 1. 토큰이나 유저 정보가 없으면 null
+      if (!token || !savedUser) {
+        return null;
+      }
+
+      // 2. 토큰이 있지만 만료되었다면? -> 청소하고 null 리턴
+      if (isTokenExpired(token)) {
+        console.log("초기 로딩: 토큰이 만료되어 자동 로그아웃됩니다.");
+        localStorage.removeItem('token');
+        localStorage.removeItem('userInfo');
+        return null;
+      }
+
+      // 3. 유효하다면 로그인 유지
+      return JSON.parse(savedUser);
     } catch (error) {
       return null;
     }
   });
 
-  // (참고) 로그아웃 함수도 수정해서 userInfo를 같이 지워야 합니다.
   const logout = () => {
     setUser(null);
     localStorage.removeItem('token');
-    localStorage.removeItem('userInfo'); // ⬅️ 로그아웃 시 정보 삭제 추가
+    localStorage.removeItem('userInfo');
   };
 
   return (
