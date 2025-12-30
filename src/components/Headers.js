@@ -37,7 +37,6 @@ function Header({ onMenuClick, isOpen, onClose }) {
       showCancelButton: true,
       confirmButtonText: '로그아웃',
       cancelButtonText: '취소',
-      reverseButtons: true,
     });
 
     if (!confirmLogout.isConfirmed) return;
@@ -103,7 +102,6 @@ function Header({ onMenuClick, isOpen, onClose }) {
         showCancelButton: true,
         confirmButtonText: '탈퇴',
         cancelButtonText: '취소',
-        reverseButtons: true,
       });
 
       if (!confirmDelete.isConfirmed) return;
