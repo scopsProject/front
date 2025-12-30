@@ -4,7 +4,7 @@ import '../components/Headers.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import api from '../api';
-import SongDetailView from '../pages/SongDetailView';   // 상세페이지 컴포넌트 추가
+import SongDetailView from '../pages/SongDetailView';
 
 function SongRegisterPage() {
   const location = useLocation();

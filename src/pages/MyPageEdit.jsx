@@ -7,6 +7,7 @@ import { useState, useEffect, useCallback } from 'react';
 import React from "react";
 import api from "../api.js";
 import { useNavigate } from 'react-router-dom';
+import '../components/SweetAlertCustom.css';
 
 const MyPageEdit = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -104,7 +105,7 @@ const MyPageEdit = () => {
             fetchTimeTables(); // 목록 갱신
         } catch (error) {
             console.error(error);
-            const msg = error.response?.data || "요청 실패";
+            const msg = error.response?.data.message || "요청 실패";
             Swal.fire({ icon: 'error', title: '오류', text: msg, width: '300px' });
         }
     };

@@ -5,6 +5,7 @@ import Headers from '../components/Headers';
 import '../components/Headers.css';
 import { useState, useEffect, useRef } from 'react';
 import api, { BASE_URL } from '../api';
+import '../components/SweetAlertCustom.css';
 
 function ReservationPage() {
   const [menuOpen, setMenuOpen] = useState(false);

@@ -269,61 +269,6 @@
   }
 }
 
-.swal2-container {
-  z-index: 99999 !important;
-}
-
-/* 팝업 스타일 */
-.swal2-popup {
-  border-radius: 16px !important;
-  padding: 25px 20px !important;
-  font-family: 'suit', sans-serif !important;
-  border: 2px solid #87640033 !important;
-}
-
-/* 제목 */
-.swal2-title {
-  color: #876400 !important;
-  font-size: 20px !important;
-  font-weight: 700 !important;
-  margin-bottom: 10px !important;
-}
-
-/* 내용 텍스트 */
-.swal2-html-container,
-.swal2-content {
-  color: #5a4a2b !important;
-  font-size: 16px !important;
-}
-
-/* 버튼 공통 스타일 */
-.swal2-confirm,
-.swal2-cancel {
-  font-family: 'suit', sans-serif !important;
-  font-size: 15px !important;
-  border-radius: 10px !important;
-  padding: 10px 20px !important;
-}
-
-/* 확인 버튼 (골드 포인트) */
-.swal2-confirm {
-  background-color: #876400 !important;
-  color: white !important;
-  border: none !important;
-}
-
-/* 취소 버튼 */
-.swal2-cancel {
-  background-color: #e6dfcf !important;
-  color: #876400 !important;
-  border: 1px solid #b8a374 !important;
-}
-
-/* 버튼 간격 */
-.swal2-actions {
-  gap: 12px !important;
-}
-
 /* 전체 섹션 */
 .time-select-section {
   color: #876400;

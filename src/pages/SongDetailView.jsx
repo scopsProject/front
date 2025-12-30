@@ -1,7 +1,8 @@
 import './SongDetailView.css';
 import { useState } from 'react';
 import api from '../api';
-import Swal from 'sweetalert2';  // 🔥 추가
+import Swal from 'sweetalert2';
+import '../components/SweetAlertCustom.css';
 
 function SongDetailView({ song, onClose, eventName, reloadSongs }) {
 
@@ -38,7 +39,7 @@ function SongDetailView({ song, onClose, eventName, reloadSongs }) {
       Swal.fire({
         icon: 'error',
         title: '수정 실패',
-        text: '수정 중 오류가 발생했습니다.',
+        text: err.response?.data?.message,
         width: 400
       });
     });
@@ -70,7 +71,7 @@ function SongDetailView({ song, onClose, eventName, reloadSongs }) {
             Swal.fire({
               icon: 'error',
               title: '삭제 실패',
-              text: '삭제 중 오류가 발생했습니다.',
+              text: err.response?.data?.message,
               width: 400
             });
           });

@@ -1,11 +1,10 @@
 import './UserRegisterPage.css';
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import '../components/SweetAlertCustom.css';
 
-// 라디오 버튼 목록: label은 화면에 표시, value는 저장용
 const sectionList = [
   { label: "보컬", value: "V" },
   { label: "기타", value: "G" },
@@ -26,10 +25,22 @@ const UserRegisterPage = () => {
 
   const [isExecutive, setIsExecutive] = useState(false); // 체크박스 상태
   const [execCode, setExecCode] = useState("");          // 입력 코드
-  const [role, setRole] = useState("none");              // 기본 none
+  const [role, setRole] = useState("ROLE_USER");
   const [execVerified, setExecVerified] = useState(false); // 인증 여부
 
   const EXECUTIVE_SECRET = "SCOPS2025";
+
+  const swalOptions = {
+    buttonsStyling: false, // 기본 버튼 스타일 끄기 (필수!)
+    customClass: {
+      popup: 'my-swal-popup',
+      title: 'my-swal-title',
+      htmlContainer: 'my-swal-html-container', // CSS 4번 관련
+      confirmButton: 'my-swal-confirm',
+      cancelButton: 'my-swal-cancel',
+      actions: 'my-swal-actions' // CSS 5번 관련 (이름 확인 필요)
+    }
+  };
 
   const isFormValid =
     userId.trim() !== "" &&
@@ -42,17 +53,17 @@ const UserRegisterPage = () => {
   const handleExecVerify = () => {
     if (execCode === EXECUTIVE_SECRET) {
       Swal.fire({
+        ...swalOptions,
         icon: "success",
         text: "임원 인증이 완료되었습니다.",
-        width: "400px"
       });
       setExecVerified(true);
       setRole("ADMIN");
     } else {
       Swal.fire({
+        ...swalOptions,
         icon: "error",
         text: "인증코드가 올바르지 않습니다.",
-        width: "400px"
       });
       setExecVerified(false);
       setRole("none");
@@ -61,26 +72,26 @@ const UserRegisterPage = () => {
   const handleUserRegister = () => {
     if (!isFormValid) {
       Swal.fire({
+        ...swalOptions,
         text: '모든 항목을 입력해주세요.',
-        width: '400px',
         icon: 'error'
       });
       return;
     }
     if (userPassword !== userPasswordConfirm) {
       Swal.fire({
+        ...swalOptions,
         title: '에러',
-        text: '비밀번호가 일치하지 않습니다. 다시 확인해주세요.',
-        width: '400px',
+        text: '비밀번호가 일치하지 않습니다.',
         icon: 'error'
       });
       return;
     }
     if (isExecutive && !execVerified) {
       Swal.fire({
+        ...swalOptions,
         icon: "error",
         text: "임원 인증을 먼저 완료해주세요.",
-        width: "400px"
       });
       return;
     }
@@ -95,21 +106,20 @@ const UserRegisterPage = () => {
       .then(res => {
         console.log('회원가입:', res.data);
         Swal.fire({
+          ...swalOptions,
           title: '성공',
-          text: '회원가입이 신청이 완료되었습니다.',
-          width: '400px',
+          text: '회원가입 신청이 완료되었습니다.',
           icon: 'success'
         });
         navigate('/scops/login');
       })
       .catch(err => {
         console.error('회원가입 실패:', err);
-        const errorMessage = err.response?.data || "회원가입 중 오류가 발생했습니다.";
-
+        const errorMessage = err.response?.data?.message || err.response?.data || "회원가입 중 오류가 발생했습니다.";
         Swal.fire({
+          ...swalOptions,
           title: '회원가입 실패',
-          text: errorMessage, // 👈 여기에 "이미 가입된 학번입니다."가 뜹니다.
-          width: '400px',
+          text: errorMessage,
           icon: 'error'
         });
       });
@@ -187,7 +197,7 @@ const UserRegisterPage = () => {
                   checked={userSession === sec.value}
                   onChange={() => setUserSession(sec.value)}
                 />
-                <span style={{marginTop: "2px"}}>{sec.label}</span>
+                <span style={{ marginTop: "2px" }}>{sec.label}</span>
               </label>
             ))}
           </div>

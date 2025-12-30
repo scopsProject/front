@@ -4,6 +4,7 @@ import '../components/Headers.css';
 import { useState } from 'react';
 import api from '../api';
 import Swal from 'sweetalert2';
+import '../components/SweetAlertCustom.css';
 
 function ManagementPage() {
   const [menuOpen, setMenuOpen] = useState(false);

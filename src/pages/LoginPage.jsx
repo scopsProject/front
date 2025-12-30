@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext.js";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
+import '../components/SweetAlertCustom.css';
 
 function LoginPage() {
 
@@ -18,8 +19,17 @@ function LoginPage() {
       Swal.fire({
         title: '로그인 실패',
         text: '아이디와 비밀번호를 입력해주세요.',
-        width: '400px',
-        icon: 'error'
+        icon: 'error',
+
+        // 👇 여기부터 커스텀 스타일 적용 코드
+        buttonsStyling: false, // 기본 스타일 끄기 (필수)
+        confirmButtonText: 'OK', // 버튼 텍스트
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          // actions: 'my-swal-actions', // 버튼 감싸는 div (필요하면)
+          confirmButton: 'my-swal-confirm', // 버튼 스타일 클래스 연결
+        }
       });
     }
     else {
@@ -59,19 +69,37 @@ function LoginPage() {
             // ... (기존 에러 처리 코드 유지)
             Swal.fire({
               title: '로그인 실패',
-              text: '서버에서 사용자 정보를 받지 못했습니다.',
-              width: '400px',
-              icon: 'error'
+              // text 대신 html을 쓰면 줄바꿈 등 더 자유롭게 가능
+              html: '아이디 혹은 비밀번호를<br>확인해주세요.',
+              icon: 'error',
+
+              // 👇 여기부터 커스텀 스타일 적용 코드
+              buttonsStyling: false, // 기본 스타일 끄기 (필수)
+              confirmButtonText: 'OK',
+              customClass: {
+                popup: 'my-swal-popup',
+                title: 'my-swal-title',
+                confirmButton: 'my-swal-confirm', // CSS에서 정의한 노란 버튼 클래스
+              }
             });
           }
         })
         .catch(error => {
-          console.error('로그인 실패:', error.response?.data || error.message);
+          console.error('로그인 실패:', error.response?.data.message || error.message);
           Swal.fire({
             title: '로그인 실패',
-            text: '아이디 혹은 비밀번호를 확인해주세요.',
-            width: '400px',
-            icon: 'error'
+            // text 대신 html을 쓰면 줄바꿈 등 더 자유롭게 가능
+            html: error.response?.data.message,
+            icon: 'error',
+
+            // 👇 여기부터 커스텀 스타일 적용 코드
+            buttonsStyling: false, // 기본 스타일 끄기 (필수)
+            confirmButtonText: 'OK',
+            customClass: {
+              popup: 'my-swal-popup',
+              title: 'my-swal-title',
+              confirmButton: 'my-swal-confirm', // CSS에서 정의한 노란 버튼 클래스
+            }
           });
         });
     }

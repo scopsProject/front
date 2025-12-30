@@ -162,6 +162,7 @@
 .songAdd-btnSubmit {
   display: flex;
   justify-content: center;
+  margin-top: auto;
 }
 
 .register-button {
@@ -172,7 +173,7 @@
   box-shadow: 0 0 10px rgba(255, 238, 187, 1);
   background-color: #FFEEBB;
   border-radius: 25px;
-  color: white;
+  color: #634900;
   font-size: 18px;
   padding: 12px 0;
   cursor: pointer;
@@ -182,42 +183,4 @@
 
 .register-button:hover {
   background-color: #f7d368;
-}
-
-/* SweetAlert (공통) */
-.swal2-container {
-  z-index: 99999 !important;
-}
-
-.swal2-popup {
-  border-radius: 16px !important;
-  padding: 25px 20px !important;
-  border: 2px solid #87640033 !important;
-}
-
-.swal2-title {
-  color: #876400 !important;
-  font-size: 20px !important;
-  margin-bottom: 10px !important;
-}
-
-.swal2-html-container {
-  color: #5a4a2b !important;
-  font-size: 16px !important;
-}
-
-.swal2-confirm {
-  background-color: #876400 !important;
-  color: white !important;
-  border-radius: 10px !important;
-}
-
-.swal2-cancel {
-  background-color: #e6dfcf !important;
-  color: #876400 !important;
-  border: 1px solid #b8a374 !important;
-}
-
-.swal2-actions {
-  gap: 12px !important;
 }

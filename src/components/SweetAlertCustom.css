@@ -1,0 +1,169 @@
+/* SweetAlertCustom.css */
+
+/* ============================= */
+/* 1. 팝업 전체 스타일 */
+/* ============================= */
+.my-swal-popup,
+.my-swal-popup * {
+    font-family: "suit-R", sans-serif !important;
+    box-sizing: border-box !important;
+}
+
+.my-swal-popup {
+    width: 350px !important;
+    border-radius: 20px !important;
+    background-color: #ffffff !important;
+    padding: 0 !important;
+}
+
+/* ============================= */
+/* 2. 아이콘 */
+/* ============================= */
+
+/* ============================= */
+/* error 아이콘 */
+/* ============================= */
+
+.my-swal-popup .swal2-icon.swal2-error {
+    border: none !important;
+    color: #ef5350 !important;
+    margin-top: 20px !important;
+}
+
+.my-swal-popup .swal2-icon.swal2-error 
+.swal2-x-mark-line-left,
+.my-swal-popup .swal2-icon.swal2-error 
+.swal2-x-mark-line-right {
+    background-color: #FC9798 !important;
+}
+/* ============================= */
+/* success 아이콘 */
+/* ============================= */
+
+/* 성공 아이콘 테두리 색상 (연한 초록) */
+.my-swal-popup .swal2-icon.swal2-success {
+    border-color: #A5D6A7 !important; 
+    color: #A5D6A7 !important;
+}
+
+/* 성공 아이콘 내부의 원(Ring) 색상 */
+.my-swal-popup .swal2-icon.swal2-success .swal2-success-ring {
+    border: none;
+}
+
+/* 성공 아이콘 내부의 체크 표시 선(Line) 색상 */
+.my-swal-popup .swal2-icon.swal2-success [class^='swal2-success-line'] {
+    background-color: #A5D6A7 !important; 
+}
+/* success 아이콘에 box-sizing: border-box 예외 처리 */
+.my-swal-popup .swal2-icon.swal2-success,
+.my-swal-popup .swal2-icon.swal2-success * {
+    box-sizing: content-box !important; 
+}
+/* ============================= */
+/* question 아이콘 */
+/* ============================= */
+
+/* 원 테두리 + 기본 색상 */
+.my-swal-popup .swal2-icon.swal2-question {
+    border: none;
+    color: #90A4AE !important;        /* 물음표 색상 */
+}
+
+/* 물음표 위쪽 곡선 */
+.my-swal-popup .swal2-icon.swal2-question::before {
+    background-color: #90A4AE !important;
+}
+
+/* 물음표 아래 점 */
+.my-swal-popup .swal2-icon.swal2-question::after {
+    background-color: #90A4AE !important;
+}
+/* ============================= */
+/* warning 아이콘 */
+/* ============================= */
+
+/* 원 테두리 + 기본 색상 */
+.my-swal-popup .swal2-icon.swal2-warning {
+    border: none !important;
+    color: #FFB300 !important;   /* 경고 아이콘 색상 (amber 계열) */
+}
+
+/* 느낌표 위쪽 막대 */
+.my-swal-popup .swal2-icon.swal2-warning::before {
+    background-color: #FFB300 !important;
+}
+
+/* 느낌표 아래 점 */
+.my-swal-popup .swal2-icon.swal2-warning::after {
+    background-color: #FFB300 !important;
+}
+
+
+
+/* ============================= */
+/* 3. 제목 */
+/* ============================= */
+.my-swal-title {
+    color: #5d4037 !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    margin-top: 10px !important;
+}
+
+/* ============================= */
+/* 4. 본문 */
+/* ============================= */
+.my-swal-popup .swal2-html-container {
+    color: #5d4037 !important;
+    font-size: 14px !important;
+    padding: 20px !important; /* 내용에만 패딩 */
+    margin: 0 !important;
+}
+
+/* ============================= */
+/* 5. 버튼 컨테이너 */
+/* ============================= */
+.my-swal-popup .swal2-actions {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+
+    border-radius: 0 0 20px 20px !important;
+    overflow: hidden !important;
+}
+
+/* ============================= */
+/* 6. 확인 버튼 */
+/* ============================= */
+button.my-swal-confirm {
+    flex: 1 !important;
+    background-color: #FFE79F !important;
+    color: #5d4037 !important;
+    font-weight: bold !important;
+    border: none !important;
+    padding: 14px 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+/* ============================= */
+/* 8. 취소 버튼 (사용 시 대비) */
+/* ============================= */
+button.my-swal-cancel {
+    flex: 1 !important;
+    background-color: #FFDB74 !important;
+    color: #5d4037 !important;
+    font-weight: bold !important;
+    border: none !important;
+    padding: 14px 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+}
+/* ============================= */
+/* 7. 버튼 호버 */
+/* ============================= */
+button.my-swal-confirm:hover {
+    background-color: #f1960e !important;
+}

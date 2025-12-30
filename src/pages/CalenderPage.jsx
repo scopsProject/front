@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback } from 'react';
 import api from '../api';
 import { jwtDecode } from "jwt-decode";
 import Swal from 'sweetalert2';
+import '../components/SweetAlertCustom.css';
 
 function CalenderPage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -153,25 +154,63 @@ function CalenderPage() {
 
   const handleAddEvent = async () => {
     if (!newEventData.eventName || !newEventData.createdDate || !newEventData.endDate) {
-      Swal.fire({ icon: "warning", text: "모든 정보를 입력해주세요.", width: "300px" });
+      Swal.fire({
+        icon: "warning",
+        title: "입력 확인", // 제목 추가 (디자인 균형 위해)
+        text: "모든 정보를 입력해주세요.",
+        confirmButtonText: "확인",
+        // 커스텀 클래스 적용
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-confirm'
+        },
+        buttonsStyling: false // SweetAlert 기본 스타일 비활성화 (필수)
+      });
       return;
     }
 
     try {
       await api.post('/songs/events/new', newEventData);
 
-      Swal.fire({ icon: "success", text: "행사가 추가되었습니다!", width: "300px" });
+      Swal.fire({
+        icon: "success",
+        title: "완료",
+        text: "행사가 추가되었습니다!",
+        confirmButtonText: "확인",
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-confirm'
+        },
+        buttonsStyling: false
+      });
 
       // 모달 닫기 및 초기화
       setShowEventModal(false);
-      setNewEventData({ eventName: "", createdDate: "", endDate: "" });
+      setNewEventData({
+        eventName: "",
+        createdDate: "",
+        endDate: "",
+        isSongRegistrationAvailable: false
+      });
 
-      // 🔥 달력 데이터 즉시 새로고침
       fetchCalendarData();
 
     } catch (error) {
       console.error(error);
-      Swal.fire({ icon: "error", text: error.response?.data || "행사 추가 실패", width: "300px" });
+      Swal.fire({
+        icon: "error",
+        title: "오류",
+        text: error.response?.data?.message || "행사 추가 실패",
+        confirmButtonText: "확인",
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-confirm'
+        },
+        buttonsStyling: false
+      });
     }
   };
   // 예약 필터링
@@ -319,7 +358,7 @@ function CalenderPage() {
               </div>
             ))}
           </div>
-          {role === "ADMIN" && (
+          {role === "ROLE_ADMIN" && (
             <div style={{ marginTop: '10px', textAlign: 'right' }}>
               <button className="add-event-btn-small" onClick={() => setShowEventModal(true)}>
                 + 행사 추가

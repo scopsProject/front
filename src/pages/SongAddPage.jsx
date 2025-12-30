@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import api from '../api';
 import { jwtDecode } from "jwt-decode";
+import '../components/SweetAlertCustom.css';
 
 function SongAddPage() {
   const navigate = useNavigate();
@@ -181,7 +182,7 @@ function SongAddPage() {
         </div>
 
         <div className="songAdd-btnSubmit">
-          <button className="register-button" onClick={handleSubmit}>등록</button>
+          <button className="register-button" onClick={handleSubmit}>등 록</button>
         </div>
 
       </div>

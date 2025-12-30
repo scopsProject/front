@@ -4,11 +4,24 @@ import { useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import './SweetAlertCustom.css';
 
 function Header({ onMenuClick, isOpen, onClose }) {
   const navigate = useNavigate();
   const { user, setUser } = useAuth();
   const clickCountRef = useRef(0);
+
+  const swalOptions = {
+    buttonsStyling: false,
+    customClass: {
+      popup: 'my-swal-popup',
+      title: 'my-swal-title',
+      htmlContainer: 'my-swal-html-container',
+      confirmButton: 'my-swal-confirm',
+      cancelButton: 'my-swal-cancel',
+      actions: 'my-swal-actions'
+    }
+  };
 
   const handleNavigation = (path) => {
     onClose();
@@ -17,13 +30,14 @@ function Header({ onMenuClick, isOpen, onClose }) {
 
   const logout = async () => {
     const confirmLogout = await Swal.fire({
-      title: '로그아웃 하시겠습니까?',
+      ...swalOptions,
+      title: '로그아웃',
+      text: '로그아웃 하시겠습니까?',
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: '로그아웃',
       cancelButtonText: '취소',
       reverseButtons: true,
-      width: '400px'
     });
 
     if (!confirmLogout.isConfirmed) return;
@@ -40,12 +54,13 @@ function Header({ onMenuClick, isOpen, onClose }) {
 
 
   const handleLogoClick = () => {
-  clickCountRef.current++;
+    clickCountRef.current++;
 
-  // 🎉 10번 클릭 → 이스터에그 팝업
-  if (clickCountRef.current === 10) {
-    Swal.fire({
-      html: `
+    // 🎉 10번 클릭 → 이스터에그 팝업
+    if (clickCountRef.current === 10) {
+      Swal.fire({
+        ...swalOptions,
+        html: `
         <div style="display:flex; flex-direction:column; align-items:center;">
           <p style="font-size:18px; font-family:suit; margin-bottom:10px; color:#876400;">
             스콥스의 뜻은 음유시인이라는 것!</br>알고 계셨나요?
@@ -56,32 +71,32 @@ function Header({ onMenuClick, isOpen, onClose }) {
           </p>
         </div>
       `,
-      background: '#ffffff',
-      backdrop: 'rgba(0,0,0,0.5)',
-      showConfirmButton: false,
-      width: 350,
-      padding: '20px 10px',
-    });
+        // background, width 등은 CSS(.my-swal-popup)에서 제어되므로 제거하거나 
+        // 덮어쓰고 싶을 때만 남겨둡니다. 여기선 이스터에그 특유의 스타일이 있다면 유지해도 됩니다.
+        background: '#ffffff',
+        backdrop: 'rgba(0,0,0,0.5)',
+        showConfirmButton: false,
+        padding: '20px 10px',
+      });
 
-    clickCountRef.current = 0;
-    return; // ❗여기서 끝내야 메인페이지로 이동하지 않음
-  }
+      clickCountRef.current = 0;
+      return; 
+    }
 
-  // 🏃 10번이 아니면 → 바로 메인 페이지로 이동
-  navigate('/scops/main');
+    // 🏃 10번이 아니면 → 바로 메인 페이지로 이동
+    navigate('/scops/main');
 
-  // ⏱ 1.5초 동안 추가 클릭 없으면 카운트 초기화
-  setTimeout(() => {
-    clickCountRef.current = 0;
-  }, 1500);
-};
-
-
+    // ⏱ 1.5초 동안 추가 클릭 없으면 카운트 초기화
+    setTimeout(() => {
+      clickCountRef.current = 0;
+    }, 1500);
+  };
 
   const deleteUser = async () => {
     try {
       // 탈퇴 확인
       const confirmDelete = await Swal.fire({
+        ...swalOptions,
         title: '정말 탈퇴하시겠습니까?',
         text: '탈퇴하면 계정 정보를 복구할 수 없습니다.',
         icon: 'warning',
@@ -89,7 +104,6 @@ function Header({ onMenuClick, isOpen, onClose }) {
         confirmButtonText: '탈퇴',
         cancelButtonText: '취소',
         reverseButtons: true,
-        width: '400px'
       });
 
       if (!confirmDelete.isConfirmed) return;
@@ -108,9 +122,10 @@ function Header({ onMenuClick, isOpen, onClose }) {
       localStorage.removeItem("userInfo");
       setUser(null);
       navigate("/scops/login");
+      
       Swal.fire({
+        ...swalOptions,
         text: '회원 탈퇴 성공',
-        width: '400px',
         icon: 'success'
       });
 
@@ -121,7 +136,7 @@ function Header({ onMenuClick, isOpen, onClose }) {
   };
 
   if (!user) {
-    return null; // 화면에 아무것도 그리지 않고 에러 방지
+    return null; 
   }
   return (
     <>
