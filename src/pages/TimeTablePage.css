@@ -51,6 +51,11 @@
 /* 세션 리스트 */
 .sessions-list {
   margin-top: 10px;
+  height: 350px;       /* 1. 목록 영역의 높이를 300px로 고정 (필요에 따라 조절 가능) */
+  /* 또는 max-height: 40vh; 로 설정하면 화면 높이의 40%까지만 유동적으로 늘어납니다. */
+  
+  overflow-y: auto;    /* 2. 내용이 높이를 넘어가면 세로 스크롤 생성 */
+  padding: 5px;        /* 스크롤바와 내용 사이 여백 */
 }
 
 .session-card {
