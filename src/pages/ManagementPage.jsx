@@ -62,7 +62,7 @@ function ManagementPage() {
   const handleApprove = async (userID) => {
     try {
       await api.post(`/scops/admin/approve/${userID}`);
-      
+
       Swal.fire({
         icon: 'success',
         title: '승인 완료',
@@ -115,7 +115,7 @@ function ManagementPage() {
 
     try {
       await api.delete(`/scops/admin/reject/${userID}`);
-      
+
       Swal.fire({
         icon: 'success',
         title: '처리 완료',
@@ -152,10 +152,14 @@ function ManagementPage() {
     const newRole = currentRole === 'ROLE_ADMIN' ? 'ROLE_USER' : 'ROLE_ADMIN';
     const roleName = newRole === 'ROLE_ADMIN' ? '관리자' : '일반 유저';
 
-    // 1. 변경 확인 모달 (window.confirm 대체)
+    // 1. 변경 확인 모달
     const result = await Swal.fire({
       title: '직위 변경',
-      text: `${user.userName}님을 [${roleName}]로 변경하시겠습니까?`,
+      html: `${user.userName}님을 ${roleName === '관리자'
+          ? `<span style="color:#4A90E2;">[${roleName}]</span>`
+          : `<span style="color:#F39C12;">[${roleName}]</span>`
+        }로 변경하시겠습니까?`,
+
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: '변경',
@@ -197,7 +201,7 @@ function ManagementPage() {
         );
       } catch (error) {
         console.error('직위 변경 실패:', error);
-        
+
         // 3. 실패 알림 모달
         Swal.fire({
           title: '변경 실패',
@@ -216,7 +220,7 @@ function ManagementPage() {
   };
 
   // 🔥 검색 필터링 로직
-  const filteredUsers = activeUsers.filter(user => 
+  const filteredUsers = activeUsers.filter(user =>
     user.userName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -227,11 +231,11 @@ function ManagementPage() {
 
         <div className='management-page-container'>
           <button className="manage-btn" onClick={handleOpenApproveModal}>
-            회원가입 승인하기
+            회원가입 <br /><br />승인하기
           </button>
           {/* 🔥 신규 버튼 추가 */}
-          <button className="manage-btn role-btn" onClick={handleOpenRoleModal}>
-            직위 변경하기
+          <button className="manage-role-btn" onClick={handleOpenRoleModal}>
+            직위 <br /><br />변경하기
           </button>
         </div>
 
@@ -240,7 +244,7 @@ function ManagementPage() {
           <div className="managemodal-overlay">
             <div className="managemodal-content">
               <div className="managemodal-header">
-                <h3>가입 요청 목록</h3>
+                <span className='managemodal-header-name'>가입 요청 목록</span>
                 <button className="manageclose-btn" onClick={handleCloseModal}>✖</button>
               </div>
               <div className="request-list">
@@ -250,8 +254,8 @@ function ManagementPage() {
                   joinRequests.map((req) => (
                     <div key={req.userID} className="request-item">
                       <div className="user-info">
-                        <span className="generation">{req.userYear}기</span>
                         <span className="name">{req.userName}</span>
+                        <span className="generation">{req.userYear}th</span>
                       </div>
                       <div className="action-buttons">
                         <button className="btn-approve" onClick={() => handleApprove(req.userID)}>승인</button>
@@ -265,20 +269,20 @@ function ManagementPage() {
           </div>
         )}
 
-        {/* 2. 🔥 직위 변경 모달 */}
+        {/* 2. 직위 변경 모달 */}
         {showRoleModal && (
           <div className="managemodal-overlay">
             <div className="managemodal-content">
               <div className="managemodal-header">
-                <h3>직위 변경</h3>
+                <span className='managemodal-header-name'>직위 변경</span>
                 <button className="manageclose-btn" onClick={handleCloseModal}>✖</button>
               </div>
 
               {/* 검색창 */}
               <div className="search-box">
-                <input 
-                  type="text" 
-                  placeholder="이름 검색..." 
+                <input
+                  type="text"
+                  placeholder="이름 검색..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="modal-search-input"
@@ -292,16 +296,15 @@ function ManagementPage() {
                   filteredUsers.map((user) => (
                     <div key={user.userID} className="request-item">
                       <div className="user-info">
-                        <span className="generation">{user.userYear}기</span>
-                        <span className="name">{user.userName}</span>
-                        {/* 현재 직위 표시 뱃지 */}
                         <span className={`role-badge ${user.role === 'ROLE_ADMIN' ? 'admin' : 'user'}`}>
                           {user.role === 'ROLE_ADMIN' ? '관리자' : '유저'}
                         </span>
+                        <span className="name-role">{user.userName}</span>
+                        <span className="generation-role">{user.userYear}기</span>
                       </div>
-                      
+
                       {/* 변경 버튼 */}
-                      <button 
+                      <button
                         className={`btn-change-role ${user.role === 'ROLE_ADMIN' ? 'to-user' : 'to-admin'}`}
                         onClick={() => handleChangeRole(user)}
                       >

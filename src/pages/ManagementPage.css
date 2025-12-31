@@ -37,82 +37,111 @@
 
 /* 관리 페이지 내부 컨테이너 */
 .management-page-container {
-  padding: 20px;
+  padding: 50px;
+  flex: 1;
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  flex-direction: row;
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center;     /* 세로 중앙 정렬 */
+  gap: 40px;
 }
 
 /* 메인 버튼 스타일 */
 .manage-btn {
   width: 100%;
-  padding: 15px;
-  background-color: #4A90E2;
+  padding: 50px 0;
+  background-color: #FCD49B;
   color: white;
   border: none;
   border-radius: 12px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s;
+}
+.manage-role-btn {
+  width: 100%;
+  padding: 50px 0;
+  background-color: #FCD49B;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: background-color 0.2s;
 }
 
 .manage-btn:hover {
-  background-color: #357ABD;
+  background-color: #f8c071;
 }
 
 /* 모달 배경 (어두운 반투명) */
 .managemodal-overlay {
-  position: absolute; /* app-container 기준 꽉 차게 */
+  position: absolute;
+  /* app-container 기준 꽉 차게 */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정 */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* 반투명 검정 */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* 최상단 배치 */
+  z-index: 1000;
+  /* 최상단 배치 */
 }
 
 /* 모달 내용 박스 */
 .managemodal-content {
-  background-color: white;
-  width: 85%; /* 모바일에서 적절한 너비 */
-  max-width: 380px;
+  background-color: #FFFEF8;
+  width: 85%;
+  /* 모바일에서 적절한 너비 */
+  max-width: 350px;
   border-radius: 15px;
   padding: 20px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  max-height: 80vh; /* 화면 높이의 80%까지만 */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  max-height: 80vh;
+  /* 화면 높이의 80%까지만 */
   display: flex;
   flex-direction: column;
-  animation: slideUp 0.3s ease-out; /* 나타날 때 애니메이션 */
+  animation: slideUp 0.3s ease-out;
+  /* 나타날 때 애니메이션 */
 }
 
 /* 모달 헤더 */
 .managemodal-header {
+  position: relative;
+  
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin-bottom: 15px;
-  border-bottom: 1px solid #eee;
   padding-bottom: 10px;
 }
 
-.managemodal-header h3 {
-  margin: 0;
-  font-size: 18px;
-  color: #333;
+/* 2. 자식 요소 (제목): 정중앙 배치 */
+.managemodal-header-name {
+  position: absolute;
+  left: 50%; 
+  transform: translateX(-50%);
+  
+  color: #634900;
+  font-size: 18px;       
+  
 }
 
 .manageclose-btn {
-  background: none;
   border: none;
-  font-size: 20px;
+  font-size: 15px;
   cursor: pointer;
-  color: #999;
-  padding: 0 5px;
+  color: #FFFFFF;
+  background-color: #FFE79F;
+  box-shadow: 0 0 10px rgba(241, 204, 56, 0.9);
+  border-radius: 30px;
 }
 
 .manageclose-btn:hover {
@@ -121,15 +150,18 @@
 
 /* 리스트 영역 */
 .request-list {
-  overflow-y: auto; /* 내용 많으면 스크롤 */
+  overflow-y: auto;
+  /* 내용 많으면 스크롤 */
   flex: 1;
-  padding-right: 5px; /* 스크롤바 공간 확보 */
+  padding-right: 5px;
+  /* 스크롤바 공간 확보 */
 }
 
 /* 스크롤바 스타일 (선택사항) */
 .request-list::-webkit-scrollbar {
   width: 4px;
 }
+
 .request-list::-webkit-scrollbar-thumb {
   background-color: #ccc;
   border-radius: 4px;
@@ -147,8 +179,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 8px 0;
+  border-bottom: 1px solid #FFE79F;
 }
 
 .request-item:last-child {
@@ -158,23 +190,19 @@
 /* 유저 정보 (기수, 이름) */
 .user-info {
   display: flex;
-  gap: 8px;
+  gap: 3px;
   align-items: center;
 }
 
 .generation {
-  background-color: #f0f4f8;
-  color: #4A90E2;
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 600;
+  color: #FFDB74;
+  font-size: 9px;
+  padding-top: 10%;
 }
 
 .name {
   font-size: 16px;
-  font-weight: 500;
-  color: #333;
+  color: #634900;
 }
 
 /* 승인/거절 버튼 그룹 */
@@ -186,11 +214,10 @@
 .action-buttons button {
   padding: 6px 12px;
   border: none;
-  border-radius: 6px;
+  border-radius: 30px;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  color: white;
   transition: opacity 0.2s;
 }
 
@@ -199,20 +226,24 @@
 }
 
 .btn-approve {
-  background-color: #4CAF50; /* 초록색 */
+  background-color: #A9EAFC;
+  color: #634900;
+  box-shadow: 0 0 5px rgba(169, 234, 252, 0.8);
 }
 
 .btn-reject {
-  background-color: #FF5252; /* 빨간색 */
+  background-color: #FC9798;
+  color: #634900;
+  box-shadow: 0 0 5px rgba(252, 151, 152, 0.8);
 }
-/* --- 추가된 스타일 --- */
 
-/* 직위 변경 버튼 (보라색 계열로 차별화) */
-.manage-btn.role-btn {
-  background-color: #8E44AD;
+/* 직위 변경 버튼  */
+.manage-role-btn {
+  background-color: #B5C7FC;
 }
-.manage-btn.role-btn:hover {
-  background-color: #732d91;
+
+.manage-role-btn:hover {
+  background-color: #7e9dfa;
 }
 
 /* 모달 내 검색창 */
@@ -223,13 +254,22 @@
 .modal-search-input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(250, 223, 114, 0.8);
+  border: none;
+  border-radius: 30px;
   font-size: 14px;
-  box-sizing: border-box; /* 패딩 포함 너비 계산 */
+  box-sizing: border-box;
   outline: none;
 }
-
+.name-role{
+  font-size: 16px;
+  color: #634900;
+}
+.generation-role {
+  color: #FFDB74;
+  font-size: 9px;
+  padding-top: 6%;
+}
 .modal-search-input:focus {
   border-color: #4A90E2;
 }
@@ -237,22 +277,21 @@
 /* 직위 표시 뱃지 */
 .role-badge {
   font-size: 10px;
-  padding: 2px 6px;
-  border-radius: 4px;
-  margin-left: 5px;
-  font-weight: bold;
+  border-radius: 30px;
+  color: #634900;
+  margin-right: 2px;
 }
 
 .role-badge.admin {
-  background-color: #FFD700; /* 금색 */
-  color: #856404;
+  background-color: #FFEDBA;
   border: 1px solid #ffeeba;
+  padding: 2px 6px;
 }
 
 .role-badge.user {
-  background-color: #e2e3e5; /* 회색 */
-  color: #383d41;
-  border: 1px solid #d6d8db;
+  background-color: #ffffff;
+  border: 1px solid #FFDB74;
+  padding: 2px 10px;
 }
 
 /* 직위 변경 액션 버튼 */
@@ -268,12 +307,16 @@
 
 /* 관리자로 변경 버튼 (파랑) */
 .btn-change-role.to-admin {
-  background-color: #4A90E2;
+  background-color: #B5C7FC;
+  border-radius: 30px;
+  padding: 5px 5px;
 }
 
 /* 유저로 변경 버튼 (주황) */
 .btn-change-role.to-user {
-  background-color: #F39C12;
+  background-color: #FCD49B;
+  border-radius: 30px;
+  padding: 5px 10px;
 }
 
 .btn-change-role:hover {
@@ -287,6 +330,7 @@
     transform: translateY(20px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
