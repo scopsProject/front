@@ -282,7 +282,7 @@ function ManagementPage() {
               <div className="search-box">
                 <input
                   type="text"
-                  placeholder="이름 검색..."
+                  placeholder="이 름 검 색"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="modal-search-input"

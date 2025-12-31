@@ -250,6 +250,10 @@
 .search-box {
   margin-bottom: 15px;
 }
+.modal-search-input::placeholder {
+  color: #FFE79F;
+  opacity: 1;
+}
 
 .modal-search-input {
   width: 100%;
