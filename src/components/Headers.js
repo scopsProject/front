@@ -31,12 +31,12 @@ function Header({ onMenuClick, isOpen, onClose }) {
   const logout = async () => {
     const confirmLogout = await Swal.fire({
       ...swalOptions,
-      title: '로그아웃',
-      text: '로그아웃 하시겠습니까?',
+
+      html: '<b>로그아웃</b> 하시겠습니까?',
       icon: 'question',
       showCancelButton: true,
-      confirmButtonText: '로그아웃',
-      cancelButtonText: '취소',
+      confirmButtonText: '로 그 아 웃',
+      cancelButtonText: '취 소',
     });
 
     if (!confirmLogout.isConfirmed) return;

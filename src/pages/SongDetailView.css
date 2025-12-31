@@ -14,103 +14,171 @@
 .songDetail-box {
   width: 85%;
   max-width: 330px;
-  background: #fffaf0;
+  background: #FFFEF8;
   border-radius: 16px;
-  padding: 20px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.2);
 }
 
 .songDetail-header {
+  padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .songDetail-title {
+  color: #634900;
   font-size: 22px;
-  font-weight: bold;
-  background-color: #ffffff;
+  box-shadow: 0 0 15px rgba(255, 230, 130, 0.9);
+  border-radius: 30px;
+  padding: 0 5px;
 }
 
 .songDetail-singer {
   margin-left: 6px;
-  font-size: 15px;
-  color: #b89b55;
+  font-size: 11px;
+  color: #EAB211;
 }
 
 .songDetail-close {
-  background: #f8e1a0;
+  background: #FFE79F;
   border-radius: 50%;
   border: none;
   padding: 6px 10px;
-  font-size: 18px;
+  font-size: 13px;
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(255, 228, 149, 0.9);
 }
 
-.songDetail-body label {
-  display: block;
-  margin-top: 20px;
-  margin-bottom: 6px;
-  font-weight: 600;
+/* 한 줄(Row)을 잡는 컨테이너 */
+.input-row {
+  display: flex;          /* 가로 정렬의 핵심 */
+  align-items: center;    /* 세로 중앙 정렬 (글자와 인풋 높이 맞춤) */
+  margin-bottom: 15px;    /* 줄 사이 간격 */
+  width: 100%;
+}
+
+/* 라벨 스타일 */
+.input-row label {
+  min-width: 65px;      /* 100px -> 65px 로 줄여서 공간 확보 */
+  margin-right: 8px;    /* 간격도 살짝 줄임 */
   color: #634900;
+  white-space: nowrap;
+  font-size: 13px;      /* 폰트 사이즈 조정 */
 }
 
-.songDetail-body input {
-  width: 90%;
-  padding: 10px;    
-  border: 1px solid #ddd;
-  background: #ffffff;
-  border-radius: 30px;           /* 모서리 둥글게 */
-  border: none;                  /* 테두리 제거 */
-  box-shadow: 0 0 10px rgba(255, 238, 187, 1); /* 번지는 효과 */
+/* 입력창 스타일 */
+.input-row input.detail-input {
+  flex: 1;                /* 남은 공간을 꽉 채우도록 설정 */
+  padding: 8px;
+  box-shadow: 0 0 15px rgba(255, 228, 149, 0.9);
+  border: none;
+  border-radius: 30px;
 }
 
+/* 포지션 리스트 영역도 가로로 꽉 차게 */
 .session-list {
-  margin-top: 10px;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2열 배치 */
+  column-gap: 5px; /* 가로 간격 좁게 */
+  row-gap: 8px;    /* 세로 간격 */
 }
 
 .session-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: #fff;
-  padding: 6px 10px;
-  margin-bottom: 6px;
-  border-radius: 30px;           /* 모서리 둥글게 */
-  border: none;                  /* 테두리 제거 */
-  box-shadow: 0 0 10px rgba(255, 238, 187, 1); /* 번지는 효과 */
+  gap: 4px; /* 내부 요소 간격 좁게 */
+  background: transparent;
+  width: 100%; /* 셀 꽉 채우기 */
 }
-.session-player, .session-type, .songDetail-body input{
+.session-select {
+  width: 25px;          /* 너비 고정 */
+  padding: 5px 0;       /* 패딩 조절 */
+  border: none;
+  border-radius: 15px;
+  color: #EAB211;
+  font-weight: bold;
+  text-align: center;   /* 텍스트 중앙 정렬 */
+  text-align-last: center; /* 사파리/모바일 대응 */
+  box-shadow: 0 0 8px rgba(255, 238, 187, 1);
+  appearance: none;     /* 화살표 제거 */
+  cursor: pointer;
+  font-size: 12px;
+}
+/* 플레이어 이름 입력창 */
+.session-input {
+  flex: 1;              /* 남은 공간 차지 */
+  width: 100%;          /* flex 안먹을 경우 대비 */
+  min-width: 0;         /* flex 아이템이 찌그러지는 것 방지 */
+  padding: 6px 8px;
+  border: none;
+  border-radius: 15px;
   color: #876400;
+  box-shadow: 0 0 8px rgba(255, 238, 187, 1);
+  font-size: 12px;
+  text-align: center;
 }
-
-
+/* 세션 삭제 버튼 (X) */
 .session-remove {
-  margin-left: auto;
   background: none;
   border: none;
   color: #EAB211;
   font-weight: bold;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0 2px;
+  min-width: 15px; /* 터치 영역 확보 */
 }
+/* 세션 추가 버튼 (+) */
+.add-session-btn {
+  width: 25px;
+  height: 25px;
+  border-radius: 15px;
+  border: none;
+  background-color: #FFFEF8;
+  color: #EAB211;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 0 8px rgba(255, 238, 187, 1);
+  cursor: pointer;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* 그리드 아이템으로서 배치 */
+  justify-self: start; 
+}
+.session-player, .session-type, .songDetail-body input{
+  color: #876400;
+}
+.songDetail-body{
+  padding: 0 20px 0 20px;
+}
+
 
 .songDetail-footer {
   margin-top: 25px;
   display: flex;
   justify-content: space-between;
+  flex: 1;
 }
 
 .delete-btn {
-  width: 45%;
-  background: #f5d88f;
+  flex: 1;
+  background: #FFE79F;
   padding: 12px;
-  border-radius: 12px;
   border: none;
+  
+  border-radius: 0 0 0 16px; 
 }
 
 .update-btn {
-  width: 45%;
-  background: #f1c057;
+  flex: 1;
+  background: #FFDB74;
   padding: 12px;
-  border-radius: 12px;
   border: none;
-  font-weight: bold;
+  
+  border-radius: 0 0 16px 0;
 }

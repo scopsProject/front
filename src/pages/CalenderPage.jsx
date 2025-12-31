@@ -215,7 +215,7 @@ function CalenderPage() {
 
   const getFormattedDay = (date) => {
     if (!date) return "";
-    const week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const week = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
     return week[date.getDay()];
   };
 

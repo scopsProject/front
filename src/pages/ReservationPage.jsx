@@ -115,13 +115,13 @@ function ReservationPage() {
       .catch(err => console.error('이번 주 예약정보 실패:', err));
 
     // 2. 행사명 리스트 가져오기
-    api.get('/songs/events/names/all')
+    api.get('/songs/events/available')
       .then(res => setEventList(res.data))
       .catch(err => console.error('행사명 목록 실패:', err));
 
 
     // ============================================================
-    // 🚀 3. SSE 실시간 연결
+    // 3. SSE 실시간 연결
     // ============================================================
     console.log("SSE 연결 시도:", `${BASE_URL}/sse/subscribe`);
     const eventSource = new EventSource(`${BASE_URL}/sse/subscribe`);
