@@ -263,7 +263,7 @@ function ManagementPage() {
             <div className="managemodal-content">
               <div className="managemodal-header">
                 <span className='managemodal-header-name'>가입 요청 목록</span>
-                <button className="manageclose-btn" onClick={handleCloseModal}>✖</button>
+                <button className="manageclose-btn" onClick={handleCloseModal}>&times;</button>
               </div>
               <div className="request-list">
                 {joinRequests.length === 0 ? (
@@ -293,7 +293,7 @@ function ManagementPage() {
             <div className="managemodal-content">
               <div className="managemodal-header">
                 <span className='managemodal-header-name'>직위 변경</span>
-                <button className="manageclose-btn" onClick={handleCloseModal}>✖</button>
+                <button className="manageclose-btn" onClick={handleCloseModal}>&times;</button>
               </div>
 
               <div className="search-box">
@@ -340,7 +340,7 @@ function ManagementPage() {
             <div className="managemodal-content">
               <div className="managemodal-header">
                 <span className='managemodal-header-name'>회원 관리</span>
-                <button className="manageclose-btn" onClick={handleCloseModal}>✖</button>
+                <button className="manageclose-btn" onClick={handleCloseModal}>&times;</button>
               </div>
 
               <div className="search-box">
