@@ -317,7 +317,7 @@ function ManagementPage() {
                           {user.role === 'ROLE_ADMIN' ? '관리자' : '유저'}
                         </span>
                         <span className="name-role">{user.userName}</span>
-                        <span className="generation-role">{user.userYear}기</span>
+                        <span className="generation-role">{user.userYear}th</span>
                       </div>
 
                       <button
@@ -361,7 +361,7 @@ function ManagementPage() {
                     <div key={user.userID} className="request-item">
                       <div className="user-info">
                         <span className="name-role">{user.userName}</span>
-                        <span className="generation-role">{user.userYear}기</span>
+                        <span className="generation-role">{user.userYear}th</span>
                       </div>
 
                       <button
