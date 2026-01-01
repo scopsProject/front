@@ -81,8 +81,8 @@
 /* 달력 그리드 (외곽선 둥글게) */
 .calendarPage-calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  /* 🔥 [핵심 수정] 1fr 대신 minmax(0, 1fr) 사용 */
+  grid-template-columns: repeat(7, minmax(0, 1fr)); 
+  
   grid-auto-rows: minmax(0, 1fr);
 
   border: 1px solid #FFFFFF;
@@ -247,7 +247,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.2;
-  font-family: "suit";
+
   color: #967720;
 }
 

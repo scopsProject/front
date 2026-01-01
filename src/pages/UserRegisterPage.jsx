@@ -66,7 +66,7 @@ const UserRegisterPage = () => {
         text: "인증코드가 올바르지 않습니다.",
       });
       setExecVerified(false);
-      setRole("none");
+      setRole("ROLE_USER");
     }
   };
 
@@ -74,7 +74,7 @@ const UserRegisterPage = () => {
     if (!isFormValid) {
       Swal.fire({
         ...swalOptions,
-        icon: 'warning', // error -> warning (입력 미비는 경고가 적절)
+        icon: 'warning',
         title: "입력 확인",
         text: '모든 항목을 입력해주세요.',
       });
@@ -160,7 +160,6 @@ const UserRegisterPage = () => {
                 });
                 return;
               }
-
               setUserName(value);
             }}
             className="userinput-box"
@@ -255,7 +254,7 @@ const UserRegisterPage = () => {
                   if (!e.target.checked) {
                     setExecCode("");
                     setExecVerified(false);
-                    setRole("none");
+                    setRole("ROLE_USER");
                   }
                 }}
               />

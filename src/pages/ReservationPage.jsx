@@ -266,7 +266,7 @@ function ReservationPage() {
       console.error("예약 에러:", error);
 
       let errorMsg = '예약 중 오류가 발생했습니다.';
-      
+
       // 에러 메시지 추출 로직
       if (error.response && error.response.data) {
         if (error.response.data.message) {
@@ -319,6 +319,80 @@ function ReservationPage() {
     setEndTime(end);
   };
 
+  const handleDeleteReservation = (targetSong) => {
+    // 1. 본인 예약 확인 (프론트 1차 방어)
+    // user.name 또는 user.userName 등 AuthContext 구조에 맞춰 수정하세요.
+    if (targetSong.userName !== user.userName) {
+      Swal.fire({
+        icon: 'warning',
+        title: '권한 없음',
+        text: '본인이 예약한 곡만 취소할 수 있습니다.',
+        confirmButtonText: '확인',
+        customClass: {
+          popup: 'my-swal-popup',
+          title: 'my-swal-title',
+          confirmButton: 'my-swal-confirm'
+        },
+        buttonsStyling: false
+      });
+      return;
+    }
+
+    // 2. 취소 확인 모달
+    Swal.fire({
+      title: '예약 취소',
+      html: `[${targetSong.startTime.slice(0, 5)}] <b>${targetSong.songName}</b><br/>예약을 정말 취소하시겠습니까?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '네, 취소합니다',
+      cancelButtonText: '돌아가기',
+      customClass: {
+        popup: 'my-swal-popup',
+        title: 'my-swal-title',
+        confirmButton: 'my-swal-confirm',
+        cancelButton: 'my-swal-cancel'
+      },
+      buttonsStyling: false
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          // 3. API 호출 (삭제 요청)
+          // targetSong.id (DB의 PK)가 필요합니다. 백엔드에서 reservationId를 반환해야 합니다.
+          await api.delete(`/reservations/${targetSong.id}`); // 또는 targetSong.reservationId
+
+          // 4. 성공 시 상태 업데이트 (화면에서 즉시 제거)
+          setSongs((prev) => prev.filter((s) => s.id !== targetSong.id));
+
+          Swal.fire({
+            icon: 'success',
+            title: '취소 완료',
+            text: '예약이 정상적으로 취소되었습니다.',
+            confirmButtonText: '확인',
+            customClass: {
+              popup: 'my-swal-popup',
+              title: 'my-swal-title',
+              confirmButton: 'my-swal-confirm'
+            },
+            buttonsStyling: false
+          });
+        } catch (error) {
+          console.error("삭제 실패:", error);
+          Swal.fire({
+            icon: 'error',
+            title: '취소 실패',
+            text: error.response?.data || '예약 취소 중 오류가 발생했습니다.',
+            confirmButtonText: '확인',
+            customClass: {
+              popup: 'my-swal-popup',
+              title: 'my-swal-title',
+              confirmButton: 'my-swal-confirm'
+            },
+            buttonsStyling: false
+          });
+        }
+      }
+    });
+  };
 
   return (
     <div className="App">
@@ -358,7 +432,18 @@ function ReservationPage() {
                   .filter(song => song.date === day.date)
                   .sort((a, b) => a.startTime.localeCompare(b.startTime))
                   .map((song, i) => (
-                    <div key={i} className="reservation-calendar-song">{`·${song.startTime.split(':')[0]}시 `}<span style={{ color: "#EAB211" }}> {song.songName}</span></div>
+                    <div
+                      key={i}
+                      className="reservation-calendar-song"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteReservation(song);
+                      }}
+                      title="클릭하여 예약 취소"
+                    >
+                      {`·${song.startTime.split(':')[0]}시 `}
+                      <span style={{ color: "#EAB211" }}> {song.songName}</span>
+                    </div>
                   ))
                 }
               </div>
