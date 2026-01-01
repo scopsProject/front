@@ -12,9 +12,6 @@ function SongAddPage() {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // ---------------------
-  // 🔥 상태값 (행사 추가 관련 상태 삭제됨)
-  // ---------------------
   const [eventList, setEventList] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -35,7 +32,7 @@ function SongAddPage() {
   }
 
   // ---------------------
-  // 🔥 행사명 불러오기
+  // 행사명 불러오기
   // ---------------------
   const fetchEvents = useCallback(() => {
     api.get(`/songs/events/available`)
@@ -92,7 +89,7 @@ function SongAddPage() {
   };
 
   // ---------------------
-  // 🔥 곡 등록 처리
+  //  곡 등록 처리
   // ---------------------
   const handleSubmit = async () => {
     if (!selectedEvent) {
