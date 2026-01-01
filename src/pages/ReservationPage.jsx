@@ -13,7 +13,10 @@ function ReservationPage() {
   const [weekInfo, setWeekInfo] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const { user } = useAuth();
-  const userName = user?.userName;
+  
+  // 로그인한 유저의 이름 (DB에 저장되는 이름과 일치해야 함)
+  const userName = user?.name;
+
   const [eventList, setEventList] = useState([]);
   const [songList, setSongList] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState('');
@@ -47,7 +50,7 @@ function ReservationPage() {
     return () => window.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // 🕒 시간 체크 함수 (컴포넌트 마운트 시 & 1분마다 체크 추천)
+  // 🕒 시간 체크 함수
   useEffect(() => {
     const checkTime = () => {
       const now = new Date();
@@ -67,14 +70,15 @@ function ReservationPage() {
       setIsBookingOpen(isOpen);
     };
 
-    checkTime(); // 처음 한번 실행
-    const interval = setInterval(checkTime, 200); // 0.2초마다 갱신
+    checkTime(); 
+    const interval = setInterval(checkTime, 200); 
 
     return () => clearInterval(interval);
   }, []);
+
   useEffect(() => {
     const now = new Date();
-    const currentDay = now.getDay(); // 0(일) ~ 6(토)
+    const currentDay = now.getDay(); 
 
     const daysUntilNextMonday = (1 + 7 - currentDay) % 7 || 7;
 
@@ -84,7 +88,7 @@ function ReservationPage() {
     const shortWeekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const result = [];
 
-    // 🔥 월(0) ~ 금(4)까지 5일 생성
+    // 월(0) ~ 금(4)까지 5일 생성
     for (let i = 0; i < 5; i++) {
       const d = new Date(nextMonday);
       d.setDate(nextMonday.getDate() + i);
@@ -96,7 +100,7 @@ function ReservationPage() {
       const localIsoDate = `${year}-${mm}-${dd}`;
 
       result.push({
-        date: localIsoDate, // 🔥 수정된 날짜값
+        date: localIsoDate, 
         displayDate: `${mm}-${dd}`,
         day: shortWeekdays[d.getDay()]
       });
@@ -104,13 +108,11 @@ function ReservationPage() {
 
     setWeekInfo(result);
 
-    // 초기 데이터 로딩 범위도 다음 주로 변경
     const startDate = result[0].date;
     const endDate = result[result.length - 1].date;
 
     // 1. 예약 정보 가져오기
     api.get(`/reservations/by-week?start=${startDate}&end=${endDate}`)
-      // ... (이하 동일) ...
       .then(res => setSongs(res.data))
       .catch(err => console.error('이번 주 예약정보 실패:', err));
 
@@ -126,31 +128,24 @@ function ReservationPage() {
     console.log("SSE 연결 시도:", `${BASE_URL}/sse/subscribe`);
     const eventSource = new EventSource(`${BASE_URL}/sse/subscribe`);
 
-    // (A) 연결 성공 시
     eventSource.addEventListener('connect', (e) => {
       console.log('SSE 연결 성공:', e.data);
     });
 
-    // (B) 실시간 예약 알림 도착 시 ("new-reservation")
     eventSource.addEventListener('new-reservation', (e) => {
       try {
         const newReservation = JSON.parse(e.data);
         console.log('실시간 예약 알림 도착:', newReservation);
 
-        // 1. 데이터 갱신: songs 상태 업데이트 -> 화면 리렌더링
         setSongs((prevSongs) => [...prevSongs, newReservation]);
 
-        // 2. 🔔 [추가] 상단 알림 메시지 설정
-        // 시간 포맷 깔끔하게 (13:00:00 -> 13:00)
         const start = newReservation.startTime ? newReservation.startTime.slice(0, 5) : "";
         const end = newReservation.endTime ? newReservation.endTime.slice(0, 5) : "";
         const song = newReservation.songName;
 
-        // 알림 메시지 구성
         const msg = `${start} ~ ${end} - ${song}: 예약되었습니다!`;
         setNotification(msg);
 
-        // 3초 뒤에 알림 끄기
         setTimeout(() => {
           setNotification('');
         }, 3000);
@@ -160,13 +155,11 @@ function ReservationPage() {
       }
     });
 
-    // (C) 에러 처리
     eventSource.onerror = (error) => {
       console.error('SSE 에러 발생 (연결 종료):', error);
       eventSource.close();
     };
 
-    // 🧹 Clean-up
     return () => {
       console.log("SSE 연결 종료");
       eventSource.close();
@@ -175,7 +168,6 @@ function ReservationPage() {
   }, []);
 
 
-  // 행사 선택 시 그에 맞는 곡 리스트 불러오기
   useEffect(() => {
     if (selectedEvent) {
       api.get(`/songs/by-event?eventName=${selectedEvent}`)
@@ -223,7 +215,7 @@ function ReservationPage() {
     const songRegisterId = selectedSongObj ? selectedSongObj.id : null;
 
     const requestBody = {
-      userName: user.name,
+      userName: user.name, // 주의: 저장할 때 user.name을 쓴다면, 비교할 때도 user.name과 같은 값을 써야 합니다.
       eventName: selectedEvent,
       songName: selectedSong,
       singerName: singerName,
@@ -255,7 +247,6 @@ function ReservationPage() {
         buttonsStyling: false
       });
 
-      // 예약 후 초기화
       setSelectedDate(null);
       setSelectedEvent('');
       setSelectedSong('');
@@ -267,7 +258,6 @@ function ReservationPage() {
 
       let errorMsg = '예약 중 오류가 발생했습니다.';
 
-      // 에러 메시지 추출 로직
       if (error.response && error.response.data) {
         if (error.response.data.message) {
           errorMsg = error.response.data.message;
@@ -278,7 +268,6 @@ function ReservationPage() {
         errorMsg = '서버와 연결할 수 없거나 알 수 없는 오류가 발생했습니다.';
       }
 
-      // 4. 실패 알림 (통합 처리)
       Swal.fire({
         icon: 'error',
         title: '오류',
@@ -309,24 +298,21 @@ function ReservationPage() {
     };
   });
 
-  // 클릭 처리 (1시간 선택)
   const handleTimeClick = (time) => {
     setStartTime(time);
-
-    // 자동으로 1시간 뒤로 endTime 설정
     const h = parseInt(time.split(':')[0]);
     const end = `${(h + 1).toString().padStart(2, '0')}:00`;
     setEndTime(end);
   };
 
+  // 삭제 핸들러 함수
   const handleDeleteReservation = (targetSong) => {
-    // 1. 본인 예약 확인 (프론트 1차 방어)
-    // user.name 또는 user.userName 등 AuthContext 구조에 맞춰 수정하세요.
-    if (targetSong.userName !== user.userName) {
+
+    if (targetSong.userName !== userName) {
       Swal.fire({
-        icon: 'warning',
-        title: '권한 없음',
-        text: '본인이 예약한 곡만 취소할 수 있습니다.',
+        icon: 'error',
+        title: '삭제 불가',
+        text: '본인이 예약한 곡이 아닙니다.',
         confirmButtonText: '확인',
         customClass: {
           popup: 'my-swal-popup',
@@ -357,8 +343,7 @@ function ReservationPage() {
       if (result.isConfirmed) {
         try {
           // 3. API 호출 (삭제 요청)
-          // targetSong.id (DB의 PK)가 필요합니다. 백엔드에서 reservationId를 반환해야 합니다.
-          await api.delete(`/reservations/${targetSong.id}`); // 또는 targetSong.reservationId
+          await api.delete(`/reservations/${targetSong.id}`); 
 
           // 4. 성공 시 상태 업데이트 (화면에서 즉시 제거)
           setSongs((prev) => prev.filter((s) => s.id !== targetSong.id));
@@ -408,7 +393,7 @@ function ReservationPage() {
             ⛔ 지금은 예약 시간이 아닙니다.<br />(화 09:00 ~ 목 19:00)
           </div>
         )}
-        {/* 🔔 [추가] 알림창 (notification 내용이 있을 때만 표시) */}
+        
         {notification && (
           <div className="notification-banner">
             {notification}
@@ -452,7 +437,6 @@ function ReservationPage() {
         </div>
 
         <div className="reservation-controls">
-          {/* ... (기존 컨트롤 영역 그대로) ... */}
           <div className="custom-select-container" ref={eventRef} style={{ marginBottom: 12 }}>
             <div
               className={`custom-select-display ${!selectedEvent ? 'custom-select-placeholder' : ''}`}
@@ -513,7 +497,6 @@ function ReservationPage() {
 
           <div className="time-select-section">
             <div className="time-section-title">연습 시간 선택</div>
-            {/* 오전 */}
             <div className="time-group">
               <div className="time-group-title">오전</div>
               <div className="time-buttons">
@@ -532,7 +515,6 @@ function ReservationPage() {
               </div>
             </div>
 
-            {/* 오후 */}
             <div className="time-group">
               <div className="time-group-title">오후</div>
               <div className="time-buttons">
@@ -554,10 +536,9 @@ function ReservationPage() {
         </div>
         <button
           className={`reservation-submit-btn ${!isBookingOpen ? 'disabled' : ''}`}
-          // 기존 disabled 조건에 !isBookingOpen 추가
           disabled={!isBookingOpen || !selectedDate || !selectedEvent || !selectedSong || !startTime || !endTime}
           onClick={handleReservation}
-          style={!isBookingOpen ? { backgroundColor: '#ccc', cursor: 'not-allowed' } : {}} // 스타일 추가
+          style={!isBookingOpen ? { backgroundColor: '#ccc', cursor: 'not-allowed' } : {}} 
         >
           {isBookingOpen ? "예약하기" : "예약 불가"}
         </button>

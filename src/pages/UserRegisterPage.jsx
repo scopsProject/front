@@ -280,6 +280,8 @@ const UserRegisterPage = () => {
           </div>
 
         </div>
+        <div className="info-description">원활한 회원가입을 위해 학번과 이름을 수집합니다.<br />
+          회원가입을 진행하실 경우, 개인정보 수집에 동의하신 것으로 간주됩니다.</div>
         <button
           onClick={handleUserRegister}
           disabled={!isFormValid}

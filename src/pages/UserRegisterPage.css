@@ -262,11 +262,16 @@
   box-shadow: 0 0 10px rgba(255, 230, 130, 0.6);
 
   margin-top: auto;
-  /* 위쪽 내용 밀어내고 바닥으로 */
   margin-left: auto;
-  /* 🔥 [추가] 가로 중앙 정렬 */
   margin-right: auto;
-  /* 🔥 [추가] 가로 중앙 정렬 */
+}
+.info-description {
+  color: #999999;        /* 회색 흐린 글씨 */
+  font-size: 12px;       /* 안내 문구이므로 글씨 크기를 약간 작게 조정 */
+  text-align: center;    /* 텍스트 가운데 정렬 */
+  width: 100%;           /* 가로 너비를 꽉 채워 정렬이 틀어지지 않게 함 */
+  margin-top: auto;      /* 위쪽 입력 폼과의 간격 */
+  line-height: 1.4;      /* 줄 간격을 주어 가독성 확보 */
 }
 
 .submit-button2:hover {

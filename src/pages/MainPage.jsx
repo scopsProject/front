@@ -7,7 +7,7 @@ import api from "../api.js";
 
 function MainPage() {
   const { user } = useAuth();
-  const userName = user?.userName;
+  const userName = user?.name;
   const [menuOpen, setMenuOpen] = useState(false);
   const [date, setDate] = useState('');
   const [dayOfWeek, setDayOfWeek] = useState('');
