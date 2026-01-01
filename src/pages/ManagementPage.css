@@ -73,6 +73,39 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: background-color 0.2s;
 }
+.manage-member-btn {
+  width: 100%;
+  padding: 50px 0;
+  background-color: #A9EAFC; /* 회원가입 승인 버튼의 파란색 톤 활용 */
+  color: white;            /* 텍스트 색상 통일 */
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s;
+}
+.btn-force-delete {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: #FF6B6B; /* 강렬한 빨간색 */
+  color: white;
+  box-shadow: 0 0 5px rgba(255, 107, 107, 0.6);
+  transition: all 0.2s;
+}
+.btn-force-delete:hover {
+  background-color: #fa5252;
+  transform: scale(1.02);
+}
+
+.manage-member-btn:hover {
+  background-color: #8edef5;
+}
 
 .manage-btn:hover {
   background-color: #f8c071;

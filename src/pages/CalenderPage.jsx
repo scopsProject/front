@@ -19,7 +19,7 @@ function CalenderPage() {
   const [showEventModal, setShowEventModal] = useState(false);
   const [newEventData, setNewEventData] = useState({
     eventName: "",
-    createdDate: "",
+    startDate: "",
     endDate: "",
     isSongRegistrationAvailable: false
   });
@@ -91,8 +91,8 @@ function CalenderPage() {
 
   const processEventsWithRows = (rawEvents) => {
     const sortedEvents = [...rawEvents].sort((a, b) => {
-      const startA = a.createdDate || "";
-      const startB = b.createdDate || "";
+      const startA = a.startDate || "";
+      const startB = b.startDate || "";
       const endA = a.endDate || "";
       const endB = b.endDate || "";
 
@@ -104,13 +104,13 @@ function CalenderPage() {
 
     sortedEvents.forEach((event) => {
       let rowIndex = 0;
-      if (!event.createdDate || !event.endDate) return;
+      if (!event.startDate || !event.startDate) return;
 
       while (true) {
         let isOccupied = false;
         for (const existingEvent of eventsWithRows) {
           if (existingEvent.rowIndex === rowIndex) {
-            if (event.createdDate <= existingEvent.endDate && event.endDate >= existingEvent.createdDate) {
+            if (event.startDate <= existingEvent.endDate && event.endDate >= existingEvent.startDate) {
               isOccupied = true;
               break;
             }
@@ -249,7 +249,7 @@ function CalenderPage() {
     const dateStr = formatDate(date);
 
     const todaysEvents = processedEvents.filter(event =>
-      dateStr >= event.createdDate && dateStr <= event.endDate
+      dateStr >= event.startDate && dateStr <= event.endDate
     );
 
     if (todaysEvents.length === 0) return null;
@@ -260,7 +260,7 @@ function CalenderPage() {
       const event = todaysEvents.find(e => e.rowIndex === i);
 
       if (event) {
-        const isStart = dateStr === event.createdDate;
+        const isStart = dateStr === event.startDate;
         const isEnd = dateStr === event.endDate;
         renderElements.push(
           <div key={`evt-${i}`} className={`event-bar ${isStart ? 'start' : ''} ${isEnd ? 'end' : ''}`} style={{ backgroundColor: getEventColor(event.id) }}>

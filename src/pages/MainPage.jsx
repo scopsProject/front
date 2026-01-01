@@ -7,7 +7,6 @@ import api from "../api.js";
 
 function MainPage() {
   const { user } = useAuth();
-  const userName = user?.name;
   const [menuOpen, setMenuOpen] = useState(false);
   const [date, setDate] = useState('');
   const [dayOfWeek, setDayOfWeek] = useState('');
@@ -68,10 +67,10 @@ function MainPage() {
     const end = result[result.length - 1].fullDate;
 
     api
-      .get(`/reservations/by-week?start=${start}&end=${end}&userName=${userName}`)
+      .get(`/reservations/by-week?start=${start}&end=${end}`)
       .then(response => setSongs(response.data))
       .catch(console.error);
-  }, [userName]);
+  }, []);
 
   const todayFullDate = weekInfo[0]?.fullDate;
   const todaySongs = mergeSongs(songs.filter(song => song.date === todayFullDate));

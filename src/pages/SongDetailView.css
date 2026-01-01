@@ -98,13 +98,13 @@
   border: none;
   border-radius: 15px;
   color: #EAB211;
-  font-weight: bold;
   text-align: center;   /* 텍스트 중앙 정렬 */
   text-align-last: center; /* 사파리/모바일 대응 */
   box-shadow: 0 0 8px rgba(255, 238, 187, 1);
   appearance: none;     /* 화살표 제거 */
   cursor: pointer;
   font-size: 12px;
+  font-family: "suit-E";
 }
 /* 플레이어 이름 입력창 */
 .session-input {
@@ -118,6 +118,7 @@
   box-shadow: 0 0 8px rgba(255, 238, 187, 1);
   font-size: 12px;
   text-align: center;
+  font-family: "suit-E";
 }
 /* 세션 삭제 버튼 (X) */
 .session-remove {
