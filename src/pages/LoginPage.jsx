@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 import { useAuth } from "../context/AuthContext.js";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import '../components/SweetAlertCustom.css';
 
 function LoginPage() {
@@ -31,7 +31,7 @@ function LoginPage() {
       });
     }
     else {
-      axios.post(`${process.env.REACT_APP_API_URL}/scops/login`, {
+      api.post('/scops/login', {
         userID: studentId,
         password: password,
       })
