@@ -160,8 +160,8 @@ const MyPageEdit = () => {
             text: '정말 삭제하시겠습니까?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: '삭제',
-            cancelButtonText: '취소',
+            confirmButtonText: '삭 제',
+            cancelButtonText: '취 소',
             customClass: {
                 popup: 'my-swal-popup',
                 title: 'my-swal-title',
@@ -334,19 +334,19 @@ const MyPageEdit = () => {
                     <div className="mypagemodal-overlay">
                         <div className="modal-content add-modal">
                             <div className="mypagemodal-header-row">
-                                <h2 className="mypagemodal-title">{selectedId ? formData.title : "추가하기"}</h2>
+                                <span className="mypagemodal-title">{selectedId ? formData.title : "추가하기"}</span>
                                 <span className="mypagemodal-memo">{selectedId ? formData.memo : ""}</span>
                                 <button className="mypagemodal-close-btn" onClick={() => setShowModal(false)}>X</button>
                             </div>
 
                             <div className="input-group">
                                 <label>이 름</label>
-                                <input type="text" name="title" value={formData.title} onChange={handleChange} />
+                                <input type="text" name="title" className="input-info" value={formData.title} onChange={handleChange} />
                             </div>
 
                             <div className="input-group">
                                 <label>메 모</label>
-                                <input type="text" name="memo" value={formData.memo} onChange={handleChange} />
+                                <input type="text" name="memo" className="input-info" value={formData.memo} onChange={handleChange} />
                             </div>
 
                             <div className="input-group time-select-group">

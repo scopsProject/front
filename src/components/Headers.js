@@ -100,8 +100,8 @@ function Header({ onMenuClick, isOpen, onClose }) {
         text: '탈퇴하면 계정 정보를 복구할 수 없습니다.',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: '탈퇴',
-        cancelButtonText: '취소',
+        confirmButtonText: '탈 퇴',
+        cancelButtonText: '취 소',
       });
 
       if (!confirmDelete.isConfirmed) return;

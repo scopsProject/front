@@ -90,7 +90,7 @@ form {
 }
 
 .input-box:focus {
-  box-shadow: 0 0 15px rgba(255, 200, 50, 0.8);
+  box-shadow: 0 0 15px rgba(255, 230, 130, 0.8);
   /* 포커스 시 진하게 */
 }
 

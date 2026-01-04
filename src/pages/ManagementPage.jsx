@@ -114,8 +114,8 @@ function ManagementPage() {
       text: '정말 거절(삭제)하시겠습니까?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: '거절',
-      cancelButtonText: '취소',
+      confirmButtonText: '거 절',
+      cancelButtonText: '취 소',
     });
 
     if (!result.isConfirmed) return;
@@ -247,13 +247,13 @@ function ManagementPage() {
 
         <div className='management-page-container'>
           <button className="manage-btn" onClick={handleOpenApproveModal}>
-            회원가입 <br /><br />승인하기
+            회원가입 승인하기
           </button>
           <button className="manage-role-btn" onClick={handleOpenRoleModal}>
-            직위 <br /><br />변경하기
+            직위 변경하기
           </button>
           <button className="manage-member-btn" onClick={handleOpenMemberModal}>
-            회원 <br /><br />관리하기
+            회원 관리하기
           </button>
         </div>
 

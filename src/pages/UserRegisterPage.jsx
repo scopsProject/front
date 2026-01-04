@@ -73,10 +73,15 @@ const UserRegisterPage = () => {
       .then(res => {
         console.log('회원가입:', res.data);
         Swal.fire({
-          ...swalOptions,
           icon: 'success',
-          title: '가입 완료',
-          text: '회원가입 신청이 완료되었습니다.',
+          text: '가입 신청 완료!',
+          confirmButtonText: 'O K',
+          customClass: {
+            popup: 'my-swal-popup',
+            title: 'my-swal-title',
+            confirmButton: 'my-swal-confirm'
+          },
+          buttonsStyling: false
         });
         navigate('/scops/login');
       })
@@ -99,7 +104,8 @@ const UserRegisterPage = () => {
           <div className='register-logo-box'>
             <img src={`/images/scopsLogo.png`} alt="Scops Logo" />
           </div>
-
+          <div className="info-description">원활한 회원가입을 위해 학번과 이름을 수집합니다.<br />
+            회원가입을 진행하실 경우, 개인정보 수집에 동의하신 것으로 간주됩니다.</div>
           <input
             type="text"
             placeholder="이름"
@@ -206,10 +212,8 @@ const UserRegisterPage = () => {
             onChange={(e) => setUserPasswordConfirm(e.target.value)}
             className="userinput-box"
           />
-          
+
         </div>
-        <div className="info-description">원활한 회원가입을 위해 학번과 이름을 수집합니다.<br />
-          회원가입을 진행하실 경우, 개인정보 수집에 동의하신 것으로 간주됩니다.</div>
         <button
           onClick={handleUserRegister}
           disabled={!isFormValid}

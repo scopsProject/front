@@ -158,7 +158,6 @@
   border-radius: 30px;
   /* 모서리 둥글게 */
   box-shadow: 0 0 10px rgba(252, 217, 77, 0.9);
-  font-family: 'suit-regular';
   background-color: #FFFFFF;
 }
 
@@ -173,12 +172,10 @@
 
 .profile-code {
   color: #EAB211;
-  font-family: 'suit-regular';
 }
 
 .profile-generation {
   color: #634900;
-  font-family: 'suit-regular';
 }
 
 /* 타이틀 */
@@ -243,7 +240,6 @@
   text-align: center;
   font-size: 10px;
   color: #EAB211;
-  font-family: "suit";
   padding: 5px;
   border-right: 1px solid #f0e0a0;
   box-sizing: border-box;
@@ -395,7 +391,7 @@
 .add-modal {
   background: #FFF9E5;
   /* 연한 노랑 배경 */
-  width: 400px;
+  width: 85%;
   border-radius: 20px;
   padding: 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -414,7 +410,6 @@
   font-size: 24px;
   color: #634900;
   /* 짙은 갈색 */
-  font-family: 'suit-regular';
   margin: 0;
 }
 
@@ -422,21 +417,21 @@
   font-size: 12px;
   color: #EAB211;
   /* 짙은 갈색 */
-  font-family: 'suit-regular';
   margin-left: 3%;
   margin-top: 3%;
 }
-
+.input-info{
+  color: #634900;
+}
 .mypagemodal-close-btn {
-  background: #FFEAA7;
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
   margin-left: auto;
+  background: #FFE79F;
+  border-radius: 50%;
+  border: none;
+  padding: 6px 10px;
+  font-size: 13px;
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(255, 228, 149, 0.9);
 }
 
 /* 입력 필드 그룹 */
@@ -448,8 +443,7 @@
 
 .input-group label {
   width: 40px;
-  font-weight: bold;
-  color: #6B5B2E;
+  color: #634900;
   font-size: 14px;
 }
 
@@ -470,19 +464,12 @@
   border-radius: 15px;
   background: #FFFFFF;
   box-shadow: 0 2px 5px rgba(230, 200, 100, 0.3);
-  color: #888;
+  color: #634900;
   outline: none;
 }
 
-/* ... 모달 위쪽 스타일은 유지 ... */
-
-/* =========================================
-   🔥 [수정됨] 모달 하단 버튼 영역
-========================================= */
 .modal-footer-buttons {
   display: flex;
-  margin-top: 20px;
-  /* 모달 패딩(20px)을 무시하고 꽉 채우기 위해 */
   margin-left: -20px;
   margin-right: -20px;
   margin-bottom: -20px;
@@ -491,13 +478,9 @@
 /* 버튼 공통 스타일 */
 .modal-btn {
   border: none;
-  padding: 15px 0;
-  /* 높이 넉넉하게 */
+  padding: 13px 0;
   font-size: 16px;
-  font-weight: bold;
   cursor: pointer;
-  font-family: 'suit-regular';
-  /* 폰트 통일 */
 }
 
 /* 삭제 버튼 (노란색) */

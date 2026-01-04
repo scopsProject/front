@@ -231,7 +231,7 @@ function TimeTablePage() {
         </div>
         {selectedFriend && (
           <div className="timetablemodal-overlay" onClick={() => setSelectedFriend(null)}>
-            <div className="timetablemodal-content add-modal" style={{ width: '350px', padding: '10px' }} onClick={(e) => e.stopPropagation()}>
+            <div className="timetablemodal-content timetableadd-modal" style={{ width: '350px', padding: '10px' }} onClick={(e) => e.stopPropagation()}>
               <div className="timetablemodal-header-row" style={{ marginBottom: '10px' }}>
                 <h2 className="timetablemodal-title" style={{ fontSize: '18px' }}>
                   {selectedFriend.userName}님의 시간표

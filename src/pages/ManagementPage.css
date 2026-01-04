@@ -40,16 +40,16 @@
   padding: 50px;
   flex: 1;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center; /* 가로 중앙 정렬 */
   align-items: center;     /* 세로 중앙 정렬 */
-  gap: 40px;
+  gap: 20px;
 }
 
 /* 메인 버튼 스타일 */
 .manage-btn {
   width: 100%;
-  padding: 50px 0;
+  padding: 30px 0;
   background-color: #FCD49B;
   color: white;
   border: none;
@@ -62,7 +62,7 @@
 }
 .manage-role-btn {
   width: 100%;
-  padding: 50px 0;
+  padding: 30px 0;
   background-color: #FCD49B;
   color: white;
   border: none;
@@ -75,7 +75,7 @@
 }
 .manage-member-btn {
   width: 100%;
-  padding: 50px 0;
+  padding: 30px 0;
   background-color: #A9EAFC; /* 회원가입 승인 버튼의 파란색 톤 활용 */
   color: white;            /* 텍스트 색상 통일 */
   border: none;
@@ -93,7 +93,7 @@
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  background-color: #FF6B6B; /* 강렬한 빨간색 */
+  background-color: #FF7677;
   color: white;
   box-shadow: 0 0 5px rgba(255, 107, 107, 0.6);
   transition: all 0.2s;
@@ -213,7 +213,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 0;
-  border-bottom: 1px solid #FFE79F;
+  border-bottom: 0.2px solid #FFE79F;
 }
 
 .request-item:last-child {
@@ -317,6 +317,7 @@
   border-radius: 30px;
   color: #634900;
   margin-right: 2px;
+  box-shadow: 0 0 5px rgba(255, 238, 187, 1);
 }
 
 .role-badge.admin {

@@ -112,10 +112,10 @@
 }
 
 /* 모달 박스 */
-.add-modal {
+.timetableadd-modal {
   background: #FFF9E5;
   /* 연한 노랑 배경 */
-  width: 400px;
+  width: 85%;
   border-radius: 20px;
   padding: 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
