@@ -225,13 +225,13 @@
   /* Flex -> Grid 변경 */
   /* 왼쪽 32px 고정, 나머지 공간을 7등분(1fr * 7) */
   grid-template-columns: 32px repeat(7, 1fr);
-  border-bottom: 1px solid #f0e0a0;
+  border-bottom: 1px solid #FFEEBB;
   background-color: #fff;
   width: 100%;
 }
 
 .time-header-empty {
-  border-right: 1px solid #f0e0a0;
+  border-right: 1px solid #FFEEBB;
   box-sizing: border-box;
 }
 
@@ -241,7 +241,7 @@
   font-size: 10px;
   color: #EAB211;
   padding: 5px;
-  border-right: 1px solid #f0e0a0;
+  border-right: 1px solid #FFEEBB;
   box-sizing: border-box;
 
   /* 내용이 넘칠 경우를 대비해 min-width 0 설정 (Grid 특성) */
@@ -253,7 +253,7 @@
 }
 
 .day-cell:not(:last-child) {
-  border-right: 1px solid #f0e0a0;
+  border-right: 1px solid #FFEEBB;
 }
 
 /* 시간표 바디 */
@@ -267,7 +267,7 @@
 
 /* 시간 라벨 */
 .time-column {
-  border-right: 1px solid #f0e0a0;
+  border-right: 1px solid #FFEEBB;
   box-sizing: border-box;
 }
 
@@ -279,7 +279,7 @@
   align-items: center;
   /* 수직 중앙 정렬 */
   justify-content: center;
-  border-bottom: 1px solid #f0e0a0;
+  border-bottom: 1px solid #FFEEBB;
   /* 시간 사이 가로선 */
   box-sizing: border-box;
   /* 테두리 포함 크기 계산 */
@@ -300,15 +300,15 @@
 }
 
 .timetable-cell {
-  border-right: 1px solid #f0e0a0;
+  border-right: 1px solid #FFEEBB;
   /* 세로선 */
-  border-bottom: 1px solid #f0e0a0;
+  border-bottom: 1px solid #FFEEBB;
   /* 가로선 */
   box-sizing: border-box;
 }
 
 .timetable-cell:not(:nth-last-child(-n + 7)) {
-  border-bottom: 1px solid #f0e0a0;
+  border-bottom: 1px solid #FFEEBB;
 }
 
 .timetable-cell:nth-last-child(-n+7) {

@@ -128,9 +128,9 @@ function TimeTablePage() {
           {/* 내 시간표 */}
           <div className="timetable-main-container">
             {/* 내 시간표 제목 */}
-            <section className="timetablesection-title">
-              <span>내 시간표</span>
-            </section>
+            <div className='timetablesection-title-div'>
+              <span className="timetablesection-title">내 시간표</span>
+            </div>
 
             {/* 시간표 박스 */}
             <section className="timetable-wrapper">
@@ -233,9 +233,9 @@ function TimeTablePage() {
           <div className="timetablemodal-overlay" onClick={() => setSelectedFriend(null)}>
             <div className="timetablemodal-content timetableadd-modal" style={{ width: '350px', padding: '10px' }} onClick={(e) => e.stopPropagation()}>
               <div className="timetablemodal-header-row" style={{ marginBottom: '10px' }}>
-                <h2 className="timetablemodal-title" style={{ fontSize: '18px' }}>
+                <div className="timetablemodal-title" style={{ fontSize: '18px' }}>
                   {selectedFriend.userName}님의 시간표
-                </h2>
+                </div>
                 <button className="timetablemodal-close-btn" onClick={() => setSelectedFriend(null)}>X</button>
               </div>
 

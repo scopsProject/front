@@ -48,16 +48,22 @@
   margin: 0 auto;
 }
 
-.timetablesection-title {
+.timetablesection-title-div {
+  display: flex;
   justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.timetablesection-title {
+  padding: 4px 12px;
   margin-top: 9%;
   font-size: 13px;
-  color: #EAB211;
-  display: flex;
-  background-color: #FFEEBB;
-  color: #876400;
-  border: 1px solid #FFD970;
-  box-shadow: 0 0 15px rgba(255, 215, 100, 0.9);
+  color: #866402;
+  background-color: #FFFEF8;
+  border-radius: 30px;
+  border: 1px solid #fff;
+  box-shadow: 0 0 10px rgba(255, 230, 130, 0.8);
 }
 
 /* 세션 리스트 */
@@ -100,7 +106,7 @@
   padding: 4px;
   border-radius: 30px;
   font-size: 10px;
-  
+
   box-shadow: 0 0 10px rgba(255, 230, 130, 0.5);
 }
 
@@ -151,7 +157,6 @@
   font-size: 24px;
   color: #634900;
   /* 짙은 갈색 */
-  font-family: 'suit-regular';
   margin: 0;
 }
 
@@ -159,7 +164,6 @@
   font-size: 12px;
   color: #EAB211;
   /* 짙은 갈색 */
-  font-family: 'suit-regular';
   margin-left: 3%;
   margin-top: 3%;
 }
