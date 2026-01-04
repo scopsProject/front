@@ -48,14 +48,29 @@
   margin: 0 auto;
 }
 
+.timetablesection-title {
+  justify-content: center;
+  margin-top: 9%;
+  font-size: 13px;
+  color: #EAB211;
+  display: flex;
+  background-color: #FFEEBB;
+  color: #876400;
+  border: 1px solid #FFD970;
+  box-shadow: 0 0 15px rgba(255, 215, 100, 0.9);
+}
+
 /* 세션 리스트 */
 .sessions-list {
   margin-top: 10px;
-  height: 350px;       /* 1. 목록 영역의 높이를 300px로 고정 (필요에 따라 조절 가능) */
+  height: 350px;
+  /* 1. 목록 영역의 높이를 300px로 고정 (필요에 따라 조절 가능) */
   /* 또는 max-height: 40vh; 로 설정하면 화면 높이의 40%까지만 유동적으로 늘어납니다. */
-  
-  overflow-y: auto;    /* 2. 내용이 높이를 넘어가면 세로 스크롤 생성 */
-  padding: 5px;        /* 스크롤바와 내용 사이 여백 */
+
+  overflow-y: auto;
+  /* 2. 내용이 높이를 넘어가면 세로 스크롤 생성 */
+  padding: 5px;
+  /* 스크롤바와 내용 사이 여백 */
 }
 
 .session-card {
@@ -82,9 +97,10 @@
 .session-info {
   color: #634900;
   background-color: #FFEEBB;
-  padding: 0.5%;
-  border-radius: 10px;
-  /* 모서리 둥글게 */
+  padding: 4px;
+  border-radius: 30px;
+  font-size: 10px;
+  
   box-shadow: 0 0 10px rgba(255, 230, 130, 0.5);
 }
 
@@ -98,6 +114,7 @@
   overflow-y: auto;
   font-size: 12px;
 }
+
 .timetablemodal-overlay {
   position: fixed;
   top: 0;

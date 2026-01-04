@@ -54,10 +54,11 @@
 /* 인풋 스타일 공통 */
 .songAdd-mainContainer-eventOption input,
 .songAdd-mainContainer-session input {
+  font-family: "suit-L";
   padding: 10px 15px;
   border-radius: 20px;
   border: none;
-  box-shadow: 0 0 10px rgba(255, 238, 187, 1);
+  box-shadow: 0 0 7px rgba(255, 238, 187, 1);
   background-color: #FFEEBB;
   font-size: 14px;
   color: #876400;
@@ -69,7 +70,6 @@
 .songAdd-mainContainer-eventOption input::placeholder,
 .songAdd-mainContainer-session input::placeholder {
   color: #876400;
-  font-family: 'suit-regular';
 }
 
 .songAdd-mainContainer-eventOption input:focus,
@@ -102,7 +102,7 @@
   padding: 10px 15px;
   border-radius: 20px;
   font-size: 14px;
-  color: #333;
+  color: #876400;
   outline: none;
 }
 

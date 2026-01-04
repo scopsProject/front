@@ -128,7 +128,7 @@ function TimeTablePage() {
           {/* 내 시간표 */}
           <div className="timetable-main-container">
             {/* 내 시간표 제목 */}
-            <section className="section-title">
+            <section className="timetablesection-title">
               <span>내 시간표</span>
             </section>
 

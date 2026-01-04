@@ -54,7 +54,6 @@
 
 .songResister-mainContainer-eventName select {
   color: #876400;
-  font-family: 'suit-regular';
   width: 100%;
   padding: 12px 40px 12px 15px;
   /* 오른쪽 공간 확보 */
@@ -81,7 +80,6 @@
 
 .songResister-mainContainer-eventName-option {
   color: #876400;
-  font-family: 'suit-regular';
 }
 
 /* IE 대응 */
@@ -146,7 +144,6 @@
 }
 
 .song-item-subject {
-  font-family: 'suit-regular';
   grid-column: 1;
   /* 첫 번째 칸에 위치 */
   align-self: center;
@@ -163,7 +160,6 @@
 }
 
 .song-item-singerName {
-  font-family: 'suit-regular';
   grid-column: 2;
   /* 첫 번째 칸에 위치 */
   align-self: center;
@@ -174,7 +170,6 @@
 }
 
 .song-item-playerName {
-  font-family: 'suit-regular';
   grid-column: 3;
   /* 첫 번째 칸에 위치 */
   align-self: center;
@@ -202,14 +197,13 @@
 
 .custom-select-display {
   color: #876400;
-  font-family: 'suit-regular';
   width: 100%;
   padding: 12px 40px 12px 15px;
   font-size: 16px;
   background-color: #fff;
   border: 1px solid #fff;
   border-radius: 30px;
-  box-shadow: 0 0 15px rgba(255, 230, 130, 0.9);
+  box-shadow: 0 0 7px rgba(255, 230, 130, 0.9);
   cursor: pointer;
   user-select: none;
   position: relative;
@@ -247,7 +241,6 @@
   margin: 0;
   padding: 5px 0;
   list-style: none;
-  font-family: 'suit-regular';
   color: #876400;
   font-size: 16px;
 }

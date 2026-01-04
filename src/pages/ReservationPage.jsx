@@ -85,7 +85,7 @@ function ReservationPage() {
     const nextMonday = new Date(now);
     nextMonday.setDate(now.getDate() + daysUntilNextMonday);
 
-    const shortWeekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const shortWeekdays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
     const result = [];
 
     // 월(0) ~ 금(4)까지 5일 생성
@@ -101,7 +101,7 @@ function ReservationPage() {
 
       result.push({
         date: localIsoDate,
-        displayDate: `${mm}-${dd}`,
+        displayDate: `${mm}.${dd}`,
         day: shortWeekdays[d.getDay()]
       });
     }
