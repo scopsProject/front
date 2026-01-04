@@ -22,16 +22,9 @@ const UserRegisterPage = () => {
   const [userYear, setUserYear] = useState("");
   const [userSession, setUserSession] = useState("");
 
-  const [isExecutive, setIsExecutive] = useState(false); // 체크박스 상태
-  const [execCode, setExecCode] = useState("");          // 입력 코드
-  const [role, setRole] = useState("ROLE_USER");
-  const [execVerified, setExecVerified] = useState(false); // 인증 여부
-
-  const EXECUTIVE_SECRET = "SCOPS2025";
-
   const swalOptions = {
-    confirmButtonText: '확인', // 기본 버튼 텍스트
-    buttonsStyling: false,     // 기본 스타일 끄기
+    confirmButtonText: '확인',
+    buttonsStyling: false,
     customClass: {
       popup: 'my-swal-popup',
       title: 'my-swal-title',
@@ -47,28 +40,6 @@ const UserRegisterPage = () => {
     userName.trim() !== "" &&
     userYear.trim() !== "" &&
     userSession.trim() !== "";
-
-  const handleExecVerify = () => {
-    if (execCode === EXECUTIVE_SECRET) {
-      Swal.fire({
-        ...swalOptions,
-        icon: "success",
-        title: "인증 성공",
-        text: "임원 인증이 완료되었습니다.",
-      });
-      setExecVerified(true);
-      setRole("ADMIN");
-    } else {
-      Swal.fire({
-        ...swalOptions,
-        icon: "error",
-        title: "인증 실패",
-        text: "인증코드가 올바르지 않습니다.",
-      });
-      setExecVerified(false);
-      setRole("ROLE_USER");
-    }
-  };
 
   const handleUserRegister = () => {
     if (!isFormValid) {
@@ -89,22 +60,15 @@ const UserRegisterPage = () => {
       });
       return;
     }
-    if (isExecutive && !execVerified) {
-      Swal.fire({
-        ...swalOptions,
-        icon: "warning",
-        title: "인증 필요",
-        text: "임원 인증을 먼저 완료해주세요.",
-      });
-      return;
-    }
+
+    // role은 항상 "ROLE_USER"로 전송
     axios.post(`${process.env.REACT_APP_API_URL}/scops/userRegister`, {
       userName,
       userYear,
       session: userSession,
       userID: userId,
       userPassword,
-      role
+      role: "ROLE_USER"
     })
       .then(res => {
         console.log('회원가입:', res.data);
@@ -242,43 +206,7 @@ const UserRegisterPage = () => {
             onChange={(e) => setUserPasswordConfirm(e.target.value)}
             className="userinput-box"
           />
-          {/* 임원 체크박스 */}
-          <div className="exec-check-container">
-            <label className="custom-checkbox">
-              <input
-                type="checkbox"
-                checked={isExecutive}
-                onChange={(e) => {
-                  setIsExecutive(e.target.checked);
-
-                  if (!e.target.checked) {
-                    setExecCode("");
-                    setExecVerified(false);
-                    setRole("ROLE_USER");
-                  }
-                }}
-              />
-              <span className="checkmark"></span>
-              <span className="checkbox-text">임원입니까?</span>
-            </label>
-
-            <div className={`exec-auth-container ${isExecutive ? "active" : ""}`}>
-              <input
-                type="password"
-                placeholder="인증코드"
-                value={execCode}
-                onChange={(e) => setExecCode(e.target.value)}
-                className="exec-input"
-              />
-              <button
-                onClick={handleExecVerify}
-                className="exec-btn"
-              >
-                인증
-              </button>
-            </div>
-          </div>
-
+          
         </div>
         <div className="info-description">원활한 회원가입을 위해 학번과 이름을 수집합니다.<br />
           회원가입을 진행하실 경우, 개인정보 수집에 동의하신 것으로 간주됩니다.</div>
