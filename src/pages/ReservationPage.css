@@ -247,15 +247,13 @@
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #876400;
-  /* 동아리 테마색 */
-  color: white;
+  background-color: #FFE79F;
+  color: #876400;
   padding: 12px 24px;
   border-radius: 30px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   z-index: 2000;
   /* 헤더보다 위에 뜨도록 높게 설정 */
-  font-weight: bold;
   font-size: 15px;
   white-space: nowrap;
   opacity: 0;
@@ -303,37 +301,29 @@
 /* 버튼 묶음 */
 .time-buttons {
   display: grid;
-  /* Flex 대신 Grid 사용 */
   grid-template-columns: repeat(4, 1fr);
-  /* 1줄에 4개씩 균등 분할 */
   gap: 8px;
-  /* 간격 조절 (버튼이 작아지므로 간격도 살짝 줄임) */
   width: 100%;
 }
 
 .time-btn {
   background-color: #fff;
   padding: 10px 0;
-  /* 좌우 패딩을 0으로 줄여 텍스트 공간 확보 */
   border-radius: 30px;
   border: 1px solid #fff;
   box-shadow: 0 0 15px rgba(255, 230, 130, 0.8);
 
   font-family: 'suit-R';
   font-size: 14px;
-  /* 글자 크기를 살짝 줄임 (15px -> 14px 추천) */
   color: #876400;
 
   cursor: pointer;
   transition: all 0.2s ease;
 
-  /* 중요: 기존 min-width 삭제 또는 auto로 변경 */
   min-width: auto;
   width: 100%;
-  /* 그리드 칸을 꽉 채우도록 설정 */
   text-align: center;
 
-  /* 텍스트가 넘치지 않도록 설정 */
   white-space: nowrap;
 }
 

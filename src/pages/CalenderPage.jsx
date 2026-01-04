@@ -152,7 +152,7 @@ function CalenderPage() {
   }, [fetchCalendarData]);
 
   const handleAddEvent = async () => {
-    if (!newEventData.eventName || !newEventData.createdDate || !newEventData.endDate) {
+    if (!newEventData.eventName || !newEventData.startDate || !newEventData.endDate) {
       Swal.fire({
         ...swalOptions,
         icon: "warning",
@@ -174,7 +174,7 @@ function CalenderPage() {
       setShowEventModal(false);
       setNewEventData({
         eventName: "",
-        createdDate: "",
+        startDate: "",
         endDate: "",
         isSongRegistrationAvailable: false
       });
@@ -381,8 +381,10 @@ function CalenderPage() {
         {showEventModal && (
           <div className="calendermodal-overlay" onClick={() => setShowEventModal(false)}>
             <div className="calendermodal-content" onClick={(e) => e.stopPropagation()}>
-              <div className="calendermodal-title">새 행사 추가</div>
-
+              <div className="calendermodal-title">새 행사 추가
+                <button className="calendermodal-close" onClick={() => setShowEventModal(false)}>X</button>
+              </div>
+              
               <div className="calendermodal-input-group">
                 <label>행사명</label>
                 <input
@@ -399,8 +401,8 @@ function CalenderPage() {
                 <input
                   type="date"
                   className="calendermodal-input"
-                  value={newEventData.createdDate}
-                  onChange={(e) => setNewEventData({ ...newEventData, createdDate: e.target.value })}
+                  value={newEventData.startDate}
+                  onChange={(e) => setNewEventData({ ...newEventData, startDate: e.target.value })}
                 />
               </div>
 
@@ -419,15 +421,15 @@ function CalenderPage() {
                   id="availableCheck"
                   checked={newEventData.isSongRegistrationAvailable}
                   onChange={(e) => setNewEventData({ ...newEventData, isSongRegistrationAvailable: e.target.checked })}
-                  style={{ width: '20px', height: '20px', accentColor: '#EAB211' }}
+                  style={{ width: '13px', height: '13px', accentColor: '#EAB211' }}
                 />
                 <label htmlFor="availableCheck" style={{ cursor: 'pointer', margin: 0 }}>
                   이 행사에 곡 등록을 허용하시겠습니까?
                 </label>
               </div>
               <div className="calendermodal-actions">
-                <button className="calendermodal-btn cancel" onClick={() => setShowEventModal(false)}>취소</button>
-                <button className="calendermodal-btn save" onClick={handleAddEvent}>저장</button>
+                <button className="calendermodal-savebtn" onClick={handleAddEvent}>저 장</button>
+                <button className="calendermodal-cancelbtn" onClick={() => setShowEventModal(false)}>취 소</button>
               </div>
             </div>
           </div>

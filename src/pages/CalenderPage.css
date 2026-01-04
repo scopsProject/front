@@ -51,7 +51,6 @@
   font-size: 20px;
   margin: 10px 0;
   color: #EAB211;
-  font-family: "suit";
 }
 
 .month-header {
@@ -75,14 +74,13 @@
   font-weight: bold;
   font-size: 13px;
   color: #EAB211;
-  font-family: "suit";
 }
 
 /* 달력 그리드 (외곽선 둥글게) */
 .calendarPage-calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr)); 
-  
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+
   grid-auto-rows: minmax(0, 1fr);
 
   border: 1px solid #FFFFFF;
@@ -133,7 +131,6 @@
 
 .date-number {
   font-size: 11px;
-  font-family: "suit";
   color: #EAB211;
   font-weight: bold;
 
@@ -176,8 +173,6 @@
 .event-bar {
   color: #787878;
   font-size: 6px;
-  font-family: "suit";
-
 
   height: 11px;
   /* 텍스트가 없어도 높이 유지 */
@@ -194,7 +189,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  
+
   cursor: pointer;
   transition: opacity 0.2s;
   position: relative;
@@ -297,37 +292,32 @@
 
 /* 곡 제목 뱃지 스타일 */
 .calender-main-container-songname-style {
-  position: relative; /* 1. 가상 요소의 기준점 */
-  z-index: 1;         /* 2. 글자가 배경보다 위에 오도록 설정 */
-  
-  /* 기존 배경색 제거 (중요!) */
-  background-color: transparent; 
-  
-  /* 폰트 및 여백 설정 */
-  font-family: "suit"; /* 폰트가 예뻐야 효과가 잘 삽니다 */
-  font-size: 20px;     /* 글자가 배경보다 커야 하므로 폰트를 조금 키우는 게 좋습니다 */
+  position: relative;
+  z-index: 1;
+
+  background-color: transparent;
+
+  font-size: 20px;
   color: #634900;
-  font-weight: normal; /* 필요에 따라 bold 등 조정 */
-  
-  padding: 0 5px;      /* 좌우 여백 */
+  font-weight: normal;
+
+  padding: 0 5px;
   margin-right: 5px;
 }
+
 .calender-main-container-songname-style::after {
   content: "";
   position: absolute;
-  
-  /* 배경의 가로, 세로 위치와 크기 설정 */
+
   left: 0;
-  width: 100%;       /* 글자 너비만큼 꽉 차게 */
-  
-  bottom: 10%;    /* 1. 아래쪽을 꽉 채움 (바닥에 고정) */
-  height: 55%;  /* 2. 높이를 65%로 설정 (반보다 살짝 위까지 올라옴) */
-  
-  /* 배경 스타일 */
+  width: 100%;
+  bottom: 10%;
+  height: 55%;
+
   background-color: #FFFFFF;
-  border-radius: 10px; /* 둥근 모서리 */
-  z-index: -1;         /* 글자 뒤로 보내기 */
-  
+  border-radius: 10px;
+  z-index: -1;
+
   box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
@@ -335,7 +325,6 @@
 .calender-main-container-singer {
   font-size: 8px;
   color: #876400;
-  /* 짙은 갈색 */
 }
 
 /* 시간 표시 */
@@ -361,8 +350,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  /* 반투명 검정 배경 */
+  background-color: rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -370,12 +358,12 @@
 }
 
 .calendermodal-content {
-  background-color: #FFF6DC;
+  position: relative;
+  background-color: #FFFEF8;
   width: 85%;
   max-width: 350px;
   border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
 }
@@ -434,56 +422,83 @@
 
 /* 모달 스타일 */
 .calendermodal-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
+  font-size: 23px;
+  color: #EAB211;
   text-align: center;
-  margin-bottom: 5px;
-  font-family: 'suit-R';
+  padding: 15px;
+}
+
+.calendermodal-close {
+  position: absolute;
+  /* 둥둥 띄워서 배치 */
+  top: 15px;
+  /* 위에서 15px 떨어짐 */
+  right: 15px;
+  /* 오른쪽에서 15px 떨어짐 */
+
+  /* 디자인 스타일 */
+  background: #FFE79F;
+  border-radius: 50%;
+  border: none;
+  padding: 5px 9px;
+  font-size: 13px;
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(255, 228, 149, 0.9);
+  cursor: pointer;
 }
 
 .calendermodal-input-group {
   display: flex;
-  flex-direction: column;
-  gap: 5px;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 0 15px;
 }
 
 .calendermodal-input-group label {
-  font-size: 14px;
-  color: #876400;
-  font-weight: bold;
+  font-size: 12px;
+  color: #634900;
+  margin-right: 4%;
+  min-width: 40px;
 }
 
 .calendermodal-input {
-  padding: 10px;
+  flex: 0.9;
+  padding: 3px 6px;
   border-radius: 10px;
+  color: #634900;
+  box-shadow: 0 0 15px rgba(255, 228, 149, 0.9);
   border: none;
-  background-color: #FFEEBB;
-  color: #333;
-  outline: none;
+  border-radius: 30px;
+}
+
+.calendermodal-input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(93%) sepia(18%) saturate(1375%) hue-rotate(354deg) brightness(90%) contrast(104%);
+}
+
+.calendermodal-input::placeholder {
+  color: #634900;
 }
 
 .calendermodal-actions {
   display: flex;
-  gap: 10px;
-  margin-top: 10px;
 }
 
-.calendermodal-btn {
+.calendermodal-cancelbtn {
   flex: 1;
-  padding: 10px;
+  background: #FFDB74;
+  padding: 12px;
   border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: bold;
+  color: #876400;
+  border-radius: 0 0 16px 0; 
 }
 
-.calendermodal-btn.cancel {
-  background-color: #eee;
-  color: #555;
-}
-
-.calendermodal-btn.save {
-  background-color: #EAB211;
-  color: white;
+.calendermodal-savebtn {
+  flex: 1;
+  background: #FFE79F;
+  padding: 12px;
+  border: none;
+  color: #876400;
+  border-radius: 0 0 0 16px;
 }

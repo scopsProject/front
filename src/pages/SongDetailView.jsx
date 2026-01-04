@@ -139,7 +139,7 @@ function SongDetailView({ song, onClose, eventName, reloadSongs }) {
             </span>
             <span className="songDetail-singer">{song.singerName}</span>
           </div>
-          <button className="songDetail-close" onClick={onClose}>✕</button>
+          <button className="songDetail-close" onClick={onClose}>X</button>
         </div>
 
         <div className="songDetail-body">

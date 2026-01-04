@@ -13,7 +13,7 @@ function ReservationPage() {
   const [weekInfo, setWeekInfo] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const { user } = useAuth();
-  
+
   // 로그인한 유저의 이름 (DB에 저장되는 이름과 일치해야 함)
   const userName = user?.name;
 
@@ -70,15 +70,15 @@ function ReservationPage() {
       setIsBookingOpen(isOpen);
     };
 
-    checkTime(); 
-    const interval = setInterval(checkTime, 200); 
+    checkTime();
+    const interval = setInterval(checkTime, 200);
 
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
     const now = new Date();
-    const currentDay = now.getDay(); 
+    const currentDay = now.getDay();
 
     const daysUntilNextMonday = (1 + 7 - currentDay) % 7 || 7;
 
@@ -100,7 +100,7 @@ function ReservationPage() {
       const localIsoDate = `${year}-${mm}-${dd}`;
 
       result.push({
-        date: localIsoDate, 
+        date: localIsoDate,
         displayDate: `${mm}-${dd}`,
         day: shortWeekdays[d.getDay()]
       });
@@ -143,7 +143,7 @@ function ReservationPage() {
         const end = newReservation.endTime ? newReservation.endTime.slice(0, 5) : "";
         const song = newReservation.songName;
 
-        const msg = `${start} ~ ${end} - ${song}: 예약되었습니다!`;
+        const msg = `${start} ~ ${end} - <b>${song}</b>: 예약되었습니다!`;
         setNotification(msg);
 
         setTimeout(() => {
@@ -343,7 +343,7 @@ function ReservationPage() {
       if (result.isConfirmed) {
         try {
           // 3. API 호출 (삭제 요청)
-          await api.delete(`/reservations/${targetSong.id}`); 
+          await api.delete(`/reservations/${targetSong.id}`);
 
           // 4. 성공 시 상태 업데이트 (화면에서 즉시 제거)
           setSongs((prev) => prev.filter((s) => s.id !== targetSong.id));
@@ -393,7 +393,7 @@ function ReservationPage() {
             ⛔ 지금은 예약 시간이 아닙니다.<br />(화 09:00 ~ 목 19:00)
           </div>
         )}
-        
+
         {notification && (
           <div className="notification-banner">
             {notification}
@@ -538,7 +538,7 @@ function ReservationPage() {
           className={`reservation-submit-btn ${!isBookingOpen ? 'disabled' : ''}`}
           disabled={!isBookingOpen || !selectedDate || !selectedEvent || !selectedSong || !startTime || !endTime}
           onClick={handleReservation}
-          style={!isBookingOpen ? { backgroundColor: '#ccc', cursor: 'not-allowed' } : {}} 
+          style={!isBookingOpen ? { backgroundColor: '#ccc', cursor: 'not-allowed' } : {}}
         >
           {isBookingOpen ? "예약하기" : "예약 불가"}
         </button>

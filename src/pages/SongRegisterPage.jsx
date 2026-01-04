@@ -117,7 +117,7 @@ function SongRegisterPage() {
                 <div
                   key={idx}
                   className="song-item"
-                  onClick={() => setSelectedSong(item)}  // ✨ 클릭 시 상세 조회 열림
+                  onClick={() => setSelectedSong(item)}
                 >
                   <span className='song-item-subject'>{item.songName}</span>
                   <span className='song-item-singerName'>{item.singerName}</span>
