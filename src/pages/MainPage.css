@@ -64,9 +64,6 @@
   display: flex;
   justify-content: center; /* 가로 중앙 정렬 */
   align-items: center;     /* 세로 중앙 정렬 */
-  
-  /* 폰트 스타일 이동 */
-  font-family: "suit-R";
   color: #634900;
   font-size: 16px; /* 필요시 크기 조절 */
 }
@@ -78,7 +75,6 @@
   border-radius: 30px;
   /* 모서리 둥글게 */
   box-shadow: 0 0 10px rgba(255, 230, 130, 0.9);
-  font-family: 'suit-regular';
   color: #876400;
   justify-self: start;
   /* 왼쪽 정렬 */
@@ -118,7 +114,6 @@
 }
 
 .main-container-songname-style {
-  font-family: 'suit-regular';
   margin-right: 1.5%;
   border-radius: 50px;
   background-color: rgba(255, 238, 187, 0.9);
@@ -128,14 +123,12 @@
 }
 
 .main-container-songtime {
-  font-family: 'suit-regular';
   margin-top: 5px;
   color: #876400;
   font-size: 12px;
 }
 
 .main-container-songperson {
-  font-family: 'suit-regular';
   margin-bottom: 5px;
   color: #EAB211;
   font-size: 12px;
@@ -187,7 +180,6 @@
 }
 
 .calendar-date {
-  font-family: 'suit-regular';
   color: #876400;
   font-size: 14px;
   text-align: center;
@@ -200,7 +192,6 @@
 }
 
 .calendar-day {
-  font-family: 'suit-regular';
   font-size: 20px;
   color: #876400;
   margin-bottom: 9px;
@@ -208,7 +199,6 @@
 }
 
 .calendar-song {
-  font-family: 'suit-regular';
   font-size: 7px;
   margin-bottom: 2px;
   border-radius: 4px;
