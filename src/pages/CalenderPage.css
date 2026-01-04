@@ -405,13 +405,13 @@
 /* 달력 페이지용 행사 추가 버튼 */
 .add-event-btn-small {
   background-color: #FFEEBB;
-  border: 1px solid #EAB211;
+  border: none;
   border-radius: 15px;
   color: #876400;
   font-size: 13px;
   padding: 5px 12px;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(234, 178, 17, 0.2);
+  box-shadow: 0 0 5px rgba(255, 230, 130, 0.9);
   transition: all 0.2s;
 }
 
@@ -464,6 +464,7 @@
 
 .calendermodal-input {
   flex: 0.9;
+  font-size: 11px;
   padding: 3px 6px;
   border-radius: 10px;
   color: #634900;

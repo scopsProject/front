@@ -102,7 +102,7 @@
 
 .userinput-box:focus {
   outline: none;
-  border: 2px solid #FFCB2E;
+  border: 1.5px solid #ffe79d;
   box-shadow: 0 0 15px rgba(255, 238, 187, 1);
 }
 

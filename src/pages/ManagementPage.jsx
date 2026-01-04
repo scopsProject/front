@@ -246,13 +246,13 @@ function ManagementPage() {
         <Headers onMenuClick={toggleMenu} isOpen={menuOpen} onClose={closeMenu} />
 
         <div className='management-page-container'>
-          <button className="manage-btn" onClick={handleOpenApproveModal}>
+          <button className="manage-main-btn" onClick={handleOpenApproveModal}>
             회원가입 승인하기
           </button>
-          <button className="manage-role-btn" onClick={handleOpenRoleModal}>
+          <button className="manage-main-role-btn" onClick={handleOpenRoleModal}>
             직위 변경하기
           </button>
-          <button className="manage-member-btn" onClick={handleOpenMemberModal}>
+          <button className="manage-main-member-btn" onClick={handleOpenMemberModal}>
             회원 관리하기
           </button>
         </div>

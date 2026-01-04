@@ -47,7 +47,7 @@
 }
 
 /* 메인 버튼 스타일 */
-.manage-btn {
+.manage-main-btn {
   width: 100%;
   padding: 30px 0;
   background-color: #FCD49B;
@@ -57,33 +57,33 @@
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0px 10px rgba(252, 212, 155, 0.8);
   transition: background-color 0.2s;
 }
-.manage-role-btn {
+.manage-main-role-btn {
   width: 100%;
   padding: 30px 0;
-  background-color: #FCD49B;
+  background-color: #B5C7FC;
   color: white;
   border: none;
   border-radius: 12px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0px 10px rgba(181, 199, 252, 0.8);
   transition: background-color 0.2s;
 }
-.manage-member-btn {
+.manage-main-member-btn {
   width: 100%;
   padding: 30px 0;
-  background-color: #A9EAFC; /* 회원가입 승인 버튼의 파란색 톤 활용 */
-  color: white;            /* 텍스트 색상 통일 */
+  background-color: #8DF1DC;
+  color: white;           
   border: none;
   border-radius: 12px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0px 10px rgba(110, 200, 240, 0.45);
   transition: background-color 0.2s;
 }
 .btn-force-delete {
@@ -95,7 +95,7 @@
   cursor: pointer;
   background-color: #FF7677;
   color: white;
-  box-shadow: 0 0 5px rgba(255, 107, 107, 0.6);
+  box-shadow: 0 0px 5px rgba(255, 118, 119, 0.4);
   transition: all 0.2s;
 }
 .btn-force-delete:hover {
