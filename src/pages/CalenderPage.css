@@ -465,9 +465,8 @@
   flex: 0.9;
   font-size: 11px;
   padding: 3px 6px;
-  border-radius: 10px;
   color: #634900;
-  box-shadow: 0 0 15px rgba(255, 228, 149, 0.9);
+  box-shadow: 0 0 7px rgba(255, 228, 149, 0.7);
   border: none;
   border-radius: 30px;
 }

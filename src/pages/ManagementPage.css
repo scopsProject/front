@@ -346,6 +346,7 @@
 /* 관리자로 변경 버튼 (파랑) */
 .btn-change-role.to-admin {
   background-color: #B5C7FC;
+  box-shadow: 0 0 5px rgba(181, 199, 252, 0.5);
   border-radius: 30px;
   padding: 5px 5px;
 }
@@ -353,6 +354,7 @@
 /* 유저로 변경 버튼 (주황) */
 .btn-change-role.to-user {
   background-color: #FCD49B;
+  box-shadow: 0 0 5px rgba(252, 212, 155, 0.5);
   border-radius: 30px;
   padding: 5px 10px;
 }

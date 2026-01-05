@@ -187,10 +187,10 @@ function TimeTablePage() {
                                   justifyContent: 'center' // 세로 중앙 정렬
                                 }}>
                                   <div style={{
-                                    fontFamily: 'suit',
                                     color: '#634900',
                                     fontSize: '9px', // 글자 크기 조정
-                                    lineHeight: '1.1'
+                                    lineHeight: '1.1',
+                                    marginBottom: '5%'
                                   }}>
                                     {schedule.title}
                                   </div>
