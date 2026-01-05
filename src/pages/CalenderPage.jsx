@@ -401,6 +401,8 @@ function CalenderPage() {
                 <input
                   type="date"
                   className="calendermodal-input"
+                  required
+                  data-placeholder="연도-월-일"
                   value={newEventData.startDate}
                   onChange={(e) => setNewEventData({ ...newEventData, startDate: e.target.value })}
                 />
@@ -411,6 +413,8 @@ function CalenderPage() {
                 <input
                   type="date"
                   className="calendermodal-input"
+                  required
+                  data-placeholder="연도-월-일"
                   value={newEventData.endDate}
                   onChange={(e) => setNewEventData({ ...newEventData, endDate: e.target.value })}
                 />
