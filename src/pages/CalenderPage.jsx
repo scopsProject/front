@@ -384,7 +384,7 @@ function CalenderPage() {
               <div className="calendermodal-title">새 행사 추가
                 <button className="calendermodal-close" onClick={() => setShowEventModal(false)}>X</button>
               </div>
-              
+
               <div className="calendermodal-input-group">
                 <label>행사명</label>
                 <input
@@ -415,13 +415,13 @@ function CalenderPage() {
                   onChange={(e) => setNewEventData({ ...newEventData, endDate: e.target.value })}
                 />
               </div>
-              <div className="calendermodal-input-group" style={{ flexDirection: 'row', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
+              <div className="calendermodal-input-group" style={{ flexDirection: 'row', alignItems: 'center', gap: '10px', marginTop: '5px' }}>
                 <input
                   type="checkbox"
                   id="availableCheck"
+                  className="calendercustom-checkbox"
                   checked={newEventData.isSongRegistrationAvailable}
                   onChange={(e) => setNewEventData({ ...newEventData, isSongRegistrationAvailable: e.target.checked })}
-                  style={{ width: '13px', height: '13px', accentColor: '#EAB211' }}
                 />
                 <label htmlFor="availableCheck" style={{ cursor: 'pointer', margin: 0 }}>
                   이 행사에 곡 등록을 허용하시겠습니까?

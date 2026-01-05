@@ -357,7 +357,6 @@
 }
 
 .calendermodal-content {
-  padding: 20px;
   position: relative;
   background-color: #FFF6DC;
   width: 85%;
@@ -448,7 +447,6 @@
 
 .calendermodal-input-group {
   display: flex;
-  align-items: center;
   margin-bottom: 10px;
   width: 100%;
   padding: 0 15px;
@@ -469,6 +467,13 @@
   box-shadow: 0 0 7px rgba(255, 228, 149, 0.7);
   border: none;
   border-radius: 30px;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  background-color: #ffffff;
+  margin: 0;
 }
 
 .calendermodal-input::-webkit-calendar-picker-indicator {
@@ -490,7 +495,7 @@
   padding: 12px;
   border: none;
   color: #876400;
-  border-radius: 0 0 16px 0; 
+  border-radius: 0 0 16px 0;
 }
 
 .calendermodal-savebtn {
@@ -500,4 +505,39 @@
   border: none;
   color: #876400;
   border-radius: 0 0 0 16px;
+}
+
+.calendercustom-checkbox {
+  appearance: none;
+  /* 기본 브라우저 스타일 제거 */
+  -webkit-appearance: none;
+  /* 사파리/크롬 호환 */
+  margin-left: 8%;
+  width: 12px;
+  /* 크기 설정 */
+  height: 12px;
+  border: 1px solid #FFCB2E;
+  /* 테두리 색상 */
+  border-radius: 30px;
+  /* 둥근 모서리 */
+  background-color: white;
+  /* 체크 안 됐을 때 배경 */
+  cursor: pointer;
+  position: relative;
+  margin-right: 8px;
+  /* 글자와의 간격 */
+  vertical-align: middle;
+  /* 텍스트와 높이 맞춤 */
+  transition: all 0.2s ease;
+  /* 부드러운 전환 효과 */
+}
+
+.calendercustom-checkbox:checked {
+  background-color: #FFCB2E;
+  /* 체크 시 배경색 */
+  border-color: #FFCB2E;
+}
+
+.calendercustom-checkbox:hover {
+  border-color: #c7960e;
 }
