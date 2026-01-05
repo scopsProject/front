@@ -68,7 +68,6 @@
 
 .username {
   font-size: 14px;
-  font-family: 'suit-EL', sans-serif;
   color: #FFCB2E;
   text-align: right;
   
@@ -100,7 +99,6 @@
 .menu-list-li {
   background-color: #FFFEF8;
   font-size: 15px;
-  font-family: "suit";
   color: #876400;
   cursor: pointer;
   margin: 7px;
