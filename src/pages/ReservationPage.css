@@ -89,7 +89,6 @@
 }
 
 .reservation-calendar-date {
-  font-family: 'suit-R';
   color: #876400;
   font-size: 9px;
   text-align: center;
@@ -104,7 +103,6 @@
 }
 
 .reservation-calendar-day {
-  font-family: 'suit-regular';
   font-size: 11px;
   color: #876400;
   margin-bottom: 1.5px;
@@ -112,7 +110,6 @@
 }
 
 .reservation-calendar-song {
-  font-family: 'suit-R';
   color: #876400;
   font-size: 8px;
   margin: 2px 0;
@@ -146,7 +143,6 @@
 
 .custom-select-container {
   position: relative;
-  font-family: 'suit-R';
   font-size: 16px;
   color: #876400;
   user-select: none;
@@ -194,7 +190,6 @@
   margin: 0;
   padding: 5px 0;
   list-style: none;
-  font-family: 'suit-R';
   color: #876400;
   font-size: 16px;
 }
@@ -314,10 +309,8 @@
   border: 1px solid #fff;
   box-shadow: 0 0 10px rgba(255, 230, 130, 0.8);
 
-  font-family: 'suit-R';
   font-size: 14px;
   color: #876400;
-
   cursor: pointer;
   transition: all 0.2s ease;
 

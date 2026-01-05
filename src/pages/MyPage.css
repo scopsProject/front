@@ -158,7 +158,6 @@
   border-radius: 30px;
   /* 모서리 둥글게 */
   box-shadow: 0 0 10px rgba(252, 217, 77, 0.9);
-  font-family: 'suit-regular';
   background-color: #FFFFFF;
 }
 
@@ -173,12 +172,10 @@
 
 .profile-code {
   color: #EAB211;
-  font-family: 'suit-regular';
 }
 
 .profile-generation {
   color: #634900;
-  font-family: 'suit-regular';
 }
 
 
@@ -235,7 +232,6 @@
   text-align: center;
   font-size: 10px;
   color: #EAB211;
-  font-family: "suit";
   padding: 5px;
   border-right: 1px solid #f0e0a0;
   box-sizing: border-box;

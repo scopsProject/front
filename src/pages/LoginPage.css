@@ -98,7 +98,6 @@ form {
    5. 하단 링크 및 버튼
    ========================================= */
 .register-link {
-  font-family: 'suit-regular', sans-serif;
   color: #FFCB2E;
   font-size: 14px;
   cursor: pointer;
@@ -123,7 +122,6 @@ form {
 
 .login-button span {
   color: #876400;
-  font-family: 'suit', sans-serif;
   font-weight: bold;
   font-size: 18px;
 }
