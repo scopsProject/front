@@ -436,7 +436,9 @@ function ReservationPage() {
             ))}
           </div>
         </div>
-
+        <div className='reservation-info'>
+          본인이 예약한 곡을 선택하여 예약 취소할 수 있습니다.
+        </div>
         <div className="reservation-controls">
           <div className="custom-select-container" ref={eventRef} style={{ marginBottom: 12 }}>
             <div

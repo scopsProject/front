@@ -53,6 +53,13 @@
   display: flex;
   /* flex로 변경 */
 }
+.reservation-info{
+  display: flex;
+  font-size: 13px;
+  color: #FF7677;
+  margin-top: 5%;
+  justify-content: center;
+}
 
 .reservation-calendar-cell {
   position: relative;
