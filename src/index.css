@@ -15,7 +15,14 @@
   font-family: "rr";
   src: url("./assets/fonts/Ramaraja-Regular.ttf") format("truetype");
 }
-
+@font-face {
+  font-family: "suit-SB";
+  src: url("./assets/fonts/SUIT-SemiBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "suit-M";
+  src: url("./assets/fonts/Ramaraja-Regular.ttf") format("truetype");
+}
 /* 2. 전체 요소에 폰트 강제 적용 (가장 확실한 방법) */
 * {
   font-family: "suit-R", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
