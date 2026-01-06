@@ -58,12 +58,13 @@
 .timetablesection-title {
   padding: 4px 12px;
   margin-top: 9%;
-  font-size: 13px;
+  font-size: 23px;
   color: #866402;
   background-color: #FFFEF8;
   border-radius: 30px;
   border: 1px solid #fff;
   box-shadow: 0 0 10px rgba(255, 230, 130, 0.8);
+  margin-bottom: 2%;
 }
 
 /* 세션 리스트 */
