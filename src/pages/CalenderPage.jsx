@@ -385,7 +385,7 @@ function CalenderPage() {
         )}
         {showEventModal && (
           <div className="calendermodal-overlay" onClick={() => setShowEventModal(false)}>
-            <div className="calendermodal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="calendermodal-content-newevent" onClick={(e) => e.stopPropagation()}>
               <div className="calendermodal-title">새 행사 추가
                 <button className="calendermodal-close" onClick={() => setShowEventModal(false)}>X</button>
               </div>

@@ -232,12 +232,13 @@
   overflow: hidden;
   width: 100%;
 
-  overflow-y: auto; 
+  overflow-y: auto;
   width: 100%;
-  
-  -ms-overflow-style: none; 
+
+  -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 .reservation-list::-webkit-scrollbar {
   display: none;
 }
@@ -578,4 +579,15 @@
 
 .calendercustom-checkbox:hover {
   border-color: #c7960e;
+}
+
+.calendermodal-content-newevent {
+  position: relative;
+  background-color: #FFF6DC;
+  width: 85%;
+  max-width: 350px;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
 }
