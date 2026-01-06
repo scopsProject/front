@@ -21,7 +21,7 @@ function CalenderPage() {
     eventName: "",
     startDate: "",
     endDate: "",
-    isSongRegistrationAvailable: false
+    songRegistrationAvailable: false
   });
 
   const swalOptions = {
@@ -424,8 +424,8 @@ function CalenderPage() {
                   type="checkbox"
                   id="availableCheck"
                   className="calendercustom-checkbox"
-                  checked={newEventData.isSongRegistrationAvailable}
-                  onChange={(e) => setNewEventData({ ...newEventData, isSongRegistrationAvailable: e.target.checked })}
+                  checked={newEventData.songRegistrationAvailable}
+                  onChange={(e) => setNewEventData({ ...newEventData, songRegistrationAvailable: e.target.checked })}
                 />
                 <label htmlFor="availableCheck" style={{ cursor: 'pointer', margin: 0 }}>
                   이 행사에 곡 등록을 허용하시겠습니까?

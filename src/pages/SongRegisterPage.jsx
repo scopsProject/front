@@ -122,8 +122,8 @@ function SongRegisterPage() {
                   <span className='song-item-subject'>{item.songName}</span>
                   <span className='song-item-singerName'>{item.singerName}</span>
                   <span className="song-item-playerName">
-                    {item.sessions.map(s => (
-                      <span key={s.sessionType + s.playerName}>
+                    {item.sessions.map((s, index) => (
+                      <span key={`${s.sessionType}${s.playerName}${index}`}>
                         {s.sessionType}.{s.playerName}
                       </span>
                     ))}
