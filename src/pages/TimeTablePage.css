@@ -53,8 +53,17 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-}
 
+  position: relative;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+.timetablesection-title:last-child {
+  position: absolute;
+  right: 20px;
+  font-size: 14px;
+  margin-top: 9%;
+}
 .timetablesection-title {
   padding: 4px 12px;
   margin-top: 9%;
@@ -179,4 +188,103 @@
   font-weight: bold;
   cursor: pointer;
   margin-left: auto;
+}
+.find-search-container {
+  margin-bottom: 0;
+}
+
+.find-search-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #EAB211;
+  border-radius: 20px;
+  outline: none;
+  font-size: 14px;
+  box-sizing: border-box;
+  color: #634900;
+}
+
+.find-result-list {
+  display: flex;
+  flex-wrap: wrap; /* 옆으로 흐르게 */
+  gap: 8px;
+  max-height: 100px; /* 너무 길어지지 않게 */
+  overflow-y: auto;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-bottom: 1px solid #FFEEBB;
+}
+
+.find-result-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  color: #634900;
+}
+
+.find-result-item input {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.find-filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.find-filter-tag {
+  background-color: #866402;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+}
+
+.find-filter-tag button {
+  background: none;
+  border: none;
+  color: white;
+  margin-left: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 10px;
+  padding: 0;
+}
+
+/* 겹침 시간표 그리드 안 숫자 정렬 */
+.find-timetable-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.find-timetable-cell {
+  border-right: 1px solid #FFEEBB;
+  /* 세로선 */
+  border-bottom: 1px solid #FFEEBB;
+  /* 가로선 */
+  box-sizing: border-box;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  overflow: hidden;
+}
+
+.find-timetable-cell:not(:nth-last-child(-n + 7)) {
+  border-bottom: 1px solid #FFEEBB;
+}
+
+.find-timetable-cell:nth-last-child(-n+7) {
+  border-bottom: none;
+}
+
+.find-timetable-cell:nth-child(7n) {
+  border-right: none;
 }

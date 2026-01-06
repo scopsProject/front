@@ -17,13 +17,13 @@ function CalenderPage() {
 
   const role = localStorage.getItem("role");
   const [showEventModal, setShowEventModal] = useState(false);
-  
+
   // 수정 1: 백엔드 DTO 변수명(isSongRegistrationAvailable)에 맞게 State 수정
   const [newEventData, setNewEventData] = useState({
     eventName: "",
     startDate: "",
     endDate: "",
-    isSongRegistrationAvailable: false 
+    isSongRegistrationAvailable: false
   });
 
   const swalOptions = {
@@ -175,13 +175,13 @@ function CalenderPage() {
       });
 
       setShowEventModal(false);
-      
+
       // 수정 2: 초기화 시에도 변수명 isSongRegistrationAvailable 사용
       setNewEventData({
         eventName: "",
         startDate: "",
         endDate: "",
-        isSongRegistrationAvailable: false 
+        isSongRegistrationAvailable: false
       });
 
       fetchCalendarData();
@@ -267,9 +267,18 @@ function CalenderPage() {
       if (event) {
         const isStart = dateStr === event.startDate;
         const isEnd = dateStr === event.endDate;
+
+        const isFirstDayOfMonth = date.getDate() === 1;
+        const showTitle = isStart || isFirstDayOfMonth;
+        const startClass = (isStart || isFirstDayOfMonth) ? 'start' : '';
+
         renderElements.push(
-          <div key={`evt-${i}`} className={`event-bar ${isStart ? 'start' : ''} ${isEnd ? 'end' : ''}`} style={{ backgroundColor: getEventColor(event.id) }}>
-            {isStart ? event.eventName : '\u00A0'}
+          <div
+            key={`evt-${i}`}
+            className={`event-bar ${startClass} ${isEnd ? 'end' : ''}`}
+            style={{ backgroundColor: getEventColor(event.id) }}
+          >
+            {showTitle ? event.eventName : '\u00A0'}
           </div>
         );
       } else {
