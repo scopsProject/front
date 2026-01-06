@@ -51,7 +51,7 @@
 }
 
 .main-container-time {
-  margin-bottom: 10px;
+  margin-bottom: 25px;
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
