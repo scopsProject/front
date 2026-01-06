@@ -29,7 +29,7 @@
 .songDetail-title {
   color: #634900;
   font-size: 22px;
-  box-shadow: 0 0 15px rgba(255, 230, 130, 0.9);
+  box-shadow: 0 0 7px rgba(255, 230, 130, 0.5);
   border-radius: 30px;
   padding: 0 5px;
 }
@@ -47,7 +47,7 @@
   padding: 6px 10px;
   font-size: 13px;
   color: #ffffff;
-  box-shadow: 0 0 15px rgba(255, 228, 149, 0.9);
+  box-shadow: 0 0 7px rgba(255, 228, 149, 0.5);
 }
 
 /* 한 줄(Row)을 잡는 컨테이너 */
@@ -70,8 +70,9 @@
 /* 입력창 스타일 */
 .input-row input.detail-input {
   flex: 1;                /* 남은 공간을 꽉 채우도록 설정 */
+  width: 70%;
   padding: 8px;
-  box-shadow: 0 0 15px rgba(255, 228, 149, 0.9);
+  box-shadow: 0 0 7px rgba(255, 228, 149, 0.5);
   border: none;
   border-radius: 30px;
 }
