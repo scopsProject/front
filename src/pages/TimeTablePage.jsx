@@ -17,14 +17,14 @@ function TimeTablePage() {
   const [sessions, setSessions] = useState([]); // 전체 유저 목록
   const [timeTables, setTimeTables] = useState([]); // 내 시간표
 
-  const [selectedFriend, setSelectedFriend] = useState(null); // (상세보기용) 선택된 친구
-  const [friendSchedule, setFriendSchedule] = useState([]);   // (상세보기용) 친구 시간표
+  const [selectedFriend, setSelectedFriend] = useState(null); //선택된 친구
+  const [friendSchedule, setFriendSchedule] = useState([]);   //친구 시간표
 
-  // --- 🔥 [추가] 시간표 찾기(겹치기) 관련 State ---
+  //시간표 찾기(겹치기) 관련 State
   const [showFindModal, setShowFindModal] = useState(false); // 모달 표시 여부
   const [searchTerm, setSearchTerm] = useState(""); // 검색어
-  const [selectedUsers, setSelectedUsers] = useState([]); // 체크된 유저 리스트 [{name, userID, ...}]
-  const [userSchedulesMap, setUserSchedulesMap] = useState({}); // 체크된 유저들의 시간표 데이터 저장소 { userID: [schedule...] }
+  const [selectedUsers, setSelectedUsers] = useState([]); // 체크된 유저 리스트
+  const [userSchedulesMap, setUserSchedulesMap] = useState({}); // 체크된 유저들의 시간표 데이터
 
   // 일정 찾기 헬퍼 함수
   const getSchedule = (scheduleData, dayIndex, hour) => {
@@ -55,7 +55,7 @@ function TimeTablePage() {
       });
   }, [userName]);
 
-  // 친구 상세 보기 (기존 기능)
+  // 친구 상세 보기
   const handleFriendClick = (friend) => {
     setSelectedFriend(friend);
     api.get(`/timetables/user/${friend.userID}`)
@@ -67,7 +67,6 @@ function TimeTablePage() {
   };
 
   // 1. 체크박스 선택/해제 핸들러
-  // 1. 체크박스 선택/해제 핸들러
   const handleUserCheck = async (targetUser, isChecked) => {
     if (isChecked) {
       // 선택 추가
@@ -75,7 +74,6 @@ function TimeTablePage() {
 
       // 데이터가 없으면 로드
       if (!userSchedulesMap[targetUser.userID]) {
-        // 🔥 [수정] 만약 선택한 사람이 '나'라면, API 호출 없이 이미 로드된 내 시간표(timeTables) 사용
         if (user && targetUser.userID === user.id) {
           setUserSchedulesMap(prev => ({
             ...prev,
@@ -110,7 +108,7 @@ function TimeTablePage() {
     setSelectedUsers(prev => prev.filter(u => u.userID !== userId));
   };
 
-  // 3. 겹친 시간표 렌더링 (핵심 로직)
+  // 3. 겹친 시간표 렌더링 
   const renderOverlapGrid = () => {
     return (
       <div className="timetable-body">
@@ -129,7 +127,6 @@ function TimeTablePage() {
               <React.Fragment key={row}>
                 {Array.from({ length: 7 }).map((_, col) => {
 
-                  // 해당 시간(요일, 시)에 수업이 있는 사람 수 카운트
                   let busyCount = 0;
 
                   selectedUsers.forEach(u => {
@@ -225,7 +222,7 @@ function TimeTablePage() {
         userID: user.id
       } : null;
 
-      // 2. 전체 리스트 = [나] + [친구들(나 제외)]
+      // 2. 전체 리스트
       const allUsers = myProfile
         ? [myProfile, ...sessions.filter(s => s.userID !== user.id)]
         : sessions;
@@ -244,7 +241,7 @@ function TimeTablePage() {
           <div className="timetable-main-container">
             <div className='timetablesection-title-div'>
               <span className="timetablesection-title">내 시간표</span>
-              {/* 🔥 [수정] 버튼 클릭 시 모달 열기 */}
+              {/* 버튼 클릭 시 모달 열기 */}
               <button className="timetablesection-title" onClick={() => setShowFindModal(true)}>
                 시간표 찾기
               </button>
@@ -292,7 +289,7 @@ function TimeTablePage() {
           </div>
         )}
 
-        {/* 🔥 [추가] 시간표 찾기 모달 */}
+        {/* 시간표 찾기 모달 */}
         {showFindModal && (
           <div className="timetablemodal-overlay" onClick={() => setShowFindModal(false)}>
             <div className="timetablemodal-content timetableadd-modal" style={{ width: '90%', maxWidth: '400px', height: '80vh' }} onClick={(e) => e.stopPropagation()}>
@@ -359,7 +356,7 @@ function TimeTablePage() {
                 </div>
               </div>
 
-              <div style={{ textAlign: 'center', fontSize: '10px', color: '#888', marginTop: '5px' }}>
+              <div style={{ textAlign: 'center', fontSize: '10px', color: '#999', marginTop: '5px' }}>
                 * 색이 진할수록 시간이 겹치는 사람이 많습니다.
               </div>
 
