@@ -69,8 +69,12 @@
 
 /* 입력창 스타일 */
 .input-row input.detail-input {
-  flex: 1;                /* 남은 공간을 꽉 채우도록 설정 */
-  width: 70%;
+  flex: 1;                 
+  
+  min-width: 0;
+  box-sizing: border-box;
+  
+  width: 100%;
   padding: 8px;
   box-shadow: 0 0 7px rgba(255, 228, 149, 0.5);
   border: none;
@@ -102,7 +106,12 @@
   text-align: center;   /* 텍스트 중앙 정렬 */
   text-align-last: center; /* 사파리/모바일 대응 */
   box-shadow: 0 0 8px rgba(255, 238, 187, 1);
-  appearance: none;     /* 화살표 제거 */
+
+  -webkit-appearance: none; /* 사파리, 크롬 등 모바일 웹킷 브라우저 기본 스타일 제거 */
+  -moz-appearance: none;    /* 파이어폭스 모바일 기본 스타일 제거 */
+  appearance: none;         /* 표준 기본 스타일 제거 */
+  background-color: #ffffff;
+
   cursor: pointer;
   font-size: 12px;
   font-family: "suit-E";

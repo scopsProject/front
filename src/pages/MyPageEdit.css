@@ -305,6 +305,9 @@
   border-bottom: 1px solid #FFEEBB;
   /* 가로선 */
   box-sizing: border-box;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  overflow: hidden;
 }
 
 .timetable-cell:not(:nth-last-child(-n + 7)) {
@@ -391,10 +394,10 @@
 .add-modal {
   background: #FFF9E5;
   /* 연한 노랑 배경 */
-  width: 85%;
+  width: 350px;
   border-radius: 20px;
   padding: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -420,9 +423,11 @@
   margin-left: 3%;
   margin-top: 3%;
 }
-.input-info{
+
+.input-info {
   color: #634900;
 }
+
 .mypagemodal-close-btn {
   margin-left: auto;
   background: #FFE79F;
@@ -445,6 +450,10 @@
   width: 40px;
   color: #634900;
   font-size: 14px;
+
+  white-space: nowrap;
+  /* 글자가 길어져도 절대 줄바꿈 하지 않음 */
+  flex-shrink: 0;
 }
 
 .input-group input {
@@ -453,7 +462,7 @@
   border: none;
   border-radius: 20px;
   background: #FFFFFF;
-  box-shadow: 0 2px 5px rgba(230, 200, 100, 0.3);
+  box-shadow: 0 0 7px rgba(255, 228, 149, 0.5);
   outline: none;
 }
 
@@ -463,7 +472,7 @@
   border: none;
   border-radius: 15px;
   background: #FFFFFF;
-  box-shadow: 0 2px 5px rgba(230, 200, 100, 0.3);
+  box-shadow: 0 0 7px rgba(255, 228, 149, 0.5);
   color: #634900;
   outline: none;
 }

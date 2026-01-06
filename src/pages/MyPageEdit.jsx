@@ -290,10 +290,10 @@ const MyPageEdit = () => {
                                                         key={`${row}-${col}`}
                                                         className="timetable-cell"
                                                         onClick={() => schedule && handleEditClick(schedule)}
-                                                        // 🔥 [7] 데이터 있으면 색칠
+                                                        // [7] 데이터 있으면 색칠
                                                         style={schedule ? { backgroundColor: '#FFEEBB', padding: '1px', cursor: "pointer" } : {}}
                                                     >
-                                                        {/* 🔥 [8] 시작 칸에 제목/메모 표시 */}
+                                                        {/* [8] 시작 칸에 제목/메모 표시 */}
                                                         {isStartBlock && (
                                                             <div style={{
                                                                 height: '100%',
