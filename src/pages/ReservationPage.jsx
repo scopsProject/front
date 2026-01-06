@@ -395,9 +395,10 @@ function ReservationPage() {
         )}
 
         {notification && (
-          <div className="notification-banner">
-            {notification}
-          </div>
+          <div 
+            className="notification-banner"
+            dangerouslySetInnerHTML={{ __html: notification }}
+          />
         )}
 
         <div className='reservation-calendar-grid-container'>

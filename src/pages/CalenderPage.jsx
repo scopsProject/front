@@ -17,11 +17,13 @@ function CalenderPage() {
 
   const role = localStorage.getItem("role");
   const [showEventModal, setShowEventModal] = useState(false);
+  
+  // 수정 1: 백엔드 DTO 변수명(isSongRegistrationAvailable)에 맞게 State 수정
   const [newEventData, setNewEventData] = useState({
     eventName: "",
     startDate: "",
     endDate: "",
-    songRegistrationAvailable: false
+    isSongRegistrationAvailable: false 
   });
 
   const swalOptions = {
@@ -163,6 +165,7 @@ function CalenderPage() {
     }
 
     try {
+      // 프론트엔드에서 isSongRegistrationAvailable 키를 포함하여 전송
       await api.post('/songs/events/new', newEventData);
       Swal.fire({
         ...swalOptions,
@@ -172,11 +175,13 @@ function CalenderPage() {
       });
 
       setShowEventModal(false);
+      
+      // 수정 2: 초기화 시에도 변수명 isSongRegistrationAvailable 사용
       setNewEventData({
         eventName: "",
         startDate: "",
         endDate: "",
-        isSongRegistrationAvailable: false
+        isSongRegistrationAvailable: false 
       });
 
       fetchCalendarData();
@@ -424,8 +429,10 @@ function CalenderPage() {
                   type="checkbox"
                   id="availableCheck"
                   className="calendercustom-checkbox"
-                  checked={newEventData.songRegistrationAvailable}
-                  onChange={(e) => setNewEventData({ ...newEventData, songRegistrationAvailable: e.target.checked })}
+                  // 수정 3: checked 속성에 isSongRegistrationAvailable 사용
+                  checked={newEventData.isSongRegistrationAvailable}
+                  // 수정 4: onChange에서 state 업데이트 시 키 이름을 isSongRegistrationAvailable로 설정
+                  onChange={(e) => setNewEventData({ ...newEventData, isSongRegistrationAvailable: e.target.checked })}
                 />
                 <label htmlFor="availableCheck" style={{ cursor: 'pointer', margin: 0 }}>
                   이 행사에 곡 등록을 허용하시겠습니까?
