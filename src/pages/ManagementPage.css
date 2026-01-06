@@ -83,7 +83,7 @@
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 0px 10px rgba(110, 200, 240, 0.45);
+  box-shadow: 0 0px 10px rgba(141, 241, 220, 0.45);
   transition: background-color 0.2s;
 }
 .btn-force-delete {
