@@ -297,10 +297,16 @@
   border-bottom: 1px solid #f0e0a0;
   /* 가로선 */
   box-sizing: border-box;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  overflow: hidden;
 }
 
 .timetable-cell:not(:nth-last-child(-n + 7)) {
   border-bottom: 1px solid #f0e0a0;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  overflow: hidden;
 }
 
 .timetable-cell:nth-last-child(-n+7) {

@@ -414,6 +414,25 @@
   color: #634900;
   /* 짙은 갈색 */
   margin: 0;
+
+  position: relative;
+  z-index: 1;
+  padding: 0 5px; /* 하이라이트가 글자 좌우로 살짝 여유 있게 */
+  font-weight: normal;
+}
+.mypagemodal-title::after {
+  content: "";
+  position: absolute;
+  
+  left: 0;
+  width: 100%;    /* 이제 부모인 title 글자 길이만큼만 너비가 잡힘 */
+  bottom: 2px;    /* 글자 하단에 위치하도록 조정 */
+  height: 14px;   /* 하이라이트 두께 조정 */
+  
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  z-index: -1;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
 .mypagemodal-memo {
