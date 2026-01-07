@@ -41,8 +41,10 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* 가로 중앙 정렬 */
-  align-items: center;     /* 세로 중앙 정렬 */
+  justify-content: center;
+  /* 가로 중앙 정렬 */
+  align-items: center;
+  /* 세로 중앙 정렬 */
   gap: 20px;
 }
 
@@ -60,6 +62,7 @@
   box-shadow: 0 0px 10px rgba(252, 212, 155, 0.8);
   transition: background-color 0.2s;
 }
+
 .manage-main-role-btn {
   width: 100%;
   padding: 30px 0;
@@ -73,11 +76,12 @@
   box-shadow: 0 0px 10px rgba(181, 199, 252, 0.8);
   transition: background-color 0.2s;
 }
+
 .manage-main-member-btn {
   width: 100%;
   padding: 30px 0;
   background-color: #8DF1DC;
-  color: white;           
+  color: white;
   border: none;
   border-radius: 12px;
   font-size: 16px;
@@ -86,6 +90,21 @@
   box-shadow: 0 0px 10px rgba(141, 241, 220, 0.45);
   transition: background-color 0.2s;
 }
+
+.manage-main-event-btn {
+  width: 100%;
+  padding: 30px 0;
+  background-color: #FFB7B2;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0px 10px rgba(255, 183, 178, 0.8);
+  transition: background-color 0.2s;
+}
+
 .btn-force-delete {
   padding: 6px 12px;
   border: none;
@@ -98,6 +117,7 @@
   box-shadow: 0 0px 5px rgba(255, 118, 119, 0.4);
   transition: all 0.2s;
 }
+
 .btn-force-delete:hover {
   background-color: #fa5252;
   transform: scale(1.02);
@@ -109,6 +129,22 @@
 
 .manage-btn:hover {
   background-color: #f8c071;
+}
+
+.manage-main-btn:hover {
+  background-color: #FFC375;
+}
+
+.manage-main-role-btn:hover {
+  background-color: #A1B1E0;
+}
+
+.manage-main-member-btn:hover {
+  background-color: #6CE0C9;
+}
+
+.manage-main-event-btn:hover {
+  background-color: #ff9e99;
 }
 
 /* 모달 배경 (어두운 반투명) */
@@ -148,7 +184,7 @@
 /* 모달 헤더 */
 .managemodal-header {
   position: relative;
-  
+
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -159,12 +195,12 @@
 /* 2. 자식 요소 (제목): 정중앙 배치 */
 .managemodal-header-name {
   position: absolute;
-  left: 50%; 
+  left: 50%;
   transform: translateX(-50%);
-  
+
   color: #634900;
-  font-size: 18px;       
-  
+  font-size: 18px;
+
 }
 
 .manageclose-btn {
@@ -283,6 +319,7 @@
 .search-box {
   margin-bottom: 15px;
 }
+
 .modal-search-input::placeholder {
   color: #FFE79F;
   opacity: 1;
@@ -298,15 +335,18 @@
   box-sizing: border-box;
   outline: none;
 }
-.name-role{
+
+.name-role {
   font-size: 16px;
   color: #634900;
 }
+
 .generation-role {
   color: #FFDB74;
   font-size: 9px;
   padding-top: 6%;
 }
+
 .modal-search-input:focus {
   border-color: #4A90E2;
 }
@@ -362,6 +402,15 @@
 .btn-change-role:hover {
   opacity: 0.9;
   transform: scale(1.02);
+}
+
+.edit-label {
+  font-size: 12px;
+  color: #634900;
+  margin-bottom: 5px;
+  display: block;
+  font-weight: bold;
+  padding-left: 5px;
 }
 
 /* 간단한 애니메이션 효과 */

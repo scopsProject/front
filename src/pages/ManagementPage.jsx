@@ -17,12 +17,22 @@ function ManagementPage() {
 
   // --- 직위 변경 모달 상태 ---
   const [showRoleModal, setShowRoleModal] = useState(false);
-  
+
   // --- 회원 관리(강제 탈퇴) 모달 상태 ---
   const [showMemberModal, setShowMemberModal] = useState(false);
-  
+
   const [activeUsers, setActiveUsers] = useState([]); // 전체 유저 목록
   const [searchTerm, setSearchTerm] = useState(''); // 검색어
+
+  const [showEventModal, setShowEventModal] = useState(false);      // 행사 목록 모달
+  const [showEventEditModal, setShowEventEditModal] = useState(false); // 행사 수정 모달
+  const [allEvents, setAllEvents] = useState([]);                   // 전체 행사 리스트
+  const [selectedEvent, setSelectedEvent] = useState({              // 수정할 행사 데이터
+    id: null,
+    eventName: '',
+    startDate: '',
+    endDate: ''
+  });
 
   // 1. 가입 승인 모달 열기
   const handleOpenApproveModal = () => {
@@ -33,21 +43,27 @@ function ManagementPage() {
   // 2. 직위 변경 모달 열기
   const handleOpenRoleModal = () => {
     setShowRoleModal(true);
-    setSearchTerm(''); 
+    setSearchTerm('');
     fetchActiveUsers();
   };
 
   // 3. 회원 관리 모달 열기
   const handleOpenMemberModal = () => {
     setShowMemberModal(true);
-    setSearchTerm(''); 
-    fetchActiveUsers(); 
+    setSearchTerm('');
+    fetchActiveUsers();
   };
 
   const handleCloseModal = () => {
     setShowApproveModal(false);
     setShowRoleModal(false);
     setShowMemberModal(false);
+    setShowEventModal(false);
+    setShowEventEditModal(false);
+  };
+  const handleOpenEventModal = () => {
+    setShowEventModal(true);
+    fetchAllEvents();
   };
 
   // --- API: 대기중인 회원 목록 ---
@@ -69,8 +85,17 @@ function ManagementPage() {
       console.error('유저 목록 로드 실패:', error);
     }
   };
+  // --- API: 모든 행사 목록 ---
+  const fetchAllEvents = async () => {
+    try {
+      const response = await api.get('/songs/events/all');
+      setAllEvents(response.data);
+    } catch (error) {
+      console.error('행사 목록 로드 실패:', error);
+    }
+  };
 
-  // ✅ [공통 옵션] CSS에 정의된 클래스만 사용하도록 통일
+  // [공통 옵션] CSS에 정의된 클래스만 사용하도록 통일
   const swalCommonOptions = {
     buttonsStyling: false,
     customClass: {
@@ -240,6 +265,63 @@ function ManagementPage() {
     user.userName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // 행사 클릭 시 수정 모달 열기
+  const handleEventClick = (event) => {
+    setSelectedEvent({
+      id: event.id,
+      eventName: event.eventName,
+      startDate: event.startDate,
+      endDate: event.endDate
+    });
+    setShowEventEditModal(true);
+  };
+  const handleUpdateEvent = async () => {
+    if (!selectedEvent.eventName || !selectedEvent.startDate || !selectedEvent.endDate) {
+      return Swal.fire({ ...swalCommonOptions, icon: 'warning', title: '입력 확인', text: '모든 정보를 입력해주세요.', confirmButtonText: '확인' });
+    }
+    if (selectedEvent.startDate > selectedEvent.endDate) {
+      return Swal.fire({ ...swalCommonOptions, icon: 'warning', title: '날짜 오류', text: '종료일은 시작일보다 늦어야 합니다.', confirmButtonText: '확인' });
+    }
+
+    try {
+      await api.put(`/songs/events/${selectedEvent.id}`, selectedEvent);
+
+      Swal.fire({ ...swalCommonOptions, icon: 'success', title: '수정 완료', text: '행사 정보가 수정되었습니다.', confirmButtonText: '확인' });
+
+      setShowEventEditModal(false);
+      fetchAllEvents(); // 목록 갱신
+    } catch (error) {
+      console.error(error);
+      Swal.fire({ ...swalCommonOptions, icon: 'error', title: '오류', text: '수정 중 문제가 발생했습니다.', confirmButtonText: '확인' });
+    }
+  };
+
+  // 행사 삭제
+  const handleDeleteEvent = async () => {
+    const result = await Swal.fire({
+      ...swalCommonOptions,
+      title: '행사 삭제',
+      html: '정말 삭제하시겠습니까? <br/>(연결된 곡 정보도 삭제될 수 있습니다)',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '삭 제',
+      cancelButtonText: '취 소',
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await api.delete(`/songs/events/${selectedEvent.id}`);
+        Swal.fire({ ...swalCommonOptions, icon: 'success', title: '삭제 완료', text: '행사가 삭제되었습니다.', confirmButtonText: '확인' });
+
+        setShowEventEditModal(false);
+        fetchAllEvents(); // 목록 갱신
+      } catch (error) {
+        console.error(error);
+        Swal.fire({ ...swalCommonOptions, icon: 'error', title: '오류', text: '삭제 실패', confirmButtonText: '확인' });
+      }
+    }
+  };
+
   return (
     <div className="App">
       <div className="app-container">
@@ -254,6 +336,9 @@ function ManagementPage() {
           </button>
           <button className="manage-main-member-btn" onClick={handleOpenMemberModal}>
             회원 관리하기
+          </button>
+          <button className="manage-main-event-btn" onClick={handleOpenEventModal}>
+            행사 관리하기
           </button>
         </div>
 
@@ -377,7 +462,80 @@ function ManagementPage() {
             </div>
           </div>
         )}
+        {/* 4. 행사 목록 모달 */}
+        {showEventModal && (
+          <div className="managemodal-overlay">
+            <div className="managemodal-content">
+              <div className="managemodal-header">
+                <span className='managemodal-header-name'>행사 목록</span>
+                <button className="manageclose-btn" onClick={() => setShowEventModal(false)}>&times;</button>
+              </div>
+              <div className="request-list">
+                {allEvents.length === 0 ? (
+                  <p className="no-data">등록된 행사가 없습니다.</p>
+                ) : (
+                  allEvents.map((evt) => (
+                    <div key={evt.id} className="request-item" onClick={() => handleEventClick(evt)} style={{ cursor: 'pointer' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <span className="name" style={{ fontSize: '14px' }}>{evt.eventName}</span>
+                        <span style={{ fontSize: '10px', color: '#999' }}>
+                          {evt.startDate} ~ {evt.endDate}
+                        </span>
+                      </div>
+                      <span style={{ fontSize: '12px', color: '#A9EAFC' }}>수정 &gt;</span>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+        )}
 
+        {showEventEditModal && (
+          <div className="managemodal-overlay" style={{ zIndex: 1100 }}>
+            <div className="managemodal-content">
+              <div className="managemodal-header">
+                <span className='managemodal-header-name'>행사 수정</span>
+                <button className="manageclose-btn" onClick={() => setShowEventEditModal(false)}>&times;</button>
+              </div>
+
+              <div className="edit-form-container" style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '10px' }}>
+                <div>
+                  <label className="edit-label">행사명</label>
+                  <input
+                    type="text"
+                    className="modal-search-input"
+                    value={selectedEvent.eventName}
+                    onChange={(e) => setSelectedEvent({ ...selectedEvent, eventName: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="edit-label">시작일</label>
+                  <input
+                    type="date"
+                    className="modal-search-input"
+                    value={selectedEvent.startDate}
+                    onChange={(e) => setSelectedEvent({ ...selectedEvent, startDate: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="edit-label">종료일</label>
+                  <input
+                    type="date"
+                    className="modal-search-input"
+                    value={selectedEvent.endDate}
+                    onChange={(e) => setSelectedEvent({ ...selectedEvent, endDate: e.target.value })}
+                  />
+                </div>
+
+                <div className="action-buttons" style={{ marginTop: '10px', justifyContent: 'center' }}>
+                  <button className="btn-approve" style={{ flex: 1, padding: '10px' }} onClick={handleUpdateEvent}>수정 저장</button>
+                  <button className="btn-force-delete" style={{ flex: 1, padding: '10px' }} onClick={handleDeleteEvent}>삭 제</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
