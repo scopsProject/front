@@ -33,7 +33,7 @@ const MyPageEdit = () => {
             .catch(err => console.error("시간표 로딩 실패", err));
     }, []);
 
-    // 🔥 [3] 페이지 로드 시 시간표 가져오기
+    // [3] 페이지 로드 시 시간표 가져오기
     useEffect(() => {
         fetchTimeTables();
     }, [fetchTimeTables]);
@@ -72,7 +72,7 @@ const MyPageEdit = () => {
         setShowModal(true);
     };
 
-    // 🔥 [신규] 시간표 셀 클릭 (수정 모드로 모달 열기)
+    // 시간표 셀 클릭 (수정 모드로 모달 열기)
     const handleEditClick = (schedule) => {
         setSelectedId(schedule.id); // ID 설정
         setFormData({
@@ -86,8 +86,23 @@ const MyPageEdit = () => {
         setShowModal(true);
     };
 
-    // 🔥 [수정] 저장/수정 핸들러
+    // 저장/수정 핸들러
     const handleSubmit = async () => {
+        if (formData.startTime >= formData.endTime) {
+            Swal.fire({
+                icon: 'error',
+                title: '시간 설정 오류',
+                text: '종료 시간은 시작 시간보다 늦어야 합니다.',
+                confirmButtonText: '확인',
+                customClass: {
+                    popup: 'my-swal-popup',
+                    title: 'my-swal-title',
+                    confirmButton: 'my-swal-confirm'
+                },
+                buttonsStyling: false
+            });
+            return; // API 요청 보내지 않고 중단
+        }
         try {
             const payload = {
                 title: formData.title,
@@ -150,7 +165,7 @@ const MyPageEdit = () => {
         }
     };
 
-    // 🔥 [신규] 삭제 핸들러
+    // 삭제 핸들러
     const handleDelete = async () => {
         if (!selectedId) return;
 
@@ -187,7 +202,7 @@ const MyPageEdit = () => {
                     buttonsStyling: false
                 });
                 setShowModal(false);
-                fetchTimeTables(); // 목록 갱신
+                fetchTimeTables();
             } catch (error) {
                 console.error(error);
                 Swal.fire({
@@ -281,7 +296,7 @@ const MyPageEdit = () => {
                                     return (
                                         <React.Fragment key={row}>
                                             {Array.from({ length: 7 }).map((_, col) => {
-                                                // 🔥 [6] 저장된 시간표 정보 가져오기
+                                                // [6] 저장된 시간표 정보 가져오기
                                                 const schedule = getSchedule(col, currentHour);
                                                 const isStartBlock = schedule && parseInt(schedule.startTime.split(':')[0], 10) === currentHour;
 
