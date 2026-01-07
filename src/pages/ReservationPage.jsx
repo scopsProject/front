@@ -33,6 +33,7 @@ function ReservationPage() {
   const [songDropdownOpen, setSongDropdownOpen] = useState(false);
 
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [weekRange, setWeekRange] = useState({ start: '', end: '' });
 
   const eventRef = useRef(null);
   const songRef = useRef(null);
@@ -76,6 +77,17 @@ function ReservationPage() {
     return () => clearInterval(interval);
   }, []);
 
+  // 예약 목록 다시 불러오는 함수 (내가 예약하면 바로 취소 가능하도록)
+  const fetchWeekSongs = async (start, end) => {
+    if (!start || !end) return;
+    try {
+      const res = await api.get(`/reservations/by-week?start=${start}&end=${end}`);
+      setSongs(res.data);
+    } catch (err) {
+      console.error('예약정보 갱신 실패:', err);
+    }
+  };
+
   useEffect(() => {
     const now = new Date();
     const currentDay = now.getDay();
@@ -111,6 +123,11 @@ function ReservationPage() {
     const startDate = result[0].date;
     const endDate = result[result.length - 1].date;
 
+    // 범위 상태 저장 (나중에 재사용하기 위해)
+    setWeekRange({ start: startDate, end: endDate });
+
+    fetchWeekSongs(startDate, endDate);
+
     // 1. 예약 정보 가져오기
     api.get(`/reservations/by-week?start=${startDate}&end=${endDate}`)
       .then(res => setSongs(res.data))
@@ -136,6 +153,11 @@ function ReservationPage() {
       try {
         const newReservation = JSON.parse(e.data);
         console.log('실시간 예약 알림 도착:', newReservation);
+
+        // 내가 예약한 건은 SSE로 추가하지 않음
+        if (newReservation.userName === userName) {
+            return; 
+        }
 
         setSongs((prevSongs) => [...prevSongs, newReservation]);
 
@@ -165,7 +187,7 @@ function ReservationPage() {
       eventSource.close();
     };
 
-  }, []);
+  }, [userName]);
 
 
   useEffect(() => {
@@ -246,6 +268,8 @@ function ReservationPage() {
         },
         buttonsStyling: false
       });
+      // 예약 성공 후 DB에서 최신 목록을 다시 받아옴 (ID가 포함된 데이터를 가져옴)
+      await fetchWeekSongs(weekRange.start, weekRange.end);
 
       setSelectedDate(null);
       setSelectedEvent('');
@@ -395,7 +419,7 @@ function ReservationPage() {
         )}
 
         {notification && (
-          <div 
+          <div
             className="notification-banner"
             dangerouslySetInnerHTML={{ __html: notification }}
           />

@@ -362,13 +362,13 @@ const MyPageEdit = () => {
                                 </select>
 
                                 <select name="startTime" value={formData.startTime} onChange={handleChange}>
-                                    {Array.from({ length: 12 }, (_, i) => i + 10).map(h => (
+                                    {Array.from({ length: 13 }, (_, i) => i + 9).map(h => (
                                         <option key={h} value={`${h}:00`}>{h}:00</option>
                                     ))}
                                 </select>
                                 <span>-</span>
                                 <select name="endTime" value={formData.endTime} onChange={handleChange}>
-                                    {Array.from({ length: 12 }, (_, i) => i + 11).map(h => (
+                                    {Array.from({ length: 13 }, (_, i) => i + 10).map(h => (
                                         <option key={h} value={`${h}:00`}>{h}:00</option>
                                     ))}
                                 </select>
