@@ -271,7 +271,8 @@ function ManagementPage() {
       id: event.id,
       eventName: event.eventName,
       startDate: event.startDate,
-      endDate: event.endDate
+      endDate: event.endDate,
+      isSongRegistrationAvailable: event.isSongRegistrationAvailable
     });
     setShowEventEditModal(true);
   };
@@ -490,17 +491,17 @@ function ManagementPage() {
             </div>
           </div>
         )}
-
+        {/* 4. 행사 수정 모달 */}
         {showEventEditModal && (
           <div className="managemodal-overlay" style={{ zIndex: 1100 }}>
-            <div className="managemodal-content">
-              <div className="managemodal-header">
+            <div className="managemodal-contentsub">
+              <div className="managemodal-headersub">
                 <span className='managemodal-header-name'>행사 수정</span>
                 <button className="manageclose-btn" onClick={() => setShowEventEditModal(false)}>&times;</button>
               </div>
 
               <div className="edit-form-container" style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '10px' }}>
-                <div>
+                <div className='modal-search-input-group'>
                   <label className="edit-label">행사명</label>
                   <input
                     type="text"
@@ -509,7 +510,7 @@ function ManagementPage() {
                     onChange={(e) => setSelectedEvent({ ...selectedEvent, eventName: e.target.value })}
                   />
                 </div>
-                <div>
+                <div className='modal-search-input-group'>
                   <label className="edit-label">시작일</label>
                   <input
                     type="date"
@@ -518,7 +519,7 @@ function ManagementPage() {
                     onChange={(e) => setSelectedEvent({ ...selectedEvent, startDate: e.target.value })}
                   />
                 </div>
-                <div>
+                <div className='modal-search-input-group'>
                   <label className="edit-label">종료일</label>
                   <input
                     type="date"
@@ -527,10 +528,24 @@ function ManagementPage() {
                     onChange={(e) => setSelectedEvent({ ...selectedEvent, endDate: e.target.value })}
                   />
                 </div>
-
-                <div className="action-buttons" style={{ marginTop: '10px', justifyContent: 'center' }}>
-                  <button className="btn-approve" style={{ flex: 1, padding: '10px' }} onClick={handleUpdateEvent}>수정 저장</button>
-                  <button className="btn-force-delete" style={{ flex: 1, padding: '10px' }} onClick={handleDeleteEvent}>삭 제</button>
+                <div className='modal-search-input-group' style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <input
+                  type="checkbox"
+                  id="songRegCheck"
+                  className="management-event-custom-checkbox"
+                  checked={selectedEvent.isSongRegistrationAvailable}
+                  onChange={(e) => setSelectedEvent({
+                      ...selectedEvent,
+                      isSongRegistrationAvailable: e.target.checked
+                    })}
+                />
+                  <label htmlFor="songRegCheck" className="edit-label" style={{cursor: 'pointer' }}>
+                    곡 등록 허용
+                  </label>
+                </div>
+                <div className="managementmodal-actions">
+                  <button className="managementmodal-savebtn" style={{ flex: 1, padding: '10px' }} onClick={handleUpdateEvent}>수정 저장</button>
+                  <button className="managementmodal-cancelbtn" style={{ flex: 1, padding: '10px' }} onClick={handleDeleteEvent}>삭 제</button>
                 </div>
               </div>
             </div>

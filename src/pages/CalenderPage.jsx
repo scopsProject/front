@@ -438,9 +438,7 @@ function CalenderPage() {
                   type="checkbox"
                   id="availableCheck"
                   className="calendercustom-checkbox"
-                  // 수정 3: checked 속성에 isSongRegistrationAvailable 사용
                   checked={newEventData.isSongRegistrationAvailable}
-                  // 수정 4: onChange에서 state 업데이트 시 키 이름을 isSongRegistrationAvailable로 설정
                   onChange={(e) => setNewEventData({ ...newEventData, isSongRegistrationAvailable: e.target.checked })}
                 />
                 <label htmlFor="availableCheck" style={{ cursor: 'pointer', margin: 0 }}>
