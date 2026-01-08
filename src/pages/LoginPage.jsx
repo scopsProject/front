@@ -109,7 +109,7 @@ function LoginPage() {
           </div>
           <form onSubmit={handleLogin}>
             <input
-              type="text"
+              type="tel"
               placeholder="학번"
               value={studentId}
               onChange={(e) => setStudentId(e.target.value)}
