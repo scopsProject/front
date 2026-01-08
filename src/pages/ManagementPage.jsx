@@ -31,7 +31,7 @@ function ManagementPage() {
     id: null,
     eventName: '',
     startDate: '',
-    endDate: ''
+    endDate: '',
   });
 
   // 1. 가입 승인 모달 열기
