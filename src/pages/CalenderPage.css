@@ -432,9 +432,10 @@
 /* 모달 스타일 */
 .calendermodal-title {
   font-size: 23px;
-  color: #EAB211;
+  color: #634900;
   text-align: center;
   padding: 15px;
+  font-family: 'suit-SB';
 }
 
 .calendermodal-close {
@@ -470,6 +471,28 @@
   min-width: 40px;
 }
 
+.calendermodal-input-name {
+  width: 90%;
+  font-size: 11px;
+  padding: 3px 6px;
+  font-family: inherit;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0 0 5px rgba(255, 228, 149, 0.7);
+  background-color: #ffffff;
+  color: #634900;
+  outline: none;
+
+  /* 아이폰 기본 스타일 초기화 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  position: relative;
+}
+.calendermodal-input-name::placeholder{
+  color: #634900;
+}
 .calendermodal-input {
   width: 90%;
   font-size: 11px;
@@ -488,7 +511,7 @@
   appearance: none;
 
   /* 배경에 달력 아이콘(SVG) 직접 그리기 */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23EAB211' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23856402' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 13px;
@@ -583,7 +606,7 @@
 
 .calendermodal-content-newevent {
   position: relative;
-  background-color: #FFF6DC;
+  background-color: #FFFEF8;
   width: 85%;
   max-width: 350px;
   border-radius: 20px;

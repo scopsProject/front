@@ -131,7 +131,7 @@ function SongRegisterPage() {
                 </div>
               ))
             ) : (
-              <div>데이터가 없습니다.</div>
+              <div style={{color:"#999"}}>데이터가 없습니다.</div>
             )}
           </div>
 

@@ -222,7 +222,7 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-
+  font-family: 'suit-SB';
   color: #634900;
   font-size: 18px;
 
@@ -383,9 +383,28 @@
 }
 
 .modal-search-input {
-  width: 90%;
+  width: 100%;
   font-size: 11px;
-  padding: 3px 6px;
+  padding: 5px 6px;
+  font-family: inherit;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0 0 5px rgba(255, 228, 149, 0.7);
+  background-color: #ffffff;
+  color: #634900;
+  outline: none;
+
+  /* 아이폰 기본 스타일 초기화 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  position: relative;
+}
+.modal-search-input-time {
+  width: 100%;
+  font-size: 11px;
+  padding: 5px 6px;
   font-family: inherit;
   border: none;
   border-radius: 30px;
@@ -408,7 +427,7 @@
   position: relative;
 }
 
-.modal-search-input::-webkit-calendar-picker-indicator {
+.modal-search-input-time::-webkit-calendar-picker-indicator {
   position: absolute;
   left: 0;
   top: 0;
@@ -419,11 +438,11 @@
   cursor: pointer;
 }
 
-.modal-search-input:required:invalid::-webkit-datetime-edit {
+.modal-search-input-time:required:invalid::-webkit-datetime-edit {
   color: transparent;
 }
 
-.modal-search-input:required:invalid::before {
+.modal-search-input-time:required:invalid::before {
   content: attr(data-placeholder);
   color: #634900;
   position: absolute;
@@ -432,7 +451,7 @@
   pointer-events: none;
 }
 
-.modal-search-input::placeholder {
+.modal-search-input-time::placeholder {
   color: #634900;
 }
 

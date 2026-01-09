@@ -342,7 +342,7 @@ const MyPageEdit = () => {
 
                     {/* 하단 버튼 */}
                     <section className="bottom-button-area">
-                        <button className="friends-button" onClick={() => navigate('/scops/myPage')}>수정완료</button>
+                        <button className="friends-button" onClick={() => navigate('/scops/myPage')}>수 정 완 료</button>
                     </section>
                 </div>
                 {showModal && (

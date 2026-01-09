@@ -483,7 +483,7 @@ function ManagementPage() {
                           {evt.startDate} ~ {evt.endDate}
                         </span>
                       </div>
-                      <span style={{ fontSize: '12px', color: '#A9EAFC' }}>수정 &gt;</span>
+                      <span style={{ fontSize: '12px', color: '#FFD56D' }}>수정 &gt;</span>
                     </div>
                   ))
                 )}
@@ -514,7 +514,7 @@ function ManagementPage() {
                   <label className="edit-label">시작일</label>
                   <input
                     type="date"
-                    className="modal-search-input"
+                    className="modal-search-input-time"
                     value={selectedEvent.startDate}
                     onChange={(e) => setSelectedEvent({ ...selectedEvent, startDate: e.target.value })}
                   />
@@ -523,7 +523,7 @@ function ManagementPage() {
                   <label className="edit-label">종료일</label>
                   <input
                     type="date"
-                    className="modal-search-input"
+                    className="modal-search-input-time"
                     value={selectedEvent.endDate}
                     onChange={(e) => setSelectedEvent({ ...selectedEvent, endDate: e.target.value })}
                   />
@@ -544,7 +544,7 @@ function ManagementPage() {
                   </label>
                 </div>
                 <div className="managementmodal-actions">
-                  <button className="managementmodal-savebtn" style={{ flex: 1, padding: '10px' }} onClick={handleUpdateEvent}>수정 저장</button>
+                  <button className="managementmodal-savebtn" style={{ flex: 1, padding: '10px' }} onClick={handleUpdateEvent}>수 정 저 장</button>
                   <button className="managementmodal-cancelbtn" style={{ flex: 1, padding: '10px' }} onClick={handleDeleteEvent}>삭 제</button>
                 </div>
               </div>

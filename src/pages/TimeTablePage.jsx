@@ -143,7 +143,7 @@ function TimeTablePage() {
 
                   // 색상 설정 (진한 갈색/노란색 계열)
                   const cellStyle = busyCount > 0
-                    ? { backgroundColor: `rgba(134, 100, 2, ${opacity})` }
+                    ? { backgroundColor: `rgba(234, 178, 17, ${opacity})` }
                     : {};
 
                   return (

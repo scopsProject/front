@@ -403,7 +403,7 @@ function CalenderPage() {
                 <label>행사명</label>
                 <input
                   type="text"
-                  className="calendermodal-input"
+                  className="calendermodal-input-name"
                   placeholder="예: 2025 정기공연"
                   value={newEventData.eventName}
                   onChange={(e) => setNewEventData({ ...newEventData, eventName: e.target.value })}

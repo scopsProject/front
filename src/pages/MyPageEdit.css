@@ -175,7 +175,7 @@
 }
 
 .profile-generation {
-  color: #634900;
+  color: #EAB211;
 }
 
 /* 타이틀 */
@@ -187,11 +187,11 @@
 }
 
 .add-timetablebtn {
-  width: 19px;
-  height: 19px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   border: none;
-  /* background-color: #f1c40f; (아래 rgba가 덮어쓰므로 삭제해도 됨) */
+
   color: #876400;
   font-size: 13px;
   cursor: pointer;
@@ -199,11 +199,8 @@
   background-color: rgba(255, 238, 187, 0.9);
   box-shadow: 0 0 5px rgba(255, 230, 130, 0.9);
 
-  /* 🔥 [핵심] 왼쪽 여백을 최대로 늘려서 오른쪽 끝으로 밀어버림 */
+  /* 왼쪽 여백을 최대로 늘려서 오른쪽 끝으로 밀어버림 */
   margin-left: auto;
-
-  /* (선택사항) 오른쪽 벽이랑 너무 딱 붙으면 여백 조금 주기 */
-  /* margin-right: 10px; */
 }
 
 /* 시간표 박스 */
@@ -506,7 +503,7 @@
 /* 버튼 공통 스타일 */
 .modal-btn {
   border: none;
-  padding: 13px 0;
+  padding: 9px 0;
   font-size: 16px;
   cursor: pointer;
 }
