@@ -53,14 +53,14 @@ function SongDetailView({ song, onClose, eventName, reloadSongs }) {
         });
         reloadSongs();
         onClose();
-        // window.location.reload(); // 리로드 없이 바로 반영되도록 주석 처리 (선택사항)
+
       })
       .catch(err => {
         console.error("수정 실패:", err);
         Swal.fire({
           icon: 'error',
           title: '수정 실패',
-          text: err.response?.data?.message || '수정 중 오류가 발생했습니다.',
+          text: err.response?.data.message || '수정 중 오류가 발생했습니다.',
           confirmButtonText: '확인',
           customClass: {
             popup: 'my-swal-popup',

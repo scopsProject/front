@@ -142,7 +142,7 @@ function SongRegisterPage() {
           <button className="plus-button" onClick={() => handleNavigation('/scops/songAdd')}>+</button>
         </div>
 
-        {/* ✨ 상세조회 모달 컴포넌트 */}
+        {/* 상세조회 모달 컴포넌트 */}
         {selectedSong && (
           <SongDetailView
             song={selectedSong}

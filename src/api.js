@@ -33,8 +33,8 @@ api.interceptors.response.use(
     if (error.response) {
       const { status } = error.response;
 
-      // 401(인증 실패) 또는 403(권한 없음 - 토큰 만료 포함) 에러가 발생했을 때
-      if (status === 401 || status === 403) {
+      // 401(인증 실패) 에러가 발생했을 때
+      if (status === 401) {
         
         // 현재 토큰이 남아있다면 (로그인 된 줄 알고 있다면)
         if (localStorage.getItem('token')) {
