@@ -71,7 +71,7 @@
   -webkit-appearance: none;
   -moz-appearance: none;
 
-  /* ▼ 화살표 추가 (FFE79F 색상) */
+  /* 화살표 추가 */
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12'><text x='0' y='10' font-size='12' fill='%23FFE79F'>▼</text></svg>");
   background-repeat: no-repeat;
   background-position: right 15px center;

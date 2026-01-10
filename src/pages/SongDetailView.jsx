@@ -79,8 +79,8 @@ function SongDetailView({ song, onClose, eventName, reloadSongs }) {
       text: '정말 삭제하시겠습니까?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: '삭제',
-      cancelButtonText: '취소',
+      confirmButtonText: '삭 제',
+      cancelButtonText: '취 소',
       customClass: {
         popup: 'my-swal-popup',
         title: 'my-swal-title',
@@ -198,14 +198,11 @@ function SongDetailView({ song, onClose, eventName, reloadSongs }) {
             </div>
           </div>
         </div>
-
         <div className="songDetail-footer">
           <button className="delete-btn" onClick={handleDelete}>삭 제 하 기</button>
           <button className="update-btn" onClick={handleUpdate}>수 정 완 료</button>
         </div>
-
       </div>
-
     </div>
   );
 }
