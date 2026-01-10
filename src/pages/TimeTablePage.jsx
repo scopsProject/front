@@ -292,7 +292,7 @@ function TimeTablePage() {
         {/* 시간표 찾기 모달 */}
         {showFindModal && (
           <div className="timetablemodal-overlay" onClick={() => setShowFindModal(false)}>
-            <div className="timetablemodal-content timetableadd-modal" style={{ width: '90%', maxWidth: '400px', height: '80vh' }} onClick={(e) => e.stopPropagation()}>
+            <div className="timetablemodal-content timetableadd-modal" style={{ width: '90%', maxWidth: '400px' }} onClick={(e) => e.stopPropagation()}>
 
               <div className="timetablemodal-header-row">
                 <div className="timetablemodal-title">시간표 찾기</div>
@@ -346,7 +346,7 @@ function TimeTablePage() {
               )}
 
               {/* 4. 겹쳐지는 시간표 그리드 */}
-              <div className="timetable-wrapper" style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+              <div className="timetable-wrapper" style={{ overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
                 <div className="timetable-header-row">
                   <div className="time-header-empty" />
                   {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map(d => <div key={d} className="day-cell">{d}</div>)}
