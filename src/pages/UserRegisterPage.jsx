@@ -71,7 +71,7 @@ const UserRegisterPage = () => {
       role: "ROLE_USER"
     })
       .then(res => {
-        console.log('회원가입:', res.data);
+
         Swal.fire({
           icon: 'success',
           text: '가입 신청 완료!',
