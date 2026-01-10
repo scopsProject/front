@@ -142,17 +142,14 @@ function ReservationPage() {
     // ============================================================
     // 3. SSE 실시간 연결
     // ============================================================
-    console.log("SSE 연결 시도:", `${BASE_URL}/sse/subscribe`);
     const eventSource = new EventSource(`${BASE_URL}/sse/subscribe`);
 
     eventSource.addEventListener('connect', (e) => {
-      console.log('SSE 연결 성공:', e.data);
     });
 
     eventSource.addEventListener('new-reservation', (e) => {
       try {
         const newReservation = JSON.parse(e.data);
-        console.log('실시간 예약 알림 도착:', newReservation);
 
         // 내가 예약한 건은 SSE로 추가하지 않음
         if (newReservation.userName === userName) {
@@ -183,7 +180,6 @@ function ReservationPage() {
     };
 
     return () => {
-      console.log("SSE 연결 종료");
       eventSource.close();
     };
 
