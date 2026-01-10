@@ -195,7 +195,7 @@ function TimeTablePage() {
                     >
                       {isStartBlock && (
                         <div style={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                          <div style={{ fontFamily: 'suit', color: '#634900', fontSize: '9px', lineHeight: '1.1' }}>{schedule.title}</div>
+                          <div style={{ color: '#634900', fontSize: '9px', lineHeight: '1.1', marginBottom:'5%'}}>{schedule.title}</div>
                           <div style={{ fontSize: '7px', color: '#EAB211', lineHeight: '1' }}>{schedule.memo}</div>
                         </div>
                       )}

@@ -11,7 +11,7 @@ function SongDetailView({ song, onClose, eventName, reloadSongs }) {
   const [sessions, setSessions] = useState(song.sessions);
 
   // 세션 종류 옵션
-  const SESSION_TYPES = ["V", "G", "B", "D", "P", "POS."];
+  const SESSION_TYPES = ["V", "G", "B", "D", "P", "etc"];
 
   // 세션 정보 변경 (드롭다운 or 이름 입력 시)
   const handleSessionChange = (index, field, value) => {
