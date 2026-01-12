@@ -53,7 +53,8 @@
   display: flex;
   /* flex로 변경 */
 }
-.reservation-info{
+
+.reservation-info {
   display: flex;
   font-size: 13px;
   color: #FF7677;
@@ -122,9 +123,10 @@
   margin: 2px 0;
   border-radius: 4px;
 
-  cursor: pointer; 
+  cursor: pointer;
   transition: opacity 0.2s, background-color 0.2s;
 }
+
 .reservation-calendar-song:hover {
   opacity: 0.7;
   background-color: rgba(234, 178, 17, 0.1);
@@ -134,11 +136,15 @@
   background-color: #FFEEBB;
   border-radius: 15px;
 }
+
 .reservation-calendar-cell.selected #reservation-calender-date-span {
-  border: 1px solid #FFFFFF; /* 테두리 */
-  border-radius: 30px;       /* 모서리 둥글게 */
+  border: 1px solid #FFFFFF;
+  /* 테두리 */
+  border-radius: 30px;
+  /* 모서리 둥글게 */
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.9);
-  color: #876400;            /* 텍스트 색상 흰색으로 변경 */
+  color: #876400;
+  /* 텍스트 색상 흰색으로 변경 */
   background-color: #FFFFFF;
 }
 
@@ -357,4 +363,58 @@
   box-shadow: none;
   cursor: not-allowed;
   font-weight: normal;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  /* 왼쪽 정렬 핵심 */
+  padding-left: 5px;
+  /* 왼쪽에 살짝 여백 */
+  margin-left: 2.5%;
+}
+
+.reservation-event-custom-checkbox {
+  appearance: none;
+  /* 기본 브라우저 스타일 제거 */
+  -webkit-appearance: none;
+  /* 사파리/크롬 호환 */
+  width: 12px;
+  /* 크기 설정 */
+  height: 12px;
+  border: 1px solid #FFCB2E;
+  /* 테두리 색상 */
+  border-radius: 30px;
+  /* 둥근 모서리 */
+  background-color: white;
+  /* 체크 안 됐을 때 배경 */
+  cursor: pointer;
+  position: relative;
+  margin-right: 8px;
+  /* 글자와의 간격 */
+  vertical-align: middle;
+  /* 텍스트와 높이 맞춤 */
+  transition: all 0.2s ease;
+  /* 부드러운 전환 효과 */
+}
+
+.reservation-event-custom-checkbox:checked {
+  background-color: #FFCB2E;
+  /* 체크 시 배경색 */
+  border-color: #FFCB2E;
+}
+
+.reservation-event-custom-checkbox:hover {
+  border-color: #c7960e;
+}
+
+.reservation-edit-label {
+  display: flex;
+  /* 라벨 내부(체크박스+글자)도 정렬 */
+  align-items: center;
+  font-size: 15px;
+  /* 글자 크기 조금 키움 (가독성) */
+  color: #634900;
+  cursor: pointer;
 }

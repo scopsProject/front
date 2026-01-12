@@ -28,7 +28,6 @@ export function AuthProvider({ children }) {
 
       // 2. 토큰이 있지만 만료되었다면? -> 청소하고 null 리턴
       if (isTokenExpired(token)) {
-        console.log("초기 로딩: 토큰이 만료되어 자동 로그아웃됩니다.");
         localStorage.removeItem('token');
         localStorage.removeItem('userInfo');
         return null;

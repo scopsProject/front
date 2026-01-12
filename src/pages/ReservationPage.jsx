@@ -17,12 +17,14 @@ function ReservationPage() {
   // 로그인한 유저의 이름 (DB에 저장되는 이름과 일치해야 함)
   const userName = user?.name;
 
+  const [isPersonalPractice, setIsPersonalPractice] = useState(false);
+
   const [eventList, setEventList] = useState([]);
   const [songList, setSongList] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState('');
   const [selectedSong, setSelectedSong] = useState('');
 
-  // 🔔 알림 메시지 상태
+  // 알림 메시지 상태
   const [notification, setNotification] = useState('');
 
   const [startTime, setStartTime] = useState('');
@@ -51,7 +53,7 @@ function ReservationPage() {
     return () => window.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // 🕒 시간 체크 함수
+  // 시간 체크 함수
   useEffect(() => {
     const checkTime = () => {
       const now = new Date();
@@ -156,7 +158,13 @@ function ReservationPage() {
             return; 
         }
 
-        setSongs((prevSongs) => [...prevSongs, newReservation]);
+        setSongs((prevSongs) => {
+            // 중복 방지: 이미 같은 ID의 예약이 있는지 확인
+            if (prevSongs.some(song => song.id === newReservation.id)) {
+                return prevSongs;
+            }
+            return [...prevSongs, newReservation];
+        });
 
         const start = newReservation.startTime ? newReservation.startTime.slice(0, 5) : "";
         const end = newReservation.endTime ? newReservation.endTime.slice(0, 5) : "";
@@ -197,18 +205,23 @@ function ReservationPage() {
   }, [selectedEvent]);
 
   const handleReservation = async () => {
-    if (!selectedDate || !selectedEvent || !selectedSong || !startTime || !endTime) {
+    if (!selectedDate || !startTime || !endTime) {
       Swal.fire({
         icon: 'error',
         title: '입력 확인',
-        text: '모든 항목을 선택해주세요.',
+        text: '날짜와 시간을 선택해주세요.',
         confirmButtonText: '확인',
-        customClass: {
-          popup: 'my-swal-popup',
-          title: 'my-swal-title',
-          confirmButton: 'my-swal-confirm'
-        },
-        buttonsStyling: false
+        customClass: { popup: 'my-swal-popup', title: 'my-swal-title', confirmButton: 'my-swal-confirm' }
+      });
+      return;
+    }
+    if (!isPersonalPractice && (!selectedEvent || !selectedSong)) {
+      Swal.fire({
+        icon: 'error',
+        title: '입력 확인',
+        text: '행사와 곡을 선택해주세요.',
+        confirmButtonText: '확인',
+        customClass: { popup: 'my-swal-popup', title: 'my-swal-title', confirmButton: 'my-swal-confirm' }
       });
       return;
     }
@@ -227,28 +240,42 @@ function ReservationPage() {
       });
       return;
     }
+    
+    let requestBody = {};
 
-    const selectedSongObj = songList.find(song => song.songName === selectedSong);
-    const singerName = selectedSongObj ? selectedSongObj.singerName : '';
-    const songRegisterId = selectedSongObj ? selectedSongObj.id : null;
+    if (isPersonalPractice) {
+        // [개인 연습]
+        requestBody = {
+            type: "PERSONAL",
+            userName: user.name,
+            eventName: "개인연습", // (DB에 저장 안 되더라도 로깅용으로 남겨둠)
+            songName: `${user.name} 개인연습`,
+            singerName: "",
+            date: selectedDate,
+            startTime: startTime,
+            endTime: endTime,
+            songRegisterId: null,
+            sessions: [{ date: selectedDate, startTime, endTime }]
+        };
+    } else {
+        // [밴드 합주]
+        const selectedSongObj = songList.find(song => song.songName === selectedSong);
+        const singerName = selectedSongObj ? selectedSongObj.singerName : '';
+        const songRegisterId = selectedSongObj ? selectedSongObj.id : null;
 
-    const requestBody = {
-      userName: user.name, // 주의: 저장할 때 user.name을 쓴다면, 비교할 때도 user.name과 같은 값을 써야 합니다.
-      eventName: selectedEvent,
-      songName: selectedSong,
-      singerName: singerName,
-      date: selectedDate,
-      startTime: startTime,
-      endTime: endTime,
-      songRegisterId: songRegisterId,
-      sessions: [
-        {
-          date: selectedDate,
-          startTime: startTime,
-          endTime: endTime,
-        }
-      ]
-    };
+        requestBody = {
+            type: "BAND",
+            userName: user.name,
+            eventName: selectedEvent,
+            songName: selectedSong,
+            singerName: singerName,
+            date: selectedDate,
+            startTime: startTime,
+            endTime: endTime,
+            songRegisterId: songRegisterId,
+            sessions: [{ date: selectedDate, startTime, endTime }]
+        };
+    }
 
     try {
       await api.post(`/reservations/reservation`, requestBody);
@@ -460,63 +487,49 @@ function ReservationPage() {
           본인이 예약한 곡을 선택하여 예약 취소할 수 있습니다.
         </div>
         <div className="reservation-controls">
-          <div className="custom-select-container" ref={eventRef} style={{ marginBottom: 12 }}>
-            <div
-              className={`custom-select-display ${!selectedEvent ? 'custom-select-placeholder' : ''}`}
-              onClick={() => setEventDropdownOpen(o => !o)}
-            >
-              {selectedEvent || '행사명 선택'}
-              <span className="custom-select-arrow">▼</span>
-            </div>
-            {eventDropdownOpen && (
-              <ul className="custom-select-list">
-                <li
-                  className="custom-select-list-item"
-                  onClick={() => { setSelectedEvent(''); setEventDropdownOpen(false); }}
+          {!isPersonalPractice && (
+            <>
+              <div className="custom-select-container" ref={eventRef} style={{ marginBottom: 12 }}>
+                <div
+                  className={`custom-select-display ${!selectedEvent ? 'custom-select-placeholder' : ''}`}
+                  onClick={() => setEventDropdownOpen(o => !o)}
                 >
-                  행사명 선택
-                </li>
-                {eventList.map((eventName, idx) => (
-                  <li
-                    key={idx}
-                    className="custom-select-list-item"
-                    onClick={() => { setSelectedEvent(eventName); setEventDropdownOpen(false); }}
-                  >
-                    {eventName}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+                  {selectedEvent || '행사명 선택'}
+                  <span className="custom-select-arrow">▼</span>
+                </div>
+                {eventDropdownOpen && (
+                  <ul className="custom-select-list">
+                    <li className="custom-select-list-item" onClick={() => { setSelectedEvent(''); setEventDropdownOpen(false); }}>행사명 선택</li>
+                    {eventList.map((eventName, idx) => (
+                      <li key={idx} className="custom-select-list-item" onClick={() => { setSelectedEvent(eventName); setEventDropdownOpen(false); }}>
+                        {eventName}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
 
-          <div className="custom-select-container" ref={songRef} style={{ marginBottom: 12 }}>
-            <div
-              className={`custom-select-display ${!selectedSong ? 'custom-select-placeholder' : ''}`}
-              onClick={() => setSongDropdownOpen(o => !o)}
-            >
-              {selectedSong || '내가 등록한 곡 선택'}
-              <span className="custom-select-arrow">▼</span>
-            </div>
-            {songDropdownOpen && (
-              <ul className="custom-select-list">
-                <li
-                  className="custom-select-list-item"
-                  onClick={() => { setSelectedSong(''); setSongDropdownOpen(false); }}
+              <div className="custom-select-container" ref={songRef} style={{ marginBottom: 12 }}>
+                <div
+                  className={`custom-select-display ${!selectedSong ? 'custom-select-placeholder' : ''}`}
+                  onClick={() => setSongDropdownOpen(o => !o)}
                 >
-                  내가 등록한 곡 선택
-                </li>
-                {songList.map((song, idx) => (
-                  <li
-                    key={idx}
-                    className="custom-select-list-item"
-                    onClick={() => { setSelectedSong(song.songName); setSongDropdownOpen(false); }}
-                  >
-                    {song.songName}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+                  {selectedSong || '내가 등록한 곡 선택'}
+                  <span className="custom-select-arrow">▼</span>
+                </div>
+                {songDropdownOpen && (
+                  <ul className="custom-select-list">
+                    <li className="custom-select-list-item" onClick={() => { setSelectedSong(''); setSongDropdownOpen(false); }}>내가 등록한 곡 선택</li>
+                    {songList.map((song, idx) => (
+                      <li key={idx} className="custom-select-list-item" onClick={() => { setSelectedSong(song.songName); setSongDropdownOpen(false); }}>
+                        {song.songName}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </>
+          )}
 
           <div className="time-select-section">
             <div className="time-section-title">연습 시간 선택</div>
@@ -557,9 +570,27 @@ function ReservationPage() {
             </div>
           </div>
         </div>
+        {/* 개인연습 체크박스 */}
+          <div className="checkbox-container">
+            <label className='reservation-edit-label'>
+              <input
+                type="checkbox"
+                checked={isPersonalPractice}
+                onChange={(e) => {
+                    setIsPersonalPractice(e.target.checked);
+                    if (e.target.checked) {
+                        setSelectedEvent('');
+                        setSelectedSong('');
+                    }
+                }}
+                className='reservation-event-custom-checkbox'
+              />
+              개인연습 예약하기
+            </label>
+          </div>
         <button
           className={`reservation-submit-btn ${!isBookingOpen ? 'disabled' : ''}`}
-          disabled={!isBookingOpen || !selectedDate || !selectedEvent || !selectedSong || !startTime || !endTime}
+          disabled={!isBookingOpen || !selectedDate || !startTime || !endTime || (!isPersonalPractice && (!selectedEvent || !selectedSong))}
           onClick={handleReservation}
           style={!isBookingOpen ? { backgroundColor: '#ccc', cursor: 'not-allowed' } : {}}
         >
