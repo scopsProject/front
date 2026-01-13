@@ -181,6 +181,17 @@ function ReservationPage() {
         console.error('SSE 데이터 파싱 에러:', error);
       }
     });
+    eventSource.addEventListener('delete-reservation', (e) => {
+      try {
+        const deletedId = JSON.parse(e.data); // 삭제된 ID 받기
+
+        // 목록(songs)에서 해당 ID를 가진 녀석만 쏙 빼버림 (Filter)
+        setSongs((prevSongs) => prevSongs.filter(song => song.id !== deletedId));
+
+      } catch (error) {
+        console.error('SSE 삭제 데이터 처리 중 에러:', error);
+      }
+    });
 
     eventSource.onerror = (error) => {
       console.error('SSE 에러 발생 (연결 종료):', error);
