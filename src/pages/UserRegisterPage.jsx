@@ -112,7 +112,7 @@ const UserRegisterPage = () => {
             value={userName}
             onChange={(e) => {
               const value = e.target.value;
-              if (/[^a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ]/.test(value)) {
+              if (/[^a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ\u318D\u00B7]/.test(value)) {
                 Swal.fire({
                   ...swalOptions,
                   icon: 'error',

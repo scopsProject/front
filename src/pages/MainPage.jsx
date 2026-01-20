@@ -112,7 +112,7 @@ function MainPage() {
                   </div>
                   <div className="main-container-songperson">
                     {song.sessions.map(s => (
-                      <span key={s.sessionType + s.playerName} style={{ marginRight: '20px' }}>
+                      <span key={s.sessionType + s.playerName} style={{ marginRight: '10px' }}>
                         {`${s.sessionType}.${s.playerName}`}
                       </span>
                     ))}
