@@ -50,9 +50,16 @@ function MainPage() {
     for (let i = 0; i < 5; i++) {
       const d = new Date(now);
       d.setDate(now.getDate() + i);
+
+      // 로컬 시간으로 직접 포맷팅
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      const formattedFullDate = `${year}-${month}-${day}`;
+
       result.push({
-        fullDate: d.toISOString().slice(0, 10), // yyyy-mm-dd
-        date: `${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}`, // MM-DD
+        fullDate: formattedFullDate, // 수정됨: 로컬 기준 yyyy-mm-dd
+        date: `${month}/${day}`,     // 로컬 기준 MM/DD
         day: shortWeekdays[d.getDay()].toUpperCase(),
       });
     }
