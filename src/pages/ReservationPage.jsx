@@ -341,25 +341,41 @@ function ReservationPage() {
     }
   };
 
-  const hourSlots = Array.from({ length: 14 }, (_, idx) => {
-    const hour = 9 + idx;
-    const timeString = `${hour.toString().padStart(2, '0')}:00`;
+  // 9시부터 22시 30분까지 총 28개의 슬롯 (14시간 * 2)
+  const timeSlots = Array.from({ length: 28 }, (_, idx) => {
+    const hour = 9 + Math.floor(idx / 2);
+    const minute = idx % 2 === 0 ? '00' : '30';
+    const timeString = `${hour.toString().padStart(2, '0')}:${minute}`;
 
     return {
       time: timeString,
-      label: `${hour}:00`,
+      label: `${hour}:${minute}`,
       hour,
-      disabled: songs.some(s =>
-        s.date === selectedDate &&
-        (s.startTime ? s.startTime.substring(0, 5) : "") === timeString
-      )
+      disabled: songs.some(s => {
+        if (s.date !== selectedDate || !s.startTime || !s.endTime) return false;
+        
+        const resStart = s.startTime.substring(0, 5);
+        const resEnd = s.endTime.substring(0, 5);
+        
+        // 현재 슬롯 시간이 이미 예약된 시간 범위 내에 포함되는지 확인
+        return timeString >= resStart && timeString < resEnd;
+      })
     };
   });
 
   const handleTimeClick = (time) => {
     setStartTime(time);
-    const h = parseInt(time.split(':')[0]);
-    const end = `${(h + 1).toString().padStart(2, '0')}:00`;
+    const [hStr, mStr] = time.split(':');
+    let h = parseInt(hStr, 10);
+    let m = parseInt(mStr, 10);
+
+    m += 30; // 30분 추가
+    if (m >= 60) {
+      h += 1;
+      m -= 60;
+    }
+
+    const end = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
     setEndTime(end);
   };
 
@@ -547,7 +563,7 @@ function ReservationPage() {
             <div className="time-group">
               <div className="time-group-title">오전</div>
               <div className="time-buttons">
-                {hourSlots
+                {timeSlots
                   .filter(t => t.hour >= 9 && t.hour < 12)
                   .map((t, idx) => (
                     <button
@@ -565,7 +581,7 @@ function ReservationPage() {
             <div className="time-group">
               <div className="time-group-title">오후</div>
               <div className="time-buttons">
-                {hourSlots
+                {timeSlots
                   .filter(t => t.hour >= 12 && t.hour <= 22)
                   .map((t, idx) => (
                     <button
