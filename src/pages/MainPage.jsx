@@ -149,7 +149,7 @@ function MainPage() {
                         className="calendar-song"
                       >
                         <span style={{ color: "#876400" }}>
-                          {`·${song.startTime.split(':')[0]}시 `}
+                          {`·${song.startTime.slice(0, 5)} `}
                         </span>
                         <span style={{ color: "#EAB211" }}>
                           {song.songName}

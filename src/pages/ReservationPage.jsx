@@ -155,15 +155,15 @@ function ReservationPage() {
 
         // 내가 예약한 건은 SSE로 추가하지 않음
         if (newReservation.userName === userName) {
-            return; 
+          return;
         }
 
         setSongs((prevSongs) => {
-            // 중복 방지: 이미 같은 ID의 예약이 있는지 확인
-            if (prevSongs.some(song => song.id === newReservation.id)) {
-                return prevSongs;
-            }
-            return [...prevSongs, newReservation];
+          // 중복 방지: 이미 같은 ID의 예약이 있는지 확인
+          if (prevSongs.some(song => song.id === newReservation.id)) {
+            return prevSongs;
+          }
+          return [...prevSongs, newReservation];
         });
 
         const start = newReservation.startTime ? newReservation.startTime.slice(0, 5) : "";
@@ -251,41 +251,41 @@ function ReservationPage() {
       });
       return;
     }
-    
+
     let requestBody = {};
 
     if (isPersonalPractice) {
-        // [개인 연습]
-        requestBody = {
-            type: "PERSONAL",
-            userName: user.name,
-            eventName: "개인연습", // (DB에 저장 안 되더라도 로깅용으로 남겨둠)
-            songName: `${user.name} 개인연습`,
-            singerName: "",
-            date: selectedDate,
-            startTime: startTime,
-            endTime: endTime,
-            songRegisterId: null,
-            sessions: [{ date: selectedDate, startTime, endTime }]
-        };
+      // [개인 연습]
+      requestBody = {
+        type: "PERSONAL",
+        userName: user.name,
+        eventName: "개인연습", // (DB에 저장 안 되더라도 로깅용으로 남겨둠)
+        songName: `${user.name} 개인연습`,
+        singerName: "",
+        date: selectedDate,
+        startTime: startTime,
+        endTime: endTime,
+        songRegisterId: null,
+        sessions: [{ date: selectedDate, startTime, endTime }]
+      };
     } else {
-        // [밴드 합주]
-        const selectedSongObj = songList.find(song => song.songName === selectedSong);
-        const singerName = selectedSongObj ? selectedSongObj.singerName : '';
-        const songRegisterId = selectedSongObj ? selectedSongObj.id : null;
+      // [밴드 합주]
+      const selectedSongObj = songList.find(song => song.songName === selectedSong);
+      const singerName = selectedSongObj ? selectedSongObj.singerName : '';
+      const songRegisterId = selectedSongObj ? selectedSongObj.id : null;
 
-        requestBody = {
-            type: "BAND",
-            userName: user.name,
-            eventName: selectedEvent,
-            songName: selectedSong,
-            singerName: singerName,
-            date: selectedDate,
-            startTime: startTime,
-            endTime: endTime,
-            songRegisterId: songRegisterId,
-            sessions: [{ date: selectedDate, startTime, endTime }]
-        };
+      requestBody = {
+        type: "BAND",
+        userName: user.name,
+        eventName: selectedEvent,
+        songName: selectedSong,
+        singerName: singerName,
+        date: selectedDate,
+        startTime: startTime,
+        endTime: endTime,
+        songRegisterId: songRegisterId,
+        sessions: [{ date: selectedDate, startTime, endTime }]
+      };
     }
 
     try {
@@ -353,10 +353,10 @@ function ReservationPage() {
       hour,
       disabled: songs.some(s => {
         if (s.date !== selectedDate || !s.startTime || !s.endTime) return false;
-        
+
         const resStart = s.startTime.substring(0, 5);
         const resEnd = s.endTime.substring(0, 5);
-        
+
         // 현재 슬롯 시간이 이미 예약된 시간 범위 내에 포함되는지 확인
         return timeString >= resStart && timeString < resEnd;
       })
@@ -501,7 +501,7 @@ function ReservationPage() {
                       }}
                       title="클릭하여 예약 취소"
                     >
-                      {`·${song.startTime.split(':')[0]}시 `}
+                      {`·${song.startTime.substring(0, 5)} `}
                       <span style={{ color: "#EAB211" }}> {song.songName}</span>
                     </div>
                   ))
@@ -598,23 +598,23 @@ function ReservationPage() {
           </div>
         </div>
         {/* 개인연습 체크박스 */}
-          <div className="checkbox-container">
-            <label className='reservation-edit-label'>
-              <input
-                type="checkbox"
-                checked={isPersonalPractice}
-                onChange={(e) => {
-                    setIsPersonalPractice(e.target.checked);
-                    if (e.target.checked) {
-                        setSelectedEvent('');
-                        setSelectedSong('');
-                    }
-                }}
-                className='reservation-event-custom-checkbox'
-              />
-              개인연습 예약하기
-            </label>
-          </div>
+        <div className="checkbox-container">
+          <label className='reservation-edit-label'>
+            <input
+              type="checkbox"
+              checked={isPersonalPractice}
+              onChange={(e) => {
+                setIsPersonalPractice(e.target.checked);
+                if (e.target.checked) {
+                  setSelectedEvent('');
+                  setSelectedSong('');
+                }
+              }}
+              className='reservation-event-custom-checkbox'
+            />
+            개인연습 예약하기
+          </label>
+        </div>
         <button
           className={`reservation-submit-btn ${!isBookingOpen ? 'disabled' : ''}`}
           disabled={!isBookingOpen || !selectedDate || !startTime || !endTime || (!isPersonalPractice && (!selectedEvent || !selectedSong))}
