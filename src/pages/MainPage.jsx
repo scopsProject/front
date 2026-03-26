@@ -150,7 +150,9 @@ function MainPage() {
                       >
                         <span style={{ color: "#876400" }}>
                           {`·${song.startTime.slice(0, 5)} `}
+                          {` ~ ${song.endTime.slice(0, 5)} `}
                         </span>
+                        <br/>
                         <span style={{ color: "#EAB211" }}>
                           {song.songName}
                         </span>

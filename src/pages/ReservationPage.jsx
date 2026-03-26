@@ -347,8 +347,18 @@ function ReservationPage() {
     const minute = idx % 2 === 0 ? '00' : '30';
     const timeString = `${hour.toString().padStart(2, '0')}:${minute}`;
 
+    // 이 블록의 끝나는 시간 (30분 뒤) 계산
+    let endH = hour;
+    let endM = parseInt(minute, 10) + 30;
+    if (endM >= 60) {
+      endH += 1;
+      endM -= 60;
+    }
+    const endTimeString = `${endH.toString().padStart(2, '0')}:${endM.toString().padStart(2, '0')}`;
+
     return {
       time: timeString,
+      endTimeString: endTimeString,
       label: `${hour}:${minute}`,
       hour,
       disabled: songs.some(s => {
@@ -357,26 +367,61 @@ function ReservationPage() {
         const resStart = s.startTime.substring(0, 5);
         const resEnd = s.endTime.substring(0, 5);
 
-        // 현재 슬롯 시간이 이미 예약된 시간 범위 내에 포함되는지 확인
-        return timeString >= resStart && timeString < resEnd;
+        // 겹침 확인: (내 시작시간 < 남의 종료시간) AND (내 종료시간 > 남의 시작시간)
+        return timeString < resEnd && endTimeString > resStart;
       })
     };
   });
 
   const handleTimeClick = (time) => {
-    setStartTime(time);
-    const [hStr, mStr] = time.split(':');
-    let h = parseInt(hStr, 10);
-    let m = parseInt(mStr, 10);
+    const clickedSlot = timeSlots.find(t => t.time === time);
+    const clickedEnd = clickedSlot.endTimeString;
 
-    m += 30; // 30분 추가
-    if (m >= 60) {
-      h += 1;
-      m -= 60;
+    if (!startTime || !endTime) {
+      // 처음 선택하는 경우
+      setStartTime(time);
+      setEndTime(clickedEnd);
+      return;
     }
 
-    const end = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
-    setEndTime(end);
+    // 기존에 선택된 기간이 딱 30분(1칸)인지 다중 선택인지 계산
+    const [startH, startM] = startTime.split(':').map(Number);
+    const [endH, endM] = endTime.split(':').map(Number);
+    const diffMins = (endH * 60 + endM) - (startH * 60 + startM);
+
+    if (diffMins === 30) {
+      // 시작점(1칸)만 선택된 상태에서 두 번째 클릭! (범위 지정)
+      if (time < startTime) {
+        // 더 앞의 시간을 누르면 새로운 시작점으로 리셋
+        setStartTime(time);
+        setEndTime(clickedEnd);
+      } else {
+        // 중간에 예약된 시간이 있는지 검사
+        const hasOverlap = timeSlots.some(t =>
+          t.time >= startTime && t.time <= time && t.disabled
+        );
+
+        if (hasOverlap) {
+          Swal.fire({
+            icon: 'warning',
+            title: '예약 불가',
+            text: '선택한 시간 사이에 이미 예약된 일정이 있습니다.',
+            customClass: { popup: 'my-swal-popup', title: 'my-swal-title', confirmButton: 'my-swal-confirm' },
+            buttonsStyling: false
+          });
+          // 에러 띄우고 방금 누른 시간으로 리셋
+          setStartTime(time);
+          setEndTime(clickedEnd);
+        } else {
+          // 문제가 없으면 범위를 끝까지 늘려줌
+          setEndTime(clickedEnd);
+        }
+      }
+    } else {
+      // 이미 여러 칸(범위)이 선택된 상태에서 누르면, 새로운 시작점으로 리셋
+      setStartTime(time);
+      setEndTime(clickedEnd);
+    }
   };
 
   // 삭제 핸들러 함수
@@ -501,8 +546,9 @@ function ReservationPage() {
                       }}
                       title="클릭하여 예약 취소"
                     >
-                      {`·${song.startTime.substring(0, 5)} `}
-                      <span style={{ color: "#EAB211" }}> {song.songName}</span>
+                      {`·${song.startTime.substring(0, 5)} `}{` ~ ${song.endTime.substring(0, 5)} `}
+                      <br />
+                      <span style={{ color: "#EAB211", }}> {song.songName}</span>
                     </div>
                   ))
                 }
@@ -565,16 +611,21 @@ function ReservationPage() {
               <div className="time-buttons">
                 {timeSlots
                   .filter(t => t.hour >= 9 && t.hour < 12)
-                  .map((t, idx) => (
-                    <button
-                      key={idx}
-                      className={`time-btn ${t.disabled ? 'disabled' : ''} ${startTime === t.time ? 'selected' : ''}`}
-                      disabled={t.disabled}
-                      onClick={() => handleTimeClick(t.time)}
-                    >
-                      {t.label}
-                    </button>
-                  ))}
+                  .map((t, idx) => {
+                    // 버튼 시간이 선택된 시작(startTime)과 종료(endTime) 사이에 있으면 불이 들어옴
+                    const isSelected = startTime && endTime && t.time >= startTime && t.time < endTime;
+
+                    return (
+                      <button
+                        key={idx}
+                        className={`time-btn ${t.disabled ? 'disabled' : ''} ${isSelected ? 'selected' : ''}`}
+                        disabled={t.disabled}
+                        onClick={() => handleTimeClick(t.time)}
+                      >
+                        {t.label}
+                      </button>
+                    );
+                  })}
               </div>
             </div>
 
@@ -583,16 +634,21 @@ function ReservationPage() {
               <div className="time-buttons">
                 {timeSlots
                   .filter(t => t.hour >= 12 && t.hour <= 22)
-                  .map((t, idx) => (
-                    <button
-                      key={idx}
-                      className={`time-btn ${t.disabled ? 'disabled' : ''} ${startTime === t.time ? 'selected' : ''}`}
-                      disabled={t.disabled}
-                      onClick={() => handleTimeClick(t.time)}
-                    >
-                      {t.label}
-                    </button>
-                  ))}
+                  .map((t, idx) => {
+                    // 버튼 시간이 선택된 시작(startTime)과 종료(endTime) 사이에 있으면 불이 들어옴
+                    const isSelected = startTime && endTime && t.time >= startTime && t.time < endTime;
+
+                    return (
+                      <button
+                        key={idx}
+                        className={`time-btn ${t.disabled ? 'disabled' : ''} ${isSelected ? 'selected' : ''}`}
+                        disabled={t.disabled}
+                        onClick={() => handleTimeClick(t.time)}
+                      >
+                        {t.label}
+                      </button>
+                    );
+                  })}
               </div>
             </div>
           </div>
