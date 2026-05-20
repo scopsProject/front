@@ -16,7 +16,6 @@ function MainPage() {
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
 
-
   // 중복 곡 병합 함수
   const mergeSongs = (songList) => {
     const merged = songList.reduce((acc, song) => {
