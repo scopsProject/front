@@ -63,7 +63,6 @@ function MainPage() {
       });
     }
     setWeekInfo(result);
-
     // 오늘 날짜 MM/DD 형식
     setDate(result[0].date.replace('-', '/'));
     setDayOfWeek(result[0].day);
